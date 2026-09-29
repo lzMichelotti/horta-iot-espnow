@@ -1,5 +1,7 @@
 # ferramentas
 
-Arquivos auxiliares usados no PC.
+Scripts que rodam no PC (Python, venv da raiz: `pip install -r requirements.txt`).
 
-- `firmware/`: firmware MicroPython do coordenador. Os `.bin` não são versionados; nome, origem e SHA-256 estão em [`../docs/ambiente.md`](../docs/ambiente.md).
+| Script | Uso |
+|---|---|
+| `medir_boot.py` | Mede, pelo PC, o tempo do reset até linhas-chave na serial: `.venv/bin/python ferramentas/medir_boot.py <porta> [repeticoes]` |

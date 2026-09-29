@@ -1,14 +1,6 @@
 {
-    // Interpretador do venv do projeto (esptool, mpremote e stubs instalados nele)
+    // Interpretador do venv do projeto (scripts de ferramentas/ que rodam no PC)
     "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
     "python.languageServer": "Pylance",
-    "python.analysis.typeCheckingMode": "basic",
-    // Stubs do MicroPython no lugar da stdlib do CPython
-    // https://micropython-stubs.readthedocs.io/en/main/22_vscode.html
-    "python.analysis.typeshedPaths": [
-        ".venv/lib/python3.12/site-packages"
-    ],
-    "python.analysis.diagnosticSeverityOverrides": {
-        "reportMissingModuleSource": "none"
-    }
+    "python.analysis.typeCheckingMode": "basic"
 }
