@@ -1,0 +1,9 @@
+{
+    // Abrir por File > Open Workspace from File...
+    // A raiz (coordenador, docs) usa .vscode/settings.json; o no_sensor/ é
+    // reconhecido pelo PlatformIO por ter o platformio.ini na raiz da pasta.
+    "folders": [
+        { "name": "horta-iot-espnow", "path": "." },
+        { "name": "no_sensor (PlatformIO)", "path": "no_sensor" }
+    ]
+}
