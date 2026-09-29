@@ -6,7 +6,7 @@ Todas são ESP32 DevKit "DOIT V1" (clone, ponte USB-serial CH9102), chip ESP32-D
 
 | Etiqueta | Função prevista | Serial CH9102 | MAC STA | MAC AP | Observações |
 |---|---|---|---|---|---|
-| COORD | Coordenador | `5AC9002039` | `88:57:21:70:91:fc` | `88:57:21:70:91:fd` | Reinicia a cada abertura da porta serial: usar `mpremote ... sleep 2` |
+| COORD | Coordenador | `5AC9002039` | `88:57:21:70:91:fc` | `88:57:21:70:91:fd` | Reinicia a cada abertura da porta serial (circuito de auto-reset) |
 | NÓ 1 | Nó sensor 1 | `5AC9001351` | `88:57:21:70:93:70` | `88:57:21:70:93:71` | Montado com AHT20 e sensor de solo |
 | NÓ 2 | Nó sensor 2 / reserva | TODO | TODO | TODO | Terceira placa ainda não conectada |
 
@@ -14,7 +14,7 @@ Como os MACs foram lidos (três fontes concordam):
 
 - esptool, durante a gravação (MAC base = STA);
 - C++ no NÓ 1: `esp_read_mac(mac, ESP_MAC_WIFI_STA / ESP_MAC_WIFI_SOFTAP)`;
-- MicroPython no COORD: `network.WLAN(IF_STA / IF_AP).config('mac')`, com a interface ativa.
+- MicroPython no COORD (quando ele ainda rodava MicroPython): `network.WLAN(IF_STA / IF_AP).config('mac')`, com a interface ativa.
 
 O MAC AP é sempre o STA + 1: o ESP32 tem um MAC base gravado em eFuse na fábrica e deriva 4 endereços dele (STA = base, SoftAP = base + 1, Bluetooth = base + 2, Ethernet = base + 3). <https://docs.espressif.com/projects/esp-idf/en/v5.5/esp32/api-reference/system/misc_system_api.html>
 

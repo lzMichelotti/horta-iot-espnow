@@ -22,7 +22,7 @@ Registro do ambiente montado na Etapa 0 (29/09/2026). Todas as versões abaixo f
 | Python (ms-python.python) | 2026.4.0 |
 | Pylance | 2026.4.1 |
 
-Configuração do Pylance com os stubs do MicroPython: `.vscode/settings.json`, baseada em <https://micropython-stubs.readthedocs.io/en/main/22_vscode.html> (caminho adaptado para Linux: `.venv/lib/python3.12/site-packages`).
+Abrir o projeto por `horta.code-workspace` (multi-root): o PlatformIO só reconhece um projeto quando o `platformio.ini` está na raiz de uma pasta do workspace, por isso `no_sensor/` e `coordenador/` entram como pastas próprias. `.vscode/settings.json` aponta o Python para o `.venv` (scripts de `ferramentas/`).
 
 ## USB e portas seriais
 
@@ -45,7 +45,9 @@ Chip das duas placas (lido pelo esptool): ESP32-D0WD-V3 rev v3.1, dual core 240 
 
 A numeração `ttyACM0`/`ttyACM1` depende da ordem de conexão (na primeira vez, a placa `…1351` virou `ttyACM1`, e não `ttyACM0`), por isso usamos sempre `/dev/serial/by-id/` ou `mpremote connect id:<serial>`.
 
-## Nó sensor — PlatformIO
+## Firmware (nó sensor e coordenador) — PlatformIO
+
+Os dois firmwares são projetos PlatformIO separados (`no_sensor/`, `coordenador/`) com a mesma plataforma fixada. Código compartilhado em `comum/`, incluído via `lib_deps = <nome>=symlink://../comum/<nome>`.
 
 | Item | Versão |
 |---|---|
@@ -63,47 +65,30 @@ Por que pioarduino: a plataforma oficial `platformio/platform-espressif32` (até
 
 Tabela de partições usada pelo build (`default.csv` do Arduino): `nvs` 20 KB, `otadata` 8 KB, `app0` e `app1` 1280 KB cada, `spiffs` 1408 KB, `coredump` 64 KB.
 
-Validação: firmware "hello" gravado no NÓ 1; a serial mostrou `boot:0x13 (SPI_FAST_FLASH_BOOT)` e `ESP-IDF v5.5.5`.
+Validação: firmware "hello" gravado; a serial mostrou `boot:0x13 (SPI_FAST_FLASH_BOOT)` e `ESP-IDF v5.5.5`.
 
-## Coordenador — MicroPython
+## Scripts do PC
 
-Ferramentas no venv do projeto (`.venv/`, versões em `requirements.txt`):
+Venv na raiz (`.venv/`, fora do Git), versões em `requirements.txt`: **pyserial 3.5** (usado por `ferramentas/medir_boot.py`). A gravação das placas é feita pelo PlatformIO, que traz o próprio esptool.
 
-| Item | Versão |
-|---|---|
-| esptool | 5.4.0 |
-| mpremote | 1.29.0 |
-| micropython-esp32-stubs | 1.29.0.post1 |
-| micropython-stdlib-stubs (dependência) | 1.29.0.post2 |
+## Histórico: coordenador em MicroPython (Etapa 0 → substituído na Etapa 1)
 
-Firmware:
+Na Etapa 0 o coordenador foi montado em **MicroPython v1.29.0** (ESP32_GENERIC, `ESP32_GENERIC-20260824-v1.29.0.bin`, SHA-256 `e67ad6015a0a504c1fec9aa9bbf589d0432ed28e62546f4f8dd8a147f8bd95f6`, <https://micropython.org/download/ESP32_GENERIC/>), com esptool 5.4.0, mpremote 1.29.0 e micropython-esp32-stubs 1.29.0.post1. Validação pelo REPL: LittleFS v2 com 2048 KB (partição `vfs` em `0x200000`), ~163 KB de heap Python livre.
 
-| Item | Valor |
-|---|---|
-| Variante | ESP32_GENERIC (sem SPIRAM) |
-| Versão | **MicroPython v1.29.0** (2026-08-24) |
-| Arquivo | `ferramentas/firmware/ESP32_GENERIC-20260824-v1.29.0.bin` (1.790.544 bytes, fora do Git) |
-| Origem | <https://micropython.org/download/ESP32_GENERIC/> |
-| SHA-256 (calculado localmente) | `e67ad6015a0a504c1fec9aa9bbf589d0432ed28e62546f4f8dd8a147f8bd95f6` |
+Na Etapa 1 a mesma tarefa (primeira linha → memória → Wi-Fi STA + MAC → LED) foi implementada nas duas linguagens e medida **na mesma placa** (COORD), 20 resets cada, com `ferramentas/medir_boot.py` (boot a frio):
 
-Gravação:
+| Medição | C++ | MicroPython |
+|---|---|---|
+| Reset → primeira linha (mediana) | 365 ms | 684 ms |
+| Reset → Wi-Fi STA ativo e MAC lido | 454 ms | 811 ms |
+| Ligar Wi-Fi + ler MAC (contador interno) | 104 ms | 107 ms |
+| Imagem do firmware | 0,90 MB | 1,79 MB + script |
+| Memória livre após o Wi-Fi | 189.904 B (heap IDF) | 142.080 B (heap Python) + 92.672 B (heap IDF) |
+| Editar 1 linha → rodando na placa | 24–26 s | ~0,7 s (+2 s de espera do auto-reset) |
 
-```bash
-source .venv/bin/activate
-PORTA=/dev/serial/by-id/usb-1a86_USB_Single_Serial_5AC9002039-if00
-esptool --port $PORTA erase-flash
-esptool --port $PORTA --baud 460800 write-flash 0x1000 ferramentas/firmware/ESP32_GENERIC-20260824-v1.29.0.bin
-```
+**Decisão: tudo em C++.** Boot 1,9× mais rápido e metade da flash nos nós (que rodam na bateria); pacote definido num único header compartilhado; servidor HTTP oficial no núcleo Arduino (`WebServer`), enquanto o `micropython-lib` não tem servidor HTTP. Os dois firmwares usam `CONFIG_BOOTLOADER_SKIP_VALIDATE_IN_DEEP_SLEEP=y`, então ao acordar do deep sleep a diferença deve ser menor — medir na etapa de deep sleep. <https://docs.espressif.com/projects/esp-idf/en/v5.5/esp32/api-guides/bootloader.html>
 
-Validação pelo REPL (`mpremote connect id:5AC9002039`):
-
-| Verificação | Resultado |
-|---|---|
-| `sys.implementation` | micropython 1.29.0, build `ESP32_GENERIC` |
-| `os.statvfs('/')` | blocos de 4096 B × 512 = 2048 KB; 2036 KB livres |
-| Tipo de FS | LittleFS v2 (assinatura `littlefs` no bloco 0 da partição `vfs`) |
-| Partições (em execução) | `factory` 1984 KB em `0x10000`; `nvs` 24 KB; `phy_init` 4 KB; `vfs` 2048 KB em `0x200000` |
-| Heap livre no boot | ~163 KB |
+Código usado na comparação: commits `19eaed6` (C++), `90cb5e4` (MicroPython) e `1bc47fc` (script).
 
 ## Observações e problemas encontrados
 
@@ -111,7 +96,7 @@ Validação pelo REPL (`mpremote connect id:5AC9002039`):
 2. **WSL não enxerga USB** sem o usbipd-win. Após `wsl --shutdown`, reiniciar o PC ou reconectar a placa, é preciso refazer o `usbipd attach`.
 3. **Partição `vfs` criada em tempo de execução.** A tabela de partições gravada na flash (lida de volta em `0x8000`) tem apenas `nvs`, `phy_init` e `factory`, mas o MicroPython em execução informa uma partição `vfs` de 2 MB em `0x200000`. Conclusão empírica: o firmware cria a partição de FS no espaço restante. Isso não foi encontrado na documentação oficial.
 4. **Sintaxe do esptool 5.** A página de download do MicroPython usa a sintaxe antiga (`esptool.py write_flash`); no esptool 5 os comandos são `esptool erase-flash` e `write-flash`.
-5. **Ubuntu 24.04 bloqueia `pip install` global** (PEP 668). Por isso as ferramentas Python ficam num venv.
+5. **Ubuntu 24.04 bloqueia `pip install` global** (PEP 668). Por isso os scripts Python do PC usam um venv.
 6. **Primeira compilação do nó levou ~4 min** por causa do download da plataforma, da toolchain e do framework; as seguintes levam segundos.
 7. **Papéis das placas invertidos na Etapa 1.** Na Etapa 0 a placa `…1351` foi chamada de COORD e a `…2039` de NÓ 1. Como a `…1351` é a que já está montada com os sensores, os papéis foram trocados: COORD = `…2039`, NÓ 1 = `…1351`. As tabelas acima já refletem a atribuição nova; as medições do REPL foram feitas com o mesmo firmware e hardware idêntico.
-8. **Abrir a porta serial reinicia a placa COORD (`…2039`).** No Linux, o pyserial ativa DTR/RTS ao abrir a porta e o circuito de auto-reset dessa placa gera um pulso no EN a cada abertura; a placa `…1351` só reiniciou na primeira abertura (teste: 3 aberturas em cada). Consequência: o mpremote envia Ctrl-C/Ctrl-A durante o boot e falha com `could not enter raw repl`. Solução: o comando `sleep` do mpremote logo após o `connect` (`mpremote connect id:5AC9002039 sleep 2 fs cp ...`), que espera o boot terminar. <https://docs.micropython.org/en/latest/reference/mpremote.html>
+8. **Abrir a porta serial reinicia a placa COORD (`…2039`).** No Linux, o pyserial ativa DTR/RTS ao abrir a porta e o circuito de auto-reset dessa placa gera um pulso no EN a cada abertura; a placa `…1351` só reiniciou na primeira abertura (teste: 3 aberturas em cada). Consequência (quando o COORD rodava MicroPython): o mpremote enviava Ctrl-C/Ctrl-A durante o boot e falhava com `could not enter raw repl`; contornado com `mpremote connect ... sleep 2`. Em C++, só significa que abrir o monitor reinicia o COORD.

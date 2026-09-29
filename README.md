@@ -13,24 +13,24 @@ Sistema de comunicação IoT para monitoramento de hortas urbanas, sem Internet:
 | Pasta | Conteúdo | Linguagem / ferramenta |
 |---|---|---|
 | `no_sensor/` | Firmware dos nós sensores | C++ (Arduino-ESP32 3.x), PlatformIO |
-| `coordenador/src/` | Código do coordenador | MicroPython, mpremote |
-| `docs/` | Documentação técnica (ambiente, protocolo) | Markdown |
-| `ferramentas/` | Firmware MicroPython e utilitários do PC | — |
+| `coordenador/` | Firmware do coordenador | C++ (Arduino-ESP32 3.x), PlatformIO |
+| `comum/protocolo/` | Definição do pacote, compartilhada pelos dois firmwares | C++ |
+| `docs/` | Documentação técnica (ambiente, placas, protocolo) | Markdown |
+| `ferramentas/` | Scripts auxiliares que rodam no PC | Python |
 
 ## Preparar o ambiente
 
 Detalhes e versões em [`docs/ambiente.md`](docs/ambiente.md).
 
 ```bash
-# Ferramentas do coordenador
+# Firmware (dentro de no_sensor/ ou coordenador/)
+pio run -t upload
+pio device monitor
+
+# Scripts do PC (ferramentas/)
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-
-# Nó sensor: compilar e gravar
-cd no_sensor
-pio run -t upload
-pio device monitor
 ```
 
 ## Licença
