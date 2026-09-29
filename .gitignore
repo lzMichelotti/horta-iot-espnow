@@ -16,6 +16,7 @@ __pycache__/
 !.vscode/settings.json
 !.vscode/extensions.json
 no_sensor/.vscode/
+coordenador/.vscode/
 
 # Firmware baixado (nome e SHA-256 registrados em docs/ambiente.md)
 ferramentas/firmware/*.bin
