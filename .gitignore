@@ -1,0 +1,25 @@
+# PlatformIO
+.pio/
+.pioenvs/
+.piolibdeps/
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# VS Code: versiona só as configurações compartilhadas
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+no_sensor/.vscode/
+
+# Firmware baixado (nome e SHA-256 registrados em docs/ambiente.md)
+ferramentas/firmware/*.bin
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+*:Zone.Identifier

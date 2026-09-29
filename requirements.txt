@@ -1,0 +1,5 @@
+# Ferramentas Python do coordenador (MicroPython). Instalar num venv:
+#   python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
+esptool==5.4.0
+mpremote==1.29.0
+micropython-esp32-stubs==1.29.0.post1
