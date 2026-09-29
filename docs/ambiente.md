@@ -38,12 +38,12 @@ ESP32 ─ CH9102 ─USB─> Windows (driver WCH) ─ usbipd (USB/IP) ─> WSL2 (
 
 | Placa | Serial CH9102 | Windows | Linux (nome estável) | MAC (STA) |
 |---|---|---|---|---|
-| COORD | `5AC9001351` | COM3 | `/dev/serial/by-id/usb-1a86_USB_Single_Serial_5AC9001351-if00` | `88:57:21:70:93:70` |
-| NÓ 1 | `5AC9002039` | COM5 | `/dev/serial/by-id/usb-1a86_USB_Single_Serial_5AC9002039-if00` | `88:57:21:70:91:fc` |
+| COORD | `5AC9002039` | COM5 | `/dev/serial/by-id/usb-1a86_USB_Single_Serial_5AC9002039-if00` | `88:57:21:70:91:fc` |
+| NÓ 1 | `5AC9001351` | COM3 | `/dev/serial/by-id/usb-1a86_USB_Single_Serial_5AC9001351-if00` | `88:57:21:70:93:70` |
 
 Chip das duas placas (lido pelo esptool): ESP32-D0WD-V3 rev v3.1, dual core 240 MHz, cristal 40 MHz, calibração de Vref do ADC em eFuse. Flash: 4 MB (fabricante `0x68`, dispositivo `0x4016`), 3,3 V.
 
-A numeração `ttyACM0`/`ttyACM1` depende da ordem de conexão (na primeira vez, o COORD virou `ttyACM1`), por isso usamos sempre `/dev/serial/by-id/` ou `mpremote connect id:<serial>`.
+A numeração `ttyACM0`/`ttyACM1` depende da ordem de conexão (na primeira vez, a placa `…1351` virou `ttyACM1`, e não `ttyACM0`), por isso usamos sempre `/dev/serial/by-id/` ou `mpremote connect id:<serial>`.
 
 ## Nó sensor — PlatformIO
 
@@ -90,12 +90,12 @@ Gravação:
 
 ```bash
 source .venv/bin/activate
-PORTA=/dev/serial/by-id/usb-1a86_USB_Single_Serial_5AC9001351-if00
+PORTA=/dev/serial/by-id/usb-1a86_USB_Single_Serial_5AC9002039-if00
 esptool --port $PORTA erase-flash
 esptool --port $PORTA --baud 460800 write-flash 0x1000 ferramentas/firmware/ESP32_GENERIC-20260824-v1.29.0.bin
 ```
 
-Validação pelo REPL (`mpremote connect id:5AC9001351`):
+Validação pelo REPL (`mpremote connect id:5AC9002039`):
 
 | Verificação | Resultado |
 |---|---|
@@ -113,3 +113,5 @@ Validação pelo REPL (`mpremote connect id:5AC9001351`):
 4. **Sintaxe do esptool 5.** A página de download do MicroPython usa a sintaxe antiga (`esptool.py write_flash`); no esptool 5 os comandos são `esptool erase-flash` e `write-flash`.
 5. **Ubuntu 24.04 bloqueia `pip install` global** (PEP 668). Por isso as ferramentas Python ficam num venv.
 6. **Primeira compilação do nó levou ~4 min** por causa do download da plataforma, da toolchain e do framework; as seguintes levam segundos.
+7. **Papéis das placas invertidos na Etapa 1.** Na Etapa 0 a placa `…1351` foi chamada de COORD e a `…2039` de NÓ 1. Como a `…1351` é a que já está montada com os sensores, os papéis foram trocados: COORD = `…2039`, NÓ 1 = `…1351`. As tabelas acima já refletem a atribuição nova; as medições do REPL foram feitas com o mesmo firmware e hardware idêntico.
+8. **Abrir a porta serial reinicia a placa COORD (`…2039`).** No Linux, o pyserial ativa DTR/RTS ao abrir a porta e o circuito de auto-reset dessa placa gera um pulso no EN a cada abertura; a placa `…1351` só reiniciou na primeira abertura (teste: 3 aberturas em cada). Consequência: o mpremote envia Ctrl-C/Ctrl-A durante o boot e falha com `could not enter raw repl`. Solução: o comando `sleep` do mpremote logo após o `connect` (`mpremote connect id:5AC9002039 sleep 2 fs cp ...`), que espera o boot terminar. <https://docs.micropython.org/en/latest/reference/mpremote.html>
