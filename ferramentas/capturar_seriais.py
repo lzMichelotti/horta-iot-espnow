@@ -15,10 +15,14 @@ Observação: abrir a porta reinicia as duas placas (o Linux ativa DTR/RTS ao
 abrir o tty, antes de o pyserial aplicar dtr=False/rts=False).
 """
 import argparse
+import re
 import threading
 import time
 
 import serial
+
+# Linha da varredura do coordenador: "[SCAN] canal,rssi,ssid" → SSID omitido.
+SCAN_SSID = re.compile(r"^(\[SCAN\] -?\d+,-?\d+,).*$")
 
 PORTAS = {
     "coord": "/dev/serial/by-id/usb-1a86_USB_Single_Serial_5AC9002039-if00",
@@ -65,7 +69,10 @@ def main():
                     saida.write(f"{agora:9.3f} #RTS {'ativo (EN=0)' if valor else 'solto'}\n")
                 linha = s.readline()
                 if linha:
-                    saida.write(f"{time.time() - t0:9.3f} {linha.decode(errors='replace').rstrip()}\n")
+                    texto = linha.decode(errors="replace").rstrip()
+                    # O repositório é público: o nome das redes vizinhas não é gravado.
+                    texto = SCAN_SSID.sub(r"\1(omitido)", texto)
+                    saida.write(f"{time.time() - t0:9.3f} {texto}\n")
                     saida.flush()
         s.close()
 
