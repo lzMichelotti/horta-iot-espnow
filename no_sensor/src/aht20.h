@@ -32,8 +32,15 @@ struct Leitura {
   uint8_t tentativasExtras;
 };
 
+// Função usada nas esperas do protocolo (padrão: delay). O nó passa uma que
+// dorme em light sleep (energia::esperarMs).
+using FuncaoEspera = void (*)(uint32_t ms);
+void definirEspera(FuncaoEspera espera);
+
 // Verifica a presença e a calibração do sensor. Chamar depois de Wire.begin().
-Estado iniciar(TwoWire& wire = Wire);
+// `energizadoMs` = millis() em que o sensor recebeu alimentação: a espera de
+// ≥ 100 ms após energizar (datasheet 7.1) conta a partir dele.
+Estado iniciar(TwoWire& wire = Wire, uint32_t energizadoMs = 0);
 
 // Dispara uma medição, espera a conversão e lê os 7 bytes.
 Estado ler(Leitura& leitura);

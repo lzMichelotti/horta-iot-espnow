@@ -19,7 +19,7 @@ import statistics
 from pathlib import Path
 
 FASES = ["setup_us", "serial_nvs_us", "sens_iniciar_us", "leitura_us", "ligar_us", "envio_us", "desligar_us",
-         "impressao_us", "flush_ant_us", "fim_us"]
+         "impressao_us", "flush_ant_us", "fim_us", "light_sleep_us", "light_sleeps"]
 NOMES = {
     "rom_boot_us": "ROM + bootloader (PC)",
     "setup_us": "Inicialização ESP-IDF/Arduino até o setup()",
@@ -75,6 +75,11 @@ def perfil(lista):
     print(f"| **Total acordado (soma das medianas)** | **{total / 1000:.1f}** | | 100 % |")
     fim = [c["fim_us"] / 1000 for c in lista]
     print(f"\nesp_timer no fim do ciclo (≈ acordado_ant_ms): mediana {statistics.median(fim):.1f} ms")
+    if all("light_sleep_us" in c for c in lista):
+        ls = statistics.median(c["light_sleep_us"] for c in lista)
+        n = statistics.median(c["light_sleeps"] for c in lista)
+        print(f"Em light sleep (dentro das fases dos sensores): mediana {ls / 1000:.1f} ms em {n:.0f} trechos")
+        print(f"**Ativo (CPU ligada) = total − light sleep: {(total - ls) / 1000:.1f} ms**")
     return medianas
 
 

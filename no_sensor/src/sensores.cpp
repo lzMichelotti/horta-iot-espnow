@@ -4,6 +4,7 @@
 
 #include "aht20.h"
 #include "config.h"
+#include "energia.h"
 
 namespace sensores {
 
@@ -22,6 +23,9 @@ Estado classificar(float valor, float minimo, float maximo) {
 }
 
 bool ahtIniciado = false;
+
+// millis() em que os sensores foram energizados (para a espera do AHT20).
+uint32_t energizadoMs() { return static_cast<uint32_t>(energia::instanteSensoresLigados() / 1000); }
 
 }  // namespace
 
@@ -42,7 +46,8 @@ bool iniciar() {
   analogSetAttenuation(config::ATENUACAO);
 
   Wire.begin(config::PINO_SDA, config::PINO_SCL, config::CLOCK_I2C_HZ);
-  aht20::Estado e = aht20::iniciar(Wire);
+  aht20::definirEspera(energia::esperarMs);  // esperas do AHT20 em light sleep
+  aht20::Estado e = aht20::iniciar(Wire, energizadoMs());
   ahtIniciado = (e == aht20::Estado::OK);
   if (!ahtIniciado) Serial.printf("[SENS] AHT20 nao iniciou: %s\n", aht20::nomeEstado(e));
   return ahtIniciado;
@@ -53,7 +58,7 @@ Leituras lerTodas() {
   uint32_t inicio = micros();
 
   // Ar (AHT20). Tenta iniciar de novo se falhou antes (sensor reconectado).
-  if (!ahtIniciado) ahtIniciado = (aht20::iniciar(Wire) == aht20::Estado::OK);
+  if (!ahtIniciado) ahtIniciado = (aht20::iniciar(Wire, energizadoMs()) == aht20::Estado::OK);
   aht20::Leitura a{};
   aht20::Estado ea = ahtIniciado ? aht20::ler(a) : aht20::Estado::SEM_RESPOSTA;
   r.aht20Extras = a.tentativasExtras;
@@ -64,6 +69,9 @@ Leituras lerTodas() {
     r.temperaturaC = {NAN, Estado::ERRO};
     r.umidadeArPct = {NAN, Estado::ERRO};
   }
+
+  // Solo: a saída estabiliza em 300–400 ms após ligar o sensor (sensores.md 4.5).
+  energia::esperarAte(energia::instanteSensoresLigados() + (int64_t)config::ESPERA_SOLO_MS * 1000);
 
   // Solo. Abaixo do mínimo do ADC não há sinal (sensor desligado ou solto: lê ~0 V).
   float solo = mediaMilivolts(config::PINO_SOLO);

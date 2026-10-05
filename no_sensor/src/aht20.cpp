@@ -6,6 +6,9 @@ namespace {
 
 TwoWire* barramento = &Wire;
 
+void esperaPadrao(uint32_t ms) { delay(ms); }
+FuncaoEspera esperar = esperaPadrao;
+
 constexpr uint32_t ESPERA_LIGAR_MS = 100;       // ≥ 100 ms após energizar (7.1)
 constexpr uint32_t ESPERA_ANTES_MEDIR_MS = 10;  // 10 ms antes do 0xAC (7.4, passo 2)
 constexpr uint32_t ESPERA_CONVERSAO_MS = 80;    // 80 ms de conversão (7.4, passo 3)
@@ -47,14 +50,15 @@ uint8_t crc8(const uint8_t* dados, size_t n) {
   return crc;
 }
 
-Estado iniciar(TwoWire& wire) {
+void definirEspera(FuncaoEspera espera) { esperar = espera ? espera : esperaPadrao; }
+
+Estado iniciar(TwoWire& wire, uint32_t energizadoMs) {
   barramento = &wire;
 
-  // Hoje o sensor é ligado junto com o ESP32, então millis() conta desde que
-  // ele foi energizado. Se na etapa 5 ele for alimentado por GPIO, a espera
-  // tem de contar a partir do momento em que o GPIO for ligado.
-  uint32_t desdeLigar = millis();
-  if (desdeLigar < ESPERA_LIGAR_MS) delay(ESPERA_LIGAR_MS - desdeLigar);
+  // A espera conta a partir do instante em que o sensor recebeu alimentação
+  // (MOSFET ligado, ou o boot, quando ele fica sempre ligado).
+  uint32_t desdeLigar = millis() - energizadoMs;
+  if ((int32_t)desdeLigar >= 0 && desdeLigar < ESPERA_LIGAR_MS) esperar(ESPERA_LIGAR_MS - desdeLigar);
 
   uint8_t estado;
   if (!lerBytes(&estado, 1)) return Estado::SEM_RESPOSTA;
@@ -68,7 +72,7 @@ Estado iniciar(TwoWire& wire) {
 }
 
 Estado ler(Leitura& leitura) {
-  delay(ESPERA_ANTES_MEDIR_MS);
+  esperar(ESPERA_ANTES_MEDIR_MS);
 
   // Comando de medição: 0xAC com os parâmetros 0x33 e 0x00 (7.4, passo 2).
   barramento->beginTransmission(ENDERECO);
@@ -82,7 +86,7 @@ Estado ler(Leitura& leitura) {
   // dados (7.4, passo 3). Uma consulta que falha no I²C é repetida dentro do
   // mesmo limite de tempo: no estado anômalo do sensor, a 1ª leitura após o
   // 0xAC falha e a seguinte funciona (ver docs/sensores.md).
-  delay(ESPERA_CONVERSAO_MS);
+  esperar(ESPERA_CONVERSAO_MS);
   leitura.tentativasExtras = 0;
   while (true) {
     uint8_t estado;
@@ -94,7 +98,7 @@ Estado ler(Leitura& leitura) {
     if (millis() - inicio > LIMITE_CONVERSAO_MS) {
       return leitura.tentativasExtras ? Estado::SEM_RESPOSTA : Estado::TIMEOUT;
     }
-    delay(INTERVALO_OCUPADO_MS);
+    esperar(INTERVALO_OCUPADO_MS);
   }
   leitura.conversaoMs = millis() - inicio;
 

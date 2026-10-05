@@ -10,6 +10,7 @@
 
 #include "config.h"
 #include "contadores.h"
+#include "energia.h"
 #include "envio.h"
 #include "sensores.h"
 
@@ -90,7 +91,8 @@ void imprimirFases() {
   // Cada fase = da marca anterior até a sua (SETUP = da aplicação até o setup()).
   Serial.printf("[FASES] %lld", marcas[SETUP]);
   for (uint8_t f = SERIAL_NVS; f < NUM_FASES; f++) Serial.printf(",%lld", marcas[f] - marcas[f - 1]);
-  Serial.printf(",%lu,%lld\n", (unsigned long)flushAntUs, marcas[IMPRESSAO]);
+  Serial.printf(",%lu,%lld,%lu,%u\n", (unsigned long)flushAntUs, marcas[IMPRESSAO],
+                (unsigned long)energia::lightSleepUs(), energia::lightSleeps());
 }
 
 // Dorme até completar o período do ciclo. esp_deep_sleep_start() "will flush
@@ -112,6 +114,9 @@ void imprimirFases() {
 
 void setup() {
   marcar(SETUP);
+  // Sensores ligados antes de tudo: as esperas de energização (AHT20, 100 ms)
+  // e de estabilização (solo, 500 ms) começam a contar já.
+  energia::ligarSensores(esp_reset_reason() == ESP_RST_DEEPSLEEP);
   Serial.begin(115200);
   // Marca para o PC: (instante desta linha − instante do "rst:" da ROM) − esp_timer
   // = tempo de ROM + bootloader, que a aplicação não enxerga.
@@ -133,9 +138,10 @@ void setup() {
     Serial.print("[ENVIO] boot,seq,ack,tentativas,ligar_us");
     for (uint8_t k = 1; k <= config::MAX_ENVIOS; k++) Serial.printf(",t%u_us", k);
     Serial.println(",envio_us,erro,tent_ant,flags,leitura_us,ciclo_us,acordado_ant_ms");
-    // Durações em µs; setup_us = da aplicação ao setup(); fim_us = esp_timer antes do flush.
+    // Durações em µs; setup_us = da aplicação ao setup(); fim_us = esp_timer antes do flush;
+    // light_sleep_us = parte do ciclo dormida em light sleep (dentro das fases dos sensores).
     Serial.println("[FASES] setup_us,serial_nvs_us,sens_iniciar_us,leitura_us,ligar_us,envio_us,desligar_us,"
-                   "impressao_us,flush_ant_us,fim_us");
+                   "impressao_us,flush_ant_us,fim_us,light_sleep_us,light_sleeps");
   }
   marcar(SERIAL_NVS);
 
@@ -146,6 +152,7 @@ void setup() {
   protocolo::PacoteLeitura p = montar(leituras);
   uint8_t bytes[sizeof(p)];
   memcpy(bytes, &p, sizeof(p));
+  energia::desligarSensores();
   marcar(LEITURA);
 
   envio::Resultado r;

@@ -12,6 +12,21 @@ constexpr uint8_t PINO_SCL = 22;
 constexpr uint8_t PINO_SOLO = 34;          // ADC1_CH6, saída AOUT do sensor de solo
 constexpr uint8_t PINO_ALIMENTACAO = 35;   // ADC1_CH7, ponto médio do divisor
 
+// ---------------------------------------------------------------- Alimentação dos sensores
+// Pino que comanda o MOSFET que liga AHT20, sensor de solo e divisor (passo 11
+// da Etapa 5). −1 = sem chaveamento (hardware atual: sensores sempre no 3V3).
+#ifdef TESTE_PINO_ALIM_SENSORES  // env teste_chaveamento: LED (GPIO2) no lugar do MOSFET
+constexpr int PINO_ALIM_SENSORES = TESTE_PINO_ALIM_SENSORES;
+#else
+constexpr int PINO_ALIM_SENSORES = -1;
+#endif
+constexpr bool CHAVE_ATIVA_EM_ALTO = true;  // TODO(passo 11): depende do MOSFET (canal N ou P)
+constexpr uint32_t ESPERA_SOLO_MS = 500;    // estabilização do sensor de solo após ligar (sensores.md 4.5)
+
+// Esperas em light sleep: abaixo do limiar, a entrada e a saída do sono não compensam.
+constexpr bool LIGHT_SLEEP_NAS_ESPERAS = true;
+constexpr uint32_t LIMIAR_LIGHT_SLEEP_US = 3000;
+
 // ---------------------------------------------------------------- I²C / AHT20
 // Datasheet do AHT20 (4.4): clock entre 10 e 400 kHz; ≥ 1 s entre medições.
 constexpr uint32_t CLOCK_I2C_HZ = 100000;
