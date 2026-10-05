@@ -1,0 +1,52 @@
+#include "nos.h"
+
+#include <esp_mac.h>
+
+namespace nos {
+
+namespace {
+
+No tabela[config::MAX_NOS];
+
+const char* nomeCadastrado(const uint8_t mac[6]) {
+  for (const auto& c : config::NOS)
+    if (memcmp(c.mac, mac, 6) == 0) return c.nome;
+  return "desconhecido";
+}
+
+}  // namespace
+
+No* buscar(const uint8_t mac[6]) {
+  for (auto& n : tabela)
+    if (n.usado && memcmp(n.mac, mac, 6) == 0) return &n;
+  for (auto& n : tabela)
+    if (!n.usado) {
+      n.usado = true;
+      memcpy(n.mac, mac, 6);
+      n.nome = nomeCadastrado(mac);
+      return &n;
+    }
+  return nullptr;
+}
+
+void contarRecepcao(No& n, int8_t rssi) {
+  if (n.recebidos == 0 || rssi < n.rssiMin) n.rssiMin = rssi;
+  if (n.recebidos == 0 || rssi > n.rssiMax) n.rssiMax = rssi;
+  n.recebidos++;
+  n.somaRssi += rssi;
+}
+
+void imprimirResumo() {
+  for (const auto& n : tabela) {
+    if (!n.usado) continue;
+    const auto& s = n.sequencia;
+    uint32_t esperados = s.aceitos() + s.perdidos();
+    float entrega = esperados ? 100.0f * s.aceitos() / esperados : 0.0f;
+    float rssiMedio = n.recebidos ? (float)n.somaRssi / n.recebidos : 0.0f;
+    Serial.printf("[RESUMO] %lu," MACSTR ",%s,%lu,%lu,%lu,%lu,%lu,%lu,%lu,%.2f,%.1f,%d,%d\n", millis(),
+                  MAC2STR(n.mac), n.nome, n.recebidos, n.rejeitados, s.aceitos(), s.perdidos(), s.descartados(),
+                  s.reinicios(), n.semAck, entrega, rssiMedio, n.rssiMin, n.rssiMax);
+  }
+}
+
+}  // namespace nos
