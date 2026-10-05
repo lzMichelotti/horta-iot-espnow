@@ -43,8 +43,8 @@ Formato dos bytes que o nó sensor envia ao coordenador pelo ESP-NOW (Etapa 3). 
 | 16 | `estados` | uint8 | 1 | 2 bits por grandeza | sem o valor 3 |
 | 17 | `motivo_boot` | uint8 | 1 | `esp_reset_reason()` | 0–15 no ESP-IDF 5.5 (outros aceitos) |
 | 18 | `acordado_ant_ms` | uint16 | 2 | ms acordado no ciclo anterior | 0 = desconhecido |
-| 20 | `tentativas_ant` | uint8 | 1 | envios do pacote anterior | 0 = desconhecido |
-| 21 | `flags` | uint8 | 1 | bit 0: o AHT20 precisou de nova tentativa; bits 1–7 reservados (enviados como 0, ignorados) | — |
+| 20 | `tentativas_ant` | uint8 | 1 | envios (`esp_now_send`) do pacote anterior | 0 = desconhecido |
+| 21 | `flags` | uint8 | 1 | bit 0: o AHT20 precisou de nova tentativa; bit 1: o pacote anterior esgotou as tentativas sem ACK (`ANTERIOR_SEM_ACK`, Etapa 4); bits 2–7 reservados (enviados como 0, ignorados) | — |
 | | **total** | | **22** | | |
 
 **Campo `estados`:**
@@ -57,6 +57,8 @@ bit:    7  6 |  5  4 |  3  2 |  1  0
 ```
 
 **`motivo_boot`** ([ESP-IDF, misc system API](https://docs.espressif.com/projects/esp-idf/en/v5.5/esp32/api-reference/system/misc_system_api.html)): 1 = `POWERON` (no ESP32 inclui o reset pelo pino EN), 3 = `SW`, 4 = `PANIC`, 5–7 = watchdogs, 8 = `DEEPSLEEP`, 9 = `BROWNOUT` (bateria fraca), 14 = `PWR_GLITCH`, 15 = `CPU_LOCKUP`.
+
+**`tentativas_ant` e `ANTERIOR_SEM_ACK`** (definidos na Etapa 4, [`comunicacao.md`](comunicacao.md)): `tentativas_ant` conta quantas vezes o nó chamou `esp_now_send` para o pacote anterior. Sozinho, o valor máximo seria ambíguo (entregue na última tentativa ou desistiu?); o bit `ANTERIOR_SEM_ACK` de `flags` diz que nenhuma tentativa recebeu o ACK da camada MAC. Cruzado com o `seq` no coordenador, separa a falha no rádio (bit ligado, `seq` anterior ausente) da perda depois do ACK (bit desligado, `seq` anterior ausente: fila ou validação no coordenador). Usar um bit até então reservado não muda a `VERSAO`: coordenadores anteriores já o ignoravam. Ambos valem 0 no primeiro pacote depois de ligar (a RAM do RTC zera no *power-on*).
 
 ### Exemplo real (NÓ 1, 05/10/2026), conferido com a linha CSV do mesmo ciclo
 
@@ -174,13 +176,13 @@ Script: [`ferramentas/overhead_protocolo.py`](../ferramentas/overhead_protocolo.
 
 ## 10. Testes
 
-`cd no_sensor && pio test -e native`: 25 testes Unity no PC ([Unity no PlatformIO](https://docs.platformio.org/en/latest/advanced/unit-testing/frameworks/unity.html)), em [`no_sensor/test/test_protocolo/`](../no_sensor/test/test_protocolo/test_main.cpp):
+`cd no_sensor && pio test -e native`: 26 testes Unity no PC ([Unity no PlatformIO](https://docs.platformio.org/en/latest/advanced/unit-testing/frameworks/unity.html)), em [`no_sensor/test/test_protocolo/`](../no_sensor/test/test_protocolo/test_main.cpp):
 
 | Grupo | O que cobre |
 |---|---|
 | Layout | tamanho de 22 bytes; os 22 bytes esperados, em little-endian, de um pacote montado |
 | Montagem | bits de estado; limites exatos das faixas (−40,00 e 85,00 °C) e um passo além; saturação; umidade negativa; `erro`, `NaN`, `reservado` e infinito |
-| Validação | ida e volta montar → validar; buffer em endereço ímpar; tamanho curto, versão desconhecida (inclusive com outro tamanho), tipo desconhecido, tamanho errado, estado reservado, cada faixa com estado `ok`; valores aceitos com `fora_de_faixa`/`erro`; flags e motivo desconhecidos aceitos |
+| Validação | ida e volta montar → validar; buffer em endereço ímpar; tamanho curto, versão desconhecida (inclusive com outro tamanho), tipo desconhecido, tamanho errado, estado reservado, cada faixa com estado `ok`; valores aceitos com `fora_de_faixa`/`erro`; flags e motivo desconhecidos aceitos; bit `ANTERIOR_SEM_ACK` preservado |
 | Sequência | sequência normal e lacuna; primeiro pacote; duplicado e antigo; reinício × duplicata; boot menor; estouro de `seq` com e sem lacuna |
 
 ## 11. Evolução
