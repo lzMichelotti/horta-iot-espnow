@@ -1,0 +1,48 @@
+    0.015 ets Jul 29 2019 12:21:46
+    0.015 
+    0.016 rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+    0.017 configsip: 0, SPIWP:0xee
+    0.026 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+    0.026 mode:DIO, clock div:2
+    0.026 load:0x3fff0030,len:4640
+    0.030 load:0x40078000,len:15632
+    0.030 load:0x40080400,len:3164
+    0.030 entry 0x4008059c
+    0.593 
+    0.594 [BOOT] coordenador - etapa 4
+    0.594 [MAC] STA 88:57:21:70:91:fc
+    0.594 [MAC] AP  88:57:21:70:91:fd
+    0.594 [BOOT] protocolo v1 (22 bytes)
+    0.678 [WIFI] varrendo canais...
+    4.687 [WIFI] varredura: 23 redes em 4004 ms
+    4.687 [SCAN] canal,rssi_dbm,ssid
+    4.688 [SCAN] 7,-16,(omitido)
+    4.688 [SCAN] 3,-62,(omitido)
+    4.698 [SCAN] 10,-72,(omitido)
+    4.699 [SCAN] 5,-79,(omitido)
+    4.699 [SCAN] 11,-79,(omitido)
+    4.699 [SCAN] 11,-81,(omitido)
+    4.699 [SCAN] 8,-84,(omitido)
+    4.709 [SCAN] 11,-85,(omitido)
+    4.710 [SCAN] 3,-89,(omitido)
+    4.710 [SCAN] 8,-89,(omitido)
+    4.710 [SCAN] 3,-91,(omitido)
+    4.710 [SCAN] 4,-91,(omitido)
+    4.721 [SCAN] 3,-92,(omitido)
+    4.721 [SCAN] 4,-92,(omitido)
+    4.721 [SCAN] 11,-92,(omitido)
+    4.721 [SCAN] 11,-92,(omitido)
+    4.721 [SCAN] 6,-93,(omitido)
+    4.721 [SCAN] 8,-93,(omitido)
+    4.732 [SCAN] 9,-93,(omitido)
+    4.732 [SCAN] 6,-94,(omitido)
+    4.732 [SCAN] 6,-94,(omitido)
+    4.732 [SCAN] 11,-95,(omitido)
+    4.732 [SCAN] 11,-95,(omitido)
+    4.743 [WIFI] canal  1: 0 no canal, 7 sobrepostas, mais forte -62 dBm
+    4.743 [WIFI] canal  6: 3 no canal, 13 sobrepostas, mais forte -16 dBm
+    4.746 [WIFI] canal 11: 7 no canal, 6 sobrepostas, mais forte -16 dBm
+    4.956 [WIFI] SoftAP "horta-coord" canal 1, MAC AP 88:57:21:70:91:FD, IP 192.168.4.1
+    4.967 [ESPNOW] pronto: versao 2, fila de 16 itens (272 bytes cada)
+    4.978 [CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags
+    4.982 [RESUMO] t_ms,mac,nome,recebidos,rejeitados,aceitos,perdidos,descartados,reinicios,sem_ack,entrega_pct,rssi_medio,rssi_min,rssi_max
