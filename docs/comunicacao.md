@@ -75,7 +75,8 @@ A **PMK** (16 B, uma por aparelho) cifra as LMKs com AES-128; a **LMK** (16 B po
 | `tentativas_ant` | + bit `ANTERIOR_SEM_ACK` em `flags` | desfaz a ambiguidade de "3 tentativas" (entregue na última × desistiu) sem mudar a `VERSAO` ([`protocolo.md`](protocolo.md)) |
 | Criptografia | **nenhuma** (decisão do autor, Etapa 4) | ver seção 2.1 |
 | MAC fora da tabela de nós | aceito e rastreado como `desconhecido` | um nó novo funciona sem regravar o coordenador; a gravação desses dados é decidida na etapa 7 |
-| Taxa | **pendente** (padrão 1 Mbps nos testes) | ver seção 7 |
+| Taxa | **1 Mbps (padrão)** | o modo mais robusto do 802.11b e o menor tempo no ar entre as opções de longo alcance; o Long Range (seção 1.4) custa 2–4× o tempo de cada byte e exige o protocolo LR nos dois lados. Reavaliar só se o alcance medido na horta não bastar |
+| Tempo limite do callback | **100 ms** | 2× o maior `FAIL` medido (49,6 ms); como o `FAIL` sempre chegou antes, reduzir não economiza energia (seção 6.1) |
 
 ### 2.1 Criptografia: opções avaliadas
 
@@ -242,8 +243,7 @@ O nó não trava: cada ciclo termina em ~280 ms e o próximo começa no horário
 
 ## 7. Pendências
 
-- **Taxa de transmissão:** padrão (1 Mbps) × Long Range (250/500 kbps). Decidir com os dados de alcance da horta (RSSI/SNR por distância).
-- **Tempo limite do callback:** 100 ms é 2× o maior `FAIL` medido; manter ou reduzir (não muda o consumo, pois o `FAIL` chega antes).
+- **Long Range:** reavaliar com os dados de alcance da horta (RSSI/SNR por distância); a taxa fica em 1 Mbps até lá.
 - **NÓ 2:** a terceira placa ainda não foi conectada; falta o teste com 2 nós simultâneos (sem sensores, deve enviar estados `erro`).
 - **Janela do boot do coordenador** (seção 6.3): opcional, inicializar o ESP-NOW antes de configurar o SoftAP.
 - **Criptografia:** desligada por decisão; a troca para PMK/LMK está descrita na seção 2.1.

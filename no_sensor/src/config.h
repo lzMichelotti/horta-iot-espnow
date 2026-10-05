@@ -58,8 +58,8 @@ constexpr uint8_t MAC_COORDENADOR[6] = {0x88, 0x57, 0x21, 0x70, 0x91, 0xFD};
 constexpr uint8_t MAX_ENVIOS = 3;                    // 1 envio + 2 retransmissões
 constexpr uint32_t BACKOFF_MS[MAX_ENVIOS - 1] = {10, 30};  // espera antes da 2ª e da 3ª
 constexpr uint32_t SORTEIO_MS = 10;                  // + 0..10 ms aleatórios (evita colisões repetidas)
-// Espera máxima pelo callback de envio. Provisório: ajustar pelo tempo medido
-// até o FAIL com o coordenador desligado (passo 6).
+// Espera máxima pelo callback de envio: rede de segurança. O FAIL chegou por
+// callback em 28–50 ms em todos os testes de bancada (docs/comunicacao.md, 6.1).
 constexpr uint32_t TEMPO_LIMITE_CALLBACK_MS = 100;
 
 // ---------------------------------------------------------------- Ciclo
