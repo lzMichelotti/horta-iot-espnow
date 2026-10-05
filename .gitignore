@@ -27,5 +27,8 @@ Thumbs.db
 desktop.ini
 *:Zone.Identifier
 
+# Senhas e chaves dos firmwares (modelo versionado em segredos.exemplo.h)
+segredos.h
+
 # Diagnósticos temporários das etapas (não versionados)
 dados/*/rascunho/
