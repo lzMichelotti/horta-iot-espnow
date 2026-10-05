@@ -2,3 +2,5 @@
 #   python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
 # A gravação das placas é feita pelo PlatformIO (que traz o próprio esptool).
 pyserial==3.5
+# Gráficos dos scripts de análise (traz numpy e as demais dependências).
+matplotlib==3.11.2
