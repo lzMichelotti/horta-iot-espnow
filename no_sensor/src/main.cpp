@@ -76,6 +76,23 @@ void testeDuplicata(const protocolo::PacoteLeitura& p, const uint8_t* bytes, con
   temAnterior = true;
 }
 
+// ---------------------------------------------------------------- Fases do ciclo
+// Instantes do esp_timer (µs desde o início da aplicação) em cada fronteira.
+// O que vem antes da aplicação (ROM e bootloader) é medido pelo PC.
+enum Fase : uint8_t { SETUP, SERIAL_NVS, SENS_INICIAR, LEITURA, LIGAR, ENVIO, DESLIGAR, IMPRESSAO, NUM_FASES };
+int64_t marcas[NUM_FASES];
+void marcar(Fase f) { marcas[f] = esp_timer_get_time(); }
+
+// Tempo de Serial.flush() do ciclo anterior: acontece depois da última medição.
+RTC_DATA_ATTR uint32_t flushAntUs = 0;
+
+void imprimirFases() {
+  // Cada fase = da marca anterior até a sua (SETUP = da aplicação até o setup()).
+  Serial.printf("[FASES] %lld", marcas[SETUP]);
+  for (uint8_t f = SERIAL_NVS; f < NUM_FASES; f++) Serial.printf(",%lld", marcas[f] - marcas[f - 1]);
+  Serial.printf(",%lu,%lld\n", (unsigned long)flushAntUs, marcas[IMPRESSAO]);
+}
+
 // Dorme até completar o período do ciclo. esp_deep_sleep_start() "will flush
 // the contents of UART FIFOs" e não retorna (ESP-IDF v5.5, Sleep Modes); o
 // Serial.flush() esvazia antes o buffer do driver do Arduino.
@@ -85,16 +102,23 @@ void testeDuplicata(const protocolo::PacoteLeitura& p, const uint8_t* bytes, con
                         ? periodoUs - acordadoUs
                         : (uint64_t)config::SONO_MINIMO_MS * 1000;
   esp_sleep_enable_timer_wakeup(sonoUs);
+  int64_t t = esp_timer_get_time();
   Serial.flush();
+  flushAntUs = static_cast<uint32_t>(esp_timer_get_time() - t);
   esp_deep_sleep_start();
 }
 
 }  // namespace
 
 void setup() {
+  marcar(SETUP);
   Serial.begin(115200);
+  // Marca para o PC: (instante desta linha − instante do "rst:" da ROM) − esp_timer
+  // = tempo de ROM + bootloader, que a aplicação não enxerga.
+  Serial.printf("[T0] %lld\n", esp_timer_get_time());
   contadores::iniciar();
   if (contadores::motivoBoot() != ESP_RST_DEEPSLEEP) {
+    flushAntUs = 0;
     // Só no boot "de verdade": no despertar, o cabeçalho seria repetido a cada ciclo.
     Serial.println();
     Serial.println("[BOOT] no sensor - etapa 5");
@@ -109,27 +133,38 @@ void setup() {
     Serial.print("[ENVIO] boot,seq,ack,tentativas,ligar_us");
     for (uint8_t k = 1; k <= config::MAX_ENVIOS; k++) Serial.printf(",t%u_us", k);
     Serial.println(",envio_us,erro,tent_ant,flags,leitura_us,ciclo_us,acordado_ant_ms");
+    // Durações em µs; setup_us = da aplicação ao setup(); fim_us = esp_timer antes do flush.
+    Serial.println("[FASES] setup_us,serial_nvs_us,sens_iniciar_us,leitura_us,ligar_us,envio_us,desligar_us,"
+                   "impressao_us,flush_ant_us,fim_us");
   }
+  marcar(SERIAL_NVS);
 
   // Ordem do ciclo: ler os sensores → ligar o rádio → enviar → desligar → dormir.
   sensores::iniciar();
+  marcar(SENS_INICIAR);
   sensores::Leituras leituras = sensores::lerTodas();
   protocolo::PacoteLeitura p = montar(leituras);
   uint8_t bytes[sizeof(p)];
   memcpy(bytes, &p, sizeof(p));
+  marcar(LEITURA);
 
   envio::Resultado r;
-  if (envio::ligar(r)) {
+  bool ligado = envio::ligar(r);
+  marcar(LIGAR);
+  if (ligado) {
     envio::enviar(bytes, sizeof(bytes), r);
     testeDuplicata(p, bytes, r);
   }
+  marcar(ENVIO);
   envio::desligar();
   contadores::registrarEnvio(r.tentativas, r.ack);
+  marcar(DESLIGAR);
 
   // esp_timer conta desde o início da aplicação: o tempo de ROM e bootloader
   // antes disso não entra (medido pelo PC, docs/energia.md).
-  uint32_t acordadoUs = static_cast<uint32_t>(esp_timer_get_time());
-  imprimirEnvio(p, r, leituras.duracaoUs, acordadoUs);
+  imprimirEnvio(p, r, leituras.duracaoUs, static_cast<uint32_t>(marcas[DESLIGAR]));
+  marcar(IMPRESSAO);  // a linha [FASES] e o flush ficam de fora (flush: no próximo ciclo)
+  imprimirFases();
   contadores::registrarAcordado((static_cast<uint32_t>(esp_timer_get_time()) + 500) / 1000);
   dormir(static_cast<uint32_t>(esp_timer_get_time()));
 }
