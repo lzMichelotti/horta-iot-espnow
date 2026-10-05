@@ -1,38 +1,33 @@
-// Etapa 2 — Passo 2: teste do driver do AHT20 (temporário; o firmware de
-// leitura dos sensores é organizado no passo 6).
+// Firmware do nó sensor — Etapa 2: leitura dos sensores, ainda sem rádio.
+// A cada INTERVALO_LEITURA_MS imprime uma linha CSV com as 4 grandezas e seus
+// estados (usada pelo teste de estabilidade em ferramentas/).
 #include <Arduino.h>
-#include <Wire.h>
 
-#include "aht20.h"
-
-// Faixa do datasheet: 10 kHz a 400 kHz (4.4). O padrão do Wire é 100 kHz.
-const uint32_t CLOCK_I2C_HZ = 100000;
-// Intervalo ≥ 1 s para limitar o autoaquecimento a 0,1 °C (datasheet 4.4).
-const uint32_t INTERVALO_MS = 2000;
-
-uint32_t total = 0, ok = 0, falhas = 0;
+#include "config.h"
+#include "sensores.h"
 
 void setup() {
   Serial.begin(115200);
   delay(200);
   Serial.println();
-  Serial.println("[BOOT] teste AHT20");
-
-  Wire.begin(SDA, SCL, CLOCK_I2C_HZ);
-  aht20::Estado e = aht20::iniciar();
-  Serial.printf("[AHT20] iniciar: %s\n", aht20::nomeEstado(e));
+  Serial.println("[BOOT] no sensor - etapa 2");
+  sensores::iniciar();
+  Serial.println("[CSV] t_ms,temp_c,temp_estado,ur_pct,ur_estado,solo_mv,solo_mv_estado,"
+                 "solo_pct,solo_pct_estado,alim_mv,alim_estado,aht20_extras,leitura_us");
 }
 
 void loop() {
-  aht20::Leitura l{};
-  aht20::Estado e = aht20::ler(l);
-  total++;
-  if (e == aht20::Estado::OK) ok++; else falhas++;
+  static uint32_t proxima = 0;
+  if ((int32_t)(millis() - proxima) < 0) return;
+  proxima = millis() + config::INTERVALO_LEITURA_MS;
 
-  Serial.printf("[AHT20] bytes=%02X %02X %02X %02X %02X %02X %02X crc_calc=%02X conv=%lu ms "
-                "extras=%u estado=%s T=%.2f C UR=%.2f %% (ok %lu/%lu)\n",
-                l.bruto[0], l.bruto[1], l.bruto[2], l.bruto[3], l.bruto[4], l.bruto[5], l.bruto[6],
-                aht20::crc8(l.bruto, 6), l.conversaoMs, l.tentativasExtras, aht20::nomeEstado(e),
-                l.temperaturaC, l.umidadePct, ok, total);
-  delay(INTERVALO_MS);
+  uint32_t t = millis();
+  sensores::Leituras r = sensores::lerTodas();
+  Serial.printf("[CSV] %lu,%.2f,%s,%.2f,%s,%.1f,%s,%.1f,%s,%.0f,%s,%u,%lu\n", t,
+                r.temperaturaC.valor, sensores::nomeEstado(r.temperaturaC.estado),
+                r.umidadeArPct.valor, sensores::nomeEstado(r.umidadeArPct.estado),
+                r.soloMv.valor, sensores::nomeEstado(r.soloMv.estado),
+                r.soloPct.valor, sensores::nomeEstado(r.soloPct.estado),
+                r.alimentacaoMv.valor, sensores::nomeEstado(r.alimentacaoMv.estado),
+                r.aht20Extras, r.duracaoUs);
 }
