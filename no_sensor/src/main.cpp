@@ -104,9 +104,11 @@ void imprimirFases() {
                         ? periodoUs - acordadoUs
                         : (uint64_t)config::SONO_MINIMO_MS * 1000;
   esp_sleep_enable_timer_wakeup(sonoUs);
-  int64_t t = esp_timer_get_time();
-  Serial.flush();
-  flushAntUs = static_cast<uint32_t>(esp_timer_get_time() - t);
+  if (config::LOGS) {
+    int64_t t = esp_timer_get_time();
+    Serial.flush();
+    flushAntUs = static_cast<uint32_t>(esp_timer_get_time() - t);
+  }
   esp_deep_sleep_start();
 }
 
@@ -117,13 +119,15 @@ void setup() {
   // Sensores ligados antes de tudo: as esperas de energização (AHT20, 100 ms)
   // e de estabilização (solo, 500 ms) começam a contar já.
   energia::ligarSensores(esp_reset_reason() == ESP_RST_DEEPSLEEP);
-  Serial.begin(115200);
-  // Marca para o PC: (instante desta linha − instante do "rst:" da ROM) − esp_timer
-  // = tempo de ROM + bootloader, que a aplicação não enxerga.
-  Serial.printf("[T0] %lld\n", esp_timer_get_time());
+  if (config::LOGS) {
+    Serial.begin(115200);
+    // Marca para o PC: (instante desta linha − instante do "rst:" da ROM) − esp_timer
+    // = tempo de ROM + bootloader, que a aplicação não enxerga.
+    Serial.printf("[T0] %lld\n", esp_timer_get_time());
+  }
   contadores::iniciar();
-  if (contadores::motivoBoot() != ESP_RST_DEEPSLEEP) {
-    flushAntUs = 0;
+  if (contadores::motivoBoot() != ESP_RST_DEEPSLEEP) flushAntUs = 0;
+  if (config::LOGS && contadores::motivoBoot() != ESP_RST_DEEPSLEEP) {
     // Só no boot "de verdade": no despertar, o cabeçalho seria repetido a cada ciclo.
     Serial.println();
     Serial.println("[BOOT] no sensor - etapa 5");
@@ -169,9 +173,9 @@ void setup() {
 
   // esp_timer conta desde o início da aplicação: o tempo de ROM e bootloader
   // antes disso não entra (medido pelo PC, docs/energia.md).
-  imprimirEnvio(p, r, leituras.duracaoUs, static_cast<uint32_t>(marcas[DESLIGAR]));
+  if (config::LOGS) imprimirEnvio(p, r, leituras.duracaoUs, static_cast<uint32_t>(marcas[DESLIGAR]));
   marcar(IMPRESSAO);  // a linha [FASES] e o flush ficam de fora (flush: no próximo ciclo)
-  imprimirFases();
+  if (config::LOGS) imprimirFases();
   contadores::registrarAcordado((static_cast<uint32_t>(esp_timer_get_time()) + 500) / 1000);
   dormir(static_cast<uint32_t>(esp_timer_get_time()));
 }

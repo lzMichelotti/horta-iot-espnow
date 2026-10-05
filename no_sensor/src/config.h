@@ -84,6 +84,16 @@ constexpr uint32_t TEMPO_LIMITE_CALLBACK_MS = 100;
 constexpr uint32_t PERIODO_CICLO_MS = 10000;
 constexpr uint32_t SONO_MINIMO_MS = 1000;  // se o ciclo passar do período, dorme ao menos isto
 
+// ---------------------------------------------------------------- Logs na serial
+// Build de produção (env producao, -D PRODUCAO): sem Serial.begin, sem linhas
+// [T0]/[ENVIO]/[FASES] e sem esperar a serial esvaziar antes do sono. O tempo
+// acordado continua visível no coordenador pelo campo acordado_ant_ms.
+#ifdef PRODUCAO
+constexpr bool LOGS = false;
+#else
+constexpr bool LOGS = true;
+#endif
+
 // ---------------------------------------------------------------- Modos de teste (Etapa 4)
 // Teste de duplicata (env teste_duplicata): a cada N ciclos, depois do envio
 // normal, reenvia o MESMO pacote (o coordenador deve classificá-lo como
