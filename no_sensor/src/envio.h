@@ -24,7 +24,7 @@ bool ligar(Resultado& r);
 // Envia `dados` ao coordenador com até MAX_ENVIOS tentativas.
 void enviar(const uint8_t* dados, size_t tamanho, Resultado& r);
 
-// esp_now_deinit + Wi-Fi desligado (simula o rádio apagado do deep sleep).
+// Desliga o rádio (esp_wifi_stop) antes do deep sleep.
 void desligar();
 
 }  // namespace envio

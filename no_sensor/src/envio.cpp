@@ -2,6 +2,7 @@
 
 #include <WiFi.h>
 #include <esp_now.h>
+#include <esp_wifi.h>
 #include <esp_random.h>
 #include <esp_timer.h>
 #include <freertos/FreeRTOS.h>
@@ -92,8 +93,10 @@ void enviar(const uint8_t* dados, size_t tamanho, Resultado& r) {
 }
 
 void desligar() {
-  esp_now_deinit();
-  WiFi.mode(WIFI_OFF);  // esp_wifi_stop + esp_wifi_deinit (WiFiGeneric.cpp, núcleo 3.3.12)
+  // Antes do deep sleep, "the application must disable Wi-Fi [...] using [...]
+  // esp_wifi_stop()" (ESP-IDF v5.5, Sleep Modes). esp_now_deinit e
+  // esp_wifi_deinit só liberariam memória que o deep sleep apaga de qualquer forma.
+  esp_wifi_stop();
 }
 
 }  // namespace envio
