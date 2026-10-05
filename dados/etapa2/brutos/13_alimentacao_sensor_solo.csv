@@ -1,0 +1,7 @@
+condicao,alimentacao_mv,solo_mv,origem
+VIN (USB),5109,684,"divisor 2558 mV / 0,5007; 30/09, solo regado"
+3V3 da placa,3387,654.5,"V1+V2 do teste de troca; solo = média de 65 s antes da troca; 30/09"
+GPIO25 drive 3,3296,533.0,"média das 2 rodadas do teste de drive strength; 30/09"
+GPIO25 drive 2,3229,422.4,"idem"
+GPIO25 drive 1,3085,172.4,"idem"
+GPIO25 drive 0,2885,142.9,"idem (piso do ADC: sem sinal)"

@@ -26,3 +26,6 @@ ferramentas/firmware/*.bin
 Thumbs.db
 desktop.ini
 *:Zone.Identifier
+
+# Diagnósticos temporários das etapas (não versionados)
+dados/*/rascunho/
