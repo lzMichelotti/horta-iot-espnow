@@ -28,9 +28,10 @@ O MAC AP é sempre o STA + 1: o ESP32 tem um MAC base gravado em eFuse na fábri
 | AHT20 | SCL | D22 | 22 | Pino SCL padrão do `Wire` na variante da placa |
 | AHT20 | VCC / GND | 3V3 / GND | — | |
 | Solo capacitivo V1.2 | AOUT | D34 | 34 | ADC1_CH6, só entrada (funciona com Wi-Fi ligado) |
-| Solo capacitivo V1.2 | VCC / GND | 3V3 / GND | — | |
+| Solo capacitivo V1.2 | VCC / GND | 3V3 / GND | — | precisa de alimentação regulada |
+| Divisor 100k/100k | ponto médio | D35 | 35 | ADC1_CH7; hoje mede o 3V3, na etapa 5 mede a bateria |
 
-Nenhum sensor usa pinos de strapping (0, 2, 5, 12, 15), ADC2 ou os pinos da flash (6–11).
+Nenhum sensor usa pinos de strapping (0, 2, 5, 12, 15), ADC2 ou os pinos da flash (6–11). Esquema completo e cuidados de montagem em [`pinagem.md`](pinagem.md).
 
 ## Hardware da placa
 
