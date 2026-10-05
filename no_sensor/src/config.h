@@ -42,7 +42,24 @@ constexpr float TEMP_MAX_C = 85.0f;
 constexpr float UR_MIN_PCT = 0.0f;         // AHT20, tabela 1
 constexpr float UR_MAX_PCT = 100.0f;
 
+// ---------------------------------------------------------------- ESP-NOW
+// Mesmo canal do SoftAP do coordenador (coordenador/src/config.h): o ESP-NOW
+// transmite no canal da interface, e o nó (STA sem associação) fica nele.
+constexpr uint8_t CANAL_WIFI = 1;
+// Destino: MAC da interface AP do coordenador (docs/placas.md, placa COORD).
+constexpr uint8_t MAC_COORDENADOR[6] = {0x88, 0x57, 0x21, 0x70, 0x91, 0xFD};
+
+// Retransmissão na aplicação (docs/comunicacao.md). A camada MAC já repete o
+// quadro antes de reportar FAIL; estas tentativas cobrem falhas mais longas.
+constexpr uint8_t MAX_ENVIOS = 3;                    // 1 envio + 2 retransmissões
+constexpr uint32_t BACKOFF_MS[MAX_ENVIOS - 1] = {10, 30};  // espera antes da 2ª e da 3ª
+constexpr uint32_t SORTEIO_MS = 10;                  // + 0..10 ms aleatórios (evita colisões repetidas)
+// Espera máxima pelo callback de envio. Provisório: ajustar pelo tempo medido
+// até o FAIL com o coordenador desligado (passo 6).
+constexpr uint32_t TEMPO_LIMITE_CALLBACK_MS = 100;
+
 // ---------------------------------------------------------------- Ciclo
+// Sem deep sleep ainda (etapa 5): o loop() simula o ciclo, desligando o Wi-Fi entre envios.
 constexpr uint32_t INTERVALO_LEITURA_MS = 2000;
 
 }  // namespace config

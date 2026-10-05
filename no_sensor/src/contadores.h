@@ -16,4 +16,10 @@ uint8_t motivoBoot();  // esp_reset_reason()
 // Devolve o seq do próximo pacote e avança o contador (0 é o primeiro do boot).
 uint32_t proximoSeq();
 
+// Resultado do envio do pacote atual, para o campo tentativas_ant e o bit
+// ANTERIOR_SEM_ACK do próximo pacote (RAM do RTC; 0 depois de ligar).
+void registrarEnvio(uint8_t tentativas, bool ack);
+uint8_t tentativasAnt();
+bool anteriorSemAck();
+
 }  // namespace contadores

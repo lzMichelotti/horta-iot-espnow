@@ -12,6 +12,8 @@ namespace {
 // (esp_attr.h, ESP-IDF 5.5); em qualquer outro reset volta ao valor inicial.
 RTC_DATA_ATTR uint32_t seqRtc = 0;
 RTC_DATA_ATTR uint16_t bootRtc = 0;
+RTC_DATA_ATTR uint8_t tentativasAntRtc = 0;  // 0 = desconhecido
+RTC_DATA_ATTR bool semAckAntRtc = false;
 
 uint8_t motivo = 0;
 
@@ -34,6 +36,8 @@ void iniciar() {
   nvs.putUShort(NVS_CHAVE_BOOT, bootRtc);
   nvs.end();
   seqRtc = 0;
+  tentativasAntRtc = 0;
+  semAckAntRtc = false;
 }
 
 uint16_t boot() { return bootRtc; }
@@ -41,5 +45,14 @@ uint16_t boot() { return bootRtc; }
 uint8_t motivoBoot() { return motivo; }
 
 uint32_t proximoSeq() { return seqRtc++; }
+
+void registrarEnvio(uint8_t tentativas, bool ack) {
+  tentativasAntRtc = tentativas;
+  semAckAntRtc = !ack;
+}
+
+uint8_t tentativasAnt() { return tentativasAntRtc; }
+
+bool anteriorSemAck() { return semAckAntRtc; }
 
 }  // namespace contadores

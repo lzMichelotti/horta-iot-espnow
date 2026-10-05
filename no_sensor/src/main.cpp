@@ -1,12 +1,15 @@
-// Firmware do nó sensor — Etapa 3: leitura dos sensores e montagem do pacote,
-// ainda sem rádio. A cada INTERVALO_LEITURA_MS imprime a linha CSV das
-// leituras e o pacote montado em hexadecimal (para conferir com docs/protocolo.md).
+// Firmware do nó sensor — Etapa 4: envio do PacoteLeitura por ESP-NOW ao
+// coordenador, com espera pelo ACK da camada MAC e retransmissão.
+// Ainda sem deep sleep (etapa 5): o loop() simula o ciclo a cada INTERVALO_LEITURA_MS,
+// ligando o Wi-Fi do zero e desligando-o depois do envio.
 #include <Arduino.h>
+#include <esp_timer.h>
 
 #include <protocolo.h>
 
 #include "config.h"
 #include "contadores.h"
+#include "envio.h"
 #include "sensores.h"
 
 namespace {
@@ -34,25 +37,22 @@ protocolo::PacoteLeitura montar(const sensores::Leituras& r) {
   d.estadoAlimentacao = converter(r.alimentacaoMv.estado);
   d.motivoBoot = contadores::motivoBoot();
   d.acordadoAntMs = 0;  // sem deep sleep ainda (etapa 5): desconhecido
-  d.tentativasAnt = 0;  // sem rádio ainda (etapa 4): desconhecido
-  d.flags = r.aht20Extras > 0 ? protocolo::flag::AHT20_NOVA_TENTATIVA : 0;
+  d.tentativasAnt = contadores::tentativasAnt();
+  d.flags = (r.aht20Extras > 0 ? protocolo::flag::AHT20_NOVA_TENTATIVA : 0) |
+            (contadores::anteriorSemAck() ? protocolo::flag::ANTERIOR_SEM_ACK : 0);
   return protocolo::montarLeitura(d);
 }
 
-void imprimirPacote(const protocolo::PacoteLeitura& p) {
-  uint8_t bytes[sizeof(p)];
-  memcpy(bytes, &p, sizeof(p));
-  Serial.printf("[PKT] %u bytes:", (unsigned)sizeof(p));
-  for (uint8_t b : bytes) Serial.printf(" %02X", b);
-  Serial.println();
-
-  // Autoverificação: o pacote montado tem de passar na validação do coordenador.
-  protocolo::PacoteLeitura v;
-  protocolo::Rejeicao rej = protocolo::validar(bytes, sizeof(bytes), v);
-  Serial.printf("[PKT] boot=%u seq=%lu T=%d UR=%u solo=%u mV alim=%u mV estados=0x%02X "
-                "motivo_boot=%u flags=0x%02X validacao=%s\n",
-                v.boot, (unsigned long)v.seq, v.temperatura_c100, v.umidade_ar_c100, v.solo_mv,
-                v.alimentacao_mv, v.estados, v.motivo_boot, v.flags, protocolo::nomeRejeicao(rej));
+void imprimirEnvio(const protocolo::PacoteLeitura& p, const envio::Resultado& r, uint32_t leituraUs,
+                   uint32_t cicloUs) {
+  Serial.printf("[ENVIO] %u,%lu,%u,%u,%lu", p.boot, (unsigned long)p.seq, r.ack, r.tentativas,
+                (unsigned long)r.ligarUs);
+  for (uint8_t k = 0; k < config::MAX_ENVIOS; k++)
+    if (k < r.tentativas) Serial.printf(",%ld", (long)r.tentativaUs[k]);
+    else Serial.print(",");
+  Serial.printf(",%lu,%s,%u,%u,%lu,%lu\n", (unsigned long)r.totalUs,
+                r.ultimoErro == ESP_OK ? "" : esp_err_to_name(r.ultimoErro), p.tentativas_ant, p.flags,
+                (unsigned long)leituraUs, (unsigned long)cicloUs);
 }
 
 }  // namespace
@@ -61,13 +61,16 @@ void setup() {
   Serial.begin(115200);
   delay(200);
   Serial.println();
-  Serial.println("[BOOT] no sensor - etapa 3");
+  Serial.println("[BOOT] no sensor - etapa 4");
   contadores::iniciar();
-  Serial.printf("[BOOT] boot=%u motivo=%u protocolo v%u (%u bytes)\n", contadores::boot(),
-                contadores::motivoBoot(), protocolo::VERSAO, (unsigned)sizeof(protocolo::PacoteLeitura));
+  Serial.printf("[BOOT] boot=%u motivo=%u protocolo v%u (%u bytes) canal=%u destino=" MACSTR "\n",
+                contadores::boot(), contadores::motivoBoot(), protocolo::VERSAO,
+                (unsigned)sizeof(protocolo::PacoteLeitura), config::CANAL_WIFI, MAC2STR(config::MAC_COORDENADOR));
   sensores::iniciar();
-  Serial.println("[CSV] t_ms,temp_c,temp_estado,ur_pct,ur_estado,solo_mv,solo_mv_estado,"
-                 "solo_pct,solo_pct_estado,alim_mv,alim_estado,aht20_extras,leitura_us");
+  // t1..tN: µs do esp_now_send ao callback em cada tentativa (−1 = sem callback no prazo).
+  Serial.print("[ENVIO] boot,seq,ack,tentativas,ligar_us");
+  for (uint8_t k = 1; k <= config::MAX_ENVIOS; k++) Serial.printf(",t%u_us", k);
+  Serial.println(",envio_us,erro,tent_ant,flags,leitura_us,ciclo_us");
 }
 
 void loop() {
@@ -75,14 +78,17 @@ void loop() {
   if ((int32_t)(millis() - proxima) < 0) return;
   proxima = millis() + config::INTERVALO_LEITURA_MS;
 
-  uint32_t t = millis();
-  sensores::Leituras r = sensores::lerTodas();
-  Serial.printf("[CSV] %lu,%.2f,%s,%.2f,%s,%.1f,%s,%.1f,%s,%.0f,%s,%u,%lu\n", t,
-                r.temperaturaC.valor, sensores::nomeEstado(r.temperaturaC.estado),
-                r.umidadeArPct.valor, sensores::nomeEstado(r.umidadeArPct.estado),
-                r.soloMv.valor, sensores::nomeEstado(r.soloMv.estado),
-                r.soloPct.valor, sensores::nomeEstado(r.soloPct.estado),
-                r.alimentacaoMv.valor, sensores::nomeEstado(r.alimentacaoMv.estado),
-                r.aht20Extras, r.duracaoUs);
-  imprimirPacote(montar(r));
+  // Ordem do ciclo real: ler os sensores → ligar o rádio → enviar → desligar.
+  int64_t inicio = esp_timer_get_time();
+  sensores::Leituras leituras = sensores::lerTodas();
+  protocolo::PacoteLeitura p = montar(leituras);
+  uint8_t bytes[sizeof(p)];
+  memcpy(bytes, &p, sizeof(p));
+
+  envio::Resultado r;
+  if (envio::ligar(r)) envio::enviar(bytes, sizeof(bytes), r);
+  envio::desligar();
+  contadores::registrarEnvio(r.tentativas, r.ack);
+
+  imprimirEnvio(p, r, leituras.duracaoUs, static_cast<uint32_t>(esp_timer_get_time() - inicio));
 }
