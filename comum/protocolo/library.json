@@ -1,0 +1,7 @@
+{
+  "name": "protocolo",
+  "version": "1.0.0",
+  "description": "Pacote de aplicação entre nó sensor e coordenador (horta-iot-espnow). C++ puro: compila no ESP32 e no PC (testes nativos).",
+  "frameworks": "*",
+  "platforms": "*"
+}

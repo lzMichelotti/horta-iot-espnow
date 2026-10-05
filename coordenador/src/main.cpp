@@ -3,6 +3,8 @@
 #include <Arduino.h>
 #include <esp_mac.h>
 
+#include <protocolo.h>
+
 const uint8_t PINO_LED = LED_BUILTIN;  // GPIO2, LED azul (acende em nível alto)
 const uint32_t INTERVALO_MS = 500;
 
@@ -24,6 +26,8 @@ void setup() {
   Serial.println("[BOOT] coordenador");
   imprimirMac("STA", ESP_MAC_WIFI_STA);
   imprimirMac("AP ", ESP_MAC_WIFI_SOFTAP);
+  Serial.printf("[PROTO] versao %u, PacoteLeitura com %u bytes\n", protocolo::VERSAO,
+                (unsigned)sizeof(protocolo::PacoteLeitura));
 }
 
 void loop() {
