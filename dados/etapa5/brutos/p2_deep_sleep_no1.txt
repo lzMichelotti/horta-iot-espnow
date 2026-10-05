@@ -1,0 +1,92 @@
+    0.016 ets Jul 29 2019 12:21:46
+    0.016 
+    0.018 rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+    0.018 configsip: 0, SPIWP:0xee
+    0.028 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+    0.028 mode:DIO, clock div:2
+    0.029 load:0x3fff0030,len:4640
+    0.030 load:0x40078000,len:15632
+    0.031 load:0x40080400,len:3164
+    0.031 entry 0x4008059c
+    0.423 
+    0.423 [BOOT] no sensor - etapa 5
+    0.434 [BOOT] boot=18 motivo=1 protocolo v1 (22 bytes) canal=1 destino=88:57:21:70:91:fd periodo=10000 ms
+    0.434 [ENVIO] boot,seq,ack,tentativas,ligar_us,t1_us,t2_us,t3_us,envio_us,erro,tent_ant,flags,leitura_us,ciclo_us,acordado_ant_ms
+    0.931 [ENVIO] 18,0,0,3,147264,47612,40419,35090,172765,,0,0,99986,531712,0
+   10.206 ets Jul 29 2019 12:21:46
+   10.206 
+   10.206 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   10.206 configsip: 0, SPIWP:0xee
+   10.217 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   10.217 mode:DIO, clock div:2
+   10.217 load:0x3fff0030,len:4640
+   10.221 load:0x40078000,len:15632
+   10.221 load:0x40080400,len:3164
+   10.222 entry 0x4008059c
+   10.500 [ENVIO] 18,1,1,1,31317,3409,,,3449,,3,2,99977,245693,532
+   20.177 ets Jul 29 2019 12:21:46
+   20.177 
+   20.177 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   20.178 configsip: 0, SPIWP:0xee
+   20.189 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   20.189 mode:DIO, clock div:2
+   20.189 load:0x3fff0030,len:4640
+   20.193 load:0x40078000,len:15632
+   20.193 load:0x40080400,len:3164
+   20.193 entry 0x4008059c
+   20.474 [ENVIO] 18,2,1,1,31289,4394,,,4434,,1,0,99977,246690,246
+   30.195 ets Jul 29 2019 12:21:46
+   30.195 
+   30.195 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   30.195 configsip: 0, SPIWP:0xee
+   30.206 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   30.206 mode:DIO, clock div:2
+   30.206 load:0x3fff0030,len:4640
+   30.210 load:0x40078000,len:15632
+   30.210 load:0x40080400,len:3164
+   30.210 entry 0x4008059c
+   30.492 [ENVIO] 18,3,1,1,31295,3360,,,3400,,1,0,99970,245693,247
+   40.147 ets Jul 29 2019 12:21:46
+   40.147 
+   40.147 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   40.147 configsip: 0, SPIWP:0xee
+   40.158 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   40.158 mode:DIO, clock div:2
+   40.158 load:0x3fff0030,len:4640
+   40.162 load:0x40078000,len:15632
+   40.162 load:0x40080400,len:3164
+   40.162 entry 0x4008059c
+   40.440 [ENVIO] 18,4,1,1,31288,3427,,,3467,,1,0,99977,245691,246
+   50.111 ets Jul 29 2019 12:21:46
+   50.111 
+   50.111 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   50.111 configsip: 0, SPIWP:0xee
+   50.122 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   50.122 mode:DIO, clock div:2
+   50.123 load:0x3fff0030,len:4640
+   50.127 load:0x40078000,len:15632
+   50.127 load:0x40080400,len:3164
+   50.127 entry 0x4008059c
+   50.407 [ENVIO] 18,5,1,1,31323,3340,,,3381,,1,0,99968,245689,246
+   60.132 ets Jul 29 2019 12:21:46
+   60.132 
+   60.133 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   60.133 configsip: 0, SPIWP:0xee
+   60.144 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   60.144 mode:DIO, clock div:2
+   60.144 load:0x3fff0030,len:4640
+   60.148 load:0x40078000,len:15632
+   60.148 load:0x40080400,len:3164
+   60.148 entry 0x4008059c
+   60.432 [ENVIO] 18,6,1,1,31294,6270,,,6310,,1,0,99968,248689,246
+   70.110 ets Jul 29 2019 12:21:46
+   70.110 
+   70.110 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   70.110 configsip: 0, SPIWP:0xee
+   70.121 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   70.121 mode:DIO, clock div:2
+   70.121 load:0x3fff0030,len:4640
+   70.125 load:0x40078000,len:15632
+   70.125 load:0x40080400,len:3164
+   70.125 entry 0x4008059c
+   70.403 [ENVIO] 18,7,1,1,31295,3642,,,3682,,1,0,99969,246686,249

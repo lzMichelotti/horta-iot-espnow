@@ -62,9 +62,12 @@ constexpr uint32_t SORTEIO_MS = 10;                  // + 0..10 ms aleatórios (
 // callback em 28–50 ms em todos os testes de bancada (docs/comunicacao.md, 6.1).
 constexpr uint32_t TEMPO_LIMITE_CALLBACK_MS = 100;
 
-// ---------------------------------------------------------------- Ciclo
-// Sem deep sleep ainda (etapa 5): o loop() simula o ciclo, desligando o Wi-Fi entre envios.
-constexpr uint32_t INTERVALO_LEITURA_MS = 2000;
+// ---------------------------------------------------------------- Ciclo (deep sleep)
+// Período entre pacotes: o nó dorme (período − tempo acordado), então o
+// intervalo não acumula o tempo acordado. PROVISÓRIO (10 s) para os testes de
+// bancada; o intervalo de operação é decisão do passo 6 da Etapa 5.
+constexpr uint32_t PERIODO_CICLO_MS = 10000;
+constexpr uint32_t SONO_MINIMO_MS = 1000;  // se o ciclo passar do período, dorme ao menos isto
 
 // ---------------------------------------------------------------- Modos de teste (Etapa 4)
 // Teste de duplicata (env teste_duplicata): a cada N ciclos, depois do envio

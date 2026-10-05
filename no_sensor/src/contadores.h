@@ -22,4 +22,9 @@ void registrarEnvio(uint8_t tentativas, bool ack);
 uint8_t tentativasAnt();
 bool anteriorSemAck();
 
+// Tempo acordado do ciclo atual (ms, da aplicação ao início do sono), para o
+// campo acordado_ant_ms do próximo pacote (RAM do RTC; 0 depois de ligar).
+void registrarAcordado(uint32_t ms);
+uint16_t acordadoAnt();
+
 }  // namespace contadores

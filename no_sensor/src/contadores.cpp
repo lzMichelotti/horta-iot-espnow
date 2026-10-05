@@ -14,6 +14,7 @@ RTC_DATA_ATTR uint32_t seqRtc = 0;
 RTC_DATA_ATTR uint16_t bootRtc = 0;
 RTC_DATA_ATTR uint8_t tentativasAntRtc = 0;  // 0 = desconhecido
 RTC_DATA_ATTR bool semAckAntRtc = false;
+RTC_DATA_ATTR uint16_t acordadoAntRtc = 0;   // 0 = desconhecido
 
 uint8_t motivo = 0;
 
@@ -38,6 +39,7 @@ void iniciar() {
   seqRtc = 0;
   tentativasAntRtc = 0;
   semAckAntRtc = false;
+  acordadoAntRtc = 0;
 }
 
 uint16_t boot() { return bootRtc; }
@@ -54,5 +56,9 @@ void registrarEnvio(uint8_t tentativas, bool ack) {
 uint8_t tentativasAnt() { return tentativasAntRtc; }
 
 bool anteriorSemAck() { return semAckAntRtc; }
+
+void registrarAcordado(uint32_t ms) { acordadoAntRtc = ms > UINT16_MAX ? UINT16_MAX : static_cast<uint16_t>(ms); }
+
+uint16_t acordadoAnt() { return acordadoAntRtc; }
 
 }  // namespace contadores
