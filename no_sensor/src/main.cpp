@@ -66,6 +66,8 @@ void setup() {
   Serial.printf("[BOOT] boot=%u motivo=%u protocolo v%u (%u bytes) canal=%u destino=" MACSTR "\n",
                 contadores::boot(), contadores::motivoBoot(), protocolo::VERSAO,
                 (unsigned)sizeof(protocolo::PacoteLeitura), config::CANAL_WIFI, MAC2STR(config::MAC_COORDENADOR));
+  if (config::TESTE_DUPLICATA_A_CADA > 0)
+    Serial.printf("[BOOT] MODO DE TESTE: duplicata a cada %lu ciclos\n", (unsigned long)config::TESTE_DUPLICATA_A_CADA);
   sensores::iniciar();
   // t1..tN: µs do esp_now_send ao callback em cada tentativa (−1 = sem callback no prazo).
   Serial.print("[ENVIO] boot,seq,ack,tentativas,ligar_us");
@@ -86,7 +88,24 @@ void loop() {
   memcpy(bytes, &p, sizeof(p));
 
   envio::Resultado r;
-  if (envio::ligar(r)) envio::enviar(bytes, sizeof(bytes), r);
+  bool ligado = envio::ligar(r);
+  if (ligado) envio::enviar(bytes, sizeof(bytes), r);
+
+  // Modo de teste de duplicata: reenvia o pacote atual e o do ciclo anterior.
+  static uint8_t anterior[sizeof(bytes)];
+  static bool temAnterior = false;
+  if (config::TESTE_DUPLICATA_A_CADA > 0 && ligado && r.ack &&
+      p.seq % config::TESTE_DUPLICATA_A_CADA == config::TESTE_DUPLICATA_A_CADA - 1) {
+    envio::Resultado dup, ant;
+    envio::enviar(bytes, sizeof(bytes), dup);
+    Serial.printf("[TESTE] reenvio do seq %lu (duplicado): ack=%u\n", (unsigned long)p.seq, dup.ack);
+    if (temAnterior) {
+      envio::enviar(anterior, sizeof(anterior), ant);
+      Serial.printf("[TESTE] reenvio do seq %lu (antigo): ack=%u\n", (unsigned long)(p.seq - 1), ant.ack);
+    }
+  }
+  memcpy(anterior, bytes, sizeof(bytes));
+  temAnterior = true;
   envio::desligar();
   contadores::registrarEnvio(r.tentativas, r.ack);
 

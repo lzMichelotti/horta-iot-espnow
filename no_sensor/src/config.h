@@ -45,7 +45,11 @@ constexpr float UR_MAX_PCT = 100.0f;
 // ---------------------------------------------------------------- ESP-NOW
 // Mesmo canal do SoftAP do coordenador (coordenador/src/config.h): o ESP-NOW
 // transmite no canal da interface, e o nó (STA sem associação) fica nele.
+#ifdef TESTE_CANAL_WIFI  // teste de canal errado (env teste_canal* do platformio.ini)
+constexpr uint8_t CANAL_WIFI = TESTE_CANAL_WIFI;
+#else
 constexpr uint8_t CANAL_WIFI = 1;
+#endif
 // Destino: MAC da interface AP do coordenador (docs/placas.md, placa COORD).
 constexpr uint8_t MAC_COORDENADOR[6] = {0x88, 0x57, 0x21, 0x70, 0x91, 0xFD};
 
@@ -61,5 +65,15 @@ constexpr uint32_t TEMPO_LIMITE_CALLBACK_MS = 100;
 // ---------------------------------------------------------------- Ciclo
 // Sem deep sleep ainda (etapa 5): o loop() simula o ciclo, desligando o Wi-Fi entre envios.
 constexpr uint32_t INTERVALO_LEITURA_MS = 2000;
+
+// ---------------------------------------------------------------- Modos de teste (Etapa 4)
+// Teste de duplicata (env teste_duplicata): a cada N ciclos, depois do envio
+// normal, reenvia o MESMO pacote (o coordenador deve classificá-lo como
+// "duplicado") e o pacote do ciclo anterior ("antigo"). 0 = desligado.
+#ifdef TESTE_DUPLICATA
+constexpr uint32_t TESTE_DUPLICATA_A_CADA = TESTE_DUPLICATA;
+#else
+constexpr uint32_t TESTE_DUPLICATA_A_CADA = 0;
+#endif
 
 }  // namespace config
