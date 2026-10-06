@@ -1,0 +1,192 @@
+1791304261.013 # abrir
+1791304261.028 < ets Jul 29 2019 12:21:46
+1791304261.028 < 
+1791304261.028 < rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+1791304261.028 < configsip: 0, SPIWP:0xee
+1791304261.039 < clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+1791304261.039 < mode:DIO, clock div:2
+1791304261.039 < load:0x3fff0030,len:4640
+1791304261.043 < load:0x40078000,len:15632
+1791304261.043 < load:0x40080400,len:3164
+1791304261.043 < entry 0x4008059c
+1791304261.613 < 
+1791304261.614 < [BOOT] coordenador - etapa 7
+1791304261.627 < [RELOGIO] boot 11, motivo do reset 1
+1791304261.627 < [RELOGIO] utc=invalida epoch=0 valida=0 fonte=nenhuma boot=11 desde_boot_ms=222
+1791304261.638 < [PART] nome,tipo,subtipo,endereco,tamanho_kb
+1791304261.638 < [PART] nvs,1,0x02,0x009000,20
+1791304261.638 < [PART] otadata,1,0x00,0x00e000,8
+1791304261.649 < [PART] app0,0,0x00,0x010000,2048
+1791304261.649 < [PART] littlefs,1,0x83,0x210000,1920
+1791304261.649 < [PART] coredump,1,0x03,0x3f0000,64
+1791304261.649 < [MAC] STA 88:57:21:70:91:fc
+1791304261.651 < [MAC] AP  88:57:21:70:91:fd
+1791304261.652 < [BOOT] protocolo v1 (22 bytes)
+1791304261.673 < E (252) esp_littlefs: ./managed_components/joltwallet__littlefs/src/littlefs/lfs.c:1383:error: Corrupted dir pair at {0x0, 0x1}
+1791304261.673 < 
+1791304261.673 < E (253) esp_littlefs: mount failed,  (-84)
+1791304261.674 < E (257) esp_littlefs: Failed to initialize LittleFS
+1791304261.677 < [   267][E][LittleFS.cpp:79] begin(): Mounting LittleFS failed! Error: -1
+1791304261.688 < [FS] ERRO: LittleFS nao montou (particao vazia ou corrompida). Historico desligado; 'fs formatar' formata e monta.
+1791304261.769 < [WIFI] varrendo canais...
+1791304265.737 < [WIFI] varredura: 22 redes em 4004 ms
+1791304265.781 < [WIFI] canal  1: 4 no canal, 6 sobrepostas, mais forte -58 dBm
+1791304265.791 < [WIFI] canal  6: 0 no canal, 11 sobrepostas, mais forte -27 dBm
+1791304265.792 < [WIFI] canal 11: 7 no canal, 5 sobrepostas, mais forte -27 dBm
+1791304265.992 < [WIFI] SoftAP "horta-coord" canal 1, MAC AP 88:57:21:70:91:FD, IP 192.168.4.1
+1791304266.003 < [ESPNOW] pronto: versao 2, fila de 16 itens (272 bytes cada)
+1791304266.014 < [CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags
+1791304266.018 < [RESUMO] t_ms,mac,nome,recebidos,rejeitados,aceitos,perdidos,descartados,reinicios,sem_ack,entrega_pct,rssi_medio,rssi_min,rssi_max
+1791304266.018 > fs
+1791304266.117 < [FS] nao montado
+1791304267.118 > fs formatar
+1791304267.233 < [FS] formatando a particao (apaga todo o historico)...
+1791304267.234 < E (5869) esp_littlefs: ./managed_components/joltwallet__littlefs/src/littlefs/lfs.c:1383:error: Corrupted dir pair at {0x0, 0x1}
+1791304267.234 < 
+1791304267.234 < E (5873) esp_littlefs: mount failed,  (-84)
+1791304267.235 < E (5877) esp_littlefs: Failed to initialize LittleFS
+1791304267.236 < [  5887][E][LittleFS.cpp:79] begin(): Mounting LittleFS failed! Error: -1
+1791304267.245 < [FS] format: ok em 38 ms
+1791304267.249 < [FS] LittleFS montado: 8 KB usados de 1920 KB
+1791304267.260 < [FS] carga: 0 segmentos, 0 registros validos, 0 invalidos, em 9 ms
+1791304268.177 < [CSV] 6846,88:57:21:70:93:70,no1,-26,-96,22,nenhuma,primeiro,0,39,116,2162,7656,1065,3375,0,8,133,1,0
+1791304268.179 < [FS] gravado,1,0,8400
+1791304275.217 > hora 1791304275
+1791304275.238 < [RELOGIO] acertada (antes: invalida)
+1791304275.239 < [RELOGIO] utc=2026-10-06T16:31:15Z epoch=1791304275 valida=1 fonte=manual boot=11 desde_boot_ms=13356
+1791304276.241 > fs gravar 7
+1791304276.404 < [FS] 7 de 7 registros sinteticos gravados em 76 ms
+1791304276.422 < [FS] 16 KB usados de 1920 KB; politica: 5 registros/segmento, max 3 segmentos
+1791304276.423 < [FS] segmentos: 2 (1 a 2), registros validos: 8
+1791304276.430 < [FS] gravacoes neste boot: 8 ok, 0 falhas; tempo (us): ultima 12965, media 10528, max 12965
+1791304278.665 < [CSV] 16831,88:57:21:70:93:70,no1,-20,-96,22,nenhuma,novo,0,39,117,2162,7663,1069,3372,0,8,135,1,0
+1791304278.702 < [FS] gravado,2,3,43765
+1791304279.303 > fs listar
+1791304279.402 < [FS] segmento,posicoes,validos,sem_hora,utc_min,utc_max,boot_primeiro,boot_ultimo,fechado
+1791304279.407 < [FS] 1,5,5,1,1791304276,1791304276,11,11,0
+1791304279.407 < [FS] 2,4,4,0,1791304276,1791304278,11,11,0
+1791304280.409 > fs gravar 20
+1791304280.566 < [FS] rotacao: /h/00000001.seg apagado
+1791304280.697 < [FS] rotacao: /h/00000002.seg apagado
+1791304280.828 < [FS] rotacao: /h/00000003.seg apagado
+1791304280.874 < [FS] 20 de 20 registros sinteticos gravados em 387 ms
+1791304280.900 < [FS] 16 KB usados de 1920 KB; politica: 5 registros/segmento, max 3 segmentos
+1791304280.901 < [FS] segmentos: 3 (4 a 6), registros validos: 14
+1791304280.908 < [FS] gravacoes neste boot: 29 ok, 0 falhas; tempo (us): ultima 13986, media 17677, max 94326
+1791304284.514 > fs listar
+1791304284.559 < [FS] segmento,posicoes,validos,sem_hora,utc_min,utc_max,boot_primeiro,boot_ultimo,fechado
+1791304284.566 < [FS] 4,5,5,0,1791304280,1791304280,11,11,0
+1791304284.567 < [FS] 5,5,5,0,1791304280,1791304280,11,11,0
+1791304284.567 < [FS] 6,4,4,0,1791304280,1791304280,11,11,0
+1791304288.514 < [CSV] 26823,88:57:21:70:93:70,no1,-21,-96,22,nenhuma,novo,0,39,118,2161,7671,1071,3370,0,8,135,1,0
+1791304288.596 < [FS] gravado,6,4,89674
+1791304298.375 < [CSV] 36814,88:57:21:70:93:70,no1,-21,-96,22,nenhuma,novo,0,39,119,2163,7667,1068,3369,0,8,136,1,0
+1791304298.375 < [FS] rotacao: /h/00000004.seg apagado
+1791304298.377 < [FS] gravado,7,0,11782
+1791304308.667 < [CSV] 46806,88:57:21:70:93:70,no1,-20,-96,22,nenhuma,novo,0,39,120,2160,7673,1065,3371,0,8,133,1,0
+1791304308.671 < [FS] gravado,7,1,10147
+1791304310.674 > fs listar
+1791304310.754 < [FS] segmento,posicoes,validos,sem_hora,utc_min,utc_max,boot_primeiro,boot_ultimo,fechado
+1791304310.761 < [FS] 5,5,5,0,1791304280,1791304280,11,11,0
+1791304310.762 < [FS] 6,5,5,0,1791304280,1791304288,11,11,0
+1791304310.762 < [FS] 7,2,2,0,1791304298,1791304308,11,11,0
+1791304311.763 > reiniciar
+1791304311.843 < [CONSOLE] esp_restart()
+1791304311.857 < ets Jul 29 2019 12:21:46
+1791304311.857 < 
+1791304311.857 < rst:0xc (SW_CPU_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+1791304311.857 < configsip: 0, SPIWP:0xee
+1791304311.868 < clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+1791304311.868 < mode:DIO, clock div:2
+1791304311.868 < load:0x3fff0030,len:4640
+1791304311.872 < load:0x40078000,len:15632
+1791304311.872 < load:0x40080400,len:3164
+1791304311.872 < entry 0x4008059c
+1791304312.441 < 
+1791304312.442 < [BOOT] coordenador - etapa 7
+1791304312.455 < [RELOGIO] boot 12, motivo do reset 3
+1791304312.466 < [RELOGIO] utc=2026-10-06T16:31:52Z epoch=1791304312 valida=1 fonte=herdada boot=12 desde_boot_ms=222
+1791304312.466 < [PART] nome,tipo,subtipo,endereco,tamanho_kb
+1791304312.466 < [PART] nvs,1,0x02,0x009000,20
+1791304312.467 < [PART] otadata,1,0x00,0x00e000,8
+1791304312.477 < [PART] app0,0,0x00,0x010000,2048
+1791304312.477 < [PART] littlefs,1,0x83,0x210000,1920
+1791304312.477 < [PART] coredump,1,0x03,0x3f0000,64
+1791304312.477 < [MAC] STA 88:57:21:70:91:fc
+1791304312.481 < [MAC] AP  88:57:21:70:91:fd
+1791304312.482 < [BOOT] protocolo v1 (22 bytes)
+1791304312.495 < [FS] LittleFS montado: 16 KB usados de 1920 KB
+1791304312.540 < [FS] carga: 3 segmentos, 12 registros validos, 0 invalidos, em 43 ms
+1791304312.627 < [WIFI] varrendo canais...
+1791304316.582 < [WIFI] varredura: 23 redes em 4004 ms
+1791304316.637 < [WIFI] canal  1: 4 no canal, 8 sobrepostas, mais forte -58 dBm
+1791304316.637 < [WIFI] canal  6: 0 no canal, 14 sobrepostas, mais forte -23 dBm
+1791304316.639 < [WIFI] canal 11: 5 no canal, 6 sobrepostas, mais forte -23 dBm
+1791304316.847 < [WIFI] SoftAP "horta-coord" canal 1, MAC AP 88:57:21:70:91:FD, IP 192.168.4.1
+1791304316.858 < [ESPNOW] pronto: versao 2, fila de 16 itens (272 bytes cada)
+1791304316.869 < [CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags
+1791304316.873 < [RESUMO] t_ms,mac,nome,recebidos,rejeitados,aceitos,perdidos,descartados,reinicios,sem_ack,entrega_pct,rssi_medio,rssi_min,rssi_max
+1791304316.873 > fs listar
+1791304316.980 < [FS] segmento,posicoes,validos,sem_hora,utc_min,utc_max,boot_primeiro,boot_ultimo,fechado
+1791304316.988 < [FS] 5,5,5,0,1791304280,1791304280,11,11,0
+1791304316.988 < [FS] 6,5,5,0,1791304280,1791304288,11,11,0
+1791304316.989 < [FS] 7,2,2,0,1791304298,1791304308,11,11,0
+1791304317.991 > fs gravar 3
+1791304318.111 < [FS] 3 de 3 registros sinteticos gravados em 41 ms
+1791304318.136 < [FS] 16 KB usados de 1920 KB; politica: 5 registros/segmento, max 3 segmentos
+1791304318.136 < [FS] segmentos: 3 (5 a 7), registros validos: 15
+1791304318.144 < [FS] gravacoes neste boot: 3 ok, 0 falhas; tempo (us): ultima 14198, media 13487, max 14198
+1791304318.522 < [CSV] 6379,88:57:21:70:93:70,no1,-21,-96,22,nenhuma,primeiro,0,39,121,2164,7680,1069,3371,0,8,133,1,0
+1791304318.526 < [FS] rotacao: /h/00000005.seg apagado
+1791304318.537 < [FS] gravado,8,0,22054
+1791304320.140 > fs listar
+1791304320.222 < [FS] segmento,posicoes,validos,sem_hora,utc_min,utc_max,boot_primeiro,boot_ultimo,fechado
+1791304320.230 < [FS] 6,5,5,0,1791304280,1791304288,11,11,0
+1791304320.230 < [FS] 7,5,5,0,1791304298,1791304318,11,12,0
+1791304320.230 < [FS] 8,1,1,0,1791304318,1791304318,12,12,0
+1791304321.232 # fechar
+1791304321.238 # abrir
+1791304321.253 < ets Jul 29 2019 12:21:46
+1791304321.253 < 
+1791304321.253 < rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+1791304321.253 < configsip: 0, SPIWP:0xee
+1791304321.264 < clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+1791304321.264 < mode:DIO, clock div:2
+1791304321.264 < load:0x3fff0030,len:4640
+1791304321.268 < load:0x40078000,len:15632
+1791304321.268 < load:0x40080400,len:3164
+1791304321.268 < entry 0x4008059c
+1791304321.837 < 
+1791304321.838 < [BOOT] coordenador - etapa 7
+1791304321.851 < [RELOGIO] boot 13, motivo do reset 1
+1791304321.851 < [RELOGIO] utc=invalida epoch=0 valida=0 fonte=nenhuma boot=13 desde_boot_ms=222
+1791304321.862 < [PART] nome,tipo,subtipo,endereco,tamanho_kb
+1791304321.862 < [PART] nvs,1,0x02,0x009000,20
+1791304321.862 < [PART] otadata,1,0x00,0x00e000,8
+1791304321.872 < [PART] app0,0,0x00,0x010000,2048
+1791304321.873 < [PART] littlefs,1,0x83,0x210000,1920
+1791304321.873 < [PART] coredump,1,0x03,0x3f0000,64
+1791304321.873 < [MAC] STA 88:57:21:70:91:fc
+1791304321.876 < [MAC] AP  88:57:21:70:91:fd
+1791304321.876 < [BOOT] protocolo v1 (22 bytes)
+1791304321.899 < [FS] LittleFS montado: 16 KB usados de 1920 KB
+1791304321.971 < [FS] carga: 3 segmentos, 11 registros validos, 0 invalidos, em 71 ms
+1791304322.071 < [WIFI] varrendo canais...
+1791304325.635 < [WIFI] varredura: 18 redes em 3603 ms
+1791304325.679 < [WIFI] canal  1: 3 no canal, 5 sobrepostas, mais forte -58 dBm
+1791304325.679 < [WIFI] canal  6: 0 no canal, 10 sobrepostas, mais forte -21 dBm
+1791304325.683 < [WIFI] canal 11: 5 no canal, 5 sobrepostas, mais forte -21 dBm
+1791304325.890 < [WIFI] SoftAP "horta-coord" canal 1, MAC AP 88:57:21:70:91:FD, IP 192.168.4.1
+1791304325.900 < [ESPNOW] pronto: versao 2, fila de 16 itens (272 bytes cada)
+1791304325.911 < [CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags
+1791304325.915 < [RESUMO] t_ms,mac,nome,recebidos,rejeitados,aceitos,perdidos,descartados,reinicios,sem_ack,entrega_pct,rssi_medio,rssi_min,rssi_max
+1791304325.915 > fs listar
+1791304326.023 < [FS] segmento,posicoes,validos,sem_hora,utc_min,utc_max,boot_primeiro,boot_ultimo,fechado
+1791304326.030 < [FS] 6,5,5,0,1791304280,1791304288,11,11,0
+1791304326.030 < [FS] 7,5,5,0,1791304298,1791304318,11,12,0
+1791304326.031 < [FS] 8,1,1,0,1791304318,1791304318,12,12,0
+1791304327.033 > fs
+1791304327.136 < [FS] 16 KB usados de 1920 KB; politica: 5 registros/segmento, max 3 segmentos
+1791304327.136 < [FS] segmentos: 3 (6 a 8), registros validos: 11
+1791304327.143 < [FS] gravacoes neste boot: 0 ok, 0 falhas; tempo (us): ultima 0, media 0, max 0
+1791304328.144 # fechar
