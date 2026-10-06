@@ -12,6 +12,7 @@
 #include <protocolo.h>
 
 #include "config.h"
+#include "consulta.h"
 #include "historico.h"
 #include "nos.h"
 #include "radio.h"
@@ -36,6 +37,8 @@ void executar(char* linha) {
     relogio::comandoHora(argumento);
   } else if (strcmp(linha, "fs") == 0) {
     historico::comando(argumento);
+  } else if (strcmp(linha, "consulta") == 0) {
+    consulta::comando(argumento);
 #ifdef TESTE_GRAVACAO
   } else if (strcmp(linha, "bench") == 0) {
     teste_gravacao::comando(argumento);
@@ -53,6 +56,9 @@ void executar(char* linha) {
     Serial.println("[CONSOLE]   fs listar                    resumo de cada segmento");
     Serial.println("[CONSOLE]   fs formatar                  formata a particao (APAGA o historico)");
     Serial.println("[CONSOLE]   fs gravar N                  grava N registros sinteticos (teste)");
+    Serial.println("[CONSOLE]   consulta [de=T] [ate=T] [no=MAC] [ordem=asc|desc] [cursor=N] [limite=N]");
+    Serial.println("[CONSOLE]            [maxlidos=N] [mostrar=0|1]   historico paginado (T: epoch ou ISO)");
+    Serial.println("[CONSOLE]   consulta ultimas             ultima leitura de cada no");
     Serial.println("[CONSOLE]   reiniciar                    reset por software (esp_restart)");
   } else {
     Serial.printf("[CONSOLE] comando desconhecido: \"%s\" (digite ajuda)\n", linha);
@@ -169,7 +175,7 @@ void setup() {
   imprimirMac("STA", ESP_MAC_WIFI_STA);
   imprimirMac("AP ", ESP_MAC_WIFI_SOFTAP);
   Serial.printf("[BOOT] protocolo v%u (%u bytes)\n", protocolo::VERSAO, (unsigned)sizeof(protocolo::PacoteLeitura));
-  historico::iniciar();  // antes do rádio: a leitura dos segmentos não disputa com a fila do ESP-NOW
+  historico::iniciar(consulta::observar);  // antes do rádio: a leitura dos segmentos não disputa com a fila do ESP-NOW
   if (!radio::iniciar()) Serial.println("[BOOT] ERRO: radio nao iniciou");
   Serial.println("[CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,"
                  "solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags");

@@ -47,7 +47,7 @@ constexpr uint32_t HIST_MAX_SEGMENTOS = 56;
 #endif
 
 // ---------------------------------------------------------------- Console (serial)
-constexpr size_t CONSOLE_LINHA_MAX = 96;  // caracteres por comando
+constexpr size_t CONSOLE_LINHA_MAX = 160;  // caracteres por comando (a consulta usa ~110)
 
 // ---------------------------------------------------------------- Nós
 // O nó é identificado pelo MAC de origem do quadro ESP-NOW, que é o MAC STA

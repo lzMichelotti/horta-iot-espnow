@@ -29,6 +29,23 @@ No* buscar(const uint8_t mac[6]) {
   return nullptr;
 }
 
+const No* encontrar(const uint8_t mac[6]) {
+  for (const auto& n : tabela)
+    if (n.usado && memcmp(n.mac, mac, 6) == 0) return &n;
+  return nullptr;
+}
+
+const No& posicao(size_t i) { return tabela[i]; }
+
+void atualizarUltima(const registro::Registro& r) {
+  uint8_t mac[6];
+  memcpy(mac, r.mac, 6);  // cópia: não passar ponteiro de campo de struct packed
+  No* n = buscar(mac);
+  if (n == nullptr) return;
+  n->ultima = r;
+  n->temUltima = true;
+}
+
 void contarRecepcao(No& n, int8_t rssi) {
   if (n.recebidos == 0 || rssi < n.rssiMin) n.rssiMin = rssi;
   if (n.recebidos == 0 || rssi > n.rssiMax) n.rssiMax = rssi;

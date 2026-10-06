@@ -14,11 +14,15 @@
 
 namespace historico {
 
+// Chamado para cada registro válido, na ordem de gravação: na carga do boot e
+// depois de cada gravação. Mantém as âncoras de hora e a última leitura por nó.
+using Observador = void (*)(const registro::Registro& r);
+
 // Monta o LittleFS e lê todos os segmentos para montar a tabela de resumos.
 // Chamar no setup() ANTES de ligar o rádio (a leitura pode levar segundos).
 // false se não montou: nada é formatado automaticamente (política: passo 9);
 // o comando "fs formatar" formata à mão.
-bool iniciar();
+bool iniciar(Observador observador);
 
 bool montado();
 
@@ -28,10 +32,15 @@ bool gravar(const registro::Registro& r);
 
 const anel::Indice& indice();
 
+// Caminho completo do arquivo de um segmento ("/h/00000123.seg").
+constexpr size_t TAM_CAMINHO = 32;
+void caminhoSegmento(uint32_t numero, char (&saida)[TAM_CAMINHO]);
+
 // Duração da última gravação (abrir + escrever + fechar), µs.
 uint32_t ultimaGravacaoUs();
 
-// Comando "fs" da serial: estado | listar | formatar | gravar N.
+// Comando "fs" da serial: estado | listar | formatar | gravar N
+// (e, só no env teste_gravacao, "encher N M").
 void comando(const char* argumento);
 
 void imprimirEstado();
