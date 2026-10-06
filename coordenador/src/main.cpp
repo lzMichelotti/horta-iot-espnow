@@ -1,8 +1,9 @@
 // Firmware do coordenador — Etapa 4: SoftAP em canal fixo, recepção ESP-NOW por
 // fila, validação (comum/protocolo) e rastreamento por nó (perda, duplicata,
 // reinício). Uma linha [CSV] por pacote e um [RESUMO] por nó a cada minuto.
-// Etapa 7: relógio provisório (acerto pela serial) e console de comandos.
-// (DS3231, LittleFS e HTTP: etapas 6 a 8.)
+// Etapa 7: relógio provisório (acerto pela serial), console de comandos e
+// histórico no LittleFS (um registro por pacote aceito, linha [FS] gravado).
+// (DS3231 e HTTP: etapas 6 e 8.)
 #include <Arduino.h>
 #include <cstring>
 #include <esp_mac.h>
@@ -11,6 +12,7 @@
 #include <protocolo.h>
 
 #include "config.h"
+#include "historico.h"
 #include "nos.h"
 #include "radio.h"
 #include "relogio.h"
@@ -31,6 +33,8 @@ void executar(char* linha) {
 
   if (strcmp(linha, "hora") == 0) {
     relogio::comandoHora(argumento);
+  } else if (strcmp(linha, "fs") == 0) {
+    historico::comando(argumento);
   } else if (strcmp(linha, "reiniciar") == 0) {
     Serial.println("[CONSOLE] esp_restart()");
     Serial.flush();
@@ -40,13 +44,19 @@ void executar(char* linha) {
     Serial.println("[CONSOLE]   hora                         mostra a hora e a validade");
     Serial.println("[CONSOLE]   hora 1791297000              acerta (epoch UTC, ex.: date +%s)");
     Serial.println("[CONSOLE]   hora 2026-10-06T14:30:00Z    acerta (ISO 8601, UTC)");
+    Serial.println("[CONSOLE]   fs                           estado do historico (LittleFS)");
+    Serial.println("[CONSOLE]   fs listar                    resumo de cada segmento");
+    Serial.println("[CONSOLE]   fs formatar                  formata a particao (APAGA o historico)");
+    Serial.println("[CONSOLE]   fs gravar N                  grava N registros sinteticos (teste)");
     Serial.println("[CONSOLE]   reiniciar                    reset por software (esp_restart)");
   } else {
     Serial.printf("[CONSOLE] comando desconhecido: \"%s\" (digite ajuda)\n", linha);
   }
 }
 
-// Lê a serial sem bloquear e executa cada linha completa.
+// Lê a serial sem bloquear e executa no máximo UMA linha por chamada: com
+// várias linhas pendentes, o loop() volta a esvaziar a fila do ESP-NOW entre
+// um comando e outro (o resto fica no buffer da UART).
 void lerConsole() {
   static char linha[config::CONSOLE_LINHA_MAX + 1];
   static size_t n = 0;
@@ -62,6 +72,7 @@ void lerConsole() {
         executar(linha);
       n = 0;
       longaDemais = false;
+      return;
     } else if (n < config::CONSOLE_LINHA_MAX) {
       linha[n++] = c;
     } else {
@@ -89,6 +100,30 @@ void imprimirMac(const char* nome, esp_mac_type_t tipo) {
   Serial.printf("[MAC] %s " MACSTR "\n", nome, MAC2STR(mac));
 }
 
+// Um registro (lib/registro) por pacote aceito; duplicados e antigos não entram.
+// Linha: [FS] gravado,segmento,posicao,us (posicao = índice do registro no segmento).
+void gravarHistorico(const radio::Recebido& r, const protocolo::PacoteLeitura& p, protocolo::Classe c,
+                     uint32_t perdidos) {
+  if (!historico::montado()) return;
+  relogio::Instante agora = relogio::agora();
+  registro::Metadados m{};
+  m.horaValida = agora.valida;
+  m.fonteRelogio = static_cast<uint8_t>(agora.fonte);
+  m.bootCoord = agora.boot;
+  m.utc_s = agora.utc_s;
+  m.desdeBoot_ms = agora.desdeBoot_ms;
+  memcpy(m.mac, r.mac, sizeof(m.mac));
+  m.rssi = r.rssi;
+  m.ruido = r.ruido;
+  m.classe = c;
+  m.perdidos = perdidos;
+  if (historico::gravar(registro::montar(m, p))) {
+    const anel::Resumo* s = historico::indice().atual();
+    Serial.printf("[FS] gravado,%lu,%lu,%lu\n", (unsigned long)s->numero, (unsigned long)(s->posicoes - 1),
+                  (unsigned long)historico::ultimaGravacaoUs());
+  }
+}
+
 void processar(const radio::Recebido& r) {
   nos::No* n = nos::buscar(r.mac);
   if (n == nullptr) {
@@ -113,6 +148,8 @@ void processar(const radio::Recebido& r) {
                 (unsigned long)n->sequencia.ultimaLacuna(), p.boot, (unsigned long)p.seq, p.temperatura_c100,
                 p.umidade_ar_c100, p.solo_mv, p.alimentacao_mv, p.estados, p.motivo_boot, p.acordado_ant_ms,
                 p.tentativas_ant, p.flags);
+
+  if (protocolo::aceitar(c)) gravarHistorico(r, p, c, n->sequencia.ultimaLacuna());
 }
 
 }  // namespace
@@ -127,6 +164,7 @@ void setup() {
   imprimirMac("STA", ESP_MAC_WIFI_STA);
   imprimirMac("AP ", ESP_MAC_WIFI_SOFTAP);
   Serial.printf("[BOOT] protocolo v%u (%u bytes)\n", protocolo::VERSAO, (unsigned)sizeof(protocolo::PacoteLeitura));
+  historico::iniciar();  // antes do rádio: a leitura dos segmentos não disputa com a fila do ESP-NOW
   if (!radio::iniciar()) Serial.println("[BOOT] ERRO: radio nao iniciou");
   Serial.println("[CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,"
                  "solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags");

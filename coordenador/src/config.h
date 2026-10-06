@@ -29,6 +29,23 @@ constexpr size_t FILA_ESPNOW_ITENS = 16;
 constexpr int64_t HORA_MINIMA_UTC = 1767225600;  // 2026-01-01T00:00:00Z
 constexpr int64_t HORA_MAXIMA_UTC = 4102444800;  // 2100-01-01T00:00:00Z
 
+// ---------------------------------------------------------------- Histórico (LittleFS)
+// Organização, retenção e capacidade: docs/persistencia.md.
+constexpr const char* FS_ROTULO = "littlefs";  // rótulo da partição em particoes.csv
+constexpr const char* FS_PONTO = "/littlefs";  // ponto de montagem no VFS
+constexpr const char* HIST_DIR = "/h";
+// 500 registros × 48 B = 24 000 B: cabem em 6 blocos de 4 KB com os ponteiros
+// da lista CTZ do LittleFS (32 B). 56 segmentos ≈ 75 % da partição de 1920 KB;
+// o resto é folga do LittleFS. Com 2 nós a cada 15 min: ~146 dias de histórico.
+// O env teste_rotacao reduz os dois valores para forçar a rotação na bancada.
+#ifdef HIST_TESTE_REGISTROS_POR_SEGMENTO
+constexpr uint32_t HIST_REGISTROS_POR_SEGMENTO = HIST_TESTE_REGISTROS_POR_SEGMENTO;
+constexpr uint32_t HIST_MAX_SEGMENTOS = HIST_TESTE_MAX_SEGMENTOS;
+#else
+constexpr uint32_t HIST_REGISTROS_POR_SEGMENTO = 500;
+constexpr uint32_t HIST_MAX_SEGMENTOS = 56;
+#endif
+
 // ---------------------------------------------------------------- Console (serial)
 constexpr size_t CONSOLE_LINHA_MAX = 96;  // caracteres por comando
 
