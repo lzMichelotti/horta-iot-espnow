@@ -6,6 +6,7 @@
 #include <Arduino.h>
 #include <cstring>
 #include <esp_mac.h>
+#include <esp_partition.h>
 
 #include <protocolo.h>
 
@@ -69,6 +70,19 @@ void lerConsole() {
   }
 }
 
+// Tabela de partições gravada na flash (conferência do particoes.csv).
+// https://docs.espressif.com/projects/esp-idf/en/v5.5/esp32/api-reference/storage/partition.html
+void imprimirParticoes() {
+  Serial.println("[PART] nome,tipo,subtipo,endereco,tamanho_kb");
+  esp_partition_iterator_t it = esp_partition_find(ESP_PARTITION_TYPE_ANY, ESP_PARTITION_SUBTYPE_ANY, nullptr);
+  for (; it != nullptr; it = esp_partition_next(it)) {
+    const esp_partition_t* p = esp_partition_get(it);
+    Serial.printf("[PART] %s,%u,0x%02x,0x%06lx,%lu\n", p->label, (unsigned)p->type, (unsigned)p->subtype,
+                  (unsigned long)p->address, (unsigned long)(p->size / 1024));
+  }
+  esp_partition_iterator_release(it);  // aceita nullptr
+}
+
 void imprimirMac(const char* nome, esp_mac_type_t tipo) {
   uint8_t mac[6];
   esp_read_mac(mac, tipo);
@@ -109,6 +123,7 @@ void setup() {
   Serial.println();
   Serial.println("[BOOT] coordenador - etapa 7");
   relogio::iniciar();
+  imprimirParticoes();
   imprimirMac("STA", ESP_MAC_WIFI_STA);
   imprimirMac("AP ", ESP_MAC_WIFI_SOFTAP);
   Serial.printf("[BOOT] protocolo v%u (%u bytes)\n", protocolo::VERSAO, (unsigned)sizeof(protocolo::PacoteLeitura));

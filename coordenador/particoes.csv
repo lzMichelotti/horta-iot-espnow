@@ -1,0 +1,10 @@
+# Tabela de partições do coordenador (flash de 4 MB) — justificativa em docs/persistencia.md
+# Baseada na no_ota.csv do Arduino-ESP32: app único de 2 MB, sem OTA; o resto é do LittleFS.
+# Formato: https://docs.espressif.com/projects/esp-idf/en/v5.5/esp32/api-guides/partition-tables.html
+# app alinhada a 64 KB; dados a 4 KB.
+# Name,   Type, SubType,  Offset,   Size
+nvs,      data, nvs,      0x9000,   0x5000
+otadata,  data, ota,      0xE000,   0x2000
+app0,     app,  factory,  0x10000,  0x200000
+littlefs, data, littlefs, 0x210000, 0x1E0000
+coredump, data, coredump, 0x3F0000, 0x10000
