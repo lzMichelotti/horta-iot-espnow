@@ -84,6 +84,32 @@ constexpr uint32_t TEMPO_LIMITE_CALLBACK_MS = 100;
 constexpr uint32_t PERIODO_CICLO_MS = 10000;
 constexpr uint32_t SONO_MINIMO_MS = 1000;  // se o ciclo passar do período, dorme ao menos isto
 
+// ---------------------------------------------------------------- Proteções (Etapa 5, passo 5)
+// Prazo máximo acordado: ~5× o ciclo mais longo previsto (0,65 s com chaveamento).
+constexpr uint32_t TEMPO_MAX_ACORDADO_MS = 3000;
+// Teste do prazo (env teste_trava): o ciclo trava num laço a cada N pacotes.
+#ifdef TESTE_TRAVAR_A_CADA
+constexpr uint32_t TESTE_TRAVAR_A_CADA_N = TESTE_TRAVAR_A_CADA;
+#else
+constexpr uint32_t TESTE_TRAVAR_A_CADA_N = 0;
+#endif
+
+// Tensão baixa (entrada do divisor). TODO(passo 10): os limiares dependem da
+// bateria escolhida e da margem do divisor (±120 mV, sensores.md 5.2).
+// 0 = proteção desativada.
+#ifdef TESTE_RAMPA_ALIM  // env teste_tensao: valores só para exercitar a lógica
+constexpr uint16_t V_TX_MV = 3500;
+constexpr uint16_t V_CRIT_MV = 3300;
+constexpr uint32_t FATOR_PERIODO_ECONOMIA = 2;
+constexpr uint32_t PERIODO_CRITICO_MS = 30000;
+#else
+constexpr uint16_t V_TX_MV = 0;
+constexpr uint16_t V_CRIT_MV = 0;
+constexpr uint32_t FATOR_PERIODO_ECONOMIA = 4;
+constexpr uint32_t PERIODO_CRITICO_MS = 3600000;  // 1 h sem transmitir
+#endif
+constexpr uint16_t HISTERESE_MV = 50;
+
 // ---------------------------------------------------------------- Logs na serial
 // Build de produção (env producao, -D PRODUCAO): sem Serial.begin, sem linhas
 // [T0]/[ENVIO]/[FASES] e sem esperar a serial esvaziar antes do sono. O tempo

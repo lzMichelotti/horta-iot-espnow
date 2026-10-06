@@ -1,0 +1,144 @@
+    0.017 ets Jul 29 2019 12:21:46
+    0.017 
+    0.018 rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+    0.018 configsip: 0, SPIWP:0xee
+    0.027 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+    0.028 mode:DIO, clock div:1
+    0.029 load:0x3fff0030,len:4876
+    0.029 ho 0 tail 12 room 4
+    0.032 load:0x40078000,len:16532
+    0.032 load:0x40080400,len:3500
+    0.032 entry 0x400805b4
+    0.312 [T0] 11735
+    0.325 
+    0.325 [BOOT] no sensor - etapa 5
+    0.336 [BOOT] boot=32 motivo=1 protocolo v1 (22 bytes) canal=1 destino=88:57:21:70:91:fd periodo=10000 ms
+    0.336 [ENVIO] boot,seq,ack,tentativas,ligar_us,t1_us,t2_us,t3_us,envio_us,erro,tent_ant,flags,leitura_us,ciclo_us,acordado_ant_ms
+    0.398 [FASES] setup_us,serial_nvs_us,sens_iniciar_us,leitura_us,ligar_us,envio_us,desligar_us,impressao_us,flush_ant_us,fim_us,light_sleep_us,light_s
+    0.408 leeps,modo
+    1.096 [ENVIO] 32,0,0,3,131632,40984,38635,33015,157377,,0,0,405221,795853,0
+    1.097 [FASES] 10930,37620,51990,405299,131655,157384,975,374,0,796227,448879,4,0
+   10.097 ets Jul 29 2019 12:21:46
+   10.097 
+   10.097 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   10.098 configsip: 0, SPIWP:0xee
+   10.108 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   10.109 mode:DIO, clock div:1
+   10.109 load:0x3fff0030,len:4876
+   10.109 ho 0 tail 12 room 4
+   10.115 load:0x40078000,len:16532
+   10.115 load:0x40080400,len:3500
+   10.115 entry 0x400805b4
+   10.146 [T0] 11968
+   10.278 [ENVIO] 32,1,1,1,19706,1780,,,1807,,3,2,97412,133082,807
+   10.279 [FASES] 11164,981,962,97485,19727,1813,950,370,1014,133452,90073,2,0
+   20.469 ets Jul 29 2019 12:21:46
+   20.469 
+   20.469 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   20.469 configsip: 0, SPIWP:0xee
+   20.479 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   20.479 mode:DIO, clock div:1
+   20.480 load:0x3fff0030,len:4876
+   20.480 ho 0 tail 12 room 4
+   20.485 load:0x40078000,len:16532
+   20.485 load:0x40080400,len:3500
+   20.485 entry 0x400805b4
+   20.514 [T0] 11968
+   20.639 [ENVIO] 32,2,1,1,19715,1823,,,1849,,1,0,97406,133134,134
+   20.639 [FASES] 11165,980,961,97479,19736,1856,957,372,10381,133506,90061,2,0
+   30.190 ets Jul 29 2019 12:21:46
+   30.190 
+   30.190 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   30.190 configsip: 0, SPIWP:0xee
+   30.200 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   30.200 mode:DIO, clock div:1
+   30.201 load:0x3fff0030,len:4876
+   30.201 ho 0 tail 12 room 4
+   30.206 load:0x40078000,len:16532
+   30.207 load:0x40080400,len:3500
+   30.207 entry 0x400805b4
+   30.237 [T0] 11968
+   30.335 [TESTE] travando o ciclo do seq 3
+   40.064 ets Jul 29 2019 12:21:46
+   40.064 
+   40.064 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   40.065 configsip: 0, SPIWP:0xee
+   40.075 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   40.075 mode:DIO, clock div:1
+   40.075 load:0x3fff0030,len:4876
+   40.076 ho 0 tail 12 room 4
+   40.081 load:0x40078000,len:16532
+   40.081 load:0x40080400,len:3500
+   40.081 entry 0x400805b4
+   40.112 [T0] 11973
+   40.245 [ENVIO] 32,4,1,1,19712,6693,,,6720,,0,4,97407,138003,3000
+   40.245 [FASES] 11167,982,961,97481,19733,6727,952,369,10466,138372,90069,2,0
+   50.623 ets Jul 29 2019 12:21:46
+   50.623 
+   50.624 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   50.624 configsip: 0, SPIWP:0xee
+   50.634 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   50.634 mode:DIO, clock div:1
+   50.634 load:0x3fff0030,len:4876
+   50.635 ho 0 tail 12 room 4
+   50.640 load:0x40078000,len:16532
+   50.640 load:0x40080400,len:3500
+   50.640 entry 0x400805b4
+   50.669 [T0] 11973
+   50.792 [ENVIO] 32,5,1,1,19715,1885,,,1911,,1,0,97414,133207,139
+   50.793 [FASES] 11168,982,961,97487,19736,1918,955,368,10558,133575,90090,2,0
+   60.202 ets Jul 29 2019 12:21:46
+   60.202 
+   60.202 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   60.202 configsip: 0, SPIWP:0xee
+   60.213 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   60.213 mode:DIO, clock div:1
+   60.214 load:0x3fff0030,len:4876
+   60.214 ho 0 tail 12 room 4
+   60.219 load:0x40078000,len:16532
+   60.220 load:0x40080400,len:3500
+   60.220 entry 0x400805b4
+   60.249 [T0] 11990
+   60.382 [ENVIO] 32,6,1,1,19689,6045,,,6071,,1,0,97422,137363,134
+   60.382 [FASES] 11186,981,962,97495,19710,6078,951,377,10470,137740,90085,2,0
+   70.113 ets Jul 29 2019 12:21:46
+   70.113 
+   70.113 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   70.113 configsip: 0, SPIWP:0xee
+   70.123 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   70.124 mode:DIO, clock div:1
+   70.124 load:0x3fff0030,len:4876
+   70.124 ho 0 tail 12 room 4
+   70.129 load:0x40078000,len:16532
+   70.130 load:0x40080400,len:3500
+   70.130 entry 0x400805b4
+   70.160 [T0] 11971
+   70.258 [TESTE] travando o ciclo do seq 7
+   80.632 ets Jul 29 2019 12:21:46
+   80.633 
+   80.633 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   80.633 configsip: 0, SPIWP:0xee
+   80.643 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   80.644 mode:DIO, clock div:1
+   80.644 load:0x3fff0030,len:4876
+   80.644 ho 0 tail 12 room 4
+   80.649 load:0x40078000,len:16532
+   80.650 load:0x40080400,len:3500
+   80.650 entry 0x400805b4
+   80.680 [T0] 11972
+   80.812 [ENVIO] 32,8,1,1,19725,6636,,,6662,,0,4,97407,137954,3000
+   80.813 [FASES] 11167,982,962,97480,19747,6669,947,375,10469,138329,90080,2,0
+   90.135 ets Jul 29 2019 12:21:46
+   90.135 
+   90.136 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   90.136 configsip: 0, SPIWP:0xee
+   90.147 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   90.147 mode:DIO, clock div:1
+   90.147 load:0x3fff0030,len:4876
+   90.147 ho 0 tail 12 room 4
+   90.152 load:0x40078000,len:16532
+   90.153 load:0x40080400,len:3500
+   90.153 entry 0x400805b4
+   90.183 [T0] 11981
+   90.321 [ENVIO] 32,9,1,1,19698,12245,,,12271,,1,0,97401,143536,139
+   90.321 [FASES] 11176,982,962,97474,19719,12278,945,378,10558,143914,90066,2,0

@@ -19,7 +19,7 @@ import statistics
 from pathlib import Path
 
 FASES = ["setup_us", "serial_nvs_us", "sens_iniciar_us", "leitura_us", "ligar_us", "envio_us", "desligar_us",
-         "impressao_us", "flush_ant_us", "fim_us", "light_sleep_us", "light_sleeps"]
+         "impressao_us", "flush_ant_us", "fim_us", "light_sleep_us", "light_sleeps", "modo"]
 NOMES = {
     "rom_boot_us": "ROM + bootloader (PC)",
     "setup_us": "Inicialização ESP-IDF/Arduino até o setup()",

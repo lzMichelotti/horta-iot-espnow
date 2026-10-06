@@ -12,6 +12,7 @@
 #include "contadores.h"
 #include "energia.h"
 #include "envio.h"
+#include "protecao.h"
 #include "sensores.h"
 
 namespace {
@@ -41,7 +42,8 @@ protocolo::PacoteLeitura montar(const sensores::Leituras& r) {
   d.acordadoAntMs = contadores::acordadoAnt();
   d.tentativasAnt = contadores::tentativasAnt();
   d.flags = (r.aht20Extras > 0 ? protocolo::flag::AHT20_NOVA_TENTATIVA : 0) |
-            (contadores::anteriorSemAck() ? protocolo::flag::ANTERIOR_SEM_ACK : 0);
+            (contadores::anteriorSemAck() ? protocolo::flag::ANTERIOR_SEM_ACK : 0) |
+            (protecao::cicloAnteriorAbortado() ? protocolo::flag::CICLO_ANTERIOR_ABORTADO : 0);
   return protocolo::montarLeitura(d);
 }
 
@@ -87,19 +89,22 @@ void marcar(Fase f) { marcas[f] = esp_timer_get_time(); }
 // Tempo de Serial.flush() do ciclo anterior: acontece depois da última medição.
 RTC_DATA_ATTR uint32_t flushAntUs = 0;
 
+uint8_t modoCiclo = 0;  // protecao::Modo deste ciclo, para a linha [FASES]
+
 void imprimirFases() {
   // Cada fase = da marca anterior até a sua (SETUP = da aplicação até o setup()).
   Serial.printf("[FASES] %lld", marcas[SETUP]);
   for (uint8_t f = SERIAL_NVS; f < NUM_FASES; f++) Serial.printf(",%lld", marcas[f] - marcas[f - 1]);
-  Serial.printf(",%lu,%lld,%lu,%u\n", (unsigned long)flushAntUs, marcas[IMPRESSAO],
-                (unsigned long)energia::lightSleepUs(), energia::lightSleeps());
+  Serial.printf(",%lu,%lld,%lu,%u,%u\n", (unsigned long)flushAntUs, marcas[IMPRESSAO],
+                (unsigned long)energia::lightSleepUs(), energia::lightSleeps(), modoCiclo);
 }
 
 // Dorme até completar o período do ciclo. esp_deep_sleep_start() "will flush
 // the contents of UART FIFOs" e não retorna (ESP-IDF v5.5, Sleep Modes); o
 // Serial.flush() esvazia antes o buffer do driver do Arduino.
-[[noreturn]] void dormir(uint32_t acordadoUs) {
-  uint64_t periodoUs = (uint64_t)config::PERIODO_CICLO_MS * 1000;
+[[noreturn]] void dormir(uint32_t acordadoUs, uint32_t periodoMs) {
+  protecao::cancelarPrazo();
+  uint64_t periodoUs = (uint64_t)periodoMs * 1000;
   uint64_t sonoUs = acordadoUs + (uint64_t)config::SONO_MINIMO_MS * 1000 < periodoUs
                         ? periodoUs - acordadoUs
                         : (uint64_t)config::SONO_MINIMO_MS * 1000;
@@ -118,7 +123,9 @@ void setup() {
   marcar(SETUP);
   // Sensores ligados antes de tudo: as esperas de energização (AHT20, 100 ms)
   // e de estabilização (solo, 500 ms) começam a contar já.
-  energia::ligarSensores(esp_reset_reason() == ESP_RST_DEEPSLEEP);
+  bool despertar = esp_reset_reason() == ESP_RST_DEEPSLEEP;
+  energia::ligarSensores(despertar);
+  protecao::iniciar(despertar);  // prazo máximo acordado armado desde já
   if (config::LOGS) {
     Serial.begin(115200);
     // Marca para o PC: (instante desta linha − instante do "rst:" da ROM) − esp_timer
@@ -145,7 +152,7 @@ void setup() {
     // Durações em µs; setup_us = da aplicação ao setup(); fim_us = esp_timer antes do flush;
     // light_sleep_us = parte do ciclo dormida em light sleep (dentro das fases dos sensores).
     Serial.println("[FASES] setup_us,serial_nvs_us,sens_iniciar_us,leitura_us,ligar_us,envio_us,desligar_us,"
-                   "impressao_us,flush_ant_us,fim_us,light_sleep_us,light_sleeps");
+                   "impressao_us,flush_ant_us,fim_us,light_sleep_us,light_sleeps,modo");
   }
   marcar(SERIAL_NVS);
 
@@ -153,7 +160,23 @@ void setup() {
   sensores::iniciar();
   marcar(SENS_INICIAR);
   sensores::Leituras leituras = sensores::lerTodas();
+  protecao::Modo modo = protecao::avaliarTensao(leituras.alimentacaoMv);
+  modoCiclo = static_cast<uint8_t>(modo);
+  if (modo == protecao::Modo::CRITICO) {
+    // Bateria crítica: não liga o rádio nem consome um seq (não seria perda).
+    energia::desligarSensores();
+    if (config::LOGS)
+      Serial.printf("[PROTECAO] modo critico: alim=%.0f mV, sem transmitir, dorme %lu ms\n",
+                    leituras.alimentacaoMv.valor, (unsigned long)protecao::periodoMs(modo));
+    contadores::registrarAcordado((static_cast<uint32_t>(esp_timer_get_time()) + 500) / 1000);
+    dormir(static_cast<uint32_t>(esp_timer_get_time()), protecao::periodoMs(modo));
+  }
   protocolo::PacoteLeitura p = montar(leituras);
+  if (config::TESTE_TRAVAR_A_CADA_N > 0 && p.seq % config::TESTE_TRAVAR_A_CADA_N == config::TESTE_TRAVAR_A_CADA_N - 1) {
+    if (config::LOGS) Serial.printf("[TESTE] travando o ciclo do seq %lu\n", (unsigned long)p.seq);
+    while (true) {
+    }  // o prazo de protecao deve interromper isto
+  }
   uint8_t bytes[sizeof(p)];
   memcpy(bytes, &p, sizeof(p));
   energia::desligarSensores();
@@ -177,7 +200,7 @@ void setup() {
   marcar(IMPRESSAO);  // a linha [FASES] e o flush ficam de fora (flush: no próximo ciclo)
   if (config::LOGS) imprimirFases();
   contadores::registrarAcordado((static_cast<uint32_t>(esp_timer_get_time()) + 500) / 1000);
-  dormir(static_cast<uint32_t>(esp_timer_get_time()));
+  dormir(static_cast<uint32_t>(esp_timer_get_time()), protecao::periodoMs(modo));
 }
 
 void loop() {}  // nunca alcançado: o setup() termina em deep sleep
