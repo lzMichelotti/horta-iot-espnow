@@ -1,0 +1,122 @@
+1791296653.082 # abertura 1 (power-on pelo EN)
+1791296653.097 < ets Jul 29 2019 12:21:46
+1791296653.097 < 
+1791296653.097 < rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+1791296653.098 < configsip: 0, SPIWP:0xee
+1791296653.108 < clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+1791296653.108 < mode:DIO, clock div:2
+1791296653.108 < load:0x3fff0030,len:4640
+1791296653.112 < load:0x40078000,len:15632
+1791296653.112 < load:0x40080400,len:3164
+1791296653.112 < entry 0x4008059c
+1791296653.659 < 
+1791296653.659 < [BOOT] coordenador - etapa 7
+1791296653.672 < [RELOGIO] boot 2, motivo do reset 1
+1791296653.673 < [RELOGIO] utc=invalida epoch=0 valida=0 fonte=nenhuma boot=2 desde_boot_ms=222
+1791296653.679 < [MAC] STA 88:57:21:70:91:fc
+1791296653.679 < [MAC] AP  88:57:21:70:91:fd
+1791296653.679 < [BOOT] protocolo v1 (22 bytes)
+1791296653.815 < [WIFI] varrendo canais...
+1791296657.155 < [WIFI] varredura: 17 redes em 3404 ms
+1791296657.198 < [WIFI] canal  1: 4 no canal, 2 sobrepostas, mais forte -61 dBm
+1791296657.198 < [WIFI] canal  6: 0 no canal, 4 sobrepostas, mais forte -61 dBm
+1791296657.200 < [WIFI] canal 11: 9 no canal, 2 sobrepostas, mais forte -48 dBm
+1791296657.406 < [WIFI] SoftAP "horta-coord" canal 1, MAC AP 88:57:21:70:91:FD, IP 192.168.4.1
+1791296657.417 < [ESPNOW] pronto: versao 2, fila de 16 itens (272 bytes cada)
+1791296657.428 < [CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags
+1791296657.431 < [RESUMO] t_ms,mac,nome,recebidos,rejeitados,aceitos,perdidos,descartados,reinicios,sem_ack,entrega_pct,rssi_medio,rssi_min,rssi_max
+1791296659.695 < [CSV] 6378,88:57:21:70:93:70,no1,-34,-96,22,nenhuma,primeiro,0,35,330,2136,7361,1052,3366,0,8,134,1,0
+1791296662.193 > ajuda
+1791296662.253 < [CONSOLE] comandos:
+1791296662.253 < [CONSOLE]   hora                         mostra a hora e a validade
+1791296662.264 < [CONSOLE]   hora 1791297000              acerta (epoch UTC, ex.: date +%s)
+1791296662.264 < [CONSOLE]   hora 2026-10-06T14:30:00Z    acerta (ISO 8601, UTC)
+1791296662.268 < [CONSOLE]   reiniciar                    reset por software (esp_restart)
+1791296663.871 > hora
+1791296663.936 < [RELOGIO] utc=invalida epoch=10 valida=0 fonte=nenhuma boot=2 desde_boot_ms=10002
+1791296665.538 > hora 2025-12-31T23:59:59Z
+1791296665.601 < [RELOGIO] hora fora da faixa plausivel [2026-01-01T00:00:00Z, 2100-01-01T00:00:00Z)
+1791296667.204 > hora 2026-02-29T00:00:00Z
+1791296667.265 < [RELOGIO] formato invalido. Use: hora 1791297000  ou  hora 2026-10-06T14:30:00Z
+1791296668.867 > hora 17912
+1791296668.930 < [RELOGIO] hora fora da faixa plausivel [2026-01-01T00:00:00Z, 2100-01-01T00:00:00Z)
+1791296670.170 < [CSV] 16370,88:57:21:70:93:70,no1,-33,-96,22,nenhuma,novo,0,35,331,2136,7362,1052,3368,0,8,134,1,0
+1791296670.371 > xyz
+1791296670.460 < [CONSOLE] comando desconhecido: "xyz" (digite ajuda)
+1791296672.063 > hora 1791296672
+1791296672.130 < [RELOGIO] acertada (antes: invalida)
+1791296672.131 < [RELOGIO] utc=2026-10-06T14:24:32Z epoch=1791296672 valida=1 fonte=manual boot=2 desde_boot_ms=18371
+1791296679.945 < [CSV] 26359,88:57:21:70:93:70,no1,-34,-96,22,nenhuma,novo,0,35,332,2133,7349,1051,3368,0,8,134,1,0
+1791296689.723 < [CSV] 36350,88:57:21:70:93:70,no1,-32,-96,22,nenhuma,novo,0,35,333,2132,7358,1004,3335,0,8,134,1,0
+1791296694.636 # PC agora: 1791296694 2026-10-06T14:24:54Z
+1791296694.636 > hora
+1791296694.735 < [RELOGIO] utc=2026-10-06T14:24:54Z epoch=1791296694 valida=1 fonte=manual boot=2 desde_boot_ms=40751
+1791296696.137 > hora 2026-10-06T14:25:06Z
+1791296696.206 < [RELOGIO] acertada; ajuste de +11 s
+1791296696.207 < [RELOGIO] utc=2026-10-06T14:25:06Z epoch=1791296706 valida=1 fonte=manual boot=2 desde_boot_ms=42252
+1791296697.809 > hora 1791296697
+1791296697.881 < [RELOGIO] acertada; ajuste de -10 s
+1791296697.882 < [RELOGIO] utc=2026-10-06T14:24:57Z epoch=1791296697 valida=1 fonte=manual boot=2 desde_boot_ms=43964
+1791296699.484 # reset por software
+1791296699.484 > reiniciar
+1791296699.548 < [CONSOLE] esp_restart()
+1791296699.562 < ets Jul 29 2019 12:21:46
+1791296699.562 < 
+1791296699.562 < rst:0xc (SW_CPU_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+1791296699.562 < configsip: 0, SPIWP:0xee
+1791296699.572 < clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+1791296699.573 < mode:DIO, clock div:2
+1791296699.573 < load:0x3fff0030,len:4640
+1791296699.576 < load:0x40078000,len:15632
+1791296699.576 < load:0x40080400,len:3164
+1791296699.577 < entry 0x4008059c
+1791296700.124 < 
+1791296700.125 < [BOOT] coordenador - etapa 7
+1791296700.138 < [RELOGIO] boot 3, motivo do reset 3
+1791296700.138 < [RELOGIO] utc=2026-10-06T14:24:59Z epoch=1791296699 valida=1 fonte=herdada boot=3 desde_boot_ms=223
+1791296700.146 < [MAC] STA 88:57:21:70:91:fc
+1791296700.146 < [MAC] AP  88:57:21:70:91:fd
+1791296700.146 < [BOOT] protocolo v1 (22 bytes)
+1791296700.233 < [WIFI] varrendo canais...
+1791296703.572 < [WIFI] varredura: 15 redes em 3403 ms
+1791296703.605 < [WIFI] canal  1: 2 no canal, 2 sobrepostas, mais forte -55 dBm
+1791296703.614 < [WIFI] canal  6: 0 no canal, 4 sobrepostas, mais forte -55 dBm
+1791296703.614 < [WIFI] canal 11: 9 no canal, 2 sobrepostas, mais forte -52 dBm
+1791296703.813 < [WIFI] SoftAP "horta-coord" canal 1, MAC AP 88:57:21:70:91:FD, IP 192.168.4.1
+1791296703.824 < [ESPNOW] pronto: versao 2, fila de 16 itens (272 bytes cada)
+1791296703.834 < [CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags
+1791296703.838 < [RESUMO] t_ms,mac,nome,recebidos,rejeitados,aceitos,perdidos,descartados,reinicios,sem_ack,entrega_pct,rssi_medio,rssi_min,rssi_max
+1791296708.645 # PC agora: 1791296708 2026-10-06T14:25:08Z
+1791296708.645 > hora
+1791296708.739 < [RELOGIO] utc=2026-10-06T14:25:08Z epoch=1791296708 valida=1 fonte=herdada boot=3 desde_boot_ms=9013
+1791296709.933 < [CSV] 10233,88:57:21:70:93:70,no1,-32,-96,22,nenhuma,primeiro,0,35,335,2131,7368,990,3325,0,8,291,3,2
+1791296710.340 # abertura 2 (power-on pelo EN)
+1791296710.354 < ets Jul 29 2019 12:21:46
+1791296710.354 < 
+1791296710.354 < rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+1791296710.354 < configsip: 0, SPIWP:0xee
+1791296710.364 < clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+1791296710.365 < mode:DIO, clock div:2
+1791296710.365 < load:0x3fff0030,len:4640
+1791296710.369 < load:0x40078000,len:15632
+1791296710.369 < load:0x40080400,len:3164
+1791296710.369 < entry 0x4008059c
+1791296710.917 < 
+1791296710.917 < [BOOT] coordenador - etapa 7
+1791296710.930 < [RELOGIO] boot 4, motivo do reset 1
+1791296710.931 < [RELOGIO] utc=invalida epoch=0 valida=0 fonte=nenhuma boot=4 desde_boot_ms=223
+1791296710.936 < [MAC] STA 88:57:21:70:91:fc
+1791296710.937 < [MAC] AP  88:57:21:70:91:fd
+1791296710.937 < [BOOT] protocolo v1 (22 bytes)
+1791296711.035 < [WIFI] varrendo canais...
+1791296714.374 < [WIFI] varredura: 15 redes em 3404 ms
+1791296714.406 < [WIFI] canal  1: 2 no canal, 2 sobrepostas, mais forte -61 dBm
+1791296714.415 < [WIFI] canal  6: 0 no canal, 4 sobrepostas, mais forte -61 dBm
+1791296714.415 < [WIFI] canal 11: 9 no canal, 2 sobrepostas, mais forte -48 dBm
+1791296714.614 < [WIFI] SoftAP "horta-coord" canal 1, MAC AP 88:57:21:70:91:FD, IP 192.168.4.1
+1791296714.625 < [ESPNOW] pronto: versao 2, fila de 16 itens (272 bytes cada)
+1791296714.636 < [CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags
+1791296714.639 < [RESUMO] t_ms,mac,nome,recebidos,rejeitados,aceitos,perdidos,descartados,reinicios,sem_ack,entrega_pct,rssi_medio,rssi_min,rssi_max
+1791296719.447 > hora
+1791296719.538 < [RELOGIO] utc=invalida epoch=9 valida=0 fonte=nenhuma boot=4 desde_boot_ms=9023
+1791296719.717 < [CSV] 9204,88:57:21:70:93:70,no1,-33,-96,22,nenhuma,primeiro,0,35,336,2130,7368,999,3333,0,8,134,1,0
