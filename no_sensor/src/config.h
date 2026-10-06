@@ -79,9 +79,15 @@ constexpr uint32_t TEMPO_LIMITE_CALLBACK_MS = 100;
 
 // ---------------------------------------------------------------- Ciclo (deep sleep)
 // Período entre pacotes: o nó dorme (período − tempo acordado), então o
-// intervalo não acumula o tempo acordado. PROVISÓRIO (10 s) para os testes de
-// bancada; o intervalo de operação é decisão do passo 6 da Etapa 5.
-constexpr uint32_t PERIODO_CICLO_MS = 10000;
+// intervalo não acumula o tempo acordado. 15 min (Etapa 5, passo 6): resolve a
+// curva do solo após a rega (~1 h, sensores.md 4.4) e dá ~1300 pacotes por nó
+// em 2 semanas de campo. Revisar com a corrente medida (docs/energia.md).
+// Os envs de bancada (bancada, teste_*) usam 10 s para obter muitos ciclos rápido.
+#ifdef PERIODO_BANCADA_MS
+constexpr uint32_t PERIODO_CICLO_MS = PERIODO_BANCADA_MS;
+#else
+constexpr uint32_t PERIODO_CICLO_MS = 15UL * 60 * 1000;
+#endif
 constexpr uint32_t SONO_MINIMO_MS = 1000;  // se o ciclo passar do período, dorme ao menos isto
 
 // ---------------------------------------------------------------- Proteções (Etapa 5, passo 5)
