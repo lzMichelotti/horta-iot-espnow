@@ -1,0 +1,59 @@
+1791313297.759 # abrir
+1791313297.772 < ets Jul 29 2019 12:21:46
+1791313297.772 < 
+1791313297.773 < rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+1791313297.773 < configsip: 0, SPIWP:0xee
+1791313297.783 < clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+1791313297.783 < mode:DIO, clock div:2
+1791313297.784 < load:0x3fff0030,len:4640
+1791313297.787 < load:0x40078000,len:15632
+1791313297.787 < load:0x40080400,len:3164
+1791313297.787 < entry 0x4008059c
+1791313298.352 < 
+1791313298.352 < [BOOT] coordenador - etapa 7
+1791313298.365 < [RELOGIO] boot 25, motivo do reset 1
+1791313298.365 < [RELOGIO] utc=invalida epoch=0 valida=0 fonte=nenhuma boot=25 desde_boot_ms=221
+1791313298.376 < [PART] nome,tipo,subtipo,endereco,tamanho_kb
+1791313298.376 < [PART] nvs,1,0x02,0x009000,20
+1791313298.376 < [PART] otadata,1,0x00,0x00e000,8
+1791313298.386 < [PART] app0,0,0x00,0x010000,2048
+1791313298.386 < [PART] littlefs,1,0x83,0x210000,1920
+1791313298.386 < [PART] coredump,1,0x03,0x3f0000,64
+1791313298.387 < [MAC] STA 88:57:21:70:91:fc
+1791313298.389 < [MAC] AP  88:57:21:70:91:fd
+1791313298.389 < [BOOT] protocolo v1 (22 bytes)
+1791313298.639 < [FS] LittleFS montado: 1356 KB usados de 1920 KB
+1791313300.614 < [FS] carga: 56 segmentos, 27722 registros validos, 0 invalidos, em 2046 ms
+1791313300.750 < [WIFI] varrendo canais...
+1791313304.417 < [WIFI] varredura: 23 redes em 3803 ms
+1791313304.470 < [WIFI] canal  1: 6 no canal, 5 sobrepostas, mais forte -63 dBm
+1791313304.471 < [WIFI] canal  6: 0 no canal, 11 sobrepostas, mais forte -17 dBm
+1791313304.472 < [WIFI] canal 11: 6 no canal, 6 sobrepostas, mais forte -17 dBm
+1791313304.665 < [WIFI] SoftAP "horta-coord" canal 1, MAC AP 88:57:21:70:91:FD, IP 192.168.4.1
+1791313304.676 < [ESPNOW] pronto: versao 2, fila de 16 itens (272 bytes cada)
+1791313304.686 < [CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags
+1791313304.690 < [RESUMO] t_ms,mac,nome,recebidos,rejeitados,aceitos,perdidos,descartados,reinicios,sem_ack,entrega_pct,rssi_medio,rssi_min,rssi_max
+1791313304.690 > consulta de=1779834492 ate=1779847092 no=02:00:00:00:00:01 limite=50
+1791313304.795 < [CONSULTA] id,mac,hora,utc,boot_coord,desde_boot_s,boot_no,seq,temp_c100,ur_c100,solo_mv,alim_mv,rssi
+1791313304.831 < [CONSULTA] 2500,02:00:00:00:00:01,reconstruida,2026-05-26T23:13:12Z,1005,30,1,1000,2400,6000,1000,3300,-41
+1791313304.842 < [CONSULTA] 2502,02:00:00:00:00:01,reconstruida,2026-05-26T23:28:12Z,1005,930,1,1001,2410,6000,1001,3300,-41
+1791313304.852 < [CONSULTA] 2504,02:00:00:00:00:01,reconstruida,2026-05-26T23:43:12Z,1005,1830,1,1002,2420,6000,1002,3300,-41
+1791313304.863 < [CONSULTA] 2506,02:00:00:00:00:01,reconstruida,2026-05-26T23:58:12Z,1005,2730,1,1003,2430,6000,1003,3300,-41
+1791313304.873 < [CONSULTA] 2508,02:00:00:00:00:01,reconstruida,2026-05-27T00:13:12Z,1005,3630,1,1004,2440,6000,1004,3300,-41
+1791313304.884 < [CONSULTA] 2510,02:00:00:00:00:01,reconstruida,2026-05-27T00:28:12Z,1005,4530,1,1005,2450,6000,1005,3300,-41
+1791313304.884 < [CONSULTA] 2512,02:00:00:00:00:01,reconstruida,2026-05-27T00:43:12Z,1005,5430,1,1006,2460,6000,1006,3300,-41
+1791313304.895 < [CONSULTA] 2514,02:00:00:00:00:01,reconstruida,2026-05-27T00:58:12Z,1005,6330,1,1007,2470,6000,1007,3300,-41
+1791313304.906 < [CONSULTA] 2516,02:00:00:00:00:01,valida,2026-05-27T01:13:12Z,1005,7230,1,1008,2480,6000,1008,3300,-41
+1791313304.916 < [CONSULTA] 2518,02:00:00:00:00:01,valida,2026-05-27T01:28:12Z,1005,8130,1,1009,2490,6000,1009,3300,-41
+1791313304.926 < [CONSULTA] 2520,02:00:00:00:00:01,valida,2026-05-27T01:43:12Z,1005,9030,1,1010,2500,6000,1010,3300,-41
+1791313304.927 < [CONSULTA] 2522,02:00:00:00:00:01,valida,2026-05-27T01:58:12Z,1005,9930,1,1011,2510,6000,1011,3300,-41
+1791313305.529 < [CONSULTA] pagina: entregues=12 fim=1 proximo=29000 rotacionado=0 lidos=12000 invalidos=0 pulados=32 us=758765 heap_antes=168464 heap_min=162828 heap_depois=168456
+1791313307.733 > consulta no=88:57:21:70:93:70 ordem=desc limite=3
+1791313307.842 < [CONSULTA] id,mac,hora,utc,boot_coord,desde_boot_s,boot_no,seq,temp_c100,ur_c100,solo_mv,alim_mv,rssi
+1791313307.855 < [CONSULTA] 29221,88:57:21:70:93:70,valida,2026-10-06T19:01:29Z,24,92,39,1019,0,0,1064,3404,-29
+1791313307.865 < [CONSULTA] 29220,88:57:21:70:93:70,valida,2026-10-06T19:01:19Z,24,82,39,1018,0,0,1061,3403,-29
+1791313307.876 < [CONSULTA] 29219,88:57:21:70:93:70,valida,2026-10-06T19:01:09Z,24,72,39,1017,0,0,1060,3402,-23
+1791313307.881 < [CONSULTA] pagina: entregues=3 fim=0 proximo=29218 rotacionado=0 lidos=3 invalidos=0 pulados=0 us=34702 heap_antes=168464 heap_min=162924 heap_depois=168464
+1791313309.996 < [CSV] 12318,88:57:21:70:93:70,no1,-21,-97,22,nenhuma,primeiro,0,39,1021,0,0,1060,3401,5,8,325,3,3
+1791313310.114 < [FS] gravado,58,222,128676
+1791313310.915 # fechar

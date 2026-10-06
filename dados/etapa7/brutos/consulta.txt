@@ -1,0 +1,1335 @@
+1791313087.160 # abrir
+1791313087.172 < ets Jul 29 2019 12:21:46
+1791313087.172 < 
+1791313087.172 < rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+1791313087.173 < configsip: 0, SPIWP:0xee
+1791313087.183 < clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+1791313087.183 < mode:DIO, clock div:2
+1791313087.183 < load:0x3fff0030,len:4640
+1791313087.187 < load:0x40078000,len:15632
+1791313087.187 < load:0x40080400,len:3164
+1791313087.187 < entry 0x4008059c
+1791313088.539 < 
+1791313088.539 < [BOOT] coordenador - etapa 7
+1791313088.552 < [RELOGIO] boot 23, motivo do reset 1
+1791313088.552 < [RELOGIO] utc=invalida epoch=0 valida=0 fonte=nenhuma boot=23 desde_boot_ms=222
+1791313088.563 < [PART] nome,tipo,subtipo,endereco,tamanho_kb
+1791313088.563 < [PART] nvs,1,0x02,0x009000,20
+1791313088.563 < [PART] otadata,1,0x00,0x00e000,8
+1791313088.573 < [PART] app0,0,0x00,0x010000,2048
+1791313088.573 < [PART] littlefs,1,0x83,0x210000,1920
+1791313088.573 < [PART] coredump,1,0x03,0x3f0000,64
+1791313088.574 < [MAC] STA 88:57:21:70:91:fc
+1791313088.576 < [MAC] AP  88:57:21:70:91:fd
+1791313088.576 < [BOOT] protocolo v1 (22 bytes)
+1791313088.608 < [FS] LittleFS montado: 40 KB usados de 1920 KB
+1791313088.666 < [FS] carga: 1 segmentos, 265 registros validos, 0 invalidos, em 56 ms
+1791313088.753 < [WIFI] varrendo canais...
+1791313092.320 < [WIFI] varredura: 24 redes em 3603 ms
+1791313092.374 < [WIFI] canal  1: 5 no canal, 4 sobrepostas, mais forte -67 dBm
+1791313092.374 < [WIFI] canal  6: 0 no canal, 10 sobrepostas, mais forte -17 dBm
+1791313092.378 < [WIFI] canal 11: 9 no canal, 6 sobrepostas, mais forte -17 dBm
+1791313092.585 < [WIFI] SoftAP "horta-coord" canal 1, MAC AP 88:57:21:70:91:FD, IP 192.168.4.1
+1791313092.596 < [ESPNOW] pronto: versao 2, fila de 16 itens (272 bytes cada)
+1791313092.607 < [CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags
+1791313092.611 < [RESUMO] t_ms,mac,nome,recebidos,rejeitados,aceitos,perdidos,descartados,reinicios,sem_ack,entrega_pct,rssi_medio,rssi_min,rssi_max
+1791313092.611 > hora 1791313092
+1791313092.720 < [RELOGIO] acertada (antes: invalida)
+1791313092.720 > fs formatar
+1791313092.721 < [RELOGIO] utc=2026-10-06T18:58:12Z epoch=1791313092 valida=1 fonte=manual boot=23 desde_boot_ms=4445
+1791313092.825 < [FS] formatando a particao (apaga todo o historico)...
+1791313092.904 < [FS] format: ok em 79 ms
+1791313092.905 < [FS] LittleFS montado: 8 KB usados de 1920 KB
+1791313092.948 < [FS] carga: 0 segmentos, 0 registros validos, 0 invalidos, em 42 ms
+1791313092.948 > fs encher 27500 2
+1791313113.632 < [FS] enchimento: 27500 registros de 2 nos em 21161 ms
+1791313114.009 < [FS] 1336 KB usados de 1920 KB; politica: 500 registros/segmento, max 56 segmentos
+1791313114.019 < [FS] segmentos: 55 (1 a 55), registros validos: 27500
+1791313114.019 > consulta ultimas
+1791313114.020 < [FS] gravacoes neste boot: 0 ok, 0 falhas; tempo (us): ultima 0, media 0, max 0
+1791313114.025 < [CSV] 26334,88:57:21:70:93:70,no1,-29,-96,22,nenhuma,primeiro,0,39,1000,0,0,1068,3404,5,8,333,3,3
+1791313115.484 < [FS] gravado,56,0,1487317
+1791313115.484 < [CONSULTA] ultimas: mac,nome,hora,utc,boot_coord,seq,solo_mv,alim_mv,rssi
+1791313115.494 < [CONSULTA] 88:57:21:70:93:70,no1,valida,2026-10-06T18:58:33Z,23,1000,1068,3404,-29
+1791313115.505 < [CONSULTA] 02:00:00:00:00:01,desconhecido,valida,2026-10-06T18:28:12Z,1068,13749,1149,3300,-41
+1791313115.506 < [CONSULTA] 02:00:00:00:00:02,desconhecido,valida,2026-10-06T18:28:19Z,1068,13749,1149,3300,-42
+1791313115.506 # 1. primeira e última página
+1791313115.506 > consulta limite=5
+1791313115.512 < [CSV] 27857,88:57:21:70:93:70,no1,-22,-96,22,nenhuma,novo,0,39,1001,0,0,1062,3400,5,8,159,1,1
+1791313115.531 < [FS] gravado,56,1,13431
+1791313115.532 < [CONSULTA] id,mac,hora,utc,boot_coord,desde_boot_s,boot_no,seq,temp_c100,ur_c100,solo_mv,alim_mv,rssi
+1791313115.542 < [CONSULTA] 500,02:00:00:00:00:01,valida,2026-05-16T13:13:12Z,1000,30,1,0,2000,6000,900,3300,-41
+1791313115.553 < [CONSULTA] 501,02:00:00:00:00:02,valida,2026-05-16T13:13:19Z,1000,37,1,0,2000,6000,900,3300,-42
+1791313115.564 < [CONSULTA] 502,02:00:00:00:00:01,valida,2026-05-16T13:28:12Z,1000,930,1,1,2010,6000,901,3300,-41
+1791313115.574 < [CONSULTA] 503,02:00:00:00:00:02,valida,2026-05-16T13:28:19Z,1000,937,1,1,2010,6000,901,3300,-42
+1791313115.574 < [CONSULTA] 504,02:00:00:00:00:01,valida,2026-05-16T13:43:12Z,1000,1830,1,2,2020,6000,902,3300,-41
+1791313115.585 < [CONSULTA] pagina: entregues=5 fim=0 proximo=505 rotacionado=0 lidos=5 invalidos=0 pulados=0 us=44977 heap_antes=168468 heap_min=162924 heap_depois=168468
+1791313115.586 > consulta ordem=desc limite=5
+1791313115.684 < [CONSULTA] id,mac,hora,utc,boot_coord,desde_boot_s,boot_no,seq,temp_c100,ur_c100,solo_mv,alim_mv,rssi
+1791313115.695 < [CONSULTA] 28001,88:57:21:70:93:70,valida,2026-10-06T18:58:35Z,23,27,39,1001,0,0,1062,3400,-22
+1791313115.700 < [CONSULTA] 28000,88:57:21:70:93:70,valida,2026-10-06T18:58:33Z,23,26,39,1000,0,0,1068,3404,-29
+1791313115.717 < [CONSULTA] 27999,02:00:00:00:00:02,valida,2026-10-06T18:28:19Z,1068,134137,1,13749,2210,6000,1149,3300,-42
+1791313115.728 < [CONSULTA] 27998,02:00:00:00:00:01,valida,2026-10-06T18:28:12Z,1068,134130,1,13749,2210,6000,1149,3300,-41
+1791313115.738 < [CONSULTA] 27997,02:00:00:00:00:02,valida,2026-10-06T18:13:19Z,1068,133237,1,13748,2200,6000,1148,3300,-42
+1791313115.747 < [CONSULTA] pagina: entregues=5 fim=0 proximo=27996 rotacionado=0 lidos=5 invalidos=0 pulados=0 us=54319 heap_antes=168468 heap_min=162916 heap_depois=168468
+1791313115.747 # 2. paginação completa (100 por página), crescente e decrescente
+1791313115.747 > consulta ordem=asc limite=100 cursor=0 mostrar=0
+1791313115.865 < [CONSULTA] pagina: entregues=100 fim=0 proximo=600 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12501 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313115.865 > consulta ordem=asc limite=100 cursor=600 mostrar=0
+1791313115.988 < [CONSULTA] pagina: entregues=100 fim=0 proximo=700 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12875 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313115.988 > consulta ordem=asc limite=100 cursor=700 mostrar=0
+1791313116.111 < [CONSULTA] pagina: entregues=100 fim=0 proximo=800 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12710 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313116.111 > consulta ordem=asc limite=100 cursor=800 mostrar=0
+1791313116.234 < [CONSULTA] pagina: entregues=100 fim=0 proximo=900 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12573 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313116.234 > consulta ordem=asc limite=100 cursor=900 mostrar=0
+1791313116.357 < [CONSULTA] pagina: entregues=100 fim=0 proximo=1000 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12189 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313116.357 > consulta ordem=asc limite=100 cursor=1000 mostrar=0
+1791313116.479 < [CONSULTA] pagina: entregues=100 fim=0 proximo=1100 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12452 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313116.479 > consulta ordem=asc limite=100 cursor=1100 mostrar=0
+1791313116.602 < [CONSULTA] pagina: entregues=100 fim=0 proximo=1200 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12832 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313116.602 > consulta ordem=asc limite=100 cursor=1200 mostrar=0
+1791313116.725 < [CONSULTA] pagina: entregues=100 fim=0 proximo=1300 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12759 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313116.725 > consulta ordem=asc limite=100 cursor=1300 mostrar=0
+1791313116.848 < [CONSULTA] pagina: entregues=100 fim=0 proximo=1400 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12568 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313116.848 > consulta ordem=asc limite=100 cursor=1400 mostrar=0
+1791313116.970 < [CONSULTA] pagina: entregues=100 fim=0 proximo=1500 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12244 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313116.970 > consulta ordem=asc limite=100 cursor=1500 mostrar=0
+1791313117.093 < [CONSULTA] pagina: entregues=100 fim=0 proximo=1600 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12422 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313117.093 > consulta ordem=asc limite=100 cursor=1600 mostrar=0
+1791313117.215 < [CONSULTA] pagina: entregues=100 fim=0 proximo=1700 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12836 heap_antes=168468 heap_min=163012 heap_depois=168468
+1791313117.216 > consulta ordem=asc limite=100 cursor=1700 mostrar=0
+1791313117.338 < [CONSULTA] pagina: entregues=100 fim=0 proximo=1800 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12687 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313117.338 > consulta ordem=asc limite=100 cursor=1800 mostrar=0
+1791313117.461 < [CONSULTA] pagina: entregues=100 fim=0 proximo=1900 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12549 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313117.461 > consulta ordem=asc limite=100 cursor=1900 mostrar=0
+1791313117.584 < [CONSULTA] pagina: entregues=100 fim=0 proximo=2000 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12168 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313117.584 > consulta ordem=asc limite=100 cursor=2000 mostrar=0
+1791313117.706 < [CONSULTA] pagina: entregues=100 fim=0 proximo=2100 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12292 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313117.706 > consulta ordem=asc limite=100 cursor=2100 mostrar=0
+1791313117.829 < [CONSULTA] pagina: entregues=100 fim=0 proximo=2200 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12925 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313117.829 > consulta ordem=asc limite=100 cursor=2200 mostrar=0
+1791313117.952 < [CONSULTA] pagina: entregues=100 fim=0 proximo=2300 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12811 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313117.952 > consulta ordem=asc limite=100 cursor=2300 mostrar=0
+1791313118.075 < [CONSULTA] pagina: entregues=100 fim=0 proximo=2400 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12632 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313118.075 > consulta ordem=asc limite=100 cursor=2400 mostrar=0
+1791313118.197 < [CONSULTA] pagina: entregues=100 fim=0 proximo=2500 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12293 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313118.197 > consulta ordem=asc limite=100 cursor=2500 mostrar=0
+1791313118.319 < [CONSULTA] pagina: entregues=100 fim=0 proximo=2600 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12072 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313118.319 > consulta ordem=asc limite=100 cursor=2600 mostrar=0
+1791313118.441 < [CONSULTA] pagina: entregues=100 fim=0 proximo=2700 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12425 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313118.441 > consulta ordem=asc limite=100 cursor=2700 mostrar=0
+1791313118.563 < [CONSULTA] pagina: entregues=100 fim=0 proximo=2800 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12273 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313118.563 > consulta ordem=asc limite=100 cursor=2800 mostrar=0
+1791313118.685 < [CONSULTA] pagina: entregues=100 fim=0 proximo=2900 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12140 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313118.685 > consulta ordem=asc limite=100 cursor=2900 mostrar=0
+1791313118.806 < [CONSULTA] pagina: entregues=100 fim=0 proximo=3000 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11749 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313118.806 > consulta ordem=asc limite=100 cursor=3000 mostrar=0
+1791313118.929 < [CONSULTA] pagina: entregues=100 fim=0 proximo=3100 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12010 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313118.929 > consulta ordem=asc limite=100 cursor=3100 mostrar=0
+1791313119.052 < [CONSULTA] pagina: entregues=100 fim=0 proximo=3200 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12399 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313119.052 > consulta ordem=asc limite=100 cursor=3200 mostrar=0
+1791313119.174 < [CONSULTA] pagina: entregues=100 fim=0 proximo=3300 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12253 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313119.174 > consulta ordem=asc limite=100 cursor=3300 mostrar=0
+1791313119.295 < [CONSULTA] pagina: entregues=100 fim=0 proximo=3400 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12123 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313119.296 > consulta ordem=asc limite=100 cursor=3400 mostrar=0
+1791313119.417 < [CONSULTA] pagina: entregues=100 fim=0 proximo=3500 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11816 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313119.417 > consulta ordem=asc limite=100 cursor=3500 mostrar=0
+1791313119.539 < [CONSULTA] pagina: entregues=100 fim=0 proximo=3600 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11869 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313119.539 > consulta ordem=asc limite=100 cursor=3600 mostrar=0
+1791313119.662 < [CONSULTA] pagina: entregues=100 fim=0 proximo=3700 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12277 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313119.662 > consulta ordem=asc limite=100 cursor=3700 mostrar=0
+1791313119.783 < [CONSULTA] pagina: entregues=100 fim=0 proximo=3800 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12146 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313119.784 > consulta ordem=asc limite=100 cursor=3800 mostrar=0
+1791313119.905 < [CONSULTA] pagina: entregues=100 fim=0 proximo=3900 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12010 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313119.905 > consulta ordem=asc limite=100 cursor=3900 mostrar=0
+1791313120.027 < [CONSULTA] pagina: entregues=100 fim=0 proximo=4000 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11624 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313120.027 > consulta ordem=asc limite=100 cursor=4000 mostrar=0
+1791313120.157 < [CONSULTA] pagina: entregues=100 fim=0 proximo=4100 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11602 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313120.157 > consulta ordem=asc limite=100 cursor=4100 mostrar=0
+1791313120.158 < [CSV] 32620,88:57:21:70:93:70,no1,-28,-96,22,nenhuma,novo,0,39,1002,0,0,1064,3404,5,8,159,1,1
+1791313120.163 < [FS] gravado,56,2,14785
+1791313120.286 < [CONSULTA] pagina: entregues=100 fim=0 proximo=4200 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12161 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313120.286 > consulta ordem=asc limite=100 cursor=4200 mostrar=0
+1791313121.211 < [CONSULTA] pagina: entregues=100 fim=0 proximo=4300 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11897 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313121.211 > consulta ordem=asc limite=100 cursor=4300 mostrar=0
+1791313121.333 < [CONSULTA] pagina: entregues=100 fim=0 proximo=4400 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11748 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313121.333 > consulta ordem=asc limite=100 cursor=4400 mostrar=0
+1791313121.455 < [CONSULTA] pagina: entregues=100 fim=0 proximo=4500 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11361 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313121.455 > consulta ordem=asc limite=100 cursor=4500 mostrar=0
+1791313121.576 < [CONSULTA] pagina: entregues=100 fim=0 proximo=4600 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11595 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313121.576 > consulta ordem=asc limite=100 cursor=4600 mostrar=0
+1791313121.698 < [CONSULTA] pagina: entregues=100 fim=0 proximo=4700 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11984 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313121.698 > consulta ordem=asc limite=100 cursor=4700 mostrar=0
+1791313121.821 < [CONSULTA] pagina: entregues=100 fim=0 proximo=4800 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11954 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313121.821 > consulta ordem=asc limite=100 cursor=4800 mostrar=0
+1791313121.943 < [CONSULTA] pagina: entregues=100 fim=0 proximo=4900 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11704 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313121.943 > consulta ordem=asc limite=100 cursor=4900 mostrar=0
+1791313122.067 < [CONSULTA] pagina: entregues=100 fim=0 proximo=5000 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11354 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313122.067 > consulta ordem=asc limite=100 cursor=5000 mostrar=0
+1791313122.191 < [CONSULTA] pagina: entregues=100 fim=0 proximo=5100 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11781 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313122.191 > consulta ordem=asc limite=100 cursor=5100 mostrar=0
+1791313122.315 < [CONSULTA] pagina: entregues=100 fim=0 proximo=5200 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12148 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313122.316 > consulta ordem=asc limite=100 cursor=5200 mostrar=0
+1791313122.439 < [CONSULTA] pagina: entregues=100 fim=0 proximo=5300 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12012 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313122.440 > consulta ordem=asc limite=100 cursor=5300 mostrar=0
+1791313122.564 < [CONSULTA] pagina: entregues=100 fim=0 proximo=5400 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11872 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313122.564 > consulta ordem=asc limite=100 cursor=5400 mostrar=0
+1791313122.688 < [CONSULTA] pagina: entregues=100 fim=0 proximo=5500 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11494 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313122.688 > consulta ordem=asc limite=100 cursor=5500 mostrar=0
+1791313122.812 < [CONSULTA] pagina: entregues=100 fim=0 proximo=5600 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11201 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313122.812 > consulta ordem=asc limite=100 cursor=5600 mostrar=0
+1791313122.936 < [CONSULTA] pagina: entregues=100 fim=0 proximo=5700 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11602 heap_antes=168468 heap_min=163012 heap_depois=168468
+1791313122.936 > consulta ordem=asc limite=100 cursor=5700 mostrar=0
+1791313123.060 < [CONSULTA] pagina: entregues=100 fim=0 proximo=5800 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11468 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313123.060 > consulta ordem=asc limite=100 cursor=5800 mostrar=0
+1791313123.184 < [CONSULTA] pagina: entregues=100 fim=0 proximo=5900 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11328 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313123.184 > consulta ordem=asc limite=100 cursor=5900 mostrar=0
+1791313123.307 < [CONSULTA] pagina: entregues=100 fim=0 proximo=6000 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10957 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313123.307 > consulta ordem=asc limite=100 cursor=6000 mostrar=0
+1791313123.431 < [CONSULTA] pagina: entregues=100 fim=0 proximo=6100 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11202 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313123.431 > consulta ordem=asc limite=100 cursor=6100 mostrar=0
+1791313123.555 < [CONSULTA] pagina: entregues=100 fim=0 proximo=6200 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11677 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313123.555 > consulta ordem=asc limite=100 cursor=6200 mostrar=0
+1791313123.678 < [CONSULTA] pagina: entregues=100 fim=0 proximo=6300 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11470 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313123.679 > consulta ordem=asc limite=100 cursor=6300 mostrar=0
+1791313123.803 < [CONSULTA] pagina: entregues=100 fim=0 proximo=6400 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11318 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313123.803 > consulta ordem=asc limite=100 cursor=6400 mostrar=0
+1791313123.926 < [CONSULTA] pagina: entregues=100 fim=0 proximo=6500 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10949 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313123.926 > consulta ordem=asc limite=100 cursor=6500 mostrar=0
+1791313124.049 < [CONSULTA] pagina: entregues=100 fim=0 proximo=6600 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11140 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313124.049 > consulta ordem=asc limite=100 cursor=6600 mostrar=0
+1791313124.173 < [CONSULTA] pagina: entregues=100 fim=0 proximo=6700 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11535 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313124.173 > consulta ordem=asc limite=100 cursor=6700 mostrar=0
+1791313124.297 < [CONSULTA] pagina: entregues=100 fim=0 proximo=6800 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11386 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313124.298 > consulta ordem=asc limite=100 cursor=6800 mostrar=0
+1791313124.421 < [CONSULTA] pagina: entregues=100 fim=0 proximo=6900 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11258 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313124.421 > consulta ordem=asc limite=100 cursor=6900 mostrar=0
+1791313124.544 < [CONSULTA] pagina: entregues=100 fim=0 proximo=7000 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10880 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313124.544 > consulta ordem=asc limite=100 cursor=7000 mostrar=0
+1791313124.667 < [CONSULTA] pagina: entregues=100 fim=0 proximo=7100 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10779 heap_antes=168468 heap_min=163012 heap_depois=168468
+1791313124.667 > consulta ordem=asc limite=100 cursor=7100 mostrar=0
+1791313124.791 < [CONSULTA] pagina: entregues=100 fim=0 proximo=7200 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11175 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313124.791 > consulta ordem=asc limite=100 cursor=7200 mostrar=0
+1791313124.914 < [CONSULTA] pagina: entregues=100 fim=0 proximo=7300 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11046 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313124.914 > consulta ordem=asc limite=100 cursor=7300 mostrar=0
+1791313125.037 < [CONSULTA] pagina: entregues=100 fim=0 proximo=7400 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10926 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313125.037 > consulta ordem=asc limite=100 cursor=7400 mostrar=0
+1791313125.160 < [CONSULTA] pagina: entregues=100 fim=0 proximo=7500 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10547 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313125.160 > consulta ordem=asc limite=100 cursor=7500 mostrar=0
+1791313125.284 < [CONSULTA] pagina: entregues=100 fim=0 proximo=7600 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10945 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313125.284 > consulta ordem=asc limite=100 cursor=7600 mostrar=0
+1791313125.407 < [CONSULTA] pagina: entregues=100 fim=0 proximo=7700 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11178 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313125.407 > consulta ordem=asc limite=100 cursor=7700 mostrar=0
+1791313125.531 < [CONSULTA] pagina: entregues=100 fim=0 proximo=7800 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11031 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313125.531 > consulta ordem=asc limite=100 cursor=7800 mostrar=0
+1791313125.654 < [CONSULTA] pagina: entregues=100 fim=0 proximo=7900 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10939 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313125.654 > consulta ordem=asc limite=100 cursor=7900 mostrar=0
+1791313125.777 < [CONSULTA] pagina: entregues=100 fim=0 proximo=8000 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10520 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313125.777 > consulta ordem=asc limite=100 cursor=8000 mostrar=0
+1791313125.901 < [CONSULTA] pagina: entregues=100 fim=0 proximo=8100 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10912 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313125.901 > consulta ordem=asc limite=100 cursor=8100 mostrar=0
+1791313126.024 < [CONSULTA] pagina: entregues=100 fim=0 proximo=8200 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11226 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313126.024 > consulta ordem=asc limite=100 cursor=8200 mostrar=0
+1791313126.148 < [CONSULTA] pagina: entregues=100 fim=0 proximo=8300 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11098 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313126.148 > consulta ordem=asc limite=100 cursor=8300 mostrar=0
+1791313126.271 < [CONSULTA] pagina: entregues=100 fim=0 proximo=8400 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10949 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313126.271 > consulta ordem=asc limite=100 cursor=8400 mostrar=0
+1791313126.393 < [CONSULTA] pagina: entregues=100 fim=0 proximo=8500 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10568 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313126.393 > consulta ordem=asc limite=100 cursor=8500 mostrar=0
+1791313126.514 < [CONSULTA] pagina: entregues=100 fim=0 proximo=8600 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10379 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313126.514 > consulta ordem=asc limite=100 cursor=8600 mostrar=0
+1791313126.635 < [CONSULTA] pagina: entregues=100 fim=0 proximo=8700 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10781 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313126.635 > consulta ordem=asc limite=100 cursor=8700 mostrar=0
+1791313126.756 < [CONSULTA] pagina: entregues=100 fim=0 proximo=8800 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10614 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313126.756 > consulta ordem=asc limite=100 cursor=8800 mostrar=0
+1791313126.876 < [CONSULTA] pagina: entregues=100 fim=0 proximo=8900 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10474 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313126.876 > consulta ordem=asc limite=100 cursor=8900 mostrar=0
+1791313126.997 < [CONSULTA] pagina: entregues=100 fim=0 proximo=9000 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10122 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313126.997 > consulta ordem=asc limite=100 cursor=9000 mostrar=0
+1791313127.118 < [CONSULTA] pagina: entregues=100 fim=0 proximo=9100 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10341 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313127.118 > consulta ordem=asc limite=100 cursor=9100 mostrar=0
+1791313127.238 < [CONSULTA] pagina: entregues=100 fim=0 proximo=9200 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10749 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313127.238 > consulta ordem=asc limite=100 cursor=9200 mostrar=0
+1791313127.359 < [CONSULTA] pagina: entregues=100 fim=0 proximo=9300 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10621 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313127.359 > consulta ordem=asc limite=100 cursor=9300 mostrar=0
+1791313127.479 < [CONSULTA] pagina: entregues=100 fim=0 proximo=9400 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10463 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313127.479 > consulta ordem=asc limite=100 cursor=9400 mostrar=0
+1791313127.600 < [CONSULTA] pagina: entregues=100 fim=0 proximo=9500 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10162 heap_antes=168468 heap_min=163012 heap_depois=168468
+1791313127.600 > consulta ordem=asc limite=100 cursor=9500 mostrar=0
+1791313127.720 < [CONSULTA] pagina: entregues=100 fim=0 proximo=9600 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10319 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313127.721 > consulta ordem=asc limite=100 cursor=9600 mostrar=0
+1791313127.841 < [CONSULTA] pagina: entregues=100 fim=0 proximo=9700 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10741 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313127.841 > consulta ordem=asc limite=100 cursor=9700 mostrar=0
+1791313127.961 < [CONSULTA] pagina: entregues=100 fim=0 proximo=9800 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10619 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313127.962 > consulta ordem=asc limite=100 cursor=9800 mostrar=0
+1791313128.083 < [CONSULTA] pagina: entregues=100 fim=0 proximo=9900 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10460 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313128.083 > consulta ordem=asc limite=100 cursor=9900 mostrar=0
+1791313128.203 < [CONSULTA] pagina: entregues=100 fim=0 proximo=10000 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10135 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313128.203 > consulta ordem=asc limite=100 cursor=10000 mostrar=0
+1791313128.323 < [CONSULTA] pagina: entregues=100 fim=0 proximo=10100 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10201 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313128.324 > consulta ordem=asc limite=100 cursor=10100 mostrar=0
+1791313128.444 < [CONSULTA] pagina: entregues=100 fim=0 proximo=10200 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10608 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313128.444 > consulta ordem=asc limite=100 cursor=10200 mostrar=0
+1791313128.564 < [CONSULTA] pagina: entregues=100 fim=0 proximo=10300 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10465 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313128.564 > consulta ordem=asc limite=100 cursor=10300 mostrar=0
+1791313128.685 < [CONSULTA] pagina: entregues=100 fim=0 proximo=10400 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10317 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313128.686 > consulta ordem=asc limite=100 cursor=10400 mostrar=0
+1791313128.805 < [CONSULTA] pagina: entregues=100 fim=0 proximo=10500 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10033 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313128.805 > consulta ordem=asc limite=100 cursor=10500 mostrar=0
+1791313128.925 < [CONSULTA] pagina: entregues=100 fim=0 proximo=10600 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=9904 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313128.925 > consulta ordem=asc limite=100 cursor=10600 mostrar=0
+1791313129.045 < [CONSULTA] pagina: entregues=100 fim=0 proximo=10700 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10326 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313129.045 > consulta ordem=asc limite=100 cursor=10700 mostrar=0
+1791313129.165 < [CONSULTA] pagina: entregues=100 fim=0 proximo=10800 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10171 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313129.165 > consulta ordem=asc limite=100 cursor=10800 mostrar=0
+1791313129.285 < [CONSULTA] pagina: entregues=100 fim=0 proximo=10900 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10049 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313129.285 > consulta ordem=asc limite=100 cursor=10900 mostrar=0
+1791313129.405 < [CONSULTA] pagina: entregues=100 fim=0 proximo=11000 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=9759 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313129.405 > consulta ordem=asc limite=100 cursor=11000 mostrar=0
+1791313129.525 < [CONSULTA] pagina: entregues=100 fim=0 proximo=11100 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=9908 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313129.525 > consulta ordem=asc limite=100 cursor=11100 mostrar=0
+1791313129.646 < [CONSULTA] pagina: entregues=100 fim=0 proximo=11200 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10285 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313129.646 > consulta ordem=asc limite=100 cursor=11200 mostrar=0
+1791313129.765 < [CONSULTA] pagina: entregues=100 fim=0 proximo=11300 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10172 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313129.765 > consulta ordem=asc limite=100 cursor=11300 mostrar=0
+1791313129.885 < [CONSULTA] pagina: entregues=100 fim=0 proximo=11400 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10016 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313129.885 > consulta ordem=asc limite=100 cursor=11400 mostrar=0
+1791313130.004 < [CONSULTA] pagina: entregues=100 fim=0 proximo=11500 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=9680 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313130.004 > consulta ordem=asc limite=100 cursor=11500 mostrar=0
+1791313130.123 < [CONSULTA] pagina: entregues=100 fim=0 proximo=11600 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=9786 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313130.124 > consulta ordem=asc limite=100 cursor=11600 mostrar=0
+1791313130.243 < [CONSULTA] pagina: entregues=100 fim=0 proximo=11700 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10187 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313130.243 > consulta ordem=asc limite=100 cursor=11700 mostrar=0
+1791313130.362 < [CONSULTA] pagina: entregues=100 fim=0 proximo=11800 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10033 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313130.362 > consulta ordem=asc limite=100 cursor=11800 mostrar=0
+1791313130.481 < [CONSULTA] pagina: entregues=100 fim=0 proximo=11900 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=9907 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313130.481 > consulta ordem=asc limite=100 cursor=11900 mostrar=0
+1791313130.600 < [CONSULTA] pagina: entregues=100 fim=0 proximo=12000 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=9543 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313130.600 > consulta ordem=asc limite=100 cursor=12000 mostrar=0
+1791313130.719 < [CONSULTA] pagina: entregues=100 fim=0 proximo=12100 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=9500 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313130.719 > consulta ordem=asc limite=100 cursor=12100 mostrar=0
+1791313130.781 < [CSV] 42606,88:57:21:70:93:70,no1,-22,-96,22,nenhuma,novo,0,39,1003,0,0,1066,3404,5,8,159,1,1
+1791313130.793 < [FS] gravado,56,3,17586
+1791313130.816 < [CONSULTA] pagina: entregues=100 fim=0 proximo=12200 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10051 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313130.816 > consulta ordem=asc limite=100 cursor=12200 mostrar=0
+1791313130.935 < [CONSULTA] pagina: entregues=100 fim=0 proximo=12300 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=9784 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313130.935 > consulta ordem=asc limite=100 cursor=12300 mostrar=0
+1791313131.054 < [CONSULTA] pagina: entregues=100 fim=0 proximo=12400 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=9616 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313131.054 > consulta ordem=asc limite=100 cursor=12400 mostrar=0
+1791313131.173 < [CONSULTA] pagina: entregues=100 fim=0 proximo=12500 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=9260 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313131.173 > consulta ordem=asc limite=100 cursor=12500 mostrar=0
+1791313131.291 < [CONSULTA] pagina: entregues=100 fim=0 proximo=12600 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=9501 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313131.292 > consulta ordem=asc limite=100 cursor=12600 mostrar=0
+1791313131.411 < [CONSULTA] pagina: entregues=100 fim=0 proximo=12700 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=9890 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313131.411 > consulta ordem=asc limite=100 cursor=12700 mostrar=0
+1791313131.530 < [CONSULTA] pagina: entregues=100 fim=0 proximo=12800 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=9736 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313131.530 > consulta ordem=asc limite=100 cursor=12800 mostrar=0
+1791313131.649 < [CONSULTA] pagina: entregues=100 fim=0 proximo=12900 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=9608 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313131.649 > consulta ordem=asc limite=100 cursor=12900 mostrar=0
+1791313131.768 < [CONSULTA] pagina: entregues=100 fim=0 proximo=13000 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=9226 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313131.768 > consulta ordem=asc limite=100 cursor=13000 mostrar=0
+1791313131.886 < [CONSULTA] pagina: entregues=100 fim=0 proximo=13100 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=9618 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313131.886 > consulta ordem=asc limite=100 cursor=13100 mostrar=0
+1791313132.006 < [CONSULTA] pagina: entregues=100 fim=0 proximo=13200 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=9951 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313132.006 > consulta ordem=asc limite=100 cursor=13200 mostrar=0
+1791313132.124 < [CONSULTA] pagina: entregues=100 fim=0 proximo=13300 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=9811 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313132.124 > consulta ordem=asc limite=100 cursor=13300 mostrar=0
+1791313132.244 < [CONSULTA] pagina: entregues=100 fim=0 proximo=13400 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=9707 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313132.244 > consulta ordem=asc limite=100 cursor=13400 mostrar=0
+1791313132.362 < [CONSULTA] pagina: entregues=100 fim=0 proximo=13500 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=9319 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313132.362 > consulta ordem=asc limite=100 cursor=13500 mostrar=0
+1791313132.480 < [CONSULTA] pagina: entregues=100 fim=0 proximo=13600 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=8888 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313132.480 > consulta ordem=asc limite=100 cursor=13600 mostrar=0
+1791313132.599 < [CONSULTA] pagina: entregues=100 fim=0 proximo=13700 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=9289 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313132.599 > consulta ordem=asc limite=100 cursor=13700 mostrar=0
+1791313132.717 < [CONSULTA] pagina: entregues=100 fim=0 proximo=13800 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=9141 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313132.717 > consulta ordem=asc limite=100 cursor=13800 mostrar=0
+1791313132.835 < [CONSULTA] pagina: entregues=100 fim=0 proximo=13900 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=9018 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313132.835 > consulta ordem=asc limite=100 cursor=13900 mostrar=0
+1791313132.952 < [CONSULTA] pagina: entregues=100 fim=0 proximo=14000 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=8623 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313132.952 > consulta ordem=asc limite=100 cursor=14000 mostrar=0
+1791313133.071 < [CONSULTA] pagina: entregues=100 fim=0 proximo=14100 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=8867 heap_antes=168468 heap_min=163012 heap_depois=168468
+1791313133.071 > consulta ordem=asc limite=100 cursor=14100 mostrar=0
+1791313133.189 < [CONSULTA] pagina: entregues=100 fim=0 proximo=14200 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=9251 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313133.189 > consulta ordem=asc limite=100 cursor=14200 mostrar=0
+1791313133.308 < [CONSULTA] pagina: entregues=100 fim=0 proximo=14300 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=9131 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313133.308 > consulta ordem=asc limite=100 cursor=14300 mostrar=0
+1791313133.426 < [CONSULTA] pagina: entregues=100 fim=0 proximo=14400 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=8974 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313133.426 > consulta ordem=asc limite=100 cursor=14400 mostrar=0
+1791313133.543 < [CONSULTA] pagina: entregues=100 fim=0 proximo=14500 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=8615 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313133.543 > consulta ordem=asc limite=100 cursor=14500 mostrar=0
+1791313133.673 < [CONSULTA] pagina: entregues=100 fim=0 proximo=14600 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20704 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313133.673 > consulta ordem=asc limite=100 cursor=14600 mostrar=0
+1791313133.803 < [CONSULTA] pagina: entregues=100 fim=0 proximo=14700 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20960 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313133.804 > consulta ordem=asc limite=100 cursor=14700 mostrar=0
+1791313133.933 < [CONSULTA] pagina: entregues=100 fim=0 proximo=14800 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20839 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313133.933 > consulta ordem=asc limite=100 cursor=14800 mostrar=0
+1791313134.063 < [CONSULTA] pagina: entregues=100 fim=0 proximo=14900 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20666 heap_antes=168468 heap_min=163012 heap_depois=168468
+1791313134.063 > consulta ordem=asc limite=100 cursor=14900 mostrar=0
+1791313134.192 < [CONSULTA] pagina: entregues=100 fim=0 proximo=15000 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20309 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313134.192 > consulta ordem=asc limite=100 cursor=15000 mostrar=0
+1791313134.321 < [CONSULTA] pagina: entregues=100 fim=0 proximo=15100 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20540 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313134.321 > consulta ordem=asc limite=100 cursor=15100 mostrar=0
+1791313134.451 < [CONSULTA] pagina: entregues=100 fim=0 proximo=15200 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20935 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313134.451 > consulta ordem=asc limite=100 cursor=15200 mostrar=0
+1791313134.581 < [CONSULTA] pagina: entregues=100 fim=0 proximo=15300 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20811 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313134.581 > consulta ordem=asc limite=100 cursor=15300 mostrar=0
+1791313134.710 < [CONSULTA] pagina: entregues=100 fim=0 proximo=15400 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20655 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313134.710 > consulta ordem=asc limite=100 cursor=15400 mostrar=0
+1791313134.840 < [CONSULTA] pagina: entregues=100 fim=0 proximo=15500 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20291 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313134.840 > consulta ordem=asc limite=100 cursor=15500 mostrar=0
+1791313134.969 < [CONSULTA] pagina: entregues=100 fim=0 proximo=15600 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20471 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313134.969 > consulta ordem=asc limite=100 cursor=15600 mostrar=0
+1791313135.099 < [CONSULTA] pagina: entregues=100 fim=0 proximo=15700 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20920 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313135.099 > consulta ordem=asc limite=100 cursor=15700 mostrar=0
+1791313135.229 < [CONSULTA] pagina: entregues=100 fim=0 proximo=15800 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20826 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313135.229 > consulta ordem=asc limite=100 cursor=15800 mostrar=0
+1791313135.359 < [CONSULTA] pagina: entregues=100 fim=0 proximo=15900 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20742 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313135.359 > consulta ordem=asc limite=100 cursor=15900 mostrar=0
+1791313135.488 < [CONSULTA] pagina: entregues=100 fim=0 proximo=16000 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20269 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313135.488 > consulta ordem=asc limite=100 cursor=16000 mostrar=0
+1791313135.617 < [CONSULTA] pagina: entregues=100 fim=0 proximo=16100 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20396 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313135.617 > consulta ordem=asc limite=100 cursor=16100 mostrar=0
+1791313135.746 < [CONSULTA] pagina: entregues=100 fim=0 proximo=16200 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20802 heap_antes=168468 heap_min=163012 heap_depois=168468
+1791313135.746 > consulta ordem=asc limite=100 cursor=16200 mostrar=0
+1791313135.876 < [CONSULTA] pagina: entregues=100 fim=0 proximo=16300 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20670 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313135.876 > consulta ordem=asc limite=100 cursor=16300 mostrar=0
+1791313136.005 < [CONSULTA] pagina: entregues=100 fim=0 proximo=16400 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20503 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313136.005 > consulta ordem=asc limite=100 cursor=16400 mostrar=0
+1791313136.135 < [CONSULTA] pagina: entregues=100 fim=0 proximo=16500 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20148 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313136.135 > consulta ordem=asc limite=100 cursor=16500 mostrar=0
+1791313136.264 < [CONSULTA] pagina: entregues=100 fim=0 proximo=16600 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20110 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313136.264 > consulta ordem=asc limite=100 cursor=16600 mostrar=0
+1791313136.393 < [CONSULTA] pagina: entregues=100 fim=0 proximo=16700 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20506 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313136.393 > consulta ordem=asc limite=100 cursor=16700 mostrar=0
+1791313136.522 < [CONSULTA] pagina: entregues=100 fim=0 proximo=16800 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20360 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313136.522 > consulta ordem=asc limite=100 cursor=16800 mostrar=0
+1791313136.651 < [CONSULTA] pagina: entregues=100 fim=0 proximo=16900 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20227 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313136.651 > consulta ordem=asc limite=100 cursor=16900 mostrar=0
+1791313136.780 < [CONSULTA] pagina: entregues=100 fim=0 proximo=17000 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=19891 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313136.780 > consulta ordem=asc limite=100 cursor=17000 mostrar=0
+1791313136.909 < [CONSULTA] pagina: entregues=100 fim=0 proximo=17100 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20125 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313136.909 > consulta ordem=asc limite=100 cursor=17100 mostrar=0
+1791313137.038 < [CONSULTA] pagina: entregues=100 fim=0 proximo=17200 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20496 heap_antes=168468 heap_min=163012 heap_depois=168468
+1791313137.038 > consulta ordem=asc limite=100 cursor=17200 mostrar=0
+1791313137.168 < [CONSULTA] pagina: entregues=100 fim=0 proximo=17300 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20359 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313137.168 > consulta ordem=asc limite=100 cursor=17300 mostrar=0
+1791313137.297 < [CONSULTA] pagina: entregues=100 fim=0 proximo=17400 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20216 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313137.298 > consulta ordem=asc limite=100 cursor=17400 mostrar=0
+1791313137.427 < [CONSULTA] pagina: entregues=100 fim=0 proximo=17500 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=19854 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313137.427 > consulta ordem=asc limite=100 cursor=17500 mostrar=0
+1791313137.557 < [CONSULTA] pagina: entregues=100 fim=0 proximo=17600 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=19972 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313137.557 > consulta ordem=asc limite=100 cursor=17600 mostrar=0
+1791313137.687 < [CONSULTA] pagina: entregues=100 fim=0 proximo=17700 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20386 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313137.687 > consulta ordem=asc limite=100 cursor=17700 mostrar=0
+1791313137.816 < [CONSULTA] pagina: entregues=100 fim=0 proximo=17800 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20232 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313137.816 > consulta ordem=asc limite=100 cursor=17800 mostrar=0
+1791313137.946 < [CONSULTA] pagina: entregues=100 fim=0 proximo=17900 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20123 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313137.946 > consulta ordem=asc limite=100 cursor=17900 mostrar=0
+1791313138.075 < [CONSULTA] pagina: entregues=100 fim=0 proximo=18000 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=19715 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313138.075 > consulta ordem=asc limite=100 cursor=18000 mostrar=0
+1791313138.205 < [CONSULTA] pagina: entregues=100 fim=0 proximo=18100 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=19687 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313138.205 > consulta ordem=asc limite=100 cursor=18100 mostrar=0
+1791313138.335 < [CONSULTA] pagina: entregues=100 fim=0 proximo=18200 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20118 heap_antes=168468 heap_min=163012 heap_depois=168468
+1791313138.335 > consulta ordem=asc limite=100 cursor=18200 mostrar=0
+1791313138.465 < [CONSULTA] pagina: entregues=100 fim=0 proximo=18300 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=19954 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313138.465 > consulta ordem=asc limite=100 cursor=18300 mostrar=0
+1791313138.594 < [CONSULTA] pagina: entregues=100 fim=0 proximo=18400 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=19791 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313138.595 > consulta ordem=asc limite=100 cursor=18400 mostrar=0
+1791313138.724 < [CONSULTA] pagina: entregues=100 fim=0 proximo=18500 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=19433 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313138.724 > consulta ordem=asc limite=100 cursor=18500 mostrar=0
+1791313138.854 < [CONSULTA] pagina: entregues=100 fim=0 proximo=18600 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=19704 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313138.854 > consulta ordem=asc limite=100 cursor=18600 mostrar=0
+1791313138.984 < [CONSULTA] pagina: entregues=100 fim=0 proximo=18700 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20063 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313138.984 > consulta ordem=asc limite=100 cursor=18700 mostrar=0
+1791313139.114 < [CONSULTA] pagina: entregues=100 fim=0 proximo=18800 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=19919 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313139.114 > consulta ordem=asc limite=100 cursor=18800 mostrar=0
+1791313139.243 < [CONSULTA] pagina: entregues=100 fim=0 proximo=18900 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=19787 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313139.243 > consulta ordem=asc limite=100 cursor=18900 mostrar=0
+1791313139.373 < [CONSULTA] pagina: entregues=100 fim=0 proximo=19000 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=19406 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313139.373 > consulta ordem=asc limite=100 cursor=19000 mostrar=0
+1791313139.503 < [CONSULTA] pagina: entregues=100 fim=0 proximo=19100 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=19817 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313139.503 > consulta ordem=asc limite=100 cursor=19100 mostrar=0
+1791313139.633 < [CONSULTA] pagina: entregues=100 fim=0 proximo=19200 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20203 heap_antes=168468 heap_min=163012 heap_depois=168468
+1791313139.633 > consulta ordem=asc limite=100 cursor=19200 mostrar=0
+1791313139.763 < [CONSULTA] pagina: entregues=100 fim=0 proximo=19300 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20066 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313139.763 > consulta ordem=asc limite=100 cursor=19300 mostrar=0
+1791313139.892 < [CONSULTA] pagina: entregues=100 fim=0 proximo=19400 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=19960 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313139.892 > consulta ordem=asc limite=100 cursor=19400 mostrar=0
+1791313140.022 < [CONSULTA] pagina: entregues=100 fim=0 proximo=19500 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=19577 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313140.022 > consulta ordem=asc limite=100 cursor=19500 mostrar=0
+1791313140.151 < [CONSULTA] pagina: entregues=100 fim=0 proximo=19600 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=19258 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313140.151 > consulta ordem=asc limite=100 cursor=19600 mostrar=0
+1791313140.280 < [CONSULTA] pagina: entregues=100 fim=0 proximo=19700 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=19658 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313140.280 > consulta ordem=asc limite=100 cursor=19700 mostrar=0
+1791313140.410 < [CONSULTA] pagina: entregues=100 fim=0 proximo=19800 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=19529 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313140.410 > consulta ordem=asc limite=100 cursor=19800 mostrar=0
+1791313140.488 < [CSV] 52602,88:57:21:70:93:70,no1,-22,-96,22,nenhuma,novo,0,39,1004,0,0,1064,3402,5,8,159,1,1
+1791313140.502 < [FS] gravado,56,4,20574
+1791313140.537 < [CONSULTA] pagina: entregues=100 fim=0 proximo=19900 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=22036 heap_antes=168468 heap_min=163012 heap_depois=168468
+1791313140.537 > consulta ordem=asc limite=100 cursor=19900 mostrar=0
+1791313140.668 < [CONSULTA] pagina: entregues=100 fim=0 proximo=20000 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21529 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313140.668 > consulta ordem=asc limite=100 cursor=20000 mostrar=0
+1791313140.800 < [CONSULTA] pagina: entregues=100 fim=0 proximo=20100 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21771 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313140.800 > consulta ordem=asc limite=100 cursor=20100 mostrar=0
+1791313140.932 < [CONSULTA] pagina: entregues=100 fim=0 proximo=20200 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=22146 heap_antes=168468 heap_min=163012 heap_depois=168468
+1791313140.932 > consulta ordem=asc limite=100 cursor=20200 mostrar=0
+1791313141.064 < [CONSULTA] pagina: entregues=100 fim=0 proximo=20300 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=22018 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313141.064 > consulta ordem=asc limite=100 cursor=20300 mostrar=0
+1791313141.195 < [CONSULTA] pagina: entregues=100 fim=0 proximo=20400 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21868 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313141.196 > consulta ordem=asc limite=100 cursor=20400 mostrar=0
+1791313141.327 < [CONSULTA] pagina: entregues=100 fim=0 proximo=20500 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21497 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313141.327 > consulta ordem=asc limite=100 cursor=20500 mostrar=0
+1791313141.459 < [CONSULTA] pagina: entregues=100 fim=0 proximo=20600 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21765 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313141.459 > consulta ordem=asc limite=100 cursor=20600 mostrar=0
+1791313141.591 < [CONSULTA] pagina: entregues=100 fim=0 proximo=20700 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=22119 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313141.591 > consulta ordem=asc limite=100 cursor=20700 mostrar=0
+1791313141.722 < [CONSULTA] pagina: entregues=100 fim=0 proximo=20800 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21974 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313141.722 > consulta ordem=asc limite=100 cursor=20800 mostrar=0
+1791313141.854 < [CONSULTA] pagina: entregues=100 fim=0 proximo=20900 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21844 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313141.854 > consulta ordem=asc limite=100 cursor=20900 mostrar=0
+1791313141.985 < [CONSULTA] pagina: entregues=100 fim=0 proximo=21000 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21469 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313141.985 > consulta ordem=asc limite=100 cursor=21000 mostrar=0
+1791313142.117 < [CONSULTA] pagina: entregues=100 fim=0 proximo=21100 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21354 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313142.117 > consulta ordem=asc limite=100 cursor=21100 mostrar=0
+1791313142.248 < [CONSULTA] pagina: entregues=100 fim=0 proximo=21200 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21751 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313142.248 > consulta ordem=asc limite=100 cursor=21200 mostrar=0
+1791313142.380 < [CONSULTA] pagina: entregues=100 fim=0 proximo=21300 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21645 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313142.380 > consulta ordem=asc limite=100 cursor=21300 mostrar=0
+1791313142.511 < [CONSULTA] pagina: entregues=100 fim=0 proximo=21400 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21475 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313142.511 > consulta ordem=asc limite=100 cursor=21400 mostrar=0
+1791313142.643 < [CONSULTA] pagina: entregues=100 fim=0 proximo=21500 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21109 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313142.643 > consulta ordem=asc limite=100 cursor=21500 mostrar=0
+1791313142.773 < [CONSULTA] pagina: entregues=100 fim=0 proximo=21600 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21320 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313142.773 > consulta ordem=asc limite=100 cursor=21600 mostrar=0
+1791313142.905 < [CONSULTA] pagina: entregues=100 fim=0 proximo=21700 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21753 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313142.905 > consulta ordem=asc limite=100 cursor=21700 mostrar=0
+1791313143.036 < [CONSULTA] pagina: entregues=100 fim=0 proximo=21800 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21724 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313143.036 > consulta ordem=asc limite=100 cursor=21800 mostrar=0
+1791313143.168 < [CONSULTA] pagina: entregues=100 fim=0 proximo=21900 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21497 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313143.168 > consulta ordem=asc limite=100 cursor=21900 mostrar=0
+1791313143.300 < [CONSULTA] pagina: entregues=100 fim=0 proximo=22000 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21099 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313143.300 > consulta ordem=asc limite=100 cursor=22000 mostrar=0
+1791313143.430 < [CONSULTA] pagina: entregues=100 fim=0 proximo=22100 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21377 heap_antes=168468 heap_min=163012 heap_depois=168468
+1791313143.430 > consulta ordem=asc limite=100 cursor=22100 mostrar=0
+1791313143.561 < [CONSULTA] pagina: entregues=100 fim=0 proximo=22200 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21776 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313143.561 > consulta ordem=asc limite=100 cursor=22200 mostrar=0
+1791313143.693 < [CONSULTA] pagina: entregues=100 fim=0 proximo=22300 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21676 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313143.693 > consulta ordem=asc limite=100 cursor=22300 mostrar=0
+1791313143.825 < [CONSULTA] pagina: entregues=100 fim=0 proximo=22400 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21515 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313143.825 > consulta ordem=asc limite=100 cursor=22400 mostrar=0
+1791313143.957 < [CONSULTA] pagina: entregues=100 fim=0 proximo=22500 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21160 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313143.957 > consulta ordem=asc limite=100 cursor=22500 mostrar=0
+1791313144.086 < [CONSULTA] pagina: entregues=100 fim=0 proximo=22600 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20913 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313144.086 > consulta ordem=asc limite=100 cursor=22600 mostrar=0
+1791313144.217 < [CONSULTA] pagina: entregues=100 fim=0 proximo=22700 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21329 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313144.217 > consulta ordem=asc limite=100 cursor=22700 mostrar=0
+1791313144.348 < [CONSULTA] pagina: entregues=100 fim=0 proximo=22800 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21250 heap_antes=168440 heap_min=163040 heap_depois=168468
+1791313144.348 > consulta ordem=asc limite=100 cursor=22800 mostrar=0
+1791313144.478 < [CONSULTA] pagina: entregues=100 fim=0 proximo=22900 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21070 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313144.479 > consulta ordem=asc limite=100 cursor=22900 mostrar=0
+1791313144.609 < [CONSULTA] pagina: entregues=100 fim=0 proximo=23000 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20717 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313144.609 > consulta ordem=asc limite=100 cursor=23000 mostrar=0
+1791313144.740 < [CONSULTA] pagina: entregues=100 fim=0 proximo=23100 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20945 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313144.740 > consulta ordem=asc limite=100 cursor=23100 mostrar=0
+1791313144.871 < [CONSULTA] pagina: entregues=100 fim=0 proximo=23200 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21289 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313144.871 > consulta ordem=asc limite=100 cursor=23200 mostrar=0
+1791313145.001 < [CONSULTA] pagina: entregues=100 fim=0 proximo=23300 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21180 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313145.001 > consulta ordem=asc limite=100 cursor=23300 mostrar=0
+1791313145.132 < [CONSULTA] pagina: entregues=100 fim=0 proximo=23400 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21032 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313145.132 > consulta ordem=asc limite=100 cursor=23400 mostrar=0
+1791313145.263 < [CONSULTA] pagina: entregues=100 fim=0 proximo=23500 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20667 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313145.263 > consulta ordem=asc limite=100 cursor=23500 mostrar=0
+1791313145.393 < [CONSULTA] pagina: entregues=100 fim=0 proximo=23600 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20895 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313145.393 > consulta ordem=asc limite=100 cursor=23600 mostrar=0
+1791313145.525 < [CONSULTA] pagina: entregues=100 fim=0 proximo=23700 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21318 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313145.525 > consulta ordem=asc limite=100 cursor=23700 mostrar=0
+1791313145.655 < [CONSULTA] pagina: entregues=100 fim=0 proximo=23800 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21159 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313145.655 > consulta ordem=asc limite=100 cursor=23800 mostrar=0
+1791313145.786 < [CONSULTA] pagina: entregues=100 fim=0 proximo=23900 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21030 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313145.786 > consulta ordem=asc limite=100 cursor=23900 mostrar=0
+1791313145.916 < [CONSULTA] pagina: entregues=100 fim=0 proximo=24000 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20645 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313145.916 > consulta ordem=asc limite=100 cursor=24000 mostrar=0
+1791313146.047 < [CONSULTA] pagina: entregues=100 fim=0 proximo=24100 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20790 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313146.047 > consulta ordem=asc limite=100 cursor=24100 mostrar=0
+1791313146.178 < [CONSULTA] pagina: entregues=100 fim=0 proximo=24200 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21207 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313146.178 > consulta ordem=asc limite=100 cursor=24200 mostrar=0
+1791313146.309 < [CONSULTA] pagina: entregues=100 fim=0 proximo=24300 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21047 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313146.309 > consulta ordem=asc limite=100 cursor=24300 mostrar=0
+1791313146.440 < [CONSULTA] pagina: entregues=100 fim=0 proximo=24400 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20887 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313146.440 > consulta ordem=asc limite=100 cursor=24400 mostrar=0
+1791313146.570 < [CONSULTA] pagina: entregues=100 fim=0 proximo=24500 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20546 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313146.570 > consulta ordem=asc limite=100 cursor=24500 mostrar=0
+1791313146.701 < [CONSULTA] pagina: entregues=100 fim=0 proximo=24600 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20477 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313146.701 > consulta ordem=asc limite=100 cursor=24600 mostrar=0
+1791313146.832 < [CONSULTA] pagina: entregues=100 fim=0 proximo=24700 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20957 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313146.832 > consulta ordem=asc limite=100 cursor=24700 mostrar=0
+1791313146.963 < [CONSULTA] pagina: entregues=100 fim=0 proximo=24800 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20788 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313146.963 > consulta ordem=asc limite=100 cursor=24800 mostrar=0
+1791313147.093 < [CONSULTA] pagina: entregues=100 fim=0 proximo=24900 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20630 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313147.093 > consulta ordem=asc limite=100 cursor=24900 mostrar=0
+1791313147.224 < [CONSULTA] pagina: entregues=100 fim=0 proximo=25000 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20259 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313147.224 > consulta ordem=asc limite=100 cursor=25000 mostrar=0
+1791313147.354 < [CONSULTA] pagina: entregues=100 fim=0 proximo=25100 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20497 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313147.354 > consulta ordem=asc limite=100 cursor=25100 mostrar=0
+1791313147.485 < [CONSULTA] pagina: entregues=100 fim=0 proximo=25200 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20883 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313147.485 > consulta ordem=asc limite=100 cursor=25200 mostrar=0
+1791313147.616 < [CONSULTA] pagina: entregues=100 fim=0 proximo=25300 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20765 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313147.616 > consulta ordem=asc limite=100 cursor=25300 mostrar=0
+1791313147.755 < [CONSULTA] pagina: entregues=100 fim=0 proximo=25400 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20664 heap_antes=168468 heap_min=163040 heap_depois=168468
+1791313147.755 > consulta ordem=asc limite=100 cursor=25400 mostrar=0
+1791313147.756 < [RESUMO] 60047,88:57:21:70:93:70,no1,5,0,5,0,0,0,1,100.00,-24.6,-29,-22
+1791313147.765 < [RESUMO] 60048,02:00:00:00:00:01,desconhecido,0,0,0,0,0,0,0,0.00,0.0,0,0
+1791313147.766 < [RESUMO] 60060,02:00:00:00:00:02,desconhecido,0,0,0,0,0,0,0,0.00,0.0,0,0
+1791313147.890 < [CONSULTA] pagina: entregues=100 fim=0 proximo=25500 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20504 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313147.890 > consulta ordem=asc limite=100 cursor=25500 mostrar=0
+1791313148.021 < [CONSULTA] pagina: entregues=100 fim=0 proximo=25600 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20394 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313148.021 > consulta ordem=asc limite=100 cursor=25600 mostrar=0
+1791313148.151 < [CONSULTA] pagina: entregues=100 fim=0 proximo=25700 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20793 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313148.151 > consulta ordem=asc limite=100 cursor=25700 mostrar=0
+1791313148.282 < [CONSULTA] pagina: entregues=100 fim=0 proximo=25800 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20630 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313148.282 > consulta ordem=asc limite=100 cursor=25800 mostrar=0
+1791313148.412 < [CONSULTA] pagina: entregues=100 fim=0 proximo=25900 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20513 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313148.412 > consulta ordem=asc limite=100 cursor=25900 mostrar=0
+1791313148.543 < [CONSULTA] pagina: entregues=100 fim=0 proximo=26000 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20121 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313148.543 > consulta ordem=asc limite=100 cursor=26000 mostrar=0
+1791313148.673 < [CONSULTA] pagina: entregues=100 fim=0 proximo=26100 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20115 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313148.673 > consulta ordem=asc limite=100 cursor=26100 mostrar=0
+1791313148.803 < [CONSULTA] pagina: entregues=100 fim=0 proximo=26200 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20483 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313148.803 > consulta ordem=asc limite=100 cursor=26200 mostrar=0
+1791313148.933 < [CONSULTA] pagina: entregues=100 fim=0 proximo=26300 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20377 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313148.934 > consulta ordem=asc limite=100 cursor=26300 mostrar=0
+1791313149.063 < [CONSULTA] pagina: entregues=100 fim=0 proximo=26400 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20207 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313149.063 > consulta ordem=asc limite=100 cursor=26400 mostrar=0
+1791313149.193 < [CONSULTA] pagina: entregues=100 fim=0 proximo=26500 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=19882 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313149.193 > consulta ordem=asc limite=100 cursor=26500 mostrar=0
+1791313149.323 < [CONSULTA] pagina: entregues=100 fim=0 proximo=26600 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20122 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313149.323 > consulta ordem=asc limite=100 cursor=26600 mostrar=0
+1791313149.453 < [CONSULTA] pagina: entregues=100 fim=0 proximo=26700 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20513 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313149.453 > consulta ordem=asc limite=100 cursor=26700 mostrar=0
+1791313149.584 < [CONSULTA] pagina: entregues=100 fim=0 proximo=26800 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20332 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313149.584 > consulta ordem=asc limite=100 cursor=26800 mostrar=0
+1791313149.713 < [CONSULTA] pagina: entregues=100 fim=0 proximo=26900 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20236 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313149.714 > consulta ordem=asc limite=100 cursor=26900 mostrar=0
+1791313149.843 < [CONSULTA] pagina: entregues=100 fim=0 proximo=27000 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=19815 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313149.843 > consulta ordem=asc limite=100 cursor=27000 mostrar=0
+1791313149.973 < [CONSULTA] pagina: entregues=100 fim=0 proximo=27100 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20236 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313149.973 > consulta ordem=asc limite=100 cursor=27100 mostrar=0
+1791313150.103 < [CONSULTA] pagina: entregues=100 fim=0 proximo=27200 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20622 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313150.103 > consulta ordem=asc limite=100 cursor=27200 mostrar=0
+1791313150.234 < [CONSULTA] pagina: entregues=100 fim=0 proximo=27300 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20535 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313150.234 > consulta ordem=asc limite=100 cursor=27300 mostrar=0
+1791313150.248 < [CSV] 62603,88:57:21:70:93:70,no1,-22,-96,22,nenhuma,novo,0,39,1005,0,0,1063,3403,5,8,159,1,1
+1791313150.266 < [FS] gravado,56,5,23786
+1791313150.302 < [CONSULTA] pagina: entregues=100 fim=0 proximo=27400 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=22977 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313150.302 > consulta ordem=asc limite=100 cursor=27400 mostrar=0
+1791313150.434 < [CONSULTA] pagina: entregues=100 fim=0 proximo=27500 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=22485 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313150.434 > consulta ordem=asc limite=100 cursor=27500 mostrar=0
+1791313150.567 < [CONSULTA] pagina: entregues=100 fim=0 proximo=27600 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=22161 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313150.567 > consulta ordem=asc limite=100 cursor=27600 mostrar=0
+1791313150.699 < [CONSULTA] pagina: entregues=100 fim=0 proximo=27700 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=22530 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313150.699 > consulta ordem=asc limite=100 cursor=27700 mostrar=0
+1791313150.831 < [CONSULTA] pagina: entregues=100 fim=0 proximo=27800 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=22484 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313150.831 > consulta ordem=asc limite=100 cursor=27800 mostrar=0
+1791313150.982 < [CONSULTA] pagina: entregues=100 fim=0 proximo=27900 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=22277 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313150.982 > consulta ordem=asc limite=100 cursor=27900 mostrar=0
+1791313151.095 < [CONSULTA] pagina: entregues=100 fim=0 proximo=28000 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21904 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313151.095 > consulta ordem=asc limite=100 cursor=28000 mostrar=0
+1791313151.218 < [CONSULTA] pagina: entregues=6 fim=1 proximo=28006 rotacionado=0 lidos=6 invalidos=0 pulados=0 us=13059 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313151.218 # RESULTADO paginacao asc: total=27506 paginas=276 ms_mediana=12.9 ms_max=23.0 heap_min=162764
+1791313151.218 > consulta ordem=desc limite=100 cursor=0 mostrar=0
+1791313151.364 < [CONSULTA] pagina: entregues=100 fim=0 proximo=27905 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=36460 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313151.364 > consulta ordem=desc limite=100 cursor=27905 mostrar=0
+1791313151.499 < [CONSULTA] pagina: entregues=100 fim=0 proximo=27805 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=24566 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313151.499 > consulta ordem=desc limite=100 cursor=27805 mostrar=0
+1791313151.635 < [CONSULTA] pagina: entregues=100 fim=0 proximo=27705 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=24991 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313151.635 > consulta ordem=desc limite=100 cursor=27705 mostrar=0
+1791313151.770 < [CONSULTA] pagina: entregues=100 fim=0 proximo=27605 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=25220 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313151.770 > consulta ordem=desc limite=100 cursor=27605 mostrar=0
+1791313151.903 < [CONSULTA] pagina: entregues=100 fim=0 proximo=27505 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=24195 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313151.903 > consulta ordem=desc limite=100 cursor=27505 mostrar=0
+1791313152.055 < [CONSULTA] pagina: entregues=100 fim=0 proximo=27405 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=42964 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313152.055 > consulta ordem=desc limite=100 cursor=27405 mostrar=0
+1791313152.190 < [CONSULTA] pagina: entregues=100 fim=0 proximo=27305 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=25139 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313152.190 > consulta ordem=desc limite=100 cursor=27305 mostrar=0
+1791313152.325 < [CONSULTA] pagina: entregues=100 fim=0 proximo=27205 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=25492 heap_antes=168192 heap_min=162736 heap_depois=168192
+1791313152.325 > consulta ordem=desc limite=100 cursor=27205 mostrar=0
+1791313152.461 < [CONSULTA] pagina: entregues=100 fim=0 proximo=27105 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=25747 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313152.461 > consulta ordem=desc limite=100 cursor=27105 mostrar=0
+1791313152.596 < [CONSULTA] pagina: entregues=100 fim=0 proximo=27005 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=24736 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313152.596 > consulta ordem=desc limite=100 cursor=27005 mostrar=0
+1791313152.749 < [CONSULTA] pagina: entregues=100 fim=0 proximo=26905 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=43352 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313152.749 > consulta ordem=desc limite=100 cursor=26905 mostrar=0
+1791313152.883 < [CONSULTA] pagina: entregues=100 fim=0 proximo=26805 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=24990 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313152.883 > consulta ordem=desc limite=100 cursor=26805 mostrar=0
+1791313153.019 < [CONSULTA] pagina: entregues=100 fim=0 proximo=26705 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=25334 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313153.019 > consulta ordem=desc limite=100 cursor=26705 mostrar=0
+1791313153.153 < [CONSULTA] pagina: entregues=100 fim=0 proximo=26605 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=25605 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313153.153 > consulta ordem=desc limite=100 cursor=26605 mostrar=0
+1791313153.288 < [CONSULTA] pagina: entregues=100 fim=0 proximo=26505 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=24624 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313153.288 > consulta ordem=desc limite=100 cursor=26505 mostrar=0
+1791313153.441 < [CONSULTA] pagina: entregues=100 fim=0 proximo=26405 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=43336 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313153.441 > consulta ordem=desc limite=100 cursor=26405 mostrar=0
+1791313154.339 < [CONSULTA] pagina: entregues=100 fim=0 proximo=26305 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=25017 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313154.339 > consulta ordem=desc limite=100 cursor=26305 mostrar=0
+1791313154.474 < [CONSULTA] pagina: entregues=100 fim=0 proximo=26205 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=25349 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313154.474 > consulta ordem=desc limite=100 cursor=26205 mostrar=0
+1791313154.609 < [CONSULTA] pagina: entregues=100 fim=0 proximo=26105 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=25670 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313154.609 > consulta ordem=desc limite=100 cursor=26105 mostrar=0
+1791313154.744 < [CONSULTA] pagina: entregues=100 fim=0 proximo=26005 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=24603 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313154.744 > consulta ordem=desc limite=100 cursor=26005 mostrar=0
+1791313154.900 < [CONSULTA] pagina: entregues=100 fim=0 proximo=25905 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=43519 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313154.900 > consulta ordem=desc limite=100 cursor=25905 mostrar=0
+1791313155.038 < [CONSULTA] pagina: entregues=100 fim=0 proximo=25805 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=25272 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313155.038 > consulta ordem=desc limite=100 cursor=25805 mostrar=0
+1791313155.175 < [CONSULTA] pagina: entregues=100 fim=0 proximo=25705 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=25642 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313155.175 > consulta ordem=desc limite=100 cursor=25705 mostrar=0
+1791313155.313 < [CONSULTA] pagina: entregues=100 fim=0 proximo=25605 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=25955 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313155.313 > consulta ordem=desc limite=100 cursor=25605 mostrar=0
+1791313155.450 < [CONSULTA] pagina: entregues=100 fim=0 proximo=25505 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=24894 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313155.450 > consulta ordem=desc limite=100 cursor=25505 mostrar=0
+1791313155.606 < [CONSULTA] pagina: entregues=100 fim=0 proximo=25405 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=43991 heap_antes=168192 heap_min=162736 heap_depois=168192
+1791313155.606 > consulta ordem=desc limite=100 cursor=25405 mostrar=0
+1791313155.743 < [CONSULTA] pagina: entregues=100 fim=0 proximo=25305 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=25463 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313155.743 > consulta ordem=desc limite=100 cursor=25305 mostrar=0
+1791313155.881 < [CONSULTA] pagina: entregues=100 fim=0 proximo=25205 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=25778 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313155.882 > consulta ordem=desc limite=100 cursor=25205 mostrar=0
+1791313156.020 < [CONSULTA] pagina: entregues=100 fim=0 proximo=25105 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=26090 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313156.020 > consulta ordem=desc limite=100 cursor=25105 mostrar=0
+1791313156.157 < [CONSULTA] pagina: entregues=100 fim=0 proximo=25005 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=25030 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313156.157 > consulta ordem=desc limite=100 cursor=25005 mostrar=0
+1791313156.313 < [CONSULTA] pagina: entregues=100 fim=0 proximo=24905 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=44119 heap_antes=168192 heap_min=162736 heap_depois=168192
+1791313156.313 > consulta ordem=desc limite=100 cursor=24905 mostrar=0
+1791313156.450 < [CONSULTA] pagina: entregues=100 fim=0 proximo=24805 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=25418 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313156.450 > consulta ordem=desc limite=100 cursor=24805 mostrar=0
+1791313156.588 < [CONSULTA] pagina: entregues=100 fim=0 proximo=24705 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=25797 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313156.588 > consulta ordem=desc limite=100 cursor=24705 mostrar=0
+1791313156.726 < [CONSULTA] pagina: entregues=100 fim=0 proximo=24605 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=26059 heap_antes=168192 heap_min=162736 heap_depois=168192
+1791313156.726 > consulta ordem=desc limite=100 cursor=24605 mostrar=0
+1791313156.863 < [CONSULTA] pagina: entregues=100 fim=0 proximo=24505 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=25032 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313156.863 > consulta ordem=desc limite=100 cursor=24505 mostrar=0
+1791313157.020 < [CONSULTA] pagina: entregues=100 fim=0 proximo=24405 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=44350 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313157.020 > consulta ordem=desc limite=100 cursor=24405 mostrar=0
+1791313157.156 < [CONSULTA] pagina: entregues=100 fim=0 proximo=24305 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=25712 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313157.157 > consulta ordem=desc limite=100 cursor=24305 mostrar=0
+1791313157.295 < [CONSULTA] pagina: entregues=100 fim=0 proximo=24205 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=26045 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313157.295 > consulta ordem=desc limite=100 cursor=24205 mostrar=0
+1791313157.433 < [CONSULTA] pagina: entregues=100 fim=0 proximo=24105 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=26375 heap_antes=168192 heap_min=162736 heap_depois=168192
+1791313157.433 > consulta ordem=desc limite=100 cursor=24105 mostrar=0
+1791313157.571 < [CONSULTA] pagina: entregues=100 fim=0 proximo=24005 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=25307 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313157.571 > consulta ordem=desc limite=100 cursor=24005 mostrar=0
+1791313157.727 < [CONSULTA] pagina: entregues=100 fim=0 proximo=23905 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=44794 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313157.727 > consulta ordem=desc limite=100 cursor=23905 mostrar=0
+1791313157.865 < [CONSULTA] pagina: entregues=100 fim=0 proximo=23805 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=25835 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313157.865 > consulta ordem=desc limite=100 cursor=23805 mostrar=0
+1791313158.004 < [CONSULTA] pagina: entregues=100 fim=0 proximo=23705 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=26196 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313158.004 > consulta ordem=desc limite=100 cursor=23705 mostrar=0
+1791313158.142 < [CONSULTA] pagina: entregues=100 fim=0 proximo=23605 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=26472 heap_antes=168192 heap_min=162736 heap_depois=168192
+1791313158.142 > consulta ordem=desc limite=100 cursor=23605 mostrar=0
+1791313158.280 < [CONSULTA] pagina: entregues=100 fim=0 proximo=23505 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=25444 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313158.280 > consulta ordem=desc limite=100 cursor=23505 mostrar=0
+1791313158.437 < [CONSULTA] pagina: entregues=100 fim=0 proximo=23405 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=44931 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313158.437 > consulta ordem=desc limite=100 cursor=23405 mostrar=0
+1791313158.602 < [CONSULTA] pagina: entregues=100 fim=0 proximo=23305 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=25847 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313158.602 > consulta ordem=desc limite=100 cursor=23305 mostrar=0
+1791313158.713 < [CONSULTA] pagina: entregues=100 fim=0 proximo=23205 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=26206 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313158.713 > consulta ordem=desc limite=100 cursor=23205 mostrar=0
+1791313158.852 < [CONSULTA] pagina: entregues=100 fim=0 proximo=23105 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=26492 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313158.852 > consulta ordem=desc limite=100 cursor=23105 mostrar=0
+1791313158.989 < [CONSULTA] pagina: entregues=100 fim=0 proximo=23005 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=25440 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313158.989 > consulta ordem=desc limite=100 cursor=23005 mostrar=0
+1791313159.147 < [CONSULTA] pagina: entregues=100 fim=0 proximo=22905 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=44965 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313159.147 > consulta ordem=desc limite=100 cursor=22905 mostrar=0
+1791313159.285 < [CONSULTA] pagina: entregues=100 fim=0 proximo=22805 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=25922 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313159.285 > consulta ordem=desc limite=100 cursor=22805 mostrar=0
+1791313159.421 < [CONSULTA] pagina: entregues=100 fim=0 proximo=22705 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=26235 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313159.421 > consulta ordem=desc limite=100 cursor=22705 mostrar=0
+1791313159.557 < [CONSULTA] pagina: entregues=100 fim=0 proximo=22605 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=26487 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313159.557 > consulta ordem=desc limite=100 cursor=22605 mostrar=0
+1791313159.692 < [CONSULTA] pagina: entregues=100 fim=0 proximo=22505 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=25470 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313159.692 > consulta ordem=desc limite=100 cursor=22505 mostrar=0
+1791313159.847 < [CONSULTA] pagina: entregues=100 fim=0 proximo=22405 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=45421 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313159.847 > consulta ordem=desc limite=100 cursor=22405 mostrar=0
+1791313159.984 < [CONSULTA] pagina: entregues=100 fim=0 proximo=22305 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=26351 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313159.984 > consulta ordem=desc limite=100 cursor=22305 mostrar=0
+1791313160.119 < [CONSULTA] pagina: entregues=100 fim=0 proximo=22205 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=26683 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313160.120 > consulta ordem=desc limite=100 cursor=22205 mostrar=0
+1791313160.256 < [CONSULTA] pagina: entregues=100 fim=0 proximo=22105 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=26995 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313160.257 > consulta ordem=desc limite=100 cursor=22105 mostrar=0
+1791313160.392 < [CONSULTA] pagina: entregues=100 fim=0 proximo=22005 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=25922 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313160.392 > consulta ordem=desc limite=100 cursor=22005 mostrar=0
+1791313160.547 < [CONSULTA] pagina: entregues=100 fim=0 proximo=21905 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=45855 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313160.547 > consulta ordem=desc limite=100 cursor=21905 mostrar=0
+1791313160.683 < [CONSULTA] pagina: entregues=100 fim=0 proximo=21805 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=26263 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313160.683 > consulta ordem=desc limite=100 cursor=21805 mostrar=0
+1791313160.819 < [CONSULTA] pagina: entregues=100 fim=0 proximo=21705 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=26653 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313160.819 > consulta ordem=desc limite=100 cursor=21705 mostrar=0
+1791313160.838 < [CSV] 72593,88:57:21:70:93:70,no1,-22,-96,22,nenhuma,novo,0,39,1006,0,0,1066,3403,5,8,159,1,1
+1791313161.315 < [FS] gravado,56,6,494420
+1791313161.345 < [CONSULTA] pagina: entregues=100 fim=0 proximo=21605 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=17456 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313161.345 > consulta ordem=desc limite=100 cursor=21605 mostrar=0
+1791313161.472 < [CONSULTA] pagina: entregues=100 fim=0 proximo=21505 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=16268 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313161.472 > consulta ordem=desc limite=100 cursor=21505 mostrar=0
+1791313161.607 < [CONSULTA] pagina: entregues=100 fim=0 proximo=21405 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=26544 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313161.608 > consulta ordem=desc limite=100 cursor=21405 mostrar=0
+1791313161.735 < [CONSULTA] pagina: entregues=100 fim=0 proximo=21305 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=16637 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313161.735 > consulta ordem=desc limite=100 cursor=21305 mostrar=0
+1791313161.862 < [CONSULTA] pagina: entregues=100 fim=0 proximo=21205 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=16945 heap_antes=168192 heap_min=162736 heap_depois=168192
+1791313161.862 > consulta ordem=desc limite=100 cursor=21205 mostrar=0
+1791313161.989 < [CONSULTA] pagina: entregues=100 fim=0 proximo=21105 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=17287 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313161.989 > consulta ordem=desc limite=100 cursor=21105 mostrar=0
+1791313162.115 < [CONSULTA] pagina: entregues=100 fim=0 proximo=21005 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=16236 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313162.115 > consulta ordem=desc limite=100 cursor=21005 mostrar=0
+1791313162.251 < [CONSULTA] pagina: entregues=100 fim=0 proximo=20905 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=26891 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313162.251 > consulta ordem=desc limite=100 cursor=20905 mostrar=0
+1791313162.378 < [CONSULTA] pagina: entregues=100 fim=0 proximo=20805 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=17016 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313162.378 > consulta ordem=desc limite=100 cursor=20805 mostrar=0
+1791313162.506 < [CONSULTA] pagina: entregues=100 fim=0 proximo=20705 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=17343 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313162.506 > consulta ordem=desc limite=100 cursor=20705 mostrar=0
+1791313162.632 < [CONSULTA] pagina: entregues=100 fim=0 proximo=20605 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=17633 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313162.632 > consulta ordem=desc limite=100 cursor=20605 mostrar=0
+1791313162.759 < [CONSULTA] pagina: entregues=100 fim=0 proximo=20505 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=16629 heap_antes=168192 heap_min=162736 heap_depois=168192
+1791313162.759 > consulta ordem=desc limite=100 cursor=20505 mostrar=0
+1791313162.895 < [CONSULTA] pagina: entregues=100 fim=0 proximo=20405 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=27353 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313162.895 > consulta ordem=desc limite=100 cursor=20405 mostrar=0
+1791313163.020 < [CONSULTA] pagina: entregues=100 fim=0 proximo=20305 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=17058 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313163.020 > consulta ordem=desc limite=100 cursor=20305 mostrar=0
+1791313163.146 < [CONSULTA] pagina: entregues=100 fim=0 proximo=20205 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=17425 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313163.146 > consulta ordem=desc limite=100 cursor=20205 mostrar=0
+1791313163.273 < [CONSULTA] pagina: entregues=100 fim=0 proximo=20105 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=17683 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313163.273 > consulta ordem=desc limite=100 cursor=20105 mostrar=0
+1791313163.398 < [CONSULTA] pagina: entregues=100 fim=0 proximo=20005 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=16656 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313163.398 > consulta ordem=desc limite=100 cursor=20005 mostrar=0
+1791313163.534 < [CONSULTA] pagina: entregues=100 fim=0 proximo=19905 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=27389 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313163.534 > consulta ordem=desc limite=100 cursor=19905 mostrar=0
+1791313163.661 < [CONSULTA] pagina: entregues=100 fim=0 proximo=19805 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=17194 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313163.661 > consulta ordem=desc limite=100 cursor=19805 mostrar=0
+1791313163.787 < [CONSULTA] pagina: entregues=100 fim=0 proximo=19705 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=17422 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313163.787 > consulta ordem=desc limite=100 cursor=19705 mostrar=0
+1791313163.914 < [CONSULTA] pagina: entregues=100 fim=0 proximo=19605 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=17695 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313163.914 > consulta ordem=desc limite=100 cursor=19605 mostrar=0
+1791313164.039 < [CONSULTA] pagina: entregues=100 fim=0 proximo=19505 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=16666 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313164.039 > consulta ordem=desc limite=100 cursor=19505 mostrar=0
+1791313164.175 < [CONSULTA] pagina: entregues=100 fim=0 proximo=19405 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=27935 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313164.175 > consulta ordem=desc limite=100 cursor=19405 mostrar=0
+1791313164.302 < [CONSULTA] pagina: entregues=100 fim=0 proximo=19305 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=17658 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313164.302 > consulta ordem=desc limite=100 cursor=19305 mostrar=0
+1791313164.429 < [CONSULTA] pagina: entregues=100 fim=0 proximo=19205 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=18020 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313164.429 > consulta ordem=desc limite=100 cursor=19205 mostrar=0
+1791313164.555 < [CONSULTA] pagina: entregues=100 fim=0 proximo=19105 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=18271 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313164.556 > consulta ordem=desc limite=100 cursor=19105 mostrar=0
+1791313164.681 < [CONSULTA] pagina: entregues=100 fim=0 proximo=19005 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=17230 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313164.681 > consulta ordem=desc limite=100 cursor=19005 mostrar=0
+1791313164.817 < [CONSULTA] pagina: entregues=100 fim=0 proximo=18905 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=28340 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313164.817 > consulta ordem=desc limite=100 cursor=18905 mostrar=0
+1791313164.943 < [CONSULTA] pagina: entregues=100 fim=0 proximo=18805 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=17539 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313164.943 > consulta ordem=desc limite=100 cursor=18805 mostrar=0
+1791313165.070 < [CONSULTA] pagina: entregues=100 fim=0 proximo=18705 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=17839 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313165.070 > consulta ordem=desc limite=100 cursor=18705 mostrar=0
+1791313165.197 < [CONSULTA] pagina: entregues=100 fim=0 proximo=18605 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=18103 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313165.197 > consulta ordem=desc limite=100 cursor=18605 mostrar=0
+1791313165.323 < [CONSULTA] pagina: entregues=100 fim=0 proximo=18505 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=17065 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313165.323 > consulta ordem=desc limite=100 cursor=18505 mostrar=0
+1791313165.459 < [CONSULTA] pagina: entregues=100 fim=0 proximo=18405 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=28262 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313165.459 > consulta ordem=desc limite=100 cursor=18405 mostrar=0
+1791313165.585 < [CONSULTA] pagina: entregues=100 fim=0 proximo=18305 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=17488 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313165.585 > consulta ordem=desc limite=100 cursor=18305 mostrar=0
+1791313165.712 < [CONSULTA] pagina: entregues=100 fim=0 proximo=18205 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=17861 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313165.712 > consulta ordem=desc limite=100 cursor=18205 mostrar=0
+1791313165.838 < [CONSULTA] pagina: entregues=100 fim=0 proximo=18105 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=18182 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313165.839 > consulta ordem=desc limite=100 cursor=18105 mostrar=0
+1791313165.964 < [CONSULTA] pagina: entregues=100 fim=0 proximo=18005 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=17128 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313165.964 > consulta ordem=desc limite=100 cursor=18005 mostrar=0
+1791313166.101 < [CONSULTA] pagina: entregues=100 fim=0 proximo=17905 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=28536 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313166.101 > consulta ordem=desc limite=100 cursor=17905 mostrar=0
+1791313166.227 < [CONSULTA] pagina: entregues=100 fim=0 proximo=17805 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=17787 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313166.227 > consulta ordem=desc limite=100 cursor=17805 mostrar=0
+1791313166.355 < [CONSULTA] pagina: entregues=100 fim=0 proximo=17705 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=18126 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313166.355 > consulta ordem=desc limite=100 cursor=17705 mostrar=0
+1791313166.481 < [CONSULTA] pagina: entregues=100 fim=0 proximo=17605 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=18419 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313166.481 > consulta ordem=desc limite=100 cursor=17605 mostrar=0
+1791313166.608 < [CONSULTA] pagina: entregues=100 fim=0 proximo=17505 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=17382 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313166.608 > consulta ordem=desc limite=100 cursor=17505 mostrar=0
+1791313166.745 < [CONSULTA] pagina: entregues=100 fim=0 proximo=17405 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=28968 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313166.745 > consulta ordem=desc limite=100 cursor=17405 mostrar=0
+1791313166.872 < [CONSULTA] pagina: entregues=100 fim=0 proximo=17305 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=17925 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313166.872 > consulta ordem=desc limite=100 cursor=17305 mostrar=0
+1791313166.999 < [CONSULTA] pagina: entregues=100 fim=0 proximo=17205 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=18256 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313166.999 > consulta ordem=desc limite=100 cursor=17205 mostrar=0
+1791313167.126 < [CONSULTA] pagina: entregues=100 fim=0 proximo=17105 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=18535 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313167.126 > consulta ordem=desc limite=100 cursor=17105 mostrar=0
+1791313167.252 < [CONSULTA] pagina: entregues=100 fim=0 proximo=17005 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=17500 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313167.252 > consulta ordem=desc limite=100 cursor=17005 mostrar=0
+1791313167.390 < [CONSULTA] pagina: entregues=100 fim=0 proximo=16905 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=29151 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313167.390 > consulta ordem=desc limite=100 cursor=16905 mostrar=0
+1791313167.517 < [CONSULTA] pagina: entregues=100 fim=0 proximo=16805 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=18016 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313167.517 > consulta ordem=desc limite=100 cursor=16805 mostrar=0
+1791313167.643 < [CONSULTA] pagina: entregues=100 fim=0 proximo=16705 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=18276 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313167.643 > consulta ordem=desc limite=100 cursor=16705 mostrar=0
+1791313167.770 < [CONSULTA] pagina: entregues=100 fim=0 proximo=16605 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=18535 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313167.770 > consulta ordem=desc limite=100 cursor=16605 mostrar=0
+1791313167.897 < [CONSULTA] pagina: entregues=100 fim=0 proximo=16505 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=17497 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313167.897 > consulta ordem=desc limite=100 cursor=16505 mostrar=0
+1791313168.035 < [CONSULTA] pagina: entregues=100 fim=0 proximo=16405 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=29374 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313168.035 > consulta ordem=desc limite=100 cursor=16405 mostrar=0
+1791313168.162 < [CONSULTA] pagina: entregues=100 fim=0 proximo=16305 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=18193 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313168.162 > consulta ordem=desc limite=100 cursor=16305 mostrar=0
+1791313168.289 < [CONSULTA] pagina: entregues=100 fim=0 proximo=16205 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=18552 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313168.289 > consulta ordem=desc limite=100 cursor=16205 mostrar=0
+1791313168.417 < [CONSULTA] pagina: entregues=100 fim=0 proximo=16105 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=18820 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313168.417 > consulta ordem=desc limite=100 cursor=16105 mostrar=0
+1791313168.543 < [CONSULTA] pagina: entregues=100 fim=0 proximo=16005 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=17795 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313168.543 > consulta ordem=desc limite=100 cursor=16005 mostrar=0
+1791313168.681 < [CONSULTA] pagina: entregues=100 fim=0 proximo=15905 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=29772 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313168.681 > consulta ordem=desc limite=100 cursor=15905 mostrar=0
+1791313168.809 < [CONSULTA] pagina: entregues=100 fim=0 proximo=15805 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=18352 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313168.809 > consulta ordem=desc limite=100 cursor=15805 mostrar=0
+1791313168.937 < [CONSULTA] pagina: entregues=100 fim=0 proximo=15705 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=18710 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313168.938 > consulta ordem=desc limite=100 cursor=15705 mostrar=0
+1791313169.067 < [CONSULTA] pagina: entregues=100 fim=0 proximo=15605 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=18991 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313169.067 > consulta ordem=desc limite=100 cursor=15605 mostrar=0
+1791313169.194 < [CONSULTA] pagina: entregues=100 fim=0 proximo=15505 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=17941 heap_antes=168192 heap_min=162736 heap_depois=168192
+1791313169.195 > consulta ordem=desc limite=100 cursor=15505 mostrar=0
+1791313169.334 < [CONSULTA] pagina: entregues=100 fim=0 proximo=15405 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=29918 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313169.334 > consulta ordem=desc limite=100 cursor=15405 mostrar=0
+1791313169.462 < [CONSULTA] pagina: entregues=100 fim=0 proximo=15305 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=18329 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313169.462 > consulta ordem=desc limite=100 cursor=15305 mostrar=0
+1791313169.590 < [CONSULTA] pagina: entregues=100 fim=0 proximo=15205 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=18687 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313169.590 > consulta ordem=desc limite=100 cursor=15205 mostrar=0
+1791313169.720 < [CONSULTA] pagina: entregues=100 fim=0 proximo=15105 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=18986 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313169.720 > consulta ordem=desc limite=100 cursor=15105 mostrar=0
+1791313169.847 < [CONSULTA] pagina: entregues=100 fim=0 proximo=15005 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=17943 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313169.847 > consulta ordem=desc limite=100 cursor=15005 mostrar=0
+1791313169.987 < [CONSULTA] pagina: entregues=100 fim=0 proximo=14905 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=29931 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313169.987 > consulta ordem=desc limite=100 cursor=14905 mostrar=0
+1791313170.115 < [CONSULTA] pagina: entregues=100 fim=0 proximo=14805 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=18371 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313170.115 > consulta ordem=desc limite=100 cursor=14805 mostrar=0
+1791313170.244 < [CONSULTA] pagina: entregues=100 fim=0 proximo=14705 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=18704 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313170.244 > consulta ordem=desc limite=100 cursor=14705 mostrar=0
+1791313170.373 < [CONSULTA] pagina: entregues=100 fim=0 proximo=14605 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=18990 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313170.373 > consulta ordem=desc limite=100 cursor=14605 mostrar=0
+1791313170.501 < [CONSULTA] pagina: entregues=100 fim=0 proximo=14505 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=18051 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313170.501 > consulta ordem=desc limite=100 cursor=14505 mostrar=0
+1791313170.529 < [CSV] 82587,88:57:21:70:93:70,no1,-23,-96,22,nenhuma,novo,0,39,1007,0,0,1061,3400,5,8,159,1,1
+1791313170.540 < [FS] gravado,56,7,16638
+1791313170.578 < [CONSULTA] pagina: entregues=100 fim=0 proximo=14405 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=25359 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313170.578 > consulta ordem=desc limite=100 cursor=14405 mostrar=0
+1791313170.699 < [CONSULTA] pagina: entregues=100 fim=0 proximo=14305 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11312 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313170.700 > consulta ordem=desc limite=100 cursor=14305 mostrar=0
+1791313170.821 < [CONSULTA] pagina: entregues=100 fim=0 proximo=14205 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11643 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313170.821 > consulta ordem=desc limite=100 cursor=14205 mostrar=0
+1791313170.943 < [CONSULTA] pagina: entregues=100 fim=0 proximo=14105 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11917 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313170.943 > consulta ordem=desc limite=100 cursor=14105 mostrar=0
+1791313171.064 < [CONSULTA] pagina: entregues=100 fim=0 proximo=14005 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10890 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313171.064 > consulta ordem=desc limite=100 cursor=14005 mostrar=0
+1791313171.190 < [CONSULTA] pagina: entregues=100 fim=0 proximo=13905 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=15855 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313171.190 > consulta ordem=desc limite=100 cursor=13905 mostrar=0
+1791313171.311 < [CONSULTA] pagina: entregues=100 fim=0 proximo=13805 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11317 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313171.311 > consulta ordem=desc limite=100 cursor=13805 mostrar=0
+1791313171.432 < [CONSULTA] pagina: entregues=100 fim=0 proximo=13705 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11653 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313171.432 > consulta ordem=desc limite=100 cursor=13705 mostrar=0
+1791313171.554 < [CONSULTA] pagina: entregues=100 fim=0 proximo=13605 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11948 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313171.554 > consulta ordem=desc limite=100 cursor=13605 mostrar=0
+1791313171.675 < [CONSULTA] pagina: entregues=100 fim=0 proximo=13505 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=10899 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313171.675 > consulta ordem=desc limite=100 cursor=13505 mostrar=0
+1791313171.802 < [CONSULTA] pagina: entregues=100 fim=0 proximo=13405 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=16567 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313171.802 > consulta ordem=desc limite=100 cursor=13405 mostrar=0
+1791313171.924 < [CONSULTA] pagina: entregues=100 fim=0 proximo=13305 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12020 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313171.924 > consulta ordem=desc limite=100 cursor=13305 mostrar=0
+1791313172.046 < [CONSULTA] pagina: entregues=100 fim=0 proximo=13205 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12362 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313172.046 > consulta ordem=desc limite=100 cursor=13205 mostrar=0
+1791313172.169 < [CONSULTA] pagina: entregues=100 fim=0 proximo=13105 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12611 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313172.169 > consulta ordem=desc limite=100 cursor=13105 mostrar=0
+1791313172.291 < [CONSULTA] pagina: entregues=100 fim=0 proximo=13005 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11582 heap_antes=168192 heap_min=162736 heap_depois=168192
+1791313172.292 > consulta ordem=desc limite=100 cursor=13005 mostrar=0
+1791313172.419 < [CONSULTA] pagina: entregues=100 fim=0 proximo=12905 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=17141 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313172.419 > consulta ordem=desc limite=100 cursor=12905 mostrar=0
+1791313172.540 < [CONSULTA] pagina: entregues=100 fim=0 proximo=12805 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11925 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313172.540 > consulta ordem=desc limite=100 cursor=12805 mostrar=0
+1791313172.662 < [CONSULTA] pagina: entregues=100 fim=0 proximo=12705 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12257 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313172.663 > consulta ordem=desc limite=100 cursor=12705 mostrar=0
+1791313172.785 < [CONSULTA] pagina: entregues=100 fim=0 proximo=12605 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12536 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313172.785 > consulta ordem=desc limite=100 cursor=12605 mostrar=0
+1791313172.907 < [CONSULTA] pagina: entregues=100 fim=0 proximo=12505 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11497 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313172.907 > consulta ordem=desc limite=100 cursor=12505 mostrar=0
+1791313173.034 < [CONSULTA] pagina: entregues=100 fim=0 proximo=12405 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=17091 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313173.034 > consulta ordem=desc limite=100 cursor=12405 mostrar=0
+1791313173.156 < [CONSULTA] pagina: entregues=100 fim=0 proximo=12305 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11930 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313173.156 > consulta ordem=desc limite=100 cursor=12305 mostrar=0
+1791313173.278 < [CONSULTA] pagina: entregues=100 fim=0 proximo=12205 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12289 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313173.278 > consulta ordem=desc limite=100 cursor=12205 mostrar=0
+1791313173.400 < [CONSULTA] pagina: entregues=100 fim=0 proximo=12105 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12575 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313173.400 > consulta ordem=desc limite=100 cursor=12105 mostrar=0
+1791313173.523 < [CONSULTA] pagina: entregues=100 fim=0 proximo=12005 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11549 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313173.523 > consulta ordem=desc limite=100 cursor=12005 mostrar=0
+1791313173.650 < [CONSULTA] pagina: entregues=100 fim=0 proximo=11905 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=17398 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313173.650 > consulta ordem=desc limite=100 cursor=11905 mostrar=0
+1791313173.773 < [CONSULTA] pagina: entregues=100 fim=0 proximo=11805 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12197 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313173.773 > consulta ordem=desc limite=100 cursor=11805 mostrar=0
+1791313173.895 < [CONSULTA] pagina: entregues=100 fim=0 proximo=11705 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12527 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313173.895 > consulta ordem=desc limite=100 cursor=11705 mostrar=0
+1791313174.018 < [CONSULTA] pagina: entregues=100 fim=0 proximo=11605 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12843 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313174.018 > consulta ordem=desc limite=100 cursor=11605 mostrar=0
+1791313174.140 < [CONSULTA] pagina: entregues=100 fim=0 proximo=11505 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11788 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313174.140 > consulta ordem=desc limite=100 cursor=11505 mostrar=0
+1791313174.267 < [CONSULTA] pagina: entregues=100 fim=0 proximo=11405 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=17793 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313174.268 > consulta ordem=desc limite=100 cursor=11405 mostrar=0
+1791313174.390 < [CONSULTA] pagina: entregues=100 fim=0 proximo=11305 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12315 heap_antes=168192 heap_min=162736 heap_depois=168192
+1791313174.390 > consulta ordem=desc limite=100 cursor=11305 mostrar=0
+1791313174.512 < [CONSULTA] pagina: entregues=100 fim=0 proximo=11205 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12696 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313174.513 > consulta ordem=desc limite=100 cursor=11205 mostrar=0
+1791313174.636 < [CONSULTA] pagina: entregues=100 fim=0 proximo=11105 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12963 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313174.636 > consulta ordem=desc limite=100 cursor=11105 mostrar=0
+1791313174.757 < [CONSULTA] pagina: entregues=100 fim=0 proximo=11005 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11942 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313174.757 > consulta ordem=desc limite=100 cursor=11005 mostrar=0
+1791313174.885 < [CONSULTA] pagina: entregues=100 fim=0 proximo=10905 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=17960 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313174.885 > consulta ordem=desc limite=100 cursor=10905 mostrar=0
+1791313175.008 < [CONSULTA] pagina: entregues=100 fim=0 proximo=10805 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12384 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313175.008 > consulta ordem=desc limite=100 cursor=10805 mostrar=0
+1791313175.130 < [CONSULTA] pagina: entregues=100 fim=0 proximo=10705 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12706 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313175.131 > consulta ordem=desc limite=100 cursor=10705 mostrar=0
+1791313175.254 < [CONSULTA] pagina: entregues=100 fim=0 proximo=10605 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12986 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313175.254 > consulta ordem=desc limite=100 cursor=10605 mostrar=0
+1791313175.376 < [CONSULTA] pagina: entregues=100 fim=0 proximo=10505 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=11945 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313175.376 > consulta ordem=desc limite=100 cursor=10505 mostrar=0
+1791313175.504 < [CONSULTA] pagina: entregues=100 fim=0 proximo=10405 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=18246 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313175.504 > consulta ordem=desc limite=100 cursor=10405 mostrar=0
+1791313175.626 < [CONSULTA] pagina: entregues=100 fim=0 proximo=10305 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12645 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313175.626 > consulta ordem=desc limite=100 cursor=10305 mostrar=0
+1791313175.750 < [CONSULTA] pagina: entregues=100 fim=0 proximo=10205 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=13000 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313175.750 > consulta ordem=desc limite=100 cursor=10205 mostrar=0
+1791313175.873 < [CONSULTA] pagina: entregues=100 fim=0 proximo=10105 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=13262 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313175.873 > consulta ordem=desc limite=100 cursor=10105 mostrar=0
+1791313175.995 < [CONSULTA] pagina: entregues=100 fim=0 proximo=10005 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12270 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313175.995 > consulta ordem=desc limite=100 cursor=10005 mostrar=0
+1791313176.123 < [CONSULTA] pagina: entregues=100 fim=0 proximo=9905 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=18650 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313176.123 > consulta ordem=desc limite=100 cursor=9905 mostrar=0
+1791313176.245 < [CONSULTA] pagina: entregues=100 fim=0 proximo=9805 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12755 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313176.245 > consulta ordem=desc limite=100 cursor=9805 mostrar=0
+1791313176.369 < [CONSULTA] pagina: entregues=100 fim=0 proximo=9705 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=13107 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313176.369 > consulta ordem=desc limite=100 cursor=9705 mostrar=0
+1791313176.492 < [CONSULTA] pagina: entregues=100 fim=0 proximo=9605 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=13440 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313176.492 > consulta ordem=desc limite=100 cursor=9605 mostrar=0
+1791313176.615 < [CONSULTA] pagina: entregues=100 fim=0 proximo=9505 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12345 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313176.615 > consulta ordem=desc limite=100 cursor=9505 mostrar=0
+1791313176.743 < [CONSULTA] pagina: entregues=100 fim=0 proximo=9405 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=18756 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313176.743 > consulta ordem=desc limite=100 cursor=9405 mostrar=0
+1791313176.866 < [CONSULTA] pagina: entregues=100 fim=0 proximo=9305 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12758 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313176.866 > consulta ordem=desc limite=100 cursor=9305 mostrar=0
+1791313176.989 < [CONSULTA] pagina: entregues=100 fim=0 proximo=9205 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=13158 heap_antes=168192 heap_min=162736 heap_depois=168192
+1791313176.989 > consulta ordem=desc limite=100 cursor=9205 mostrar=0
+1791313177.112 < [CONSULTA] pagina: entregues=100 fim=0 proximo=9105 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=13382 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313177.112 > consulta ordem=desc limite=100 cursor=9105 mostrar=0
+1791313177.234 < [CONSULTA] pagina: entregues=100 fim=0 proximo=9005 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12363 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313177.234 > consulta ordem=desc limite=100 cursor=9005 mostrar=0
+1791313177.362 < [CONSULTA] pagina: entregues=100 fim=0 proximo=8905 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=18793 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313177.362 > consulta ordem=desc limite=100 cursor=8905 mostrar=0
+1791313177.485 < [CONSULTA] pagina: entregues=100 fim=0 proximo=8805 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12774 heap_antes=168192 heap_min=162736 heap_depois=168192
+1791313177.485 > consulta ordem=desc limite=100 cursor=8805 mostrar=0
+1791313177.609 < [CONSULTA] pagina: entregues=100 fim=0 proximo=8705 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=13130 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313177.609 > consulta ordem=desc limite=100 cursor=8705 mostrar=0
+1791313177.732 < [CONSULTA] pagina: entregues=100 fim=0 proximo=8605 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=13420 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313177.732 > consulta ordem=desc limite=100 cursor=8605 mostrar=0
+1791313177.854 < [CONSULTA] pagina: entregues=100 fim=0 proximo=8505 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12389 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313177.854 > consulta ordem=desc limite=100 cursor=8505 mostrar=0
+1791313177.984 < [CONSULTA] pagina: entregues=100 fim=0 proximo=8405 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=19318 heap_antes=168192 heap_min=162736 heap_depois=168192
+1791313177.984 > consulta ordem=desc limite=100 cursor=8405 mostrar=0
+1791313178.107 < [CONSULTA] pagina: entregues=100 fim=0 proximo=8305 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=13279 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313178.108 > consulta ordem=desc limite=100 cursor=8305 mostrar=0
+1791313178.231 < [CONSULTA] pagina: entregues=100 fim=0 proximo=8205 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=13589 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313178.231 > consulta ordem=desc limite=100 cursor=8205 mostrar=0
+1791313178.355 < [CONSULTA] pagina: entregues=100 fim=0 proximo=8105 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=13870 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313178.355 > consulta ordem=desc limite=100 cursor=8105 mostrar=0
+1791313178.477 < [CONSULTA] pagina: entregues=100 fim=0 proximo=8005 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12844 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313178.477 > consulta ordem=desc limite=100 cursor=8005 mostrar=0
+1791313178.607 < [CONSULTA] pagina: entregues=100 fim=0 proximo=7905 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=19685 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313178.607 > consulta ordem=desc limite=100 cursor=7905 mostrar=0
+1791313178.730 < [CONSULTA] pagina: entregues=100 fim=0 proximo=7805 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=13184 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313178.730 > consulta ordem=desc limite=100 cursor=7805 mostrar=0
+1791313178.854 < [CONSULTA] pagina: entregues=100 fim=0 proximo=7705 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=13531 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313178.854 > consulta ordem=desc limite=100 cursor=7705 mostrar=0
+1791313178.978 < [CONSULTA] pagina: entregues=100 fim=0 proximo=7605 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=13823 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313178.978 > consulta ordem=desc limite=100 cursor=7605 mostrar=0
+1791313179.101 < [CONSULTA] pagina: entregues=100 fim=0 proximo=7505 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12776 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313179.101 > consulta ordem=desc limite=100 cursor=7505 mostrar=0
+1791313179.230 < [CONSULTA] pagina: entregues=100 fim=0 proximo=7405 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=19633 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313179.231 > consulta ordem=desc limite=100 cursor=7405 mostrar=0
+1791313179.354 < [CONSULTA] pagina: entregues=100 fim=0 proximo=7305 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=13219 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313179.354 > consulta ordem=desc limite=100 cursor=7305 mostrar=0
+1791313179.478 < [CONSULTA] pagina: entregues=100 fim=0 proximo=7205 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=13567 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313179.478 > consulta ordem=desc limite=100 cursor=7205 mostrar=0
+1791313179.602 < [CONSULTA] pagina: entregues=100 fim=0 proximo=7105 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=13841 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313179.602 > consulta ordem=desc limite=100 cursor=7105 mostrar=0
+1791313179.725 < [CONSULTA] pagina: entregues=100 fim=0 proximo=7005 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=12793 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313179.725 > consulta ordem=desc limite=100 cursor=7005 mostrar=0
+1791313179.855 < [CONSULTA] pagina: entregues=100 fim=0 proximo=6905 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20012 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313179.855 > consulta ordem=desc limite=100 cursor=6905 mostrar=0
+1791313179.979 < [CONSULTA] pagina: entregues=100 fim=0 proximo=6805 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=13553 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313179.979 > consulta ordem=desc limite=100 cursor=6805 mostrar=0
+1791313180.103 < [CONSULTA] pagina: entregues=100 fim=0 proximo=6705 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=13897 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313180.103 > consulta ordem=desc limite=100 cursor=6705 mostrar=0
+1791313180.227 < [CONSULTA] pagina: entregues=100 fim=0 proximo=6605 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=14177 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313180.227 > consulta ordem=desc limite=100 cursor=6605 mostrar=0
+1791313180.271 < [CSV] 92573,88:57:21:70:93:70,no1,-22,-96,22,nenhuma,novo,0,39,1008,0,0,1061,3402,5,8,161,1,1
+1791313180.287 < [FS] gravado,56,8,22061
+1791313180.314 < [CONSULTA] pagina: entregues=100 fim=0 proximo=6505 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=13282 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313180.314 > consulta ordem=desc limite=100 cursor=6505 mostrar=0
+1791313180.444 < [CONSULTA] pagina: entregues=100 fim=0 proximo=6405 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20443 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313180.444 > consulta ordem=desc limite=100 cursor=6405 mostrar=0
+1791313180.568 < [CONSULTA] pagina: entregues=100 fim=0 proximo=6305 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=13610 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313180.568 > consulta ordem=desc limite=100 cursor=6305 mostrar=0
+1791313180.692 < [CONSULTA] pagina: entregues=100 fim=0 proximo=6205 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=14047 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313180.692 > consulta ordem=desc limite=100 cursor=6205 mostrar=0
+1791313180.817 < [CONSULTA] pagina: entregues=100 fim=0 proximo=6105 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=14262 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313180.817 > consulta ordem=desc limite=100 cursor=6105 mostrar=0
+1791313180.940 < [CONSULTA] pagina: entregues=100 fim=0 proximo=6005 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=13217 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313180.940 > consulta ordem=desc limite=100 cursor=6005 mostrar=0
+1791313181.070 < [CONSULTA] pagina: entregues=100 fim=0 proximo=5905 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=20466 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313181.070 > consulta ordem=desc limite=100 cursor=5905 mostrar=0
+1791313181.194 < [CONSULTA] pagina: entregues=100 fim=0 proximo=5805 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=13618 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313181.194 > consulta ordem=desc limite=100 cursor=5805 mostrar=0
+1791313181.319 < [CONSULTA] pagina: entregues=100 fim=0 proximo=5705 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=13970 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313181.319 > consulta ordem=desc limite=100 cursor=5705 mostrar=0
+1791313181.443 < [CONSULTA] pagina: entregues=100 fim=0 proximo=5605 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=14250 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313181.443 > consulta ordem=desc limite=100 cursor=5605 mostrar=0
+1791313181.566 < [CONSULTA] pagina: entregues=100 fim=0 proximo=5505 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=13216 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313181.566 > consulta ordem=desc limite=100 cursor=5505 mostrar=0
+1791313181.696 < [CONSULTA] pagina: entregues=100 fim=0 proximo=5405 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21142 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313181.697 > consulta ordem=desc limite=100 cursor=5405 mostrar=0
+1791313181.821 < [CONSULTA] pagina: entregues=100 fim=0 proximo=5305 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=14158 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313181.821 > consulta ordem=desc limite=100 cursor=5305 mostrar=0
+1791313181.945 < [CONSULTA] pagina: entregues=100 fim=0 proximo=5205 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=14503 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313181.945 > consulta ordem=desc limite=100 cursor=5205 mostrar=0
+1791313182.070 < [CONSULTA] pagina: entregues=100 fim=0 proximo=5105 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=14785 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313182.070 > consulta ordem=desc limite=100 cursor=5105 mostrar=0
+1791313182.194 < [CONSULTA] pagina: entregues=100 fim=0 proximo=5005 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=13763 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313182.194 > consulta ordem=desc limite=100 cursor=5005 mostrar=0
+1791313182.326 < [CONSULTA] pagina: entregues=100 fim=0 proximo=4905 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21427 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313182.326 > consulta ordem=desc limite=100 cursor=4905 mostrar=0
+1791313182.450 < [CONSULTA] pagina: entregues=100 fim=0 proximo=4805 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=14050 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313182.450 > consulta ordem=desc limite=100 cursor=4805 mostrar=0
+1791313182.575 < [CONSULTA] pagina: entregues=100 fim=0 proximo=4705 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=14367 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313182.575 > consulta ordem=desc limite=100 cursor=4705 mostrar=0
+1791313182.699 < [CONSULTA] pagina: entregues=100 fim=0 proximo=4605 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=14656 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313182.699 > consulta ordem=desc limite=100 cursor=4605 mostrar=0
+1791313182.823 < [CONSULTA] pagina: entregues=100 fim=0 proximo=4505 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=13611 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313182.823 > consulta ordem=desc limite=100 cursor=4505 mostrar=0
+1791313182.954 < [CONSULTA] pagina: entregues=100 fim=0 proximo=4405 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21293 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313182.954 > consulta ordem=desc limite=100 cursor=4405 mostrar=0
+1791313183.078 < [CONSULTA] pagina: entregues=100 fim=0 proximo=4305 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=14035 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313183.078 > consulta ordem=desc limite=100 cursor=4305 mostrar=0
+1791313183.202 < [CONSULTA] pagina: entregues=100 fim=0 proximo=4205 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=14370 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313183.202 > consulta ordem=desc limite=100 cursor=4205 mostrar=0
+1791313183.327 < [CONSULTA] pagina: entregues=100 fim=0 proximo=4105 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=14656 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313183.327 > consulta ordem=desc limite=100 cursor=4105 mostrar=0
+1791313183.451 < [CONSULTA] pagina: entregues=100 fim=0 proximo=4005 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=13616 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313183.451 > consulta ordem=desc limite=100 cursor=4005 mostrar=0
+1791313183.582 < [CONSULTA] pagina: entregues=100 fim=0 proximo=3905 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21567 heap_antes=168192 heap_min=162736 heap_depois=168192
+1791313183.582 > consulta ordem=desc limite=100 cursor=3905 mostrar=0
+1791313183.707 < [CONSULTA] pagina: entregues=100 fim=0 proximo=3805 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=14300 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313183.707 > consulta ordem=desc limite=100 cursor=3805 mostrar=0
+1791313183.832 < [CONSULTA] pagina: entregues=100 fim=0 proximo=3705 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=14717 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313183.832 > consulta ordem=desc limite=100 cursor=3705 mostrar=0
+1791313183.957 < [CONSULTA] pagina: entregues=100 fim=0 proximo=3605 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=14977 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313183.957 > consulta ordem=desc limite=100 cursor=3605 mostrar=0
+1791313184.081 < [CONSULTA] pagina: entregues=100 fim=0 proximo=3505 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=13949 heap_antes=168192 heap_min=162736 heap_depois=168192
+1791313184.081 > consulta ordem=desc limite=100 cursor=3505 mostrar=0
+1791313184.213 < [CONSULTA] pagina: entregues=100 fim=0 proximo=3405 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=21991 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313184.213 > consulta ordem=desc limite=100 cursor=3405 mostrar=0
+1791313184.337 < [CONSULTA] pagina: entregues=100 fim=0 proximo=3305 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=14450 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313184.337 > consulta ordem=desc limite=100 cursor=3305 mostrar=0
+1791313184.463 < [CONSULTA] pagina: entregues=100 fim=0 proximo=3205 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=14789 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313184.463 > consulta ordem=desc limite=100 cursor=3205 mostrar=0
+1791313184.588 < [CONSULTA] pagina: entregues=100 fim=0 proximo=3105 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=15157 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313184.588 > consulta ordem=desc limite=100 cursor=3105 mostrar=0
+1791313184.712 < [CONSULTA] pagina: entregues=100 fim=0 proximo=3005 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=14029 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313184.712 > consulta ordem=desc limite=100 cursor=3005 mostrar=0
+1791313184.844 < [CONSULTA] pagina: entregues=100 fim=0 proximo=2905 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=22143 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313184.844 > consulta ordem=desc limite=100 cursor=2905 mostrar=0
+1791313184.968 < [CONSULTA] pagina: entregues=100 fim=0 proximo=2805 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=14454 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313184.968 > consulta ordem=desc limite=100 cursor=2805 mostrar=0
+1791313185.093 < [CONSULTA] pagina: entregues=100 fim=0 proximo=2705 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=14887 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313185.093 > consulta ordem=desc limite=100 cursor=2705 mostrar=0
+1791313185.219 < [CONSULTA] pagina: entregues=100 fim=0 proximo=2605 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=15096 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313185.219 > consulta ordem=desc limite=100 cursor=2605 mostrar=0
+1791313185.343 < [CONSULTA] pagina: entregues=100 fim=0 proximo=2505 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=14053 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313185.343 > consulta ordem=desc limite=100 cursor=2505 mostrar=0
+1791313185.506 < [CONSULTA] pagina: entregues=100 fim=0 proximo=2405 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=22654 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313185.507 > consulta ordem=desc limite=100 cursor=2405 mostrar=0
+1791313185.600 < [CONSULTA] pagina: entregues=100 fim=0 proximo=2305 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=14968 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313185.600 > consulta ordem=desc limite=100 cursor=2305 mostrar=0
+1791313185.725 < [CONSULTA] pagina: entregues=100 fim=0 proximo=2205 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=15304 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313185.725 > consulta ordem=desc limite=100 cursor=2205 mostrar=0
+1791313185.851 < [CONSULTA] pagina: entregues=100 fim=0 proximo=2105 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=15586 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313185.851 > consulta ordem=desc limite=100 cursor=2105 mostrar=0
+1791313185.975 < [CONSULTA] pagina: entregues=100 fim=0 proximo=2005 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=14351 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313185.975 > consulta ordem=desc limite=100 cursor=2005 mostrar=0
+1791313186.108 < [CONSULTA] pagina: entregues=100 fim=0 proximo=1905 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=22908 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313186.108 > consulta ordem=desc limite=100 cursor=1905 mostrar=0
+1791313186.233 < [CONSULTA] pagina: entregues=100 fim=0 proximo=1805 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=14880 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313186.233 > consulta ordem=desc limite=100 cursor=1805 mostrar=0
+1791313186.358 < [CONSULTA] pagina: entregues=100 fim=0 proximo=1705 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=15209 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313186.358 > consulta ordem=desc limite=100 cursor=1705 mostrar=0
+1791313187.267 < [CONSULTA] pagina: entregues=100 fim=0 proximo=1605 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=15476 heap_antes=168192 heap_min=162736 heap_depois=168192
+1791313187.267 > consulta ordem=desc limite=100 cursor=1605 mostrar=0
+1791313187.392 < [CONSULTA] pagina: entregues=100 fim=0 proximo=1505 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=14450 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313187.392 > consulta ordem=desc limite=100 cursor=1505 mostrar=0
+1791313187.525 < [CONSULTA] pagina: entregues=100 fim=0 proximo=1405 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=22998 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313187.525 > consulta ordem=desc limite=100 cursor=1405 mostrar=0
+1791313187.652 < [CONSULTA] pagina: entregues=100 fim=0 proximo=1305 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=14892 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313187.652 > consulta ordem=desc limite=100 cursor=1305 mostrar=0
+1791313187.780 < [CONSULTA] pagina: entregues=100 fim=0 proximo=1205 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=15315 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313187.781 > consulta ordem=desc limite=100 cursor=1205 mostrar=0
+1791313187.908 < [CONSULTA] pagina: entregues=100 fim=0 proximo=1105 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=15506 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313187.908 > consulta ordem=desc limite=100 cursor=1105 mostrar=0
+1791313188.036 < [CONSULTA] pagina: entregues=100 fim=0 proximo=1005 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=14467 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313188.036 > consulta ordem=desc limite=100 cursor=1005 mostrar=0
+1791313188.172 < [CONSULTA] pagina: entregues=100 fim=0 proximo=905 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=23005 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313188.172 > consulta ordem=desc limite=100 cursor=905 mostrar=0
+1791313188.300 < [CONSULTA] pagina: entregues=100 fim=0 proximo=805 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=14900 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313188.300 > consulta ordem=desc limite=100 cursor=805 mostrar=0
+1791313188.445 < [CONSULTA] pagina: entregues=100 fim=0 proximo=705 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=15253 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313188.446 > consulta ordem=desc limite=100 cursor=705 mostrar=0
+1791313188.556 < [CONSULTA] pagina: entregues=100 fim=0 proximo=605 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=15544 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313188.556 > consulta ordem=desc limite=100 cursor=605 mostrar=0
+1791313188.684 < [CONSULTA] pagina: entregues=100 fim=0 proximo=505 rotacionado=0 lidos=100 invalidos=0 pulados=0 us=14515 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313188.684 > consulta ordem=desc limite=100 cursor=505 mostrar=0
+1791313188.806 < [CONSULTA] pagina: entregues=6 fim=1 proximo=0 rotacionado=0 lidos=6 invalidos=0 pulados=0 us=9326 heap_antes=168192 heap_min=162764 heap_depois=168192
+1791313188.806 # RESULTADO paginacao desc: total=27506 paginas=276 ms_mediana=17.5 ms_max=45.9 heap_min=162736
+1791313188.806 # 3. um dia de um nó
+1791313188.806 > consulta no=02:00:00:00:00:01 limite=1 mostrar=1
+1791313188.914 < [CONSULTA] id,mac,hora,utc,boot_coord,desde_boot_s,boot_no,seq,temp_c100,ur_c100,solo_mv,alim_mv,rssi
+1791313188.926 < [CONSULTA] 500,02:00:00:00:00:01,valida,2026-05-16T13:13:12Z,1000,30,1,0,2000,6000,900,3300,-41
+1791313188.937 < [CONSULTA] pagina: entregues=1 fim=0 proximo=501 rotacionado=0 lidos=1 invalidos=0 pulados=0 us=10012 heap_antes=168192 heap_min=162648 heap_depois=168192
+1791313188.939 > consulta de=1781529192 ate=1781615591 no=02:00:00:00:00:01 limite=500 mostrar=0
+1791313189.678 < [CONSULTA] pagina: entregues=96 fim=1 proximo=28000 rotacionado=0 lidos=12000 invalidos=0 pulados=32 us=636034 heap_antes=168192 heap_min=162736 heap_depois=168192
+1791313189.678 # RESULTADO um_dia_um_no: entregues=96 lidos=12000 pulados=32 us=636034
+1791313189.678 > consulta de=1781529192 ate=1781615591 no=02:00:00:00:00:01 ordem=desc limite=500 mostrar=0
+1791313190.695 < [CONSULTA] pagina: entregues=96 fim=1 proximo=0 rotacionado=0 lidos=12000 invalidos=0 pulados=32 us=905188 heap_antes=168192 heap_min=162736 heap_depois=168192
+1791313190.695 # RESULTADO um_dia_um_no_desc: entregues=96 us=905188
+1791313190.695 # 4. varredura completa sem resultado (MAC inexistente)
+1791313190.695 > consulta no=aa:aa:aa:aa:aa:aa limite=10 mostrar=0
+1791313192.259 < [CONSULTA] pagina: entregues=0 fim=1 proximo=28009 rotacionado=0 lidos=27509 invalidos=0 pulados=0 us=1446213 heap_antes=168192 heap_min=162724 heap_depois=168192
+1791313192.259 # RESULTADO varredura_completa: lidos=27509 us=1446213 heap_min=162724
+1791313192.259 > consulta no=aa:aa:aa:aa:aa:aa limite=10 maxlidos=2000 mostrar=0
+1791313192.260 < [CSV] 103941,88:57:21:70:93:70,no1,-22,-96,22,nenhuma,novo,0,39,1009,0,0,1060,3401,5,8,159,1,1
+1791313192.518 < [FS] gravado,56,9,267439
+1791313192.627 < [CONSULTA] pagina: entregues=0 fim=0 proximo=2500 rotacionado=0 lidos=2000 invalidos=0 pulados=0 us=94966 heap_antes=168192 heap_min=162736 heap_depois=168192
+1791313192.627 # RESULTADO maxlidos_2000: lidos=2000 fim=0 proximo=2500 us=94966
+1791313192.627 # 5. período no futuro (pula tudo pelo resumo)
+1791313192.627 > consulta de=1792177192 limite=10 mostrar=0
+1791313193.301 < [CONSULTA] pagina: entregues=0 fim=1 proximo=28000 rotacionado=0 lidos=12000 invalidos=0 pulados=32 us=569254 heap_antes=168192 heap_min=162736 heap_depois=168192
+1791313193.302 # RESULTADO futuro: lidos=12000 pulados=32 us=569254
+1791313193.302 # 6. hora reconstruída (boot 1002, 8 primeiras rodadas sem hora) e sem âncora (boot 1004)
+1791313193.302 > consulta de=1779294492 ate=1779307092 no=02:00:00:00:00:01 limite=50
+1791313193.407 < [CONSULTA] id,mac,hora,utc,boot_coord,desde_boot_s,boot_no,seq,temp_c100,ur_c100,solo_mv,alim_mv,rssi
+1791313193.427 < [CONSULTA] 1294,02:00:00:00:00:01,valida,2026-05-20T16:28:12Z,1001,177330,1,397,2130,6000,997,3300,-41
+1791313193.438 < [CONSULTA] 1296,02:00:00:00:00:01,valida,2026-05-20T16:43:12Z,1001,178230,1,398,2140,6000,998,3300,-41
+1791313193.449 < [CONSULTA] 1298,02:00:00:00:00:01,valida,2026-05-20T16:58:12Z,1001,179130,1,399,2150,6000,999,3300,-41
+1791313193.459 < [CONSULTA] 1300,02:00:00:00:00:01,reconstruida,2026-05-20T17:13:12Z,1002,30,1,400,2160,6000,1000,3300,-41
+1791313193.470 < [CONSULTA] 1302,02:00:00:00:00:01,reconstruida,2026-05-20T17:28:12Z,1002,930,1,401,2170,6000,1001,3300,-41
+1791313193.471 < [CONSULTA] 1304,02:00:00:00:00:01,reconstruida,2026-05-20T17:43:12Z,1002,1830,1,402,2180,6000,1002,3300,-41
+1791313193.481 < [CONSULTA] 1306,02:00:00:00:00:01,reconstruida,2026-05-20T17:58:12Z,1002,2730,1,403,2190,6000,1003,3300,-41
+1791313193.492 < [CONSULTA] 1308,02:00:00:00:00:01,reconstruida,2026-05-20T18:13:12Z,1002,3630,1,404,2200,6000,1004,3300,-41
+1791313193.503 < [CONSULTA] 1310,02:00:00:00:00:01,reconstruida,2026-05-20T18:28:12Z,1002,4530,1,405,2210,6000,1005,3300,-41
+1791313193.513 < [CONSULTA] 1312,02:00:00:00:00:01,reconstruida,2026-05-20T18:43:12Z,1002,5430,1,406,2220,6000,1006,3300,-41
+1791313193.524 < [CONSULTA] 1314,02:00:00:00:00:01,reconstruida,2026-05-20T18:58:12Z,1002,6330,1,407,2230,6000,1007,3300,-41
+1791313193.524 < [CONSULTA] 1316,02:00:00:00:00:01,valida,2026-05-20T19:13:12Z,1002,7230,1,408,2240,6000,1008,3300,-41
+1791313193.535 < [CONSULTA] 1318,02:00:00:00:00:01,valida,2026-05-20T19:28:12Z,1002,8130,1,409,2250,6000,1009,3300,-41
+1791313193.546 < [CONSULTA] 1320,02:00:00:00:00:01,valida,2026-05-20T19:43:12Z,1002,9030,1,410,2260,6000,1010,3300,-41
+1791313193.549 < [CONSULTA] 1322,02:00:00:00:00:01,valida,2026-05-20T19:58:12Z,1002,9930,1,411,2270,6000,1011,3300,-41
+1791313194.099 < [CONSULTA] pagina: entregues=15 fim=1 proximo=28000 rotacionado=0 lidos=12000 invalidos=0 pulados=32 us=703641 heap_antes=168192 heap_min=162280 heap_depois=168192
+1791313194.099 # RESULTADO reconstrucao: [('valida', '2026-05-20T16:28:12Z'), ('valida', '2026-05-20T16:43:12Z'), ('valida', '2026-05-20T16:58:12Z'), ('reconstruida', '2026-05-20T17:13:12Z'), ('reconstruida', '2026-05-20T17:28:12Z'), ('reconstruida', '2026-05-20T17:43:12Z'), ('reconstruida', '2026-05-20T17:58:12Z'), ('reconstruida', '2026-05-20T18:13:12Z'), ('reconstruida', '2026-05-20T18:28:12Z'), ('reconstruida', '2026-05-20T18:43:12Z'), ('reconstruida', '2026-05-20T18:58:12Z'), ('valida', '2026-05-20T19:13:12Z'), ('valida', '2026-05-20T19:28:12Z'), ('valida', '2026-05-20T19:43:12Z'), ('valida', '2026-05-20T19:58:12Z')]
+1791313194.099 > consulta de=1779657192 ate=1779836292 limite=500 mostrar=0
+1791313194.765 < [CONSULTA] pagina: entregues=0 fim=1 proximo=28000 rotacionado=0 lidos=12000 invalidos=0 pulados=32 us=569462 heap_antes=168192 heap_min=162736 heap_depois=168192
+1791313194.765 # RESULTADO periodo_boot_sem_ancora: entregues=0 (esperado 0)
+1791313194.765 > consulta cursor=2100 limite=4
+1791313194.869 < [CONSULTA] id,mac,hora,utc,boot_coord,desde_boot_s,boot_no,seq,temp_c100,ur_c100,solo_mv,alim_mv,rssi
+1791313194.881 < [CONSULTA] 2100,02:00:00:00:00:01,sem_hora,-,1004,30,1,800,2320,6000,1100,3300,-41
+1791313194.892 < [CONSULTA] 2101,02:00:00:00:00:02,sem_hora,-,1004,37,1,800,2320,6000,1100,3300,-42
+1791313194.892 < [CONSULTA] 2102,02:00:00:00:00:01,sem_hora,-,1004,930,1,801,2330,6000,1101,3300,-41
+1791313194.903 < [CONSULTA] 2103,02:00:00:00:00:02,sem_hora,-,1004,937,1,801,2330,6000,1101,3300,-42
+1791313194.912 < [CONSULTA] pagina: entregues=4 fim=0 proximo=2104 rotacionado=0 lidos=4 invalidos=0 pulados=0 us=33478 heap_antes=168192 heap_min=162660 heap_depois=168192
+1791313194.912 # RESULTADO sem_filtro_boot_sem_ancora: [('sem_hora', '1004'), ('sem_hora', '1004'), ('sem_hora', '1004'), ('sem_hora', '1004')]
+1791313194.912 # 7. cursor apagado pela rotação
+1791313194.912 > fs encher 1200 2
+1791313195.372 < [FS] rotacao: /h/00000001.seg apagado
+1791313195.711 < [FS] rotacao: /h/00000002.seg apagado
+1791313195.877 < [FS] enchimento: 1200 registros de 2 nos em 894 ms
+1791313196.102 < [FS] 1356 KB usados de 1920 KB; politica: 500 registros/segmento, max 56 segmentos
+1791313196.111 < [FS] segmentos: 56 (3 a 58), registros validos: 27710
+1791313196.111 > consulta cursor=500 limite=2
+1791313196.112 < [FS] gravacoes neste boot: 10 ok, 0 falhas; tempo (us): ultima 267439, media 237803, max 1487317
+1791313196.210 < [CONSULTA] id,mac,hora,utc,boot_coord,desde_boot_s,boot_no,seq,temp_c100,ur_c100,solo_mv,alim_mv,rssi
+1791313196.222 < [CONSULTA] 1500,02:00:00:00:00:01,valida,2026-05-21T18:13:12Z,1002,90030,1,500,2200,6000,1100,3300,-41
+1791313196.233 < [CONSULTA] 1501,02:00:00:00:00:02,valida,2026-05-21T18:13:19Z,1002,90037,1,500,2200,6000,1100,3300,-42
+1791313196.242 < [CONSULTA] pagina: entregues=2 fim=0 proximo=1502 rotacionado=1 lidos=2 invalidos=0 pulados=0 us=22156 heap_antes=168192 heap_min=162644 heap_depois=168192
+1791313196.242 # RESULTADO rotacao_asc: rotacionado=1 primeiro_id_agora=1500
+1791313196.242 > consulta cursor=500 ordem=desc limite=2
+1791313196.343 < [CONSULTA] id,mac,hora,utc,boot_coord,desde_boot_s,boot_no,seq,temp_c100,ur_c100,solo_mv,alim_mv,rssi
+1791313196.353 < [CONSULTA] pagina: entregues=0 fim=1 proximo=0 rotacionado=1 lidos=0 invalidos=0 pulados=0 us=30 heap_antes=168192 heap_min=168132 heap_depois=168192
+1791313196.353 # RESULTADO rotacao_desc: rotacionado=1 entregues=0
+1791313196.353 # 8. cursor crescente no fim, depois de chegarem registros novos
+1791313196.354 > consulta ordem=desc limite=1
+1791313196.450 < [CONSULTA] id,mac,hora,utc,boot_coord,desde_boot_s,boot_no,seq,temp_c100,ur_c100,solo_mv,alim_mv,rssi
+1791313196.463 < [CONSULTA] 29209,02:00:00:00:00:02,valida,2026-10-06T18:30:01Z,1002,179137,1,599,2230,6000,1199,3300,-42
+1791313196.474 < [CONSULTA] pagina: entregues=1 fim=0 proximo=29208 rotacionado=0 lidos=1 invalidos=0 pulados=0 us=11265 heap_antes=168192 heap_min=162640 heap_depois=168192
+1791313196.474 > consulta cursor=29210 limite=10 mostrar=0
+1791313196.575 < [CONSULTA] pagina: entregues=0 fim=1 proximo=29210 rotacionado=0 lidos=0 invalidos=0 pulados=0 us=21 heap_antes=168192 heap_min=168132 heap_depois=168192
+1791313196.575 > fs encher 3 2
+1791313196.744 < [FS] enchimento: 3 registros de 2 nos em 71 ms
+1791313196.984 < [FS] 1356 KB usados de 1920 KB; politica: 500 registros/segmento, max 56 segmentos
+1791313196.992 < [FS] segmentos: 56 (3 a 58), registros validos: 27713
+1791313196.992 > consulta cursor=29210 limite=10
+1791313196.994 < [FS] gravacoes neste boot: 10 ok, 0 falhas; tempo (us): ultima 267439, media 237803, max 1487317
+1791313197.091 < [CONSULTA] id,mac,hora,utc,boot_coord,desde_boot_s,boot_no,seq,temp_c100,ur_c100,solo_mv,alim_mv,rssi
+1791313197.104 < [CONSULTA] 29210,02:00:00:00:00:01,valida,2026-10-06T18:29:56Z,1000,30,1,0,2000,6000,900,3300,-41
+1791313197.115 < [CONSULTA] 29211,02:00:00:00:00:02,valida,2026-10-06T18:30:03Z,1000,37,1,0,2000,6000,900,3300,-42
+1791313197.125 < [CONSULTA] 29212,02:00:00:00:00:01,valida,2026-10-06T18:44:56Z,1000,930,1,1,2010,6000,901,3300,-41
+1791313197.131 < [CONSULTA] pagina: entregues=3 fim=1 proximo=29213 rotacionado=0 lidos=3 invalidos=0 pulados=0 us=34421 heap_antes=168192 heap_min=162648 heap_depois=168192
+1791313197.131 # RESULTADO novos_depois_do_cursor: entregues=3 (esperado 3)
+1791313197.131 # 9. reinício: últimas leituras e âncoras recarregadas
+1791313197.131 > reiniciar
+1791313197.226 < [CONSOLE] esp_restart()
+1791313197.240 < ets Jul 29 2019 12:21:46
+1791313197.240 < 
+1791313197.240 < rst:0xc (SW_CPU_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+1791313197.241 < configsip: 0, SPIWP:0xee
+1791313197.251 < clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+1791313197.251 < mode:DIO, clock div:2
+1791313197.251 < load:0x3fff0030,len:4640
+1791313197.255 < load:0x40078000,len:15632
+1791313197.255 < load:0x40080400,len:3164
+1791313197.255 < entry 0x4008059c
+1791313197.824 < 
+1791313197.824 < [BOOT] coordenador - etapa 7
+1791313197.837 < [RELOGIO] boot 24, motivo do reset 3
+1791313197.847 < [RELOGIO] utc=2026-10-06T18:59:57Z epoch=1791313197 valida=1 fonte=herdada boot=24 desde_boot_ms=222
+1791313197.847 < [PART] nome,tipo,subtipo,endereco,tamanho_kb
+1791313197.847 < [PART] nvs,1,0x02,0x009000,20
+1791313197.848 < [PART] otadata,1,0x00,0x00e000,8
+1791313197.858 < [PART] app0,0,0x00,0x010000,2048
+1791313197.858 < [PART] littlefs,1,0x83,0x210000,1920
+1791313197.858 < [PART] coredump,1,0x03,0x3f0000,64
+1791313197.859 < [MAC] STA 88:57:21:70:91:fc
+1791313197.863 < [MAC] AP  88:57:21:70:91:fd
+1791313197.863 < [BOOT] protocolo v1 (22 bytes)
+1791313198.103 < [FS] LittleFS montado: 1356 KB usados de 1920 KB
+1791313200.090 < [FS] carga: 56 segmentos, 27713 registros validos, 0 invalidos, em 2047 ms
+1791313200.204 < [WIFI] varrendo canais...
+1791313203.705 < [WIFI] varredura: 21 redes em 3604 ms
+1791313203.748 < [WIFI] canal  1: 6 no canal, 3 sobrepostas, mais forte -64 dBm
+1791313203.754 < [WIFI] canal  6: 0 no canal, 9 sobrepostas, mais forte -18 dBm
+1791313203.754 < [WIFI] canal 11: 6 no canal, 6 sobrepostas, mais forte -18 dBm
+1791313203.952 < [WIFI] SoftAP "horta-coord" canal 1, MAC AP 88:57:21:70:91:FD, IP 192.168.4.1
+1791313203.962 < [ESPNOW] pronto: versao 2, fila de 16 itens (272 bytes cada)
+1791313203.973 < [CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags
+1791313203.977 < [RESUMO] t_ms,mac,nome,recebidos,rejeitados,aceitos,perdidos,descartados,reinicios,sem_ack,entrega_pct,rssi_medio,rssi_min,rssi_max
+1791313203.977 > consulta ultimas
+1791313204.082 < [CONSULTA] ultimas: mac,nome,hora,utc,boot_coord,seq,solo_mv,alim_mv,rssi
+1791313204.092 < [CONSULTA] 02:00:00:00:00:01,desconhecido,valida,2026-10-06T18:44:56Z,1000,1,901,3300,-41
+1791313204.092 < [CONSULTA] 02:00:00:00:00:02,desconhecido,valida,2026-10-06T18:30:03Z,1000,0,900,3300,-42
+1791313204.092 > consulta de=1779294492 ate=1779307092 no=02:00:00:00:00:01 limite=50 mostrar=0
+1791313204.099 < [CONSULTA] 88:57:21:70:93:70,no1,valida,2026-10-06T18:59:51Z,23,1009,1060,3401,-22
+1791313204.831 < [CONSULTA] pagina: entregues=0 fim=1 proximo=29000 rotacionado=0 lidos=12000 invalidos=0 pulados=32 us=654494 heap_antes=168632 heap_min=163180 heap_depois=168632
+1791313204.831 # RESULTADO reconstrucao_apos_reinicio: entregues=0
