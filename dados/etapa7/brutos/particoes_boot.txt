@@ -1,0 +1,34 @@
+1791303063.449 ets Jul 29 2019 12:21:46
+1791303063.449 
+1791303063.450 rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+1791303063.450 configsip: 0, SPIWP:0xee
+1791303063.460 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+1791303063.460 mode:DIO, clock div:2
+1791303063.461 load:0x3fff0030,len:4640
+1791303063.464 load:0x40078000,len:15632
+1791303063.464 load:0x40080400,len:3164
+1791303063.464 entry 0x4008059c
+1791303064.018 
+1791303064.018 [BOOT] coordenador - etapa 7
+1791303064.032 [RELOGIO] boot 8, motivo do reset 1
+1791303064.032 [RELOGIO] utc=invalida epoch=0 valida=0 fonte=nenhuma boot=8 desde_boot_ms=221
+1791303064.042 [PART] nome,tipo,subtipo,endereco,tamanho_kb
+1791303064.043 [PART] nvs,1,0x02,0x009000,20
+1791303064.043 [PART] otadata,1,0x00,0x00e000,8
+1791303064.053 [PART] app0,0,0x00,0x010000,2048
+1791303064.053 [PART] littlefs,1,0x83,0x210000,1920
+1791303064.053 [PART] coredump,1,0x03,0x3f0000,64
+1791303064.054 [MAC] STA 88:57:21:70:91:fc
+1791303064.056 [MAC] AP  88:57:21:70:91:fd
+1791303064.057 [BOOT] protocolo v1 (22 bytes)
+1791303064.198 [WIFI] varrendo canais...
+1791303068.202 [WIFI] varredura: 26 redes em 4003 ms
+1791303068.257 [WIFI] canal  1: 5 no canal, 9 sobrepostas, mais forte -32 dBm
+1791303068.263 [WIFI] canal  6: 0 no canal, 16 sobrepostas, mais forte -32 dBm
+1791303068.264 [WIFI] canal 11: 5 no canal, 7 sobrepostas, mais forte -66 dBm
+1791303068.470 [WIFI] SoftAP "horta-coord" canal 1, MAC AP 88:57:21:70:91:FD, IP 192.168.4.1
+1791303068.481 [ESPNOW] pronto: versao 2, fila de 16 itens (272 bytes cada)
+1791303068.492 [CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags
+1791303068.496 [RESUMO] t_ms,mac,nome,recebidos,rejeitados,aceitos,perdidos,descartados,reinicios,sem_ack,entrega_pct,rssi_medio,rssi_min,rssi_max
+1791303072.122 [CSV] 7852,88:57:21:70:93:70,no1,-22,-96,22,nenhuma,primeiro,0,38,2,2163,7502,1072,3390,0,8,133,1,0
+1791303081.957 [CSV] 17843,88:57:21:70:93:70,no1,-22,-96,22,nenhuma,novo,0,38,3,2166,7514,1066,3386,0,8,133,1,0

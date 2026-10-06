@@ -1,0 +1,12 @@
+# Tabelas de partições lidas da flash (esptool read-flash 0x8000 0xC00 + gen_esp32part.py), 2026-10-06
+## coord
+nvs,data,nvs,0x9000,20K,
+otadata,data,ota,0xe000,8K,
+app0,app,factory,0x10000,2M,
+littlefs,data,littlefs,0x210000,1920K,
+coredump,data,coredump,0x3f0000,64K,
+## no1
+nvs,data,nvs,0x9000,20K,
+otadata,data,ota,0xe000,8K,
+app0,app,factory,0x10000,3968K,
+coredump,data,coredump,0x3f0000,64K,
