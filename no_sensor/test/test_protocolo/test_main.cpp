@@ -255,6 +255,17 @@ void test_flag_anterior_sem_ack_chega_ao_coordenador() {
   TEST_ASSERT_FALSE(p.flags & flag::AHT20_NOVA_TENTATIVA);
 }
 
+void test_flag_ciclo_anterior_abortado_chega_ao_coordenador() {
+  DadosLeitura d = dadosValidos();
+  d.flags = flag::CICLO_ANTERIOR_ABORTADO;
+  uint8_t b[sizeof(PacoteLeitura)];
+  paraBytes(montarLeitura(d), b);
+  TEST_ASSERT_EQUAL_HEX8(0x04, b[21]);  // bit 2 do byte de flags
+  PacoteLeitura p{};
+  TEST_ASSERT_EQUAL(Rejeicao::NENHUMA, validar(b, sizeof(b), p));
+  TEST_ASSERT_TRUE(p.flags & flag::CICLO_ANTERIOR_ABORTADO);
+}
+
 // ------------------------------------------------------------------ Sequência
 void test_sequencia_normal_e_lacuna() {
   RastreadorSequencia r;
@@ -343,6 +354,7 @@ int runUnityTests() {
   RUN_TEST(test_valor_fora_aceito_quando_estado_diz_fora_ou_erro);
   RUN_TEST(test_flags_reservadas_e_motivo_desconhecido_sao_aceitos);
   RUN_TEST(test_flag_anterior_sem_ack_chega_ao_coordenador);
+  RUN_TEST(test_flag_ciclo_anterior_abortado_chega_ao_coordenador);
   RUN_TEST(test_sequencia_normal_e_lacuna);
   RUN_TEST(test_primeiro_pacote_nao_conta_perdas);
   RUN_TEST(test_duplicado_e_antigo_sao_descartados);

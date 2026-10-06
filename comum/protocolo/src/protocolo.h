@@ -46,7 +46,8 @@ namespace flag {
 constexpr uint8_t AHT20_NOVA_TENTATIVA = 1u << 0;  // o driver repetiu a consulta de estado
 constexpr uint8_t ANTERIOR_SEM_ACK = 1u << 1;      // o pacote anterior esgotou as tentativas sem ACK
                                                    // (desfaz a ambiguidade de tentativas_ant = máximo)
-// bits 2–7: reservados (o receptor ignora; o nó envia 0)
+constexpr uint8_t CICLO_ANTERIOR_ABORTADO = 1u << 2;  // o prazo máximo acordado interrompeu o ciclo anterior
+// bits 3–7: reservados (o receptor ignora; o nó envia 0)
 }  // namespace flag
 
 // ---------------------------------------------------------------- Pacote

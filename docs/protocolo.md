@@ -44,7 +44,7 @@ Formato dos bytes que o nó sensor envia ao coordenador pelo ESP-NOW (Etapa 3). 
 | 17 | `motivo_boot` | uint8 | 1 | `esp_reset_reason()` | 0–15 no ESP-IDF 5.5 (outros aceitos) |
 | 18 | `acordado_ant_ms` | uint16 | 2 | ms acordado no ciclo anterior | 0 = desconhecido |
 | 20 | `tentativas_ant` | uint8 | 1 | envios (`esp_now_send`) do pacote anterior | 0 = desconhecido |
-| 21 | `flags` | uint8 | 1 | bit 0: o AHT20 precisou de nova tentativa; bit 1: o pacote anterior esgotou as tentativas sem ACK (`ANTERIOR_SEM_ACK`, Etapa 4); bits 2–7 reservados (enviados como 0, ignorados) | — |
+| 21 | `flags` | uint8 | 1 | bit 0: o AHT20 precisou de nova tentativa; bit 1: o pacote anterior esgotou as tentativas sem ACK (`ANTERIOR_SEM_ACK`, Etapa 4); bit 2: o prazo máximo acordado interrompeu o ciclo anterior (`CICLO_ANTERIOR_ABORTADO`, Etapa 5); bits 3–7 reservados (enviados como 0, ignorados) | — |
 | | **total** | | **22** | | |
 
 **Campo `estados`:**
@@ -176,13 +176,13 @@ Script: [`ferramentas/overhead_protocolo.py`](../ferramentas/overhead_protocolo.
 
 ## 10. Testes
 
-`cd no_sensor && pio test -e native`: 26 testes Unity no PC ([Unity no PlatformIO](https://docs.platformio.org/en/latest/advanced/unit-testing/frameworks/unity.html)), em [`no_sensor/test/test_protocolo/`](../no_sensor/test/test_protocolo/test_main.cpp):
+`cd no_sensor && pio test -e native`: 27 testes Unity no PC ([Unity no PlatformIO](https://docs.platformio.org/en/latest/advanced/unit-testing/frameworks/unity.html)), em [`no_sensor/test/test_protocolo/`](../no_sensor/test/test_protocolo/test_main.cpp):
 
 | Grupo | O que cobre |
 |---|---|
 | Layout | tamanho de 22 bytes; os 22 bytes esperados, em little-endian, de um pacote montado |
 | Montagem | bits de estado; limites exatos das faixas (−40,00 e 85,00 °C) e um passo além; saturação; umidade negativa; `erro`, `NaN`, `reservado` e infinito |
-| Validação | ida e volta montar → validar; buffer em endereço ímpar; tamanho curto, versão desconhecida (inclusive com outro tamanho), tipo desconhecido, tamanho errado, estado reservado, cada faixa com estado `ok`; valores aceitos com `fora_de_faixa`/`erro`; flags e motivo desconhecidos aceitos; bit `ANTERIOR_SEM_ACK` preservado |
+| Validação | ida e volta montar → validar; buffer em endereço ímpar; tamanho curto, versão desconhecida (inclusive com outro tamanho), tipo desconhecido, tamanho errado, estado reservado, cada faixa com estado `ok`; valores aceitos com `fora_de_faixa`/`erro`; flags e motivo desconhecidos aceitos; bits `ANTERIOR_SEM_ACK` e `CICLO_ANTERIOR_ABORTADO` preservados |
 | Sequência | sequência normal e lacuna; primeiro pacote; duplicado e antigo; reinício × duplicata; boot menor; estouro de `seq` com e sem lacuna |
 
 ## 11. Evolução
