@@ -16,6 +16,7 @@
 #include "nos.h"
 #include "radio.h"
 #include "relogio.h"
+#include "teste_gravacao.h"
 
 namespace {
 
@@ -35,6 +36,10 @@ void executar(char* linha) {
     relogio::comandoHora(argumento);
   } else if (strcmp(linha, "fs") == 0) {
     historico::comando(argumento);
+#ifdef TESTE_GRAVACAO
+  } else if (strcmp(linha, "bench") == 0) {
+    teste_gravacao::comando(argumento);
+#endif
   } else if (strcmp(linha, "reiniciar") == 0) {
     Serial.println("[CONSOLE] esp_restart()");
     Serial.flush();
