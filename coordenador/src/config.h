@@ -1,4 +1,4 @@
-// Configuração do coordenador: Wi-Fi, ESP-NOW e fila de recepção.
+// Configuração do coordenador: Wi-Fi, ESP-NOW, fila de recepção, relógio e console.
 // Justificativas em docs/comunicacao.md. SSID e senha ficam em segredos.h (fora do Git).
 #pragma once
 
@@ -21,6 +21,16 @@ constexpr bool VARRER_CANAIS_NO_BOOT = true;
 // ---------------------------------------------------------------- ESP-NOW
 // Itens da fila entre o callback de recepção (tarefa do Wi-Fi) e o loop().
 constexpr size_t FILA_ESPNOW_ITENS = 16;
+
+// ---------------------------------------------------------------- Relógio
+// Faixa plausível para o comando "hora" (UTC, segundos desde 1970).
+// Antes de 2026 só pode ser erro de digitação; 2100 fica abaixo do limite de
+// um uint32 (2106), caso o registro guarde a hora em 32 bits.
+constexpr int64_t HORA_MINIMA_UTC = 1767225600;  // 2026-01-01T00:00:00Z
+constexpr int64_t HORA_MAXIMA_UTC = 4102444800;  // 2100-01-01T00:00:00Z
+
+// ---------------------------------------------------------------- Console (serial)
+constexpr size_t CONSOLE_LINHA_MAX = 96;  // caracteres por comando
 
 // ---------------------------------------------------------------- Nós
 // O nó é identificado pelo MAC de origem do quadro ESP-NOW, que é o MAC STA
