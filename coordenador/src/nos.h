@@ -15,7 +15,7 @@ namespace nos {
 struct No {
   bool usado = false;
   uint8_t mac[6] = {};
-  const char* nome = nullptr;
+  char nome[16] = "desconhecido";  // cópia do cadastro (atualizarNomes após editar)
   protocolo::RastreadorSequencia sequencia;
   uint32_t recebidos = 0;   // todos os quadros deste MAC (válidos ou não)
   uint32_t rejeitados = 0;  // reprovados em protocolo::validar
@@ -31,6 +31,9 @@ struct No {
 
 // Encontra o nó pelo MAC ou ocupa uma posição livre. nullptr se a tabela estiver cheia.
 No* buscar(const uint8_t mac[6]);
+
+// Copia de novo o nome de cada nó do cadastro (depois de um comando "no").
+void atualizarNomes();
 
 // Encontra o nó pelo MAC sem ocupar posição. nullptr se não estiver na tabela.
 const No* encontrar(const uint8_t mac[6]);

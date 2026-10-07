@@ -5,8 +5,10 @@
 #include <esp_heap_caps.h>
 #include <esp_mac.h>
 
+#include <cadastro.h>
 #include <calendario.h>
 
+#include "configuracao.h"
 #include "historico.h"
 #include "nos.h"
 
@@ -68,24 +70,23 @@ struct Leitor {
 
 Leitor leitor;  // estático: 768 B fora da pilha do loop()
 
-bool lerMac(const char* s, uint8_t mac[6]) {
-  unsigned v[6];
-  if (sscanf(s, "%x:%x:%x:%x:%x:%x", &v[0], &v[1], &v[2], &v[3], &v[4], &v[5]) != 6) return false;
-  for (int i = 0; i < 6; i++) {
-    if (v[i] > 0xFF) return false;
-    mac[i] = static_cast<uint8_t>(v[i]);
-  }
-  return true;
+// "44.8" (décimos de %) ou "-" sem calibração / solo com erro.
+void formatarPct(const registro::Registro& r, char (&s)[8]) {
+  int16_t d = 0;
+  if (configuracao::umidadeSolo(r, d)) snprintf(s, sizeof(s), "%d.%d", d / 10, d % 10);
+  else snprintf(s, sizeof(s), "-");
 }
 
 void imprimirItem(const Item& it) {
+  char pct[8];
+  formatarPct(it.r, pct);
   char iso[calendario::TAM_ISO] = "-";
   if (it.hora != filtro::Hora::SEM_HORA) calendario::formatarIso(it.utcEfetivo, iso);
   protocolo::PacoteLeitura p = it.r.pacote;  // cópia: não ler campos packed por referência
-  Serial.printf("[CONSULTA] %llu," MACSTR ",%s,%s,%u,%lu,%u,%lu,%d,%u,%u,%u,%d\n", (unsigned long long)it.id,
+  Serial.printf("[CONSULTA] %llu," MACSTR ",%s,%s,%u,%lu,%u,%lu,%d,%u,%u,%s,%u,%d\n", (unsigned long long)it.id,
                 MAC2STR(it.r.mac), filtro::nomeHora(it.hora), iso, it.r.boot_coord,
                 (unsigned long)it.r.desde_boot_s, p.boot, (unsigned long)p.seq, p.temperatura_c100,
-                p.umidade_ar_c100, p.solo_mv, p.alimentacao_mv, it.r.rssi);
+                p.umidade_ar_c100, p.solo_mv, pct, p.alimentacao_mv, it.r.rssi);
 }
 
 struct ContextoSerial {
@@ -98,7 +99,7 @@ bool visitarSerial(const Item& it, void* ctx) {
 }
 
 void imprimirUltimas() {
-  Serial.println("[CONSULTA] ultimas: mac,nome,hora,utc,boot_coord,seq,solo_mv,alim_mv,rssi");
+  Serial.println("[CONSULTA] ultimas: mac,nome,hora,utc,boot_coord,seq,solo_mv,solo_pct,alim_mv,rssi");
   for (size_t i = 0; i < config::MAX_NOS; i++) {
     const nos::No& n = nos::posicao(i);
     if (!n.usado || !n.temUltima) continue;
@@ -107,8 +108,10 @@ void imprimirUltimas() {
     char iso[calendario::TAM_ISO] = "-";
     if (h != filtro::Hora::SEM_HORA) calendario::formatarIso(utc, iso);
     protocolo::PacoteLeitura p = n.ultima.pacote;
-    Serial.printf("[CONSULTA] " MACSTR ",%s,%s,%s,%u,%lu,%u,%u,%d\n", MAC2STR(n.mac), n.nome, filtro::nomeHora(h), iso,
-                  n.ultima.boot_coord, (unsigned long)p.seq, p.solo_mv, p.alimentacao_mv, n.ultima.rssi);
+    char pct[8];
+    formatarPct(n.ultima, pct);
+    Serial.printf("[CONSULTA] " MACSTR ",%s,%s,%s,%u,%lu,%u,%s,%u,%d\n", MAC2STR(n.mac), n.nome, filtro::nomeHora(h),
+                  iso, n.ultima.boot_coord, (unsigned long)p.seq, p.solo_mv, pct, p.alimentacao_mv, n.ultima.rssi);
   }
 }
 
@@ -217,7 +220,7 @@ void comando(const char* argumento) {
         else f.ate = static_cast<uint32_t>(t);
       }
     } else if (strcmp(tok, "no") == 0) {
-      ok = lerMac(v, f.mac);
+      ok = cadastro::interpretarMac(v, f.mac);
       f.porNo = ok;
     } else if (strcmp(tok, "ordem") == 0) {
       ok = strcmp(v, "asc") == 0 || strcmp(v, "desc") == 0;
@@ -244,7 +247,7 @@ void comando(const char* argumento) {
 
   if (ctx.mostrar)
     Serial.println("[CONSULTA] id,mac,hora,utc,boot_coord,desde_boot_s,boot_no,seq,temp_c100,ur_c100,solo_mv,"
-                   "alim_mv,rssi");
+                   "solo_pct,alim_mv,rssi");
   size_t heapAntes = heap_caps_get_free_size(MALLOC_CAP_8BIT);
   heap_caps_monitor_local_minimum_free_size_start();
   Pagina pg = executar(f, visitarSerial, &ctx);

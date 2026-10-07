@@ -12,6 +12,7 @@
 #include <protocolo.h>
 
 #include "config.h"
+#include "configuracao.h"
 #include "consulta.h"
 #include "historico.h"
 #include "nos.h"
@@ -37,6 +38,8 @@ void executar(char* linha) {
     relogio::comandoHora(argumento);
   } else if (strcmp(linha, "fs") == 0) {
     historico::comando(argumento);
+  } else if (strcmp(linha, "no") == 0) {
+    configuracao::comando(argumento);
   } else if (strcmp(linha, "consulta") == 0) {
     consulta::comando(argumento);
 #ifdef TESTE_GRAVACAO
@@ -56,6 +59,11 @@ void executar(char* linha) {
     Serial.println("[CONSOLE]   fs listar                    resumo de cada segmento");
     Serial.println("[CONSOLE]   fs formatar                  formata a particao (APAGA o historico)");
     Serial.println("[CONSOLE]   fs gravar N                  grava N registros sinteticos (teste)");
+    Serial.println("[CONSOLE]   no                           cadastro: nome e calibracao do solo de cada no");
+    Serial.println("[CONSOLE]   no nome MAC NOME             cadastra ou renomeia (1-15: letras, digitos, _ -)");
+    Serial.println("[CONSOLE]   no cal MAC SECO UMIDO        calibracao do solo em mV (seco > umido)");
+    Serial.println("[CONSOLE]   no seco MAC | no umido MAC   ponto de calibracao = solo da ultima leitura");
+    Serial.println("[CONSOLE]   no semcal MAC | no apagar MAC | no padrao (semente do config.h)");
     Serial.println("[CONSOLE]   consulta [de=T] [ate=T] [no=MAC] [ordem=asc|desc] [cursor=N] [limite=N]");
     Serial.println("[CONSOLE]            [maxlidos=N] [mostrar=0|1]   historico paginado (T: epoch ou ISO)");
     Serial.println("[CONSOLE]   consulta ultimas             ultima leitura de cada no");
@@ -175,6 +183,7 @@ void setup() {
   imprimirMac("STA", ESP_MAC_WIFI_STA);
   imprimirMac("AP ", ESP_MAC_WIFI_SOFTAP);
   Serial.printf("[BOOT] protocolo v%u (%u bytes)\n", protocolo::VERSAO, (unsigned)sizeof(protocolo::PacoteLeitura));
+  configuracao::iniciar();  // antes do histórico: os nós da carga já recebem o nome do cadastro
   historico::iniciar(consulta::observar);  // antes do rádio: a leitura dos segmentos não disputa com a fila do ESP-NOW
   if (!radio::iniciar()) Serial.println("[BOOT] ERRO: radio nao iniciou");
   Serial.println("[CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,"

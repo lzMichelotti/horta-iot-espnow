@@ -2,16 +2,18 @@
 
 #include <esp_mac.h>
 
+#include "configuracao.h"
+
 namespace nos {
 
 namespace {
 
 No tabela[config::MAX_NOS];
 
-const char* nomeCadastrado(const uint8_t mac[6]) {
-  for (const auto& c : config::NOS)
-    if (memcmp(c.mac, mac, 6) == 0) return c.nome;
-  return "desconhecido";
+void copiarNome(No& n) {
+  const cadastro::No* c = configuracao::tabela().buscar(n.mac);
+  strncpy(n.nome, c ? c->nome : "desconhecido", sizeof(n.nome) - 1);
+  n.nome[sizeof(n.nome) - 1] = '\0';
 }
 
 }  // namespace
@@ -23,10 +25,15 @@ No* buscar(const uint8_t mac[6]) {
     if (!n.usado) {
       n.usado = true;
       memcpy(n.mac, mac, 6);
-      n.nome = nomeCadastrado(mac);
+      copiarNome(n);
       return &n;
     }
   return nullptr;
+}
+
+void atualizarNomes() {
+  for (auto& n : tabela)
+    if (n.usado) copiarNome(n);
 }
 
 const No* encontrar(const uint8_t mac[6]) {

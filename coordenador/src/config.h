@@ -51,15 +51,24 @@ constexpr size_t CONSOLE_LINHA_MAX = 160;  // caracteres por comando (a consulta
 
 // ---------------------------------------------------------------- Nós
 // O nó é identificado pelo MAC de origem do quadro ESP-NOW, que é o MAC STA
-// do nó (docs/placas.md). MAC fora desta lista: rastreado como "desconhecido".
+// do nó (docs/placas.md). MAC fora do cadastro: rastreado como "desconhecido".
+//
+// SEMENTE do cadastro (Etapa 7, passo 8): usada só quando a NVS ainda não tem
+// a tabela (primeiro boot) ou no comando "no padrao". Depois disso vale o que
+// estiver na NVS, editado pelos comandos "no" da serial (src/configuracao.cpp).
 struct NoCadastrado {
   uint8_t mac[6];
   const char* nome;
+  uint16_t mvSeco;   // calibração do solo, mV (0 = sem calibração)
+  uint16_t mvUmido;
 };
 constexpr NoCadastrado NOS[] = {
-    {{0x88, 0x57, 0x21, 0x70, 0x93, 0x70}, "no1"},  // NÓ 1 (serial 5AC9001351)
+    // NÓ 1 (serial 5AC9001351). Calibração de BANCADA (docs/sensores.md, 4.3):
+    // seco ao toque 1400 mV, ~1 h após a rega 655 mV. Recalibrar no campo.
+    {{0x88, 0x57, 0x21, 0x70, 0x93, 0x70}, "no1", 1400, 655},
 };
 constexpr size_t MAX_NOS = 8;                  // tabela fixa, sem alocação dinâmica
+static_assert(MAX_NOS == 8, "o cadastro (lib/cadastro) guarda até 8 nós");
 constexpr uint32_t INTERVALO_RESUMO_MS = 60000;  // linha [RESUMO] por nó
 
 }  // namespace config
