@@ -1,0 +1,217 @@
+1791394066.684 # abrir
+1791394066.700 < ets Jul 29 2019 12:21:46
+1791394066.700 < 
+1791394066.700 < rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+1791394066.700 < configsip: 0, SPIWP:0xee
+1791394066.715 < clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+1791394066.715 < mode:DIO, clock div:2
+1791394066.715 < load:0x3fff0030,len:4640
+1791394066.716 < load:0x40078000,len:15632
+1791394066.716 < load:0x40080400,len:3164
+1791394066.716 < entry 0x4008059c
+1791394067.297 < 
+1791394067.297 < [BOOT] coordenador - etapa 7
+1791394067.311 < [RELOGIO] boot 28, motivo do reset 1
+1791394067.311 < [RELOGIO] utc=invalida epoch=0 valida=0 fonte=nenhuma boot=28 desde_boot_ms=222
+1791394067.322 < [PART] nome,tipo,subtipo,endereco,tamanho_kb
+1791394067.322 < [PART] nvs,1,0x02,0x009000,20
+1791394067.322 < [PART] otadata,1,0x00,0x00e000,8
+1791394067.333 < [PART] app0,0,0x00,0x010000,2048
+1791394067.333 < [PART] littlefs,1,0x83,0x210000,1920
+1791394067.333 < [PART] coredump,1,0x03,0x3f0000,64
+1791394067.334 < [MAC] STA 88:57:21:70:91:fc
+1791394067.339 < [MAC] AP  88:57:21:70:91:fd
+1791394067.339 < [BOOT] protocolo v1 (22 bytes)
+1791394067.339 < [CFG] cadastro lido da NVS: 1 nos
+1791394067.574 < [FS] LittleFS montado: 1356 KB usados de 1920 KB
+1791394069.609 < [FS] carga: 56 segmentos, 27732 registros validos, 0 invalidos, em 2032 ms
+1791394069.708 < [WIFI] varrendo canais...
+1791394073.522 < [WIFI] varredura: 23 redes em 3805 ms
+1791394073.577 < [WIFI] canal  1: 4 no canal, 5 sobrepostas, mais forte -74 dBm
+1791394073.578 < [WIFI] canal  6: 0 no canal, 13 sobrepostas, mais forte -25 dBm
+1791394073.580 < [WIFI] canal 11: 6 no canal, 8 sobrepostas, mais forte -25 dBm
+1791394073.791 < [WIFI] SoftAP "horta-coord" canal 1, MAC AP 88:57:21:70:91:FD, IP 192.168.4.1
+1791394073.802 < [ESPNOW] pronto: versao 2, fila de 16 itens (272 bytes cada)
+1791394073.813 < [CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags
+1791394073.817 < [RESUMO] t_ms,mac,nome,recebidos,rejeitados,aceitos,perdidos,descartados,reinicios,sem_ack,entrega_pct,rssi_medio,rssi_min,rssi_max
+1791394073.817 > no
+1791394073.926 < [CFG] cadastro: 1 de 8 nos
+1791394073.926 < [CFG] mac,nome,mv_seco,mv_umido,calibrado,ultimo_solo_mv,solo_pct
+1791394073.927 < [CFG] 88:57:21:70:93:70,no1,1400,655,1,1123,37.2
+1791394080.221 < [CSV] 13134,88:57:21:70:93:70,no1,-37,-96,22,nenhuma,primeiro,0,41,846,0,0,1124,3382,5,8,345,3,3
+1791394080.349 < [FS] gravado,61,232,133954
+1791394080.349 > consulta ultimas
+1791394080.459 < [CONSULTA] ultimas: mac,nome,hora,utc,boot_coord,seq,solo_mv,solo_pct,alim_mv,rssi
+1791394080.470 < [CONSULTA] 02:00:00:00:00:01,desconhecido,valida,2026-10-06T18:44:56Z,1000,1,901,-,3300,-41
+1791394080.477 < [CONSULTA] 02:00:00:00:00:02,desconhecido,valida,2026-10-06T18:30:03Z,1000,0,900,-,3300,-42
+1791394080.477 < [CONSULTA] 88:57:21:70:93:70,no1,sem_hora,-,28,846,1124,37.0,3382,-37
+1791394082.482 > no nome 88:57:21:70:93:70 canteiro1
+1791394082.590 < [CFG] cadastro gravado na NVS
+1791394082.590 < [CFG] cadastro: 1 de 8 nos
+1791394082.590 < [CFG] mac,nome,mv_seco,mv_umido,calibrado,ultimo_solo_mv,solo_pct
+1791394082.595 < [CFG] 88:57:21:70:93:70,canteiro1,1400,655,1,1124,37.0
+1791394090.209 < [CSV] 23122,88:57:21:70:93:70,canteiro1,-36,-96,22,nenhuma,novo,0,41,847,0,0,1121,3383,5,8,185,1,1
+1791394090.278 < [FS] gravado,61,233,74930
+1791394090.278 > no nome 02:00:00:00:00:01 sintetico1
+1791394090.395 < [CFG] cadastro gravado na NVS
+1791394090.395 < [CFG] cadastro: 2 de 8 nos
+1791394090.395 < [CFG] mac,nome,mv_seco,mv_umido,calibrado,ultimo_solo_mv,solo_pct
+1791394090.404 < [CFG] 88:57:21:70:93:70,canteiro1,1400,655,1,1121,37.4
+1791394090.404 < [CFG] 02:00:00:00:00:01,sintetico1,0,0,0,901,-
+1791394092.408 > no cal 02:00:00:00:00:01 1500 600
+1791394092.513 < [CFG] cadastro gravado na NVS
+1791394092.514 < [CFG] cadastro: 2 de 8 nos
+1791394092.514 < [CFG] mac,nome,mv_seco,mv_umido,calibrado,ultimo_solo_mv,solo_pct
+1791394092.523 < [CFG] 88:57:21:70:93:70,canteiro1,1400,655,1,1121,37.4
+1791394092.523 < [CFG] 02:00:00:00:00:01,sintetico1,1500,600,1,901,66.6
+1791394094.527 > no cal 88:57:21:70:93:70 600 1500
+1791394094.621 < [CFG] nao alterado: o ponto seco precisa ser maior que o umido
+1791394096.625 > no nome 88:57:21:70:93:70 nome_longo_demais_x
+1791394096.723 < [CFG] nao alterado: nome invalido (1 a 15 caracteres: letras, digitos, _ ou -)
+1791394098.727 > no nome 88:57:21:70:93:70 com espaco
+1791394098.828 < [CFG] uso: no | no nome MAC NOME | no cal MAC SECO UMIDO | no seco MAC | no umido MAC
+1791394098.829 < [CFG]      no semcal MAC | no apagar MAC | no padrao
+1791394100.198 < [CSV] 33112,88:57:21:70:93:70,canteiro1,-36,-96,22,nenhuma,novo,0,41,848,0,0,1123,3378,5,8,185,1,1
+1791394100.268 < [FS] gravado,61,234,76215
+1791394100.869 > no cal 11:22 1 2
+1791394100.978 < [CFG] uso: no | no nome MAC NOME | no cal MAC SECO UMIDO | no seco MAC | no umido MAC
+1791394100.979 < [CFG]      no semcal MAC | no apagar MAC | no padrao
+1791394102.983 > no seco 02:00:00:00:00:09
+1791394103.083 < [CFG] nao alterado: ainda nao ha leitura deste no
+1791394105.088 > no seco 88:57:21:70:93:70
+1791394105.184 < [CFG] ponto seco = 1123 mV (ultima leitura, seq 848)
+1791394105.238 < [CFG] cadastro gravado na NVS
+1791394105.238 < [CFG] cadastro: 2 de 8 nos
+1791394105.238 < [CFG] mac,nome,mv_seco,mv_umido,calibrado,ultimo_solo_mv,solo_pct
+1791394105.247 < [CFG] 88:57:21:70:93:70,canteiro1,1123,655,1,1123,0.0
+1791394105.247 < [CFG] 02:00:00:00:00:01,sintetico1,1500,600,1,901,66.6
+1791394107.251 > no umido 88:57:21:70:93:70
+1791394107.350 < [CFG] ponto umido = 1123 mV (ultima leitura, seq 848)
+1791394107.350 < [CFG] nao alterado: o ponto seco precisa ser maior que o umido
+1791394109.355 > no cal 88:57:21:70:93:70 1400 655
+1791394109.458 < [CFG] cadastro gravado na NVS
+1791394109.458 < [CFG] cadastro: 2 de 8 nos
+1791394109.458 < [CFG] mac,nome,mv_seco,mv_umido,calibrado,ultimo_solo_mv,solo_pct
+1791394109.468 < [CFG] 88:57:21:70:93:70,canteiro1,1400,655,1,1123,37.2
+1791394109.468 < [CFG] 02:00:00:00:00:01,sintetico1,1500,600,1,901,66.6
+1791394110.192 < [CSV] 43106,88:57:21:70:93:70,canteiro1,-40,-96,22,nenhuma,novo,0,41,849,0,0,1125,3381,5,8,185,1,1
+1791394110.264 < [FS] gravado,61,235,77614
+1791394111.467 > consulta no=88:57:21:70:93:70 ordem=desc limite=2
+1791394111.573 < [CONSULTA] id,mac,hora,utc,boot_coord,desde_boot_s,boot_no,seq,temp_c100,ur_c100,solo_mv,solo_pct,alim_mv,rssi
+1791394111.588 < [CONSULTA] 30735,88:57:21:70:93:70,sem_hora,-,28,43,41,849,0,0,1125,36.9,3381,-40
+1791394111.599 < [CONSULTA] 30734,88:57:21:70:93:70,sem_hora,-,28,33,41,848,0,0,1123,37.2,3378,-36
+1791394111.605 < [CONSULTA] pagina: entregues=2 fim=0 proximo=30733 rotacionado=0 lidos=2 invalidos=0 pulados=0 us=25189 heap_antes=171244 heap_min=165716 heap_depois=171244
+1791394114.611 > reiniciar
+1791394114.712 < [CONSOLE] esp_restart()
+1791394114.717 < ets Jul 29 2019 12:21:46
+1791394114.717 < 
+1791394114.717 < rst:0xc (SW_CPU_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+1791394114.717 < configsip: 0, SPIWP:0xee
+1791394114.728 < clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+1791394114.728 < mode:DIO, clock div:2
+1791394114.728 < load:0x3fff0030,len:4640
+1791394114.732 < load:0x40078000,len:15632
+1791394114.732 < load:0x40080400,len:3164
+1791394114.733 < entry 0x4008059c
+1791394115.313 < 
+1791394115.313 < [BOOT] coordenador - etapa 7
+1791394115.327 < [RELOGIO] boot 29, motivo do reset 3
+1791394115.327 < [RELOGIO] utc=invalida epoch=48 valida=0 fonte=nenhuma boot=29 desde_boot_ms=222
+1791394115.338 < [PART] nome,tipo,subtipo,endereco,tamanho_kb
+1791394115.338 < [PART] nvs,1,0x02,0x009000,20
+1791394115.338 < [PART] otadata,1,0x00,0x00e000,8
+1791394115.349 < [PART] app0,0,0x00,0x010000,2048
+1791394115.349 < [PART] littlefs,1,0x83,0x210000,1920
+1791394115.349 < [PART] coredump,1,0x03,0x3f0000,64
+1791394115.350 < [MAC] STA 88:57:21:70:91:fc
+1791394115.355 < [MAC] AP  88:57:21:70:91:fd
+1791394115.355 < [BOOT] protocolo v1 (22 bytes)
+1791394115.355 < [CFG] cadastro lido da NVS: 2 nos
+1791394115.662 < [FS] LittleFS montado: 1356 KB usados de 1920 KB
+1791394117.962 < [FS] carga: 56 segmentos, 27736 registros validos, 0 invalidos, em 2297 ms
+1791394118.048 < [WIFI] varrendo canais...
+1791394121.862 < [WIFI] varredura: 22 redes em 3805 ms
+1791394121.917 < [WIFI] canal  1: 2 no canal, 5 sobrepostas, mais forte -74 dBm
+1791394121.917 < [WIFI] canal  6: 1 no canal, 12 sobrepostas, mais forte -24 dBm
+1791394121.918 < [WIFI] canal 11: 7 no canal, 7 sobrepostas, mais forte -24 dBm
+1791394122.120 < [WIFI] SoftAP "horta-coord" canal 1, MAC AP 88:57:21:70:91:FD, IP 192.168.4.1
+1791394122.130 < [ESPNOW] pronto: versao 2, fila de 16 itens (272 bytes cada)
+1791394122.142 < [CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags
+1791394122.146 < [RESUMO] t_ms,mac,nome,recebidos,rejeitados,aceitos,perdidos,descartados,reinicios,sem_ack,entrega_pct,rssi_medio,rssi_min,rssi_max
+1791394122.146 > no
+1791394122.255 < [CFG] cadastro: 2 de 8 nos
+1791394122.255 < [CFG] mac,nome,mv_seco,mv_umido,calibrado,ultimo_solo_mv,solo_pct
+1791394122.262 < [CFG] 88:57:21:70:93:70,canteiro1,1400,655,1,1125,36.9
+1791394122.262 < [CFG] 02:00:00:00:00:01,sintetico1,1500,600,1,901,66.6
+1791394124.266 # fechar
+1791394124.272 # abrir
+1791394124.286 < ets Jul 29 2019 12:21:46
+1791394124.286 < 
+1791394124.287 < rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+1791394124.287 < configsip: 0, SPIWP:0xee
+1791394124.297 < clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+1791394124.297 < mode:DIO, clock div:2
+1791394124.298 < load:0x3fff0030,len:4640
+1791394124.301 < load:0x40078000,len:15632
+1791394124.301 < load:0x40080400,len:3164
+1791394124.301 < entry 0x4008059c
+1791394124.883 < 
+1791394124.884 < [BOOT] coordenador - etapa 7
+1791394124.897 < [RELOGIO] boot 30, motivo do reset 1
+1791394124.897 < [RELOGIO] utc=invalida epoch=0 valida=0 fonte=nenhuma boot=30 desde_boot_ms=222
+1791394124.908 < [PART] nome,tipo,subtipo,endereco,tamanho_kb
+1791394124.908 < [PART] nvs,1,0x02,0x009000,20
+1791394124.908 < [PART] otadata,1,0x00,0x00e000,8
+1791394124.919 < [PART] app0,0,0x00,0x010000,2048
+1791394124.919 < [PART] littlefs,1,0x83,0x210000,1920
+1791394124.919 < [PART] coredump,1,0x03,0x3f0000,64
+1791394124.919 < [MAC] STA 88:57:21:70:91:fc
+1791394124.925 < [MAC] AP  88:57:21:70:91:fd
+1791394124.925 < [BOOT] protocolo v1 (22 bytes)
+1791394124.925 < [CFG] cadastro lido da NVS: 2 nos
+1791394125.232 < [FS] LittleFS montado: 1356 KB usados de 1920 KB
+1791394127.532 < [FS] carga: 56 segmentos, 27736 registros validos, 0 invalidos, em 2297 ms
+1791394127.620 < [WIFI] varrendo canais...
+1791394131.834 < [WIFI] varredura: 29 redes em 4205 ms
+1791394131.901 < [WIFI] canal  1: 7 no canal, 6 sobrepostas, mais forte -68 dBm
+1791394131.901 < [WIFI] canal  6: 1 no canal, 14 sobrepostas, mais forte -22 dBm
+1791394131.903 < [WIFI] canal 11: 7 no canal, 8 sobrepostas, mais forte -22 dBm
+1791394132.114 < [WIFI] SoftAP "horta-coord" canal 1, MAC AP 88:57:21:70:91:FD, IP 192.168.4.1
+1791394132.126 < [ESPNOW] pronto: versao 2, fila de 16 itens (272 bytes cada)
+1791394132.137 < [CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags
+1791394132.140 < [RESUMO] t_ms,mac,nome,recebidos,rejeitados,aceitos,perdidos,descartados,reinicios,sem_ack,entrega_pct,rssi_medio,rssi_min,rssi_max
+1791394132.141 > no
+1791394132.250 < [CFG] cadastro: 2 de 8 nos
+1791394132.250 < [CFG] mac,nome,mv_seco,mv_umido,calibrado,ultimo_solo_mv,solo_pct
+1791394132.256 < [CFG] 88:57:21:70:93:70,canteiro1,1400,655,1,1125,36.9
+1791394132.257 < [CFG] 02:00:00:00:00:01,sintetico1,1500,600,1,901,66.6
+1791394134.261 > fs formatar
+1791394134.356 < [FS] formatando a particao (apaga todo o historico)...
+1791394134.448 < [FS] format: ok em 91 ms
+1791394134.448 < [FS] LittleFS montado: 8 KB usados de 1920 KB
+1791394134.497 < [FS] carga: 0 segmentos, 0 registros validos, 0 invalidos, em 47 ms
+1791394140.060 < [CSV] 15387,88:57:21:70:93:70,canteiro1,-38,-96,22,nenhuma,primeiro,0,41,852,0,0,1125,3379,5,8,341,3,3
+1791394140.062 < [FS] gravado,1,0,8322
+1791394142.267 > no
+1791394142.372 < [CFG] cadastro: 2 de 8 nos
+1791394142.372 < [CFG] mac,nome,mv_seco,mv_umido,calibrado,ultimo_solo_mv,solo_pct
+1791394142.378 < [CFG] 88:57:21:70:93:70,canteiro1,1400,655,1,1125,36.9
+1791394142.379 < [CFG] 02:00:00:00:00:01,sintetico1,1500,600,1,901,66.6
+1791394144.383 > no apagar 02:00:00:00:00:01
+1791394144.491 < [CFG] cadastro gravado na NVS
+1791394144.491 < [CFG] cadastro: 1 de 8 nos
+1791394144.492 < [CFG] mac,nome,mv_seco,mv_umido,calibrado,ultimo_solo_mv,solo_pct
+1791394144.496 < [CFG] 88:57:21:70:93:70,canteiro1,1400,655,1,1125,36.9
+1791394146.501 > no padrao
+1791394146.609 < [CFG] cadastro gravado na NVS
+1791394146.609 < [CFG] cadastro: 1 de 8 nos
+1791394146.609 < [CFG] mac,nome,mv_seco,mv_umido,calibrado,ultimo_solo_mv,solo_pct
+1791394146.613 < [CFG] 88:57:21:70:93:70,no1,1400,655,1,1125,36.9
+1791394150.042 < [CSV] 25370,88:57:21:70:93:70,no1,-28,-96,22,nenhuma,novo,0,41,853,0,0,1129,3381,5,8,185,1,1
+1791394150.046 < [FS] gravado,1,1,9604
+1791394150.046 > consulta ultimas
+1791394150.156 < [CONSULTA] ultimas: mac,nome,hora,utc,boot_coord,seq,solo_mv,solo_pct,alim_mv,rssi
+1791394150.167 < [CONSULTA] 02:00:00:00:00:01,desconhecido,valida,2026-10-06T18:44:56Z,1000,1,901,-,3300,-41
+1791394150.174 < [CONSULTA] 02:00:00:00:00:02,desconhecido,valida,2026-10-06T18:30:03Z,1000,0,900,-,3300,-42
+1791394150.174 < [CONSULTA] 88:57:21:70:93:70,no1,sem_hora,-,30,853,1129,36.4,3381,-28
+1791394152.178 # fechar
