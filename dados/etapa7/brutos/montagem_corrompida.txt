@@ -1,0 +1,62 @@
+1791397588.633 # abrir
+1791397588.648 < ets Jul 29 2019 12:21:46
+1791397588.648 < 
+1791397588.648 < rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+1791397588.648 < configsip: 0, SPIWP:0xee
+1791397588.659 < clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+1791397588.659 < mode:DIO, clock div:2
+1791397588.659 < load:0x3fff0030,len:4640
+1791397588.663 < load:0x40078000,len:15632
+1791397588.663 < load:0x40080400,len:3164
+1791397588.663 < entry 0x4008059c
+1791397589.253 < 
+1791397589.253 < [BOOT] coordenador - etapa 7
+1791397589.266 < [RELOGIO] boot 36, motivo do reset 1
+1791397589.266 < [RELOGIO] utc=invalida epoch=0 valida=0 fonte=nenhuma boot=36 desde_boot_ms=223
+1791397589.277 < [PART] nome,tipo,subtipo,endereco,tamanho_kb
+1791397589.278 < [PART] nvs,1,0x02,0x009000,20
+1791397589.278 < [PART] otadata,1,0x00,0x00e000,8
+1791397589.288 < [PART] app0,0,0x00,0x010000,2048
+1791397589.288 < [PART] littlefs,1,0x83,0x210000,1920
+1791397589.288 < [PART] coredump,1,0x03,0x3f0000,64
+1791397589.289 < [MAC] STA 88:57:21:70:91:fc
+1791397589.291 < [MAC] AP  88:57:21:70:91:fd
+1791397589.291 < [BOOT] protocolo v1 (22 bytes)
+1791397589.294 < [CFG] cadastro lido da NVS: 1 nos
+1791397589.320 < E (260) esp_littlefs: ./managed_components/joltwallet__littlefs/src/littlefs/lfs.c:1383:error: Corrupted dir pair at {0x1, 0x0}
+1791397589.321 < 
+1791397589.321 < E (261) esp_littlefs: mount failed,  (-84)
+1791397589.321 < E (265) esp_littlefs: Failed to initialize LittleFS
+1791397589.325 < [   275][E][LittleFS.cpp:79] begin(): Mounting LittleFS failed! Error: -1
+1791397589.346 < [FS] ALERTA: o LittleFS existe mas nao montou (corrompido). NAO foi formatado: o historico fica preservado para diagnostico (esptool read-flash). 'fs formatar' formata.
+1791397589.346 < [FS] estado: nao_montado (rotacoes de emergencia 0, falhas seguidas 0)
+1791397589.442 < [WIFI] varrendo canais...
+1791397593.254 < [WIFI] varredura: 24 redes em 3804 ms
+1791397593.310 < [WIFI] canal  1: 5 no canal, 7 sobrepostas, mais forte -68 dBm
+1791397593.310 < [WIFI] canal  6: 0 no canal, 12 sobrepostas, mais forte -45 dBm
+1791397593.313 < [WIFI] canal 11: 7 no canal, 5 sobrepostas, mais forte -45 dBm
+1791397593.524 < [WIFI] SoftAP "horta-coord" canal 1, MAC AP 88:57:21:70:91:FD, IP 192.168.4.1
+1791397593.534 < [ESPNOW] pronto: versao 2, fila de 16 itens (272 bytes cada)
+1791397593.545 < [CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags
+1791397593.550 < [RESUMO] t_ms,mac,nome,recebidos,rejeitados,aceitos,perdidos,descartados,reinicios,sem_ack,entrega_pct,rssi_medio,rssi_min,rssi_max
+1791397593.550 > fs
+1791397593.655 < [FS] nao montado
+1791397593.655 < [FS] estado: nao_montado (rotacoes de emergencia 0, falhas seguidas 0)
+1791397595.846 < [CSV] 6805,88:57:21:70:93:70,no1,-33,-96,22,nenhuma,primeiro,0,41,1198,0,0,1136,3379,5,8,349,3,3
+1791397595.846 > consulta ultimas
+1791397595.949 < [CONSULTA] ultimas: mac,nome,hora,utc,boot_coord,seq,solo_mv,solo_pct,alim_mv,rssi
+1791397595.951 < [CONSULTA] 88:57:21:70:93:70,no1,sem_hora,-,36,1198,1136,35.4,3379,-33
+1791397597.955 > fs formatar
+1791397598.055 < [FS] formatando a particao (apaga todo o historico)...
+1791397598.079 < E (9019) esp_littlefs: ./managed_components/joltwallet__littlefs/src/littlefs/lfs.c:1383:error: Corrupted dir pair at {0x1, 0x0}
+1791397598.079 < 
+1791397598.080 < E (9020) esp_littlefs: mount failed,  (-84)
+1791397598.080 < E (9024) esp_littlefs: Failed to initialize LittleFS
+1791397598.084 < [  9034][E][LittleFS.cpp:79] begin(): Mounting LittleFS failed! Error: -1
+1791397598.142 < [FS] format: ok em 90 ms
+1791397598.147 < [FS] LittleFS montado: 8 KB usados de 1920 KB
+1791397598.188 < [FS] carga: 0 segmentos, 0 registros validos, 0 invalidos, em 35 ms
+1791397598.189 < [FS] estado: ok (rotacoes de emergencia 0, falhas seguidas 0)
+1791397605.845 < [CSV] 16804,88:57:21:70:93:70,no1,-33,-96,22,nenhuma,novo,0,41,1199,0,0,1122,3384,5,8,184,1,1
+1791397605.850 < [FS] gravado,1,0,11338
+1791397605.850 # fechar

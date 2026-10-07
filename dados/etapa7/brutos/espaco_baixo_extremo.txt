@@ -1,0 +1,114 @@
+1791397143.001 # abrir
+1791397143.016 < ets Jul 29 2019 12:21:46
+1791397143.016 < 
+1791397143.016 < rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+1791397143.017 < configsip: 0, SPIWP:0xee
+1791397143.027 < clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+1791397143.027 < mode:DIO, clock div:2
+1791397143.028 < load:0x3fff0030,len:4640
+1791397143.031 < load:0x40078000,len:15632
+1791397143.031 < load:0x40080400,len:3164
+1791397143.032 < entry 0x4008059c
+1791397143.621 < 
+1791397143.622 < [BOOT] coordenador - etapa 7
+1791397143.635 < [RELOGIO] boot 33, motivo do reset 1
+1791397143.635 < [RELOGIO] utc=invalida epoch=0 valida=0 fonte=nenhuma boot=33 desde_boot_ms=222
+1791397143.646 < [PART] nome,tipo,subtipo,endereco,tamanho_kb
+1791397143.646 < [PART] nvs,1,0x02,0x009000,20
+1791397143.646 < [PART] otadata,1,0x00,0x00e000,8
+1791397143.657 < [PART] app0,0,0x00,0x010000,2048
+1791397143.657 < [PART] littlefs,1,0x83,0x210000,1920
+1791397143.657 < [PART] coredump,1,0x03,0x3f0000,64
+1791397143.657 < [MAC] STA 88:57:21:70:91:fc
+1791397143.660 < [MAC] AP  88:57:21:70:91:fd
+1791397143.660 < [BOOT] protocolo v1 (22 bytes)
+1791397143.663 < [CFG] cadastro lido da NVS: 1 nos
+1791397143.676 < [FS] LittleFS montado: 20 KB usados de 1920 KB
+1791397143.705 < [FS] carga: 1 segmentos, 37 registros validos, 0 invalidos, em 22 ms
+1791397143.706 < [FS] estado: ok (rotacoes de emergencia 0, falhas seguidas 0)
+1791397143.837 < [WIFI] varrendo canais...
+1791397147.450 < [WIFI] varredura: 24 redes em 3604 ms
+1791397147.505 < [WIFI] canal  1: 5 no canal, 5 sobrepostas, mais forte -65 dBm
+1791397147.505 < [WIFI] canal  6: 0 no canal, 11 sobrepostas, mais forte -23 dBm
+1791397147.509 < [WIFI] canal 11: 8 no canal, 6 sobrepostas, mais forte -23 dBm
+1791397147.719 < [WIFI] SoftAP "horta-coord" canal 1, MAC AP 88:57:21:70:91:FD, IP 192.168.4.1
+1791397147.730 < [ESPNOW] pronto: versao 2, fila de 16 itens (272 bytes cada)
+1791397147.741 < [CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags
+1791397147.745 < [RESUMO] t_ms,mac,nome,recebidos,rejeitados,aceitos,perdidos,descartados,reinicios,sem_ack,entrega_pct,rssi_medio,rssi_min,rssi_max
+1791397147.745 > hora 1791397147
+1791397147.855 < [RELOGIO] acertada (antes: invalida)
+1791397147.856 < [RELOGIO] utc=2026-10-07T18:19:07Z epoch=1791397147 valida=1 fonte=manual boot=33 desde_boot_ms=4442
+1791397148.858 > fs formatar
+1791397148.962 < [FS] formatando a particao (apaga todo o historico)...
+1791397149.051 < [FS] format: ok em 88 ms
+1791397149.052 < [FS] LittleFS montado: 8 KB usados de 1920 KB
+1791397149.104 < [FS] carga: 0 segmentos, 0 registros validos, 0 invalidos, em 46 ms
+1791397149.105 < [FS] estado: ok (rotacoes de emergencia 0, falhas seguidas 0)
+1791397154.914 > fs ocupar 2000
+1791397183.210 < E (39791) esp_littlefs: ./managed_components/joltwallet__littlefs/src/littlefs/lfs.c:702:error: No more free space 0x111
+1791397183.210 < 
+1791397183.212 < [FS] /ocupar.bin: +1856 KB
+1791397183.309 < [FS] 1876 KB usados de 1920 KB; politica: 500 registros/segmento, max 56 segmentos
+1791397183.320 < [FS] segmentos: 0 (0 a 0), registros validos: 0
+1791397183.320 < [FS] gravacoes neste boot: 0 ok, 0 falhas; tempo (us): ultima 0, media 0, max 0
+1791397183.330 < [FS] estado: ok (rotacoes de emergencia 0, falhas seguidas 0)
+1791397183.330 > fs gravar 520
+1791397183.331 < [CSV] 39919,88:57:21:70:93:70,no1,-23,-96,22,nenhuma,primeiro,0,41,1154,0,0,1127,3382,5,8,345,3,3
+1791397183.415 < [FS] ALERTA: espaco baixo mesmo sem historico antigo (44 KB livres)
+1791397183.434 < [FS] gravado,1,0,110418
+1791397224.680 < [FS] alerta: espaco baixo (20 KB livres); rotacao de emergencia
+1791397224.691 < [FS] rotacao: /h/00000001.seg apagado
+1791397224.739 < [FS] ALERTA: espaco baixo mesmo sem historico antigo (44 KB livres)
+1791397225.919 < [FS] 520 de 520 registros sinteticos gravados em 42482 ms
+1791397226.013 < [FS] 1880 KB usados de 1920 KB; politica: 500 registros/segmento, max 56 segmentos
+1791397226.024 < [FS] segmentos: 1 (2 a 2), registros validos: 21
+1791397226.024 < [FS] gravacoes neste boot: 521 ok, 0 falhas; tempo (us): ultima 63779, media 81558, max 172581
+1791397226.035 < [FS] estado: espaco_baixo (rotacoes de emergencia 1, falhas seguidas 0)
+1791397226.035 > fs gravar 5
+1791397226.036 < [RESUMO] 82624,88:57:21:70:93:70,no1,1,0,1,0,0,0,1,100.00,-23.0,-23,-23
+1791397226.046 < [RESUMO] 82625,02:00:00:00:00:00,desconhecido,0,0,0,0,0,0,0,0.00,0.0,0,0
+1791397226.048 < [CSV] 82636,88:57:21:70:93:70,no1,-23,-96,22,nenhuma,novo,0,41,1155,0,0,1125,3379,5,8,185,1,1
+1791397226.131 < [FS] gravado,2,21,91589
+1791397226.493 < [FS] 5 de 5 registros sinteticos gravados em 357 ms
+1791397226.589 < [FS] 1880 KB usados de 1920 KB; politica: 500 registros/segmento, max 56 segmentos
+1791397226.599 < [FS] segmentos: 1 (2 a 2), registros validos: 27
+1791397226.600 < [FS] gravacoes neste boot: 527 ok, 0 falhas; tempo (us): ultima 74291, media 81479, max 172581
+1791397226.611 < [FS] estado: espaco_baixo (rotacoes de emergencia 1, falhas seguidas 0)
+1791397226.611 < [CSV] 83199,88:57:21:70:93:70,no1,-31,-96,22,nenhuma,novo,0,41,1156,0,0,1129,3380,5,8,184,1,1
+1791397226.684 < [FS] gravado,2,27,70891
+1791397226.684 < [CSV] 83271,88:57:21:70:93:70,no1,-24,-96,22,nenhuma,novo,0,41,1157,0,0,1134,3381,5,8,185,1,1
+1791397226.753 < [FS] gravado,2,28,70312
+1791397226.754 < [CSV] 83342,88:57:21:70:93:70,no1,-23,-96,22,nenhuma,novo,0,41,1158,0,0,1121,3383,5,8,185,1,1
+1791397226.830 < [FS] gravado,2,29,75664
+1791397226.830 < [CSV] 83419,88:57:21:70:93:70,no1,-24,-96,22,nenhuma,novo,0,41,1159,0,0,1121,3382,5,8,186,1,1
+1791397226.902 < [FS] gravado,2,30,71302
+1791397226.903 < [CSV] 83491,88:57:21:70:93:70,no1,-30,-96,22,nenhuma,novo,0,41,1160,0,0,1131,3379,5,8,185,1,1
+1791397227.002 < [FS] gravado,2,31,99348
+1791397227.003 < [CSV] 83591,88:57:21:70:93:70,no1,-24,-96,22,nenhuma,novo,0,41,1161,0,0,1130,3380,5,8,184,1,1
+1791397227.072 < [FS] gravado,2,32,76658
+1791397236.505 < [CSV] 93095,88:57:21:70:93:70,no1,-31,-96,22,nenhuma,novo,0,41,1162,0,0,1121,3381,5,8,187,1,1
+1791397236.576 < [FS] gravado,2,33,77900
+1791397246.495 < [CSV] 103086,88:57:21:70:93:70,no1,-24,-96,22,nenhuma,novo,0,41,1163,0,0,1131,3381,5,8,185,1,1
+1791397246.572 < [FS] gravado,2,34,82663
+1791397256.485 < [CSV] 113076,88:57:21:70:93:70,no1,-24,-96,22,nenhuma,novo,0,41,1164,0,0,1125,3378,5,8,184,1,1
+1791397256.611 < [FS] gravado,2,35,131912
+1791397257.212 # AVISO: 'estado' não apareceu em 30 s
+1791397257.212 > fs liberar
+1791397257.352 < [FS] 20 KB usados de 1920 KB; politica: 500 registros/segmento, max 56 segmentos
+1791397257.363 < [FS] segmentos: 1 (2 a 2), registros validos: 36
+1791397257.363 < [FS] gravacoes neste boot: 536 ok, 0 falhas; tempo (us): ultima 131912, media 81523, max 172581
+1791397257.367 < [FS] estado: espaco_baixo (rotacoes de emergencia 1, falhas seguidas 0)
+1791397263.475 < [RESUMO] 120063,88:57:21:70:93:70,no1,11,0,11,0,0,0,1,100.00,-25.5,-31,-23
+1791397263.476 < [RESUMO] 120063,02:00:00:00:00:00,desconhecido,0,0,0,0,0,0,0,0.00,0.0,0,0
+1791397266.472 < [CSV] 123063,88:57:21:70:93:70,no1,-24,-96,22,nenhuma,novo,0,41,1165,0,0,1138,3377,5,8,185,1,1
+1791397266.541 < [FS] gravado,2,36,75167
+1791397276.463 < [CSV] 133055,88:57:21:70:93:70,no1,-24,-96,22,nenhuma,novo,0,41,1166,0,0,1127,3379,5,8,184,1,1
+1791397276.528 < [FS] gravado,2,37,70248
+1791397278.533 # AVISO: 'estado' não apareceu em 20 s
+1791397278.533 > fs gravar 500
+1791397316.184 < [FS] 500 de 500 registros sinteticos gravados em 37552 ms
+1791397316.221 < [FS] 44 KB usados de 1920 KB; politica: 500 registros/segmento, max 56 segmentos
+1791397316.232 < [FS] segmentos: 2 (2 a 3), registros validos: 538
+1791397316.233 < [FS] gravacoes neste boot: 1038 ok, 0 falhas; tempo (us): ultima 72102, media 78321, max 172581
+1791397316.244 < [FS] estado: ok (rotacoes de emergencia 1, falhas seguidas 0)
+1791397316.244 # fechar
