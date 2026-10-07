@@ -45,6 +45,12 @@ constexpr uint32_t HIST_MAX_SEGMENTOS = HIST_TESTE_MAX_SEGMENTOS;
 constexpr uint32_t HIST_REGISTROS_POR_SEGMENTO = 500;
 constexpr uint32_t HIST_MAX_SEGMENTOS = 56;
 #endif
+// Rotação de emergência (passo 9): antes de abrir um segmento novo, sobra pelo
+// menos esta margem livre (2 segmentos de 6 blocos de 4 KB). Sai da folga de
+// ~29 % que a rotação normal já deixa: não reduz a retenção.
+constexpr size_t HIST_MARGEM_LIVRE = 2 * 6 * 4096;
+// Gravações seguidas com erro até o estado virar FALHAS_DE_GRAVACAO.
+constexpr uint32_t HIST_FALHAS_ALERTA = 3;
 
 // ---------------------------------------------------------------- Console (serial)
 constexpr size_t CONSOLE_LINHA_MAX = 160;  // caracteres por comando (a consulta usa ~110)

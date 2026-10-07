@@ -3,6 +3,7 @@
 #include <LittleFS.h>
 #include <algorithm>
 #include <cstring>
+#include <esp_partition.h>
 
 #include "config.h"
 #include "relogio.h"
@@ -26,6 +27,13 @@ uint32_t maximaUs = 0;
 uint64_t somaUs = 0;
 
 Observador observador = nullptr;
+
+// Estado do armazenamento (passo 9).
+bool naoMontado = false;       // não montou e não foi formatado (corrompido ou sem partição)
+bool formatadoNoBoot = false;  // partição sem LittleFS, formatada automaticamente neste boot
+bool espacoBaixo = false;      // a rotação de emergência não conseguiu a margem livre
+uint32_t falhasSeguidas = 0;
+uint32_t rotacoesEmergencia = 0;
 
 void caminho(uint32_t numero, char (&saida)[TAM_CAMINHO]) { caminhoSegmento(numero, saida); }
 
@@ -114,6 +122,42 @@ bool apagarSegmento(uint32_t numero) {
   bool ok = LittleFS.remove(c);
   Serial.printf("[FS] rotacao: %s apagado%s\n", c, ok ? "" : " (FALHOU)");
   return ok;
+}
+
+// "the magic string 'littlefs' will always reside at offset=8 in a valid
+// littlefs superblock"; o superbloco fica nos blocos 0 e 1 (littlefs SPEC.md).
+// Sem a assinatura nos dois, a partição nunca foi formatada: não há o que preservar.
+bool temAssinatura(const esp_partition_t* p) {
+  constexpr size_t BLOCO = 4096;  // bloco do LittleFS no ESP32 = setor da flash
+  for (size_t b = 0; b < 2; b++) {
+    char magica[8];
+    if (esp_partition_read(p, b * BLOCO + 8, magica, sizeof(magica)) == ESP_OK && memcmp(magica, "littlefs", 8) == 0)
+      return true;
+  }
+  return false;
+}
+
+// Rotação de emergência: antes de abrir um segmento novo, garante a margem
+// livre apagando os mais antigos. O segmento novo ainda não existe, então
+// nenhum dos apagados é o que vai receber o registro.
+void garantirEspaco() {
+  size_t total = LittleFS.totalBytes();
+  size_t livre = total - LittleFS.usedBytes();
+  while (livre < config::HIST_MARGEM_LIVRE && tabela.quantidade() > 0) {
+    Serial.printf("[FS] alerta: espaco baixo (%u KB livres); rotacao de emergencia\n", (unsigned)(livre / 1024));
+    apagarSegmento(tabela.em(0).numero);
+    tabela.removerMaisAntigo();
+    rotacoesEmergencia++;
+    livre = total - LittleFS.usedBytes();
+  }
+  espacoBaixo = livre < config::HIST_MARGEM_LIVRE;
+  if (espacoBaixo)
+    Serial.printf("[FS] ALERTA: espaco baixo mesmo sem historico antigo (%u KB livres)\n", (unsigned)(livre / 1024));
+}
+
+void imprimirLinhaEstado() {
+  Serial.printf("[FS] estado: %s (rotacoes de emergencia %lu, falhas seguidas %lu)\n", nomeEstado(estado()),
+                (unsigned long)rotacoesEmergencia, (unsigned long)falhasSeguidas);
 }
 
 registro::Registro sintetico() {
@@ -223,17 +267,57 @@ void caminhoSegmento(uint32_t numero, char (&saida)[TAM_CAMINHO]) {
 
 bool iniciar(Observador obs) {
   observador = obs;
-  // begin(formatOnFail, basePath, maxOpenFiles (ignorado pelo núcleo), partitionLabel)
+  naoMontado = formatadoNoBoot = false;
+  // begin(formatOnFail, basePath, maxOpenFiles (ignorado pelo núcleo), partitionLabel).
+  // formatOnFail = false: a decisão de formatar é tomada aqui (política do passo 9).
   fsMontado = LittleFS.begin(false, config::FS_PONTO, 5, config::FS_ROTULO);
   if (!fsMontado) {
-    Serial.println("[FS] ERRO: LittleFS nao montou (particao vazia ou corrompida). "
-                   "Historico desligado; 'fs formatar' formata e monta.");
+    const esp_partition_t* p =
+        esp_partition_find_first(ESP_PARTITION_TYPE_DATA, ESP_PARTITION_SUBTYPE_ANY, config::FS_ROTULO);
+    if (p == nullptr) {
+      Serial.printf("[FS] ERRO: particao '%s' nao existe (tabela de particoes errada?)\n", config::FS_ROTULO);
+    } else if (!temAssinatura(p)) {
+      Serial.println("[FS] particao sem LittleFS (nunca formatada): formatando automaticamente");
+      uint32_t t0 = millis();
+      // O begin() acima já registrou o rótulo da partição, que o format() usa.
+      if (LittleFS.format()) fsMontado = LittleFS.begin(false, config::FS_PONTO, 5, config::FS_ROTULO);
+      formatadoNoBoot = fsMontado;
+      Serial.printf("[FS] formatacao automatica: %s em %lu ms\n", fsMontado ? "ok" : "FALHOU",
+                    (unsigned long)(millis() - t0));
+    } else {
+      Serial.println("[FS] ALERTA: o LittleFS existe mas nao montou (corrompido). NAO foi formatado: o historico "
+                     "fica preservado para diagnostico (esptool read-flash). 'fs formatar' formata.");
+    }
+  }
+  if (!fsMontado) {
+    naoMontado = true;
+    imprimirLinhaEstado();
     return false;
   }
   Serial.printf("[FS] LittleFS montado: %u KB usados de %u KB\n", (unsigned)(LittleFS.usedBytes() / 1024),
                 (unsigned)(LittleFS.totalBytes() / 1024));
   carregar();
+  imprimirLinhaEstado();
   return true;
+}
+
+Estado estado() {
+  if (naoMontado) return Estado::NAO_MONTADO;
+  if (falhasSeguidas >= config::HIST_FALHAS_ALERTA) return Estado::FALHAS_DE_GRAVACAO;
+  if (espacoBaixo) return Estado::ESPACO_BAIXO;
+  if (formatadoNoBoot) return Estado::FORMATADO_NO_BOOT;
+  return Estado::OK;
+}
+
+const char* nomeEstado(Estado e) {
+  switch (e) {
+    case Estado::OK: return "ok";
+    case Estado::FORMATADO_NO_BOOT: return "formatado_no_boot";
+    case Estado::ESPACO_BAIXO: return "espaco_baixo";
+    case Estado::FALHAS_DE_GRAVACAO: return "falhas_de_gravacao";
+    case Estado::NAO_MONTADO: return "nao_montado";
+  }
+  return "?";
 }
 
 bool montado() { return fsMontado; }
@@ -252,7 +336,10 @@ bool gravar(const registro::Registro& r) {
     apagarSegmento(tabela.em(0).numero);
     tabela.removerMaisAntigo();
   }
-  if (p.abrirNovo) tabela.abrirNovo(p.numeroNovo);  // o arquivo nasce no open em modo "a"
+  if (p.abrirNovo) {
+    garantirEspaco();
+    tabela.abrirNovo(p.numeroNovo);  // o arquivo nasce no open em modo "a"
+  }
 
   char c[TAM_CAMINHO];
   caminho(tabela.atual()->numero, c);
@@ -266,12 +353,14 @@ bool gravar(const registro::Registro& r) {
   ultimaUs = micros() - t0;
   if (escritos != TAM_REGISTRO) {
     falhas++;
+    falhasSeguidas++;
     if (escritos > 0) tabela.fecharAtual();  // sobra parcial no fim: não anexar mais a este
     Serial.printf("[FS] ERRO: gravacao em %s (%u de %u bytes)\n", c, (unsigned)escritos, (unsigned)TAM_REGISTRO);
     return false;
   }
   tabela.registrarGravacao(r);
   if (observador != nullptr) observador(r);
+  falhasSeguidas = 0;
   gravacoes++;
   somaUs += ultimaUs;
   if (ultimaUs > maximaUs) maximaUs = ultimaUs;
@@ -281,6 +370,7 @@ bool gravar(const registro::Registro& r) {
 void imprimirEstado() {
   if (!fsMontado) {
     Serial.println("[FS] nao montado");
+    imprimirLinhaEstado();
     return;
   }
   const anel::Politica& pol = tabela.politica();
@@ -294,6 +384,7 @@ void imprimirEstado() {
   Serial.printf("[FS] gravacoes neste boot: %lu ok, %lu falhas; tempo (us): ultima %lu, media %lu, max %lu\n",
                 (unsigned long)gravacoes, (unsigned long)falhas, (unsigned long)ultimaUs,
                 (unsigned long)(gravacoes ? somaUs / gravacoes : 0), (unsigned long)maximaUs);
+  imprimirLinhaEstado();
 }
 
 void comando(const char* argumento) {
@@ -313,15 +404,23 @@ void comando(const char* argumento) {
     Serial.printf("[FS] format: %s em %lu ms\n", ok ? "ok" : "FALHOU", (unsigned long)(millis() - t0));
     if (ok) iniciar(observador);
   } else if (strncmp(argumento, "gravar ", 7) == 0) {
-    long n = atol(argumento + 7);
-    if (n <= 0 || n > 100000) {
-      Serial.println("[FS] uso: fs gravar N  (1 a 100000 registros sinteticos, MAC 02:00:00:00:00:00)");
+    long n = 0;
+    char v = 0;
+    int lidos = sscanf(argumento + 7, "%ld %c", &n, &v);
+    bool detalhar = lidos == 2 && v == 'v';  // "v": uma linha por registro confirmado (teste de queda)
+    if (lidos < 1 || n <= 0 || n > 100000 || (lidos == 2 && !detalhar)) {
+      Serial.println("[FS] uso: fs gravar N [v]  (1 a 100000 registros sinteticos, MAC 02:00:00:00:00:00)");
       return;
     }
     uint32_t t0 = millis();
     long ok = 0;
     for (long i = 0; i < n; i++) {
-      if (gravar(sintetico())) ok++;
+      if (gravar(sintetico())) {
+        ok++;
+        if (detalhar)
+          Serial.printf("[FS] gravado,%lu,%lu,%lu\n", (unsigned long)tabela.atual()->numero,
+                        (unsigned long)(tabela.atual()->posicoes - 1), (unsigned long)ultimaUs);
+      }
       if ((i & 63) == 63) delay(1);  // deixa a tarefa ociosa rodar (watchdog)
     }
     Serial.printf("[FS] %ld de %ld registros sinteticos gravados em %lu ms\n", ok, n, (unsigned long)(millis() - t0));
@@ -334,6 +433,30 @@ void comando(const char* argumento) {
       return;
     }
     encher(n, m);
+    imprimirEstado();
+  } else if (strncmp(argumento, "ocupar ", 7) == 0) {
+    // Arquivo de enchimento fora de /h, para testar o espaço baixo. Fecha
+    // (commit) a cada 64 KB: se a escrita bater em ENOSPC, o LittleFS descarta
+    // tudo o que não passou pelo commit, inclusive o que já foi escrito.
+    long kb = atol(argumento + 7);
+    static uint8_t zeros[4096] = {};
+    long escritos = 0;
+    bool cheio = false;
+    while (!cheio && escritos + 64 <= kb) {
+      File f = LittleFS.open("/ocupar.bin", FILE_APPEND);
+      if (!f) break;
+      for (int i = 0; i < 16; i++)
+        if (f.write(zeros, sizeof(zeros)) != sizeof(zeros)) {
+          cheio = true;
+          break;
+        }
+      f.close();
+      if (!cheio) escritos += 64;
+    }
+    Serial.printf("[FS] /ocupar.bin: +%ld KB\n", escritos);
+    imprimirEstado();
+  } else if (strcmp(argumento, "liberar") == 0) {
+    LittleFS.remove("/ocupar.bin");
     imprimirEstado();
 #endif
   } else {

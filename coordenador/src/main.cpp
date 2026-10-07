@@ -121,9 +121,10 @@ void imprimirMac(const char* nome, esp_mac_type_t tipo) {
 
 // Um registro (lib/registro) por pacote aceito; duplicados e antigos não entram.
 // Linha: [FS] gravado,segmento,posicao,us (posicao = índice do registro no segmento).
+// Sem histórico (LittleFS não montado) ou com a gravação falhando, o registro
+// ainda atualiza a última leitura em RAM: o app continua com o valor atual.
 void gravarHistorico(const radio::Recebido& r, const protocolo::PacoteLeitura& p, protocolo::Classe c,
                      uint32_t perdidos) {
-  if (!historico::montado()) return;
   relogio::Instante agora = relogio::agora();
   registro::Metadados m{};
   m.horaValida = agora.valida;
@@ -136,10 +137,13 @@ void gravarHistorico(const radio::Recebido& r, const protocolo::PacoteLeitura& p
   m.ruido = r.ruido;
   m.classe = c;
   m.perdidos = perdidos;
-  if (historico::gravar(registro::montar(m, p))) {
+  registro::Registro reg = registro::montar(m, p);
+  if (historico::montado() && historico::gravar(reg)) {
     const anel::Resumo* s = historico::indice().atual();
     Serial.printf("[FS] gravado,%lu,%lu,%lu\n", (unsigned long)s->numero, (unsigned long)(s->posicoes - 1),
                   (unsigned long)historico::ultimaGravacaoUs());
+  } else {
+    consulta::observar(reg);  // gravar() chama o observador só quando grava
   }
 }
 

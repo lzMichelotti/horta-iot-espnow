@@ -20,11 +20,25 @@ using Observador = void (*)(const registro::Registro& r);
 
 // Monta o LittleFS e lê todos os segmentos para montar a tabela de resumos.
 // Chamar no setup() ANTES de ligar o rádio (a leitura pode levar segundos).
-// false se não montou: nada é formatado automaticamente (política: passo 9);
-// o comando "fs formatar" formata à mão.
+// Política quando não monta (passo 9): partição sem a assinatura do LittleFS
+// (nunca formatada) é formatada automaticamente; LittleFS existente que não
+// monta (corrompido) NÃO é formatado: fica sem histórico, em estado
+// NAO_MONTADO, e "fs formatar" formata à mão. false se não montou.
 bool iniciar(Observador observador);
 
 bool montado();
+
+// Estado do armazenamento (base para o alerta no app, etapa 8), do mais leve
+// ao mais grave; estado() devolve o mais grave em vigor.
+enum class Estado : uint8_t {
+  OK,
+  FORMATADO_NO_BOOT,   // a partição não tinha LittleFS e foi formatada neste boot (informativo)
+  ESPACO_BAIXO,        // nem a rotação de emergência conseguiu a margem livre
+  FALHAS_DE_GRAVACAO,  // HIST_FALHAS_ALERTA gravações seguidas com erro
+  NAO_MONTADO,         // LittleFS corrompido (não é formatado sozinho) ou partição ausente: sem histórico
+};
+Estado estado();
+const char* nomeEstado(Estado e);
 
 // Anexa um registro ao segmento atual, abrindo/apagando segmentos conforme a
 // política. false se o LittleFS não está montado ou a escrita falhou.
