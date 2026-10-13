@@ -1,0 +1,57 @@
+    0.015 ets Jul 29 2019 12:21:46
+    0.015 
+    0.015 rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+    0.015 configsip: 0, SPIWP:0xee
+    0.026 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+    0.027 mode:DIO, clock div:2
+    0.027 load:0x3fff0030,len:4640
+    0.030 load:0x40078000,len:15632
+    0.031 load:0x40080400,len:3164
+    0.031 entry 0x4008059c
+    0.603 
+    0.604 [BOOT] coord experimento cripto=1 ble_scan=0 heap_livre=285488
+    0.905 [ESPNOW] peer cifrado: ESP_OK
+    0.906 [WIFI] SoftAP canal 1, MAC AP 88:57:21:70:91:FD, heap_livre=229432
+    0.906 [RX] origem,seq,rssi
+    3.525 [RX] espnow,1,-22
+    6.630 [RX] espnow,2,-23
+    9.743 [RX] espnow,3,-23
+   12.844 [RX] espnow,4,-23
+   15.952 [RX] espnow,5,-23
+   19.062 [RX] espnow,6,-23
+   22.169 [RX] espnow,7,-23
+   25.278 [RX] espnow,8,-23
+   28.386 [RX] espnow,9,-23
+   31.104 [EST] espnow=9 ble_unicos=0 ble_eventos=0 outros_espnow=0 descartados=0 clientes_ap=0 heap=229356
+   30.772 [RX] espnow,10,-23
+   33.882 [RX] espnow,11,-23
+   36.988 [RX] espnow,12,-23
+   40.094 [RX] espnow,13,-22
+   43.210 [RX] espnow,14,-23
+   46.312 [RX] espnow,15,-23
+   49.425 [RX] espnow,16,-28
+   52.538 [RX] espnow,17,-22
+   55.650 [RX] espnow,18,-23
+   58.759 [RX] espnow,19,-28
+   61.121 [EST] espnow=19 ble_unicos=0 ble_eventos=0 outros_espnow=0 descartados=0 clientes_ap=0 heap=229356
+   61.870 [RX] espnow,20,-23
+   64.257 [RX] espnow,21,-23
+   67.365 [RX] espnow,22,-23
+   70.476 [RX] espnow,23,-23
+   73.588 [RX] espnow,24,-23
+   76.703 [RX] espnow,25,-22
+   79.817 [RX] espnow,26,-23
+   82.932 [RX] espnow,27,-23
+   86.051 [RX] espnow,28,-22
+   89.159 [RX] espnow,29,-23
+   91.110 [EST] espnow=29 ble_unicos=0 ble_eventos=0 outros_espnow=0 descartados=0 clientes_ap=0 heap=229356
+   92.266 [RX] espnow,30,-23
+   94.621 [RX] espnow,31,-23
+   97.725 [RX] espnow,32,-28
+  100.833 [RX] espnow,33,-28
+  103.936 [RX] espnow,34,-23
+  107.054 [RX] espnow,35,-23
+  110.174 [RX] espnow,36,-28
+  113.288 [RX] espnow,37,-23
+  116.426 [RX] espnow,38,-23
+  119.517 [RX] espnow,39,-23

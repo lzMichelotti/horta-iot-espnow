@@ -1,0 +1,71 @@
+1791921424.637 ets Jul 29 2019 12:21:46
+1791921424.637 
+1791921424.637 rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+1791921424.637 configsip: 0, SPIWP:0xee
+1791921424.649 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+1791921424.649 mode:DIO, clock div:2
+1791921424.649 load:0x3fff0030,len:4640
+1791921424.653 load:0x40078000,len:15632
+1791921424.653 load:0x40080400,len:3164
+1791921424.653 entry 0x4008059c
+1791921425.256 
+1791921425.256 [BOOT] coordenador - etapa 7
+1791921425.270 [RELOGIO] boot 53, motivo do reset 1
+1791921425.270 [RELOGIO] utc=invalida epoch=643 valida=0 fonte=nenhuma boot=53 desde_boot_ms=222
+1791921425.281 [PART] nome,tipo,subtipo,endereco,tamanho_kb
+1791921425.281 [PART] nvs,1,0x02,0x009000,20
+1791921425.281 [PART] otadata,1,0x00,0x00e000,8
+1791921425.292 [PART] app0,0,0x00,0x010000,2048
+1791921425.292 [PART] littlefs,1,0x83,0x210000,1920
+1791921425.293 [PART] coredump,1,0x03,0x3f0000,64
+1791921425.293 [MAC] STA 88:57:21:70:91:fc
+1791921425.301 [MAC] AP  88:57:21:70:91:fd
+1791921425.302 [BOOT] protocolo v2 (38 bytes, assinatura HMAC-SHA256 de 16)
+1791921425.302 [CFG] cadastro lido da NVS: 1 nos
+1791921425.519 [FS] LittleFS montado: 632 KB usados de 1920 KB
+1791921426.792 [FS] carga: 26 segmentos, 12762 registros validos, 0 invalidos, em 1236 ms
+1791921426.793 [FS] estado: ok (rotacoes de emergencia 0, falhas seguidas 0)
+1791921426.888 [WIFI] varrendo canais...
+1791921430.588 [WIFI] varredura: 16 redes em 3604 ms
+1791921430.588 [SCAN] canal,rssi_dbm,ssid
+1791921430.589 [SCAN] 11,-39,Elton
+1791921430.589 [SCAN] 11,-71,Maria_EXT
+1791921430.599 [SCAN] 2,-72,CAMACHO
+1791921430.599 [SCAN] 3,-76,ENILDA OI FIBRA
+1791921430.600 [SCAN] 5,-79,ammywifii
+1791921430.600 [SCAN] 1,-89,CARLA_401
+1791921430.600 [SCAN] 11,-90,BONACHO
+1791921430.600 [SCAN] 11,-91,Maria
+1791921430.611 [SCAN] 11,-91,
+1791921430.611 [SCAN] 1,-92,SALALUC
+1791921430.611 [SCAN] 6,-93,FLYNET TRINDADE
+1791921430.611 [SCAN] 6,-93,FLYNET MARIA
+1791921430.611 [SCAN] 9,-93,CLARO_2GAC9D13
+1791921430.611 [SCAN] 11,-96,
+1791921430.622 [SCAN] 11,-96,DAVI
+1791921430.622 [SCAN] 3,-97,GE OI FIBRA
+1791921430.623 [WIFI] canal  1: 2 no canal, 4 sobrepostas, mais forte -72 dBm
+1791921430.631 [WIFI] canal  6: 2 no canal, 5 sobrepostas, mais forte -72 dBm
+1791921430.632 [WIFI] canal 11: 7 no canal, 1 sobrepostas, mais forte -39 dBm
+1791921430.841 [WIFI] SoftAP "horta-coord" canal 1, MAC AP 88:57:21:70:91:FD, IP 192.168.4.1
+1791921430.853 [ESPNOW] pronto: versao 2, fila de 16 itens (272 bytes cada)
+1791921430.864 [CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags
+1791921430.868 [RESUMO] t_ms,mac,nome,recebidos,rejeitados,aceitos,perdidos,descartados,reinicios,sem_ack,entrega_pct,rssi_medio,rssi_min,rssi_max
+1791921434.034 [CSV] 9540,88:57:21:70:93:70,no1,-21,-96,38,nenhuma,reinicio,1,52,1,0,0,0,3095,21,8,841,3,2
+1791921434.144 [FS] gravado,26,262,112505
+1791921444.260 [CSV] 19528,88:57:21:70:93:70,no1,-21,-96,38,nenhuma,novo,0,52,2,0,0,0,3092,21,8,76,1,0
+1791921444.685 [FS] gravado,26,263,419878
+1791921454.489 [CSV] 29517,88:57:21:70:93:70,no1,-21,-96,38,nenhuma,novo,0,52,3,0,0,0,3094,21,8,76,1,0
+1791921454.533 [FS] gravado,26,264,48182
+1791921463.958 [CSV] 39503,88:57:21:70:93:70,no1,-21,-96,38,nenhuma,novo,0,52,4,0,0,0,3092,21,8,77,1,0
+1791921464.006 [FS] gravado,26,265,42654
+1791921464.006 [CSV] 39547,88:57:21:70:93:70,no1,-21,-96,38,nenhuma,duplicado,0,52,4,0,0,0,3092,21,8,77,1,0
+1791921464.013 [CSV] 39548,88:57:21:70:93:70,no1,-22,-96,38,nenhuma,antigo,0,52,3,0,0,0,3094,21,8,76,1,0
+1791921474.168 [CSV] 49474,88:57:21:70:93:70,no1,-21,-96,38,nenhuma,novo,0,52,5,0,0,0,3094,21,8,94,1,0
+1791921474.216 [FS] gravado,26,266,51669
+1791921484.387 [CSV] 59453,88:57:21:70:93:70,no1,-21,-96,38,nenhuma,novo,0,52,6,0,0,0,3096,21,8,81,1,0
+1791921484.435 [FS] gravado,26,267,51637
+1791921484.958 [RESUMO] 60006,88:57:21:70:93:70,no1,8,0,6,1,2,1,1,85.71,-21.1,-22,-21
+1791921484.959 [RESUMO] 60007,02:00:00:00:00:00,desconhecido,0,0,0,0,0,0,0,0.00,0.0,0,0
+1791921494.617 [CSV] 69441,88:57:21:70:93:70,no1,-21,-96,38,nenhuma,novo,0,52,7,0,0,0,3098,21,8,77,1,0
+1791921494.665 [FS] gravado,26,268,52275

@@ -20,7 +20,7 @@ O ESP-NOW não usa IP nem associação a um AP. Cada mensagem é um **quadro de 
 |      24       |    127    | 18:FE:34 |     4     | ID 221, comp., OUI, tipo 4, versão, carga útil |  4  |
 ```
 
-O OUI 18:FE:34 é da Espressif; o valor aleatório *"is used to prevents relay attacks"*; o elemento de tipo 4 identifica o ESP-NOW. Com os 22 bytes do `PacoteLeitura`, o quadro tem 65 bytes e ocupa ~712 µs no ar a 1 Mbps (cálculo em [`protocolo.md`](protocolo.md), seção 9). Um analisador 802.11 em modo monitor mostra esses quadros como *Action / Vendor Specific*.
+O OUI 18:FE:34 é da Espressif; o valor aleatório *"is used to prevents relay attacks"*; o elemento de tipo 4 identifica o ESP-NOW. Com os 22 bytes do `PacoteLeitura`, o quadro tem 65 bytes e ocupa ~712 µs no ar a 1 Mbps (cálculo em [`protocolo.md`](protocolo.md), seção 9). Desde o protocolo v2 (assinatura HMAC de 16 B, [`protocolo.md`](protocolo.md), seção 12), a carga é de 38 bytes e o quadro, de 81 bytes (~840 µs). Um analisador 802.11 em modo monitor mostra esses quadros como *Action / Vendor Specific*.
 
 ### 1.2 O "sucesso" do envio é o ACK da camada MAC
 
@@ -73,24 +73,24 @@ A **PMK** (16 B, uma por aparelho) cifra as LMKs com AES-128; a **LMK** (16 B po
 | Canal | **fixo, canal 1**, em `config.h` dos dois firmwares | 1, 6 e 11 não se sobrepõem; na bancada, a rede mais forte (−18 dBm, canal 9) interfere no 6 e no 11 (seção 3); o coordenador repete a varredura a cada boot (desligável) para justificar o canal também na horta |
 | Retransmissão | até **3 envios**, backoff de **10 e 30 ms + 0–10 ms aleatórios** | ver seção 4 |
 | `tentativas_ant` | + bit `ANTERIOR_SEM_ACK` em `flags` | desfaz a ambiguidade de "3 tentativas" (entregue na última × desistiu) sem mudar a `VERSAO` ([`protocolo.md`](protocolo.md)) |
-| Criptografia | **nenhuma** (decisão do autor, Etapa 4) | ver seção 2.1 |
+| Criptografia | **nenhuma** (decisão do autor, Etapa 4); **autenticação HMAC no pacote** desde o protocolo v2 | ver seção 2.1 |
 | MAC fora da tabela de nós | aceito e rastreado como `desconhecido` | um nó novo funciona sem regravar o coordenador; a gravação desses dados é decidida na etapa 7 |
 | Taxa | **1 Mbps (padrão)** | o modo mais robusto do 802.11b e o menor tempo no ar entre as opções de longo alcance; o Long Range (seção 1.4) custa 2–4× o tempo de cada byte e exige o protocolo LR nos dois lados. Reavaliar só se o alcance medido na horta não bastar |
 | Tempo limite do callback | **100 ms** | 2× o maior `FAIL` medido (49,6 ms); como o `FAIL` sempre chegou antes, reduzir não economiza energia (seção 6.1) |
 
 ### 2.1 Criptografia: opções avaliadas
 
-| Critério | Sem criptografia (escolhida) | PMK + LMK por nó (CCMP) |
-|---|---|---|
-| Leitura dos dados por terceiros | qualquer ESP32 no canal lê | não |
-| Injeção de pacotes falsos (MAC forjado) | possível | só com a LMK |
-| Repetição de pacotes antigos | `seq` descarta duplicados e antigos no mesmo boot; um `boot` forjado passa como reinício | bloqueada pelo número de pacote do CCMP |
-| Tempo no ar (22 B, 1 Mbps) | ~712 µs | ~840 µs (+18 %) |
-| Limite de nós | 20 peers | 7 nós cifrados (bibliotecas pré-compiladas) |
-| MACs dos nós no coordenador | opcional (nomes) | obrigatórios (peers cifrados) |
-| Chaves | — | nos dois firmwares; extraíveis da flash sem *flash encryption* |
+| Critério | Sem criptografia (Etapa 4) | PMK + LMK por nó (CCMP) | HMAC no pacote (v2, adotada) |
+|---|---|---|---|
+| Leitura dos dados por terceiros | qualquer ESP32 no canal lê | não | qualquer ESP32 no canal lê |
+| Injeção de pacotes falsos (MAC forjado) | possível | só com a LMK; **mas quadros sem cifra do mesmo MAC são aceitos** ([auditoria](auditoria_errc.md), E4) | recusada (`assinatura_invalida`; auditoria, H1–H2) |
+| Repetição de pacotes antigos | `seq` descarta duplicados e antigos no mesmo boot; um `boot` forjado passa como reinício | bloqueada pelo número de pacote do CCMP | `boot` e `seq` assinados; `(boot, seq)` só avança, retomado do histórico ao religar (H3) |
+| Tempo no ar (1 Mbps) | ~712 µs (22 B) | ~840 µs (+18 %) | ~840 µs (38 B) |
+| Limite de nós | 20 peers | 7 nós cifrados (bibliotecas pré-compiladas) | sem limite próprio |
+| MACs dos nós no coordenador | opcional (nomes) | obrigatórios (peers cifrados) | opcional (chave derivada do MAC) |
+| Chaves | — | nos dois firmwares; extraíveis da flash sem *flash encryption* | mestra só no coordenador; cada nó tem só a sua |
 
-Sem criptografia, o sistema confia no isolamento do local e na validação de faixas; os riscos aceitos (leitura e injeção por alguém no alcance do rádio) ficam registrados como limitação. A troca é localizada: `esp_now_set_pmk` e `encrypt = true` com a LMK em `esp_now_add_peer` dos dois lados, com as chaves em `segredos.h`.
+Na Etapa 4, sem criptografia, o sistema confiava no isolamento do local e na validação de faixas; os riscos aceitos (leitura e injeção por alguém no alcance do rádio) ficam registrados como limitação. A troca é localizada: `esp_now_set_pmk` e `encrypt = true` com a LMK em `esp_now_add_peer` dos dois lados, com as chaves em `segredos.h`. Depois da auditoria do parecer da ERRC, a injeção passou a ser bloqueada pela assinatura do protocolo v2 ([`protocolo.md`](protocolo.md), seção 12); a leitura por terceiros continua possível e fica como limitação (os dados são ambientais).
 
 ## 3. Configuração do Wi-Fi
 

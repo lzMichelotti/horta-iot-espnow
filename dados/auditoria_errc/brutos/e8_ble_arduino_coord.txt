@@ -1,0 +1,101 @@
+    0.016 ets Jul 29 2019 12:21:46
+    0.016 
+    0.016 rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+    0.016 configsip: 0, SPIWP:0xee
+    0.027 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+    0.027 mode:DIO, clock div:2
+    0.027 load:0x3fff0030,len:4640
+    0.031 load:0x40078000,len:15632
+    0.031 load:0x40080400,len:3164
+    0.031 entry 0x4008059c
+    0.659 
+    0.660 [BOOT] coord experimento cripto=0 ble_scan=1 heap_livre=225848
+    0.954 [WIFI] SoftAP canal 1, MAC AP 88:57:21:70:91:FD, heap_livre=170424
+    1.128 [BLE] varredura: param=0 enable=0 heap_livre=150396
+    1.128 [RX] origem,seq,rssi
+    1.264 [RX] ble,0,-30
+    3.616 [RX] ble,1,-25
+    6.737 [RX] ble,2,-25
+    9.846 [RX] ble,3,-25
+   12.953 [RX] ble,4,-82
+   16.058 [RX] ble,5,-24
+   19.167 [RX] ble,6,-22
+   22.289 [RX] ble,7,-22
+   25.410 [RX] ble,8,-22
+   28.531 [RX] ble,9,-22
+   30.402 [EST] espnow=0 ble_unicos=10 ble_eventos=47 outros_espnow=0 descartados=0 clientes_ap=0 heap=150464
+   31.621 [RX] ble,10,-25
+   34.733 [RX] ble,11,-25
+   37.871 [RX] ble,12,-22
+   40.970 [RX] ble,13,-22
+   44.087 [RX] ble,14,-21
+   47.177 [RX] ble,15,-22
+   49.316 [RX] ble,16,-25
+   52.420 [RX] ble,17,-21
+   55.539 [RX] ble,18,-21
+   58.644 [RX] ble,19,-22
+   60.037 [EST] espnow=0 ble_unicos=20 ble_eventos=92 outros_espnow=0 descartados=0 clientes_ap=0 heap=150464
+   61.746 [RX] ble,20,-21
+   64.868 [RX] ble,21,-22
+   67.985 [RX] ble,22,-21
+   71.095 [RX] ble,23,-24
+   74.200 [RX] ble,24,-21
+   77.313 [RX] ble,25,-21
+   80.431 [RX] ble,26,-21
+   83.549 [RX] ble,27,-25
+   86.658 [RX] ble,28,-21
+   89.814 [RX] ble,29,-24
+   90.701 [EST] espnow=0 ble_unicos=30 ble_eventos=131 outros_espnow=0 descartados=0 clientes_ap=0 heap=150464
+   92.873 [RX] ble,30,-22
+   95.991 [RX] ble,31,-22
+   98.110 [RX] ble,32,-22
+  101.232 [RX] ble,33,-22
+  104.347 [RX] ble,34,-22
+  107.420 [RX] ble,35,-22
+  110.566 [RX] ble,36,-22
+  113.683 [RX] ble,37,-22
+  116.792 [RX] ble,38,-22
+  119.913 [RX] ble,39,-22
+  120.363 [EST] espnow=0 ble_unicos=40 ble_eventos=177 outros_espnow=0 descartados=0 clientes_ap=0 heap=150464
+  123.009 [RX] ble,40,-22
+  126.135 [RX] ble,41,-22
+  128.580 [RX] ble,42,-22
+  131.672 [RX] ble,43,-22
+  134.820 [RX] ble,44,-21
+  137.923 [RX] ble,45,-25
+  141.021 [RX] ble,46,-24
+  144.144 [RX] ble,47,-21
+  147.264 [RX] ble,48,-22
+  150.351 [EST] espnow=0 ble_unicos=49 ble_eventos=213 outros_espnow=0 descartados=0 clientes_ap=0 heap=150464
+  150.378 [RX] ble,49,-22
+  153.487 [RX] ble,50,-22
+  156.663 [RX] ble,51,-21
+  159.046 [RX] ble,52,-21
+  162.149 [RX] ble,53,-22
+  165.274 [RX] ble,54,-22
+  168.371 [RX] ble,55,-24
+  171.492 [RX] ble,56,-22
+  174.602 [RX] ble,57,-25
+  177.714 [RX] ble,58,-21
+  180.324 [EST] espnow=0 ble_unicos=59 ble_eventos=258 outros_espnow=0 descartados=0 clientes_ap=0 heap=150464
+  180.814 [RX] ble,59,-25
+  183.958 [RX] ble,60,-22
+  187.039 [RX] ble,61,-22
+  190.163 [RX] ble,62,-22
+  192.600 [RX] ble,63,-24
+  195.706 [RX] ble,64,-22
+  198.832 [RX] ble,65,-25
+  201.951 [RX] ble,66,-25
+  205.047 [RX] ble,67,-22
+  208.155 [RX] ble,68,-24
+  210.307 [EST] espnow=0 ble_unicos=69 ble_eventos=301 outros_espnow=0 descartados=0 clientes_ap=0 heap=150464
+  211.309 [RX] ble,69,-25
+  214.414 [RX] ble,70,-24
+  217.522 [RX] ble,71,-25
+  220.652 [RX] ble,72,-22
+  223.061 [RX] ble,73,-22
+  226.158 [RX] ble,74,-22
+  229.267 [RX] ble,75,-22
+  232.386 [RX] ble,76,-22
+  235.512 [RX] ble,77,-22
+  238.649 [RX] ble,78,-24

@@ -1,0 +1,123 @@
+    0.015 ets Jul 29 2019 12:21:46
+    0.016 
+    0.016 rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+    0.018 configsip: 0, SPIWP:0xee
+    0.027 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+    0.027 mode:DIO, clock div:2
+    0.027 load:0x3fff0030,len:4640
+    0.031 load:0x40078000,len:15632
+    0.031 load:0x40080400,len:3164
+    0.031 entry 0x4008059c
+    0.659 
+    0.659 [BOOT] coord experimento cripto=0 ble_scan=1 heap_livre=225848
+    0.952 [WIFI] SoftAP canal 1, MAC AP 88:57:21:70:91:FD, heap_livre=170424
+    1.123 [BLE] varredura: param=0 enable=0 heap_livre=150396
+    1.124 [RX] origem,seq,rssi
+    3.569 [RX] espnow,1,-23
+    5.966 [RX] espnow,2,-23
+    9.060 [RX] espnow,3,-23
+   12.199 [RX] espnow,4,-23
+   18.341 [RX] espnow,6,-29
+   21.470 [RX] espnow,7,-22
+   24.549 [RX] espnow,8,-23
+   27.665 [RX] espnow,9,-23
+   30.429 [EST] espnow=8 ble_unicos=0 ble_eventos=0 outros_espnow=0 descartados=0 clientes_ap=0 heap=150464
+   30.788 [RX] espnow,10,-23
+   33.851 [RX] espnow,11,-28
+   36.300 [RX] espnow,12,-24
+   39.445 [RX] espnow,13,-24
+   42.470 [RX] espnow,14,-24
+   45.605 [RX] espnow,15,-23
+   48.676 [RX] espnow,16,-23
+   51.797 [RX] espnow,17,-23
+   54.947 [RX] espnow,18,-23
+   55.051 [RX] espnow,18,-29
+   58.015 [RX] espnow,19,-24
+   60.422 [EST] espnow=19 ble_unicos=0 ble_eventos=0 outros_espnow=0 descartados=0 clientes_ap=0 heap=150464
+   61.139 [RX] espnow,20,-29
+   64.252 [RX] espnow,21,-29
+   66.601 [RX] espnow,22,-23
+   69.748 [RX] espnow,23,-23
+   72.798 [RX] espnow,24,-23
+   75.883 [RX] espnow,25,-28
+   79.009 [RX] espnow,26,-29
+   82.199 [RX] espnow,27,-23
+   85.230 [RX] espnow,28,-23
+   88.388 [RX] espnow,29,-24
+   90.444 [EST] espnow=29 ble_unicos=0 ble_eventos=0 outros_espnow=0 descartados=0 clientes_ap=0 heap=150464
+   91.431 [RX] espnow,30,-28
+   94.560 [RX] espnow,31,-23
+   97.685 [RX] espnow,32,-29
+  100.097 [RX] espnow,33,-24
+  103.159 [RX] espnow,34,-23
+  106.221 [RX] espnow,35,-22
+  109.347 [RX] espnow,36,-23
+  112.453 [RX] espnow,37,-23
+  112.508 [RX] espnow,37,-23
+  115.597 [RX] espnow,38,-23
+  118.706 [RX] espnow,39,-23
+  120.455 [EST] espnow=40 ble_unicos=0 ble_eventos=0 outros_espnow=0 descartados=0 clientes_ap=0 heap=150464
+  121.809 [RX] espnow,40,-23
+  127.994 [RX] espnow,42,-23
+  130.372 [RX] espnow,43,-23
+  133.416 [RX] espnow,44,-29
+  136.516 [RX] espnow,45,-24
+  140.201 [RX] espnow,46,-23
+  142.757 [RX] espnow,47,-22
+  145.915 [RX] espnow,48,-23
+  148.965 [RX] espnow,49,-22
+  150.403 [EST] espnow=49 ble_unicos=0 ble_eventos=0 outros_espnow=0 descartados=0 clientes_ap=0 heap=150464
+  152.208 [RX] espnow,50,-22
+  155.230 [RX] espnow,51,-28
+  158.272 [RX] espnow,52,-23
+  161.417 [RX] espnow,53,-23
+  163.823 [RX] espnow,54,-22
+  166.919 [RX] espnow,55,-23
+  169.893 [RX] espnow,56,-22
+  172.971 [RX] espnow,57,-22
+  176.081 [RX] espnow,58,-28
+  179.207 [RX] espnow,59,-23
+  180.299 [EST] espnow=59 ble_unicos=0 ble_eventos=0 outros_espnow=0 descartados=0 clientes_ap=0 heap=150464
+  182.312 [RX] espnow,60,-22
+  185.458 [RX] espnow,61,-28
+  188.616 [RX] espnow,62,-23
+  191.707 [RX] espnow,63,-23
+  194.118 [RX] espnow,64,-28
+  197.167 [RX] espnow,65,-22
+  200.289 [RX] espnow,66,-23
+  203.416 [RX] espnow,67,-22
+  206.541 [RX] espnow,68,-23
+  209.605 [RX] espnow,69,-22
+  210.327 [EST] espnow=69 ble_unicos=0 ble_eventos=0 outros_espnow=0 descartados=0 clientes_ap=0 heap=150464
+  212.668 [RX] espnow,70,-27
+  215.793 [RX] espnow,71,-23
+  215.866 [RX] espnow,71,-28
+  218.857 [RX] espnow,72,-22
+  221.982 [RX] espnow,73,-22
+  224.399 [RX] espnow,74,-22
+  227.498 [RX] espnow,75,-28
+  230.578 [RX] espnow,76,-22
+  233.687 [RX] espnow,77,-27
+  236.812 [RX] espnow,78,-23
+  236.839 [RX] espnow,78,-23
+  239.934 [RX] espnow,79,-22
+  240.299 [EST] espnow=81 ble_unicos=0 ble_eventos=0 outros_espnow=0 descartados=0 clientes_ap=0 heap=150464
+  242.995 [RX] espnow,80,-28
+  246.144 [RX] espnow,81,-23
+  249.182 [RX] espnow,82,-23
+  252.319 [RX] espnow,83,-22
+  255.383 [RX] espnow,84,-23
+  257.821 [RX] espnow,85,-22
+  260.966 [RX] espnow,86,-28
+  264.106 [RX] espnow,87,-22
+  267.164 [RX] espnow,88,-27
+  270.256 [RX] espnow,89,-22
+  270.315 [EST] espnow=91 ble_unicos=0 ble_eventos=0 outros_espnow=0 descartados=0 clientes_ap=0 heap=150464
+  273.387 [RX] espnow,90,-28
+  276.492 [RX] espnow,91,-23
+  279.587 [RX] espnow,92,-23
+  285.785 [RX] espnow,94,-27
+  288.170 [RX] espnow,95,-23
+  291.238 [RX] espnow,96,-22
+  294.365 [RX] espnow,97,-23
+  297.525 [RX] espnow,98,-23

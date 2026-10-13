@@ -1,0 +1,60 @@
+1791921239.233 ets Jul 29 2019 12:21:46
+1791921239.233 
+1791921239.234 rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+1791921239.234 configsip: 0, SPIWP:0xee
+1791921239.235 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+1791921239.235 mode:DIO, clock div:2
+1791921239.236 load:0x3fff0030,len:4640
+1791921239.237 load:0x40078000,len:15632
+1791921239.237 load:0x40080400,len:3164
+1791921239.237 entry 0x4008059c
+1791921239.837 
+1791921239.837 [BOOT] coordenador - etapa 7
+1791921239.851 [RELOGIO] boot 51, motivo do reset 1
+1791921239.851 [RELOGIO] utc=invalida epoch=459 valida=0 fonte=nenhuma boot=51 desde_boot_ms=222
+1791921239.862 [PART] nome,tipo,subtipo,endereco,tamanho_kb
+1791921239.862 [PART] nvs,1,0x02,0x009000,20
+1791921239.863 [PART] otadata,1,0x00,0x00e000,8
+1791921239.873 [PART] app0,0,0x00,0x010000,2048
+1791921239.873 [PART] littlefs,1,0x83,0x210000,1920
+1791921239.873 [PART] coredump,1,0x03,0x3f0000,64
+1791921239.874 [MAC] STA 88:57:21:70:91:fc
+1791921239.882 [MAC] AP  88:57:21:70:91:fd
+1791921239.882 [BOOT] protocolo v2 (38 bytes, assinatura HMAC-SHA256 de 16)
+1791921239.883 [CFG] cadastro lido da NVS: 1 nos
+1791921240.100 [FS] LittleFS montado: 632 KB usados de 1920 KB
+1791921241.370 [FS] carga: 26 segmentos, 12762 registros validos, 0 invalidos, em 1236 ms
+1791921241.370 [FS] estado: ok (rotacoes de emergencia 0, falhas seguidas 0)
+1791921241.465 [WIFI] varrendo canais...
+1791921244.602 [WIFI] varredura: 18 redes em 3804 ms
+1791921244.602 [SCAN] canal,rssi_dbm,ssid
+1791921244.602 [SCAN] 11,-44,Elton
+1791921244.603 [SCAN] 3,-58,ENILDA OI FIBRA
+1791921244.613 [SCAN] 2,-71,CAMACHO
+1791921244.613 [SCAN] 11,-71,Maria_EXT
+1791921244.613 [SCAN] 5,-78,ammywifii
+1791921244.613 [SCAN] 11,-89,Maria
+1791921244.613 [SCAN] 11,-89,BONACHO
+1791921244.613 [SCAN] 11,-90,
+1791921244.624 [SCAN] 1,-91,CARLA_401
+1791921244.624 [SCAN] 1,-92,SALALUC
+1791921244.624 [SCAN] 6,-92,FLYNET MARIA
+1791921244.624 [SCAN] 6,-93,FLYNET TRINDADE
+1791921244.625 [SCAN] 8,-93,AP301CLARO
+1791921244.635 [SCAN] 9,-93,CLARO_2GAC9D13
+1791921244.635 [SCAN] 8,-95,Ap 804
+1791921244.635 [SCAN] 8,-95,#CLARO-WIFI
+1791921244.636 [SCAN] 11,-95,DAVI
+1791921244.636 [SCAN] 11,-97,
+1791921244.646 [WIFI] canal  1: 2 no canal, 3 sobrepostas, mais forte -58 dBm
+1791921244.647 [WIFI] canal  6: 2 no canal, 7 sobrepostas, mais forte -58 dBm
+1791921244.648 [WIFI] canal 11: 7 no canal, 4 sobrepostas, mais forte -44 dBm
+1791921244.855 [WIFI] SoftAP "horta-coord" canal 1, MAC AP 88:57:21:70:91:FD, IP 192.168.4.1
+1791921244.866 [ESPNOW] pronto: versao 2, fila de 16 itens (272 bytes cada)
+1791921244.877 [CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags
+1791921244.881 [RESUMO] t_ms,mac,nome,recebidos,rejeitados,aceitos,perdidos,descartados,reinicios,sem_ack,entrega_pct,rssi_medio,rssi_min,rssi_max
+1791921249.085 [CSV] 9998,88:57:21:70:93:70,no1,-21,-96,38,assinatura_invalida,,,,,,,,,,,,,
+1791921259.310 [CSV] 19985,88:57:21:70:93:70,no1,-21,-96,38,assinatura_invalida,,,,,,,,,,,,,
+1791921269.538 [CSV] 29972,88:57:21:70:93:70,no1,-21,-96,38,assinatura_invalida,,,,,,,,,,,,,
+1791921279.007 [CSV] 39956,88:57:21:70:93:70,no1,-21,-96,38,assinatura_invalida,,,,,,,,,,,,,
+1791921289.226 [CSV] 49934,88:57:21:70:93:70,no1,-21,-96,38,assinatura_invalida,,,,,,,,,,,,,

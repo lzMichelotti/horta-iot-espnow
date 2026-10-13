@@ -1,0 +1,186 @@
+    0.019 ets Jul 29 2019 12:21:46
+    0.019 
+    0.021 rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+    0.021 configsip: 0, SPIWP:0xee
+    0.031 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+    0.032 mode:DIO, clock div:2
+    0.033 load:0x3fff0030,len:4640
+    0.034 load:0x40078000,len:15632
+    0.035 load:0x40080400,len:3164
+    0.036 entry 0x4008059c
+    0.617 
+    0.618 [BOOT] coord experimento cripto=0 ble_scan=0 heap_livre=283548
+    0.927 [WIFI] SoftAP canal 1, MAC AP 88:57:21:70:91:FD, heap_livre=227804
+    0.927 [RX] origem,seq,rssi
+    3.511 [RX] espnow,1,-21
+    6.065 [RX] espnow,2,-22
+    9.153 [RX] espnow,3,-22
+   12.245 [RX] espnow,4,-28
+   15.340 [RX] espnow,5,-22
+   18.432 [RX] espnow,6,-26
+   21.559 [RX] espnow,7,-27
+   24.682 [RX] espnow,8,-22
+   27.797 [RX] espnow,9,-22
+   30.444 [EST] espnow=9 ble_unicos=0 ble_eventos=0 outros_espnow=0 descartados=0 clientes_ap=0 http=0 http_medio_us=0 http_max_us=0 heap=226960
+   30.853 [RX] espnow,10,-21
+   33.920 [RX] espnow,11,-22
+   36.434 [RX] espnow,12,-21
+   39.508 [RX] espnow,13,-22
+   42.587 [RX] espnow,14,-22
+   45.650 [RX] espnow,15,-22
+   48.714 [RX] espnow,16,-22
+   51.816 [RX] espnow,17,-23
+   55.023 [RX] espnow,18,-23
+   58.122 [RX] espnow,19,-28
+   60.384 [EST] espnow=19 ble_unicos=0 ble_eventos=0 outros_espnow=0 descartados=0 clientes_ap=1 http=1 http_medio_us=4222 http_max_us=4222 heap=223708
+   61.183 [RX] espnow,20,-23
+   64.258 [RX] espnow,21,-22
+   67.321 [RX] espnow,22,-23
+   69.917 [RX] espnow,23,-29
+   72.999 [RX] espnow,24,-23
+   76.090 [RX] espnow,25,-28
+   79.218 [RX] espnow,26,-22
+   82.346 [RX] espnow,27,-28
+   85.475 [RX] espnow,28,-23
+   88.585 [RX] espnow,29,-28
+   90.493 [EST] espnow=29 ble_unicos=0 ble_eventos=0 outros_espnow=0 descartados=0 clientes_ap=1 http=1 http_medio_us=4222 http_max_us=4222 heap=223488
+   91.698 [RX] espnow,30,-24
+   94.786 [RX] espnow,31,-28
+   97.879 [RX] espnow,32,-23
+  100.266 [RX] espnow,33,-24
+  103.317 [RX] espnow,34,-23
+  106.380 [RX] espnow,35,-23
+  109.467 [RX] espnow,36,-28
+  112.559 [RX] espnow,37,-23
+  115.662 [RX] espnow,38,-22
+  118.837 [RX] espnow,39,-22
+  120.328 [EST] espnow=39 ble_unicos=0 ble_eventos=0 outros_espnow=0 descartados=0 clientes_ap=1 http=15 http_medio_us=3734 http_max_us=4372 heap=219800
+  121.929 [RX] espnow,40,-23
+  125.019 [RX] espnow,41,-28
+  128.107 [RX] espnow,42,-22
+  130.657 [RX] espnow,43,-23
+  133.738 [RX] espnow,44,-23
+  136.832 [RX] espnow,45,-23
+  139.942 [RX] espnow,46,-22
+  143.173 [RX] espnow,47,-22
+  146.314 [RX] espnow,48,-28
+  149.402 [RX] espnow,49,-22
+  150.498 [EST] espnow=49 ble_unicos=0 ble_eventos=0 outros_espnow=0 descartados=0 clientes_ap=1 http=19 http_medio_us=3726 http_max_us=4372 heap=219812
+  152.496 [RX] espnow,50,-28
+  155.583 [RX] espnow,51,-23
+  158.664 [RX] espnow,52,-23
+  161.742 [RX] espnow,53,-23
+  164.103 [RX] espnow,54,-22
+  167.129 [RX] espnow,55,-28
+  170.162 [RX] espnow,56,-23
+  173.265 [RX] espnow,57,-22
+  176.360 [RX] espnow,58,-23
+  179.460 [RX] espnow,59,-24
+  180.197 [EST] espnow=59 ble_unicos=0 ble_eventos=0 outros_espnow=0 descartados=0 clientes_ap=1 http=19 http_medio_us=3726 http_max_us=4372 heap=219812
+  182.690 [RX] espnow,60,-28
+  185.829 [RX] espnow,61,-22
+  188.918 [RX] espnow,62,-28
+  192.009 [RX] espnow,63,-28
+  194.476 [RX] espnow,64,-27
+  197.556 [RX] espnow,65,-22
+  200.636 [RX] espnow,66,-22
+  203.725 [RX] espnow,67,-22
+  206.942 [RX] espnow,68,-22
+  210.116 [RX] espnow,69,-28
+  210.425 [EST] espnow=69 ble_unicos=0 ble_eventos=0 outros_espnow=0 descartados=0 clientes_ap=1 http=19 http_medio_us=3726 http_max_us=4372 heap=219812
+  213.216 [RX] espnow,70,-23
+  216.304 [RX] espnow,71,-23
+  219.400 [RX] espnow,72,-28
+  222.479 [RX] espnow,73,-22
+  225.564 [RX] espnow,74,-23
+  227.935 [RX] espnow,75,-23
+  231.031 [RX] espnow,76,-23
+  234.113 [RX] espnow,77,-22
+  237.205 [RX] espnow,78,-24
+  240.211 [EST] espnow=78 ble_unicos=0 ble_eventos=0 outros_espnow=0 descartados=0 clientes_ap=1 http=32 http_medio_us=3694 http_max_us=4372 heap=219804
+  240.298 [RX] espnow,79,-23
+  243.437 [RX] espnow,80,-23
+  246.488 [RX] espnow,81,-23
+  249.585 [RX] espnow,82,-28
+  252.684 [RX] espnow,83,-23
+  255.787 [RX] espnow,84,-22
+  258.321 [RX] espnow,85,-28
+  261.411 [RX] espnow,86,-28
+  264.522 [RX] espnow,87,-23
+  267.613 [RX] espnow,88,-23
+  270.226 [EST] espnow=88 ble_unicos=0 ble_eventos=0 outros_espnow=0 descartados=0 clientes_ap=1 http=35 http_medio_us=3690 http_max_us=4372 heap=219800
+  270.715 [RX] espnow,89,-23
+  273.822 [RX] espnow,90,-22
+  276.930 [RX] espnow,91,-22
+  280.027 [RX] espnow,92,-23
+  283.123 [RX] espnow,93,-22
+  286.227 [RX] espnow,94,-23
+  288.689 [RX] espnow,95,-23
+  291.787 [RX] espnow,96,-28
+  294.887 [RX] espnow,97,-23
+  297.986 [RX] espnow,98,-22
+  300.200 [EST] espnow=98 ble_unicos=0 ble_eventos=0 outros_espnow=0 descartados=0 clientes_ap=1 http=35 http_medio_us=3690 http_max_us=4372 heap=219800
+  301.086 [RX] espnow,99,-22
+  304.189 [RX] espnow,100,-27
+  307.294 [RX] espnow,101,-28
+  310.395 [RX] espnow,102,-23
+  313.496 [RX] espnow,103,-23
+  316.598 [RX] espnow,104,-23
+  319.711 [RX] espnow,105,-22
+  322.154 [RX] espnow,106,-28
+  325.255 [RX] espnow,107,-28
+  328.354 [RX] espnow,108,-22
+  330.171 [EST] espnow=108 ble_unicos=0 ble_eventos=0 outros_espnow=0 descartados=0 clientes_ap=1 http=35 http_medio_us=3690 http_max_us=4372 heap=219800
+  331.453 [RX] espnow,109,-22
+  334.560 [RX] espnow,110,-22
+  337.655 [RX] espnow,111,-23
+  340.760 [RX] espnow,112,-22
+  343.861 [RX] espnow,113,-28
+  346.964 [RX] espnow,114,-23
+  350.075 [RX] espnow,115,-22
+  352.517 [RX] espnow,116,-23
+  355.634 [RX] espnow,117,-27
+  358.722 [RX] espnow,118,-22
+  360.140 [EST] espnow=118 ble_unicos=0 ble_eventos=0 outros_espnow=0 descartados=0 clientes_ap=1 http=35 http_medio_us=3690 http_max_us=4372 heap=223180
+  361.831 [RX] espnow,119,-23
+  364.921 [RX] espnow,120,-23
+  368.024 [RX] espnow,121,-22
+  371.130 [RX] espnow,122,-23
+  374.232 [RX] espnow,123,-22
+  377.334 [RX] espnow,124,-28
+  380.437 [RX] espnow,125,-22
+  383.541 [RX] espnow,126,-22
+  385.988 [RX] espnow,127,-23
+  389.090 [RX] espnow,128,-22
+  390.104 [EST] espnow=128 ble_unicos=0 ble_eventos=0 outros_espnow=0 descartados=0 clientes_ap=1 http=35 http_medio_us=3690 http_max_us=4372 heap=223992
+  392.192 [RX] espnow,129,-27
+  395.295 [RX] espnow,130,-22
+  398.396 [RX] espnow,131,-22
+  401.500 [RX] espnow,132,-27
+  404.603 [RX] espnow,133,-22
+  407.706 [RX] espnow,134,-23
+  410.809 [RX] espnow,135,-22
+  413.909 [RX] espnow,136,-22
+  416.365 [RX] espnow,137,-22
+  419.467 [RX] espnow,138,-23
+  420.077 [EST] espnow=138 ble_unicos=0 ble_eventos=0 outros_espnow=0 descartados=0 clientes_ap=1 http=35 http_medio_us=3690 http_max_us=4372 heap=223992
+  422.568 [RX] espnow,139,-23
+  425.669 [RX] espnow,140,-23
+  428.772 [RX] espnow,141,-28
+  431.875 [RX] espnow,142,-22
+  434.980 [RX] espnow,143,-23
+  438.081 [RX] espnow,144,-23
+  441.184 [RX] espnow,145,-23
+  444.287 [RX] espnow,146,-24
+  446.747 [RX] espnow,147,-22
+  449.849 [RX] espnow,148,-23
+  450.055 [EST] espnow=148 ble_unicos=0 ble_eventos=0 outros_espnow=0 descartados=0 clientes_ap=1 http=35 http_medio_us=3690 http_max_us=4372 heap=223992
+  452.952 [RX] espnow,149,-23
+  456.053 [RX] espnow,150,-23
+  459.150 [RX] espnow,151,-28
+  462.255 [RX] espnow,152,-22
+  465.360 [RX] espnow,153,-22
+  468.459 [RX] espnow,154,-23
+  471.558 [RX] espnow,155,-22
+  474.663 [RX] espnow,156,-22
+  477.765 [RX] espnow,157,-22

@@ -1,0 +1,948 @@
+    0.017 ets Jul 29 2019 12:21:46
+    0.017 
+    0.017 rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+    0.018 configsip: 0, SPIWP:0xee
+    0.028 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+    0.028 mode:DIO, clock div:2
+    0.028 load:0x3fff0030,len:4640
+    0.032 load:0x40078000,len:15632
+    0.032 load:0x40080400,len:3164
+    0.032 entry 0x4008059c
+    0.500 [T0] 15119
+    1.567 [CICLO] ble_arduino,0,1,1,1,0,15119,719164,100837,218527,1055840
+    2.851 ets Jul 29 2019 12:21:46
+    2.851 
+    2.852 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+    2.852 configsip: 0, SPIWP:0xee
+    2.863 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+    2.863 mode:DIO, clock div:2
+    2.863 load:0x3fff0030,len:4640
+    2.867 load:0x40078000,len:15632
+    2.867 load:0x40080400,len:3164
+    2.868 entry 0x4008059c
+    2.921 [T0] 16274
+    3.912 [CICLO] ble_arduino,1,1,1,1,0,16274,644000,100837,219492,982792
+    5.965 ets Jul 29 2019 12:21:46
+    5.965 
+    5.965 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+    5.965 configsip: 0, SPIWP:0xee
+    5.976 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+    5.977 mode:DIO, clock div:2
+    5.977 load:0x3fff0030,len:4640
+    5.981 load:0x40078000,len:15632
+    5.981 load:0x40080400,len:3164
+    5.981 entry 0x4008059c
+    6.034 [T0] 16274
+    7.033 [CICLO] ble_arduino,2,1,1,1,0,16274,653000,100837,218112,990412
+    9.078 ets Jul 29 2019 12:21:46
+    9.078 
+    9.078 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+    9.078 configsip: 0, SPIWP:0xee
+    9.089 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+    9.089 mode:DIO, clock div:2
+    9.089 load:0x3fff0030,len:4640
+    9.093 load:0x40078000,len:15632
+    9.093 load:0x40080400,len:3164
+    9.094 entry 0x4008059c
+    9.147 [T0] 16275
+   10.143 [CICLO] ble_arduino,3,1,1,1,0,16275,650000,100837,219138,988438
+   12.191 ets Jul 29 2019 12:21:46
+   12.191 
+   12.192 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   12.192 configsip: 0, SPIWP:0xee
+   12.202 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   12.203 mode:DIO, clock div:2
+   12.203 load:0x3fff0030,len:4640
+   12.207 load:0x40078000,len:15632
+   12.207 load:0x40080400,len:3164
+   12.207 entry 0x4008059c
+   12.261 [T0] 16272
+   13.251 [CICLO] ble_arduino,4,1,1,1,0,16272,644000,100837,219491,982789
+   15.305 ets Jul 29 2019 12:21:46
+   15.305 
+   15.306 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   15.306 configsip: 0, SPIWP:0xee
+   15.317 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   15.317 mode:DIO, clock div:2
+   15.317 load:0x3fff0030,len:4640
+   15.321 load:0x40078000,len:15632
+   15.321 load:0x40080400,len:3164
+   15.321 entry 0x4008059c
+   15.375 [T0] 16278
+   16.363 [CICLO] ble_arduino,5,1,1,1,0,16278,642000,100837,219441,980744
+   18.419 ets Jul 29 2019 12:21:46
+   18.419 
+   18.419 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   18.419 configsip: 0, SPIWP:0xee
+   18.430 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   18.430 mode:DIO, clock div:2
+   18.430 load:0x3fff0030,len:4640
+   18.434 load:0x40078000,len:15632
+   18.434 load:0x40080400,len:3164
+   18.435 entry 0x4008059c
+   18.488 [T0] 16278
+   19.477 [CICLO] ble_arduino,6,1,1,1,0,16278,642000,100837,219492,980795
+   21.531 ets Jul 29 2019 12:21:46
+   21.531 
+   21.532 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   21.532 configsip: 0, SPIWP:0xee
+   21.543 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   21.543 mode:DIO, clock div:2
+   21.543 load:0x3fff0030,len:4640
+   21.547 load:0x40078000,len:15632
+   21.547 load:0x40080400,len:3164
+   21.547 entry 0x4008059c
+   21.601 [T0] 16281
+   22.587 [CICLO] ble_arduino,7,1,1,1,0,16281,639996,100837,219138,978440
+   24.646 ets Jul 29 2019 12:21:46
+   24.646 
+   24.646 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   24.647 configsip: 0, SPIWP:0xee
+   24.658 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   24.658 mode:DIO, clock div:2
+   24.658 load:0x3fff0030,len:4640
+   24.662 load:0x40078000,len:15632
+   24.662 load:0x40080400,len:3164
+   24.662 entry 0x4008059c
+   24.715 [T0] 16280
+   25.709 [CICLO] ble_arduino,8,1,1,1,0,16280,646996,100837,219492,985794
+   27.759 ets Jul 29 2019 12:21:46
+   27.759 
+   27.759 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   27.760 configsip: 0, SPIWP:0xee
+   27.771 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   27.771 mode:DIO, clock div:2
+   27.771 load:0x3fff0030,len:4640
+   27.775 load:0x40078000,len:15632
+   27.775 load:0x40080400,len:3164
+   27.775 entry 0x4008059c
+   27.828 [T0] 16277
+   28.833 [CICLO] ble_arduino,9,1,1,1,0,16277,656999,100837,219522,995824
+   30.872 ets Jul 29 2019 12:21:46
+   30.872 
+   30.873 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   30.873 configsip: 0, SPIWP:0xee
+   30.884 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   30.884 mode:DIO, clock div:2
+   30.884 load:0x3fff0030,len:4640
+   30.888 load:0x40078000,len:15632
+   30.888 load:0x40080400,len:3164
+   30.888 entry 0x4008059c
+   30.942 [T0] 16278
+   31.918 [CICLO] ble_arduino,10,1,1,1,0,16278,630000,100837,219117,968421
+   33.985 ets Jul 29 2019 12:21:46
+   33.985 
+   33.985 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   33.986 configsip: 0, SPIWP:0xee
+   33.997 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   33.997 mode:DIO, clock div:2
+   33.997 load:0x3fff0030,len:4640
+   34.001 load:0x40078000,len:15632
+   34.001 load:0x40080400,len:3164
+   34.001 entry 0x4008059c
+   34.055 [T0] 16278
+   35.037 [CICLO] ble_arduino,11,1,1,1,0,16278,636996,100837,218517,974817
+   37.099 ets Jul 29 2019 12:21:46
+   37.099 
+   37.099 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   37.099 configsip: 0, SPIWP:0xee
+   37.110 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   37.110 mode:DIO, clock div:2
+   37.110 load:0x3fff0030,len:4640
+   37.114 load:0x40078000,len:15632
+   37.115 load:0x40080400,len:3164
+   37.115 entry 0x4008059c
+   37.168 [T0] 16275
+   38.170 [CICLO] ble_arduino,12,1,1,1,0,16275,655000,100837,219135,993436
+   40.213 ets Jul 29 2019 12:21:46
+   40.213 
+   40.213 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   40.213 configsip: 0, SPIWP:0xee
+   40.225 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   40.225 mode:DIO, clock div:2
+   40.225 load:0x3fff0030,len:4640
+   40.229 load:0x40078000,len:15632
+   40.229 load:0x40080400,len:3164
+   40.229 entry 0x4008059c
+   40.282 [T0] 16278
+   41.268 [CICLO] ble_arduino,13,1,1,1,0,16278,640000,100837,219138,978442
+   43.326 ets Jul 29 2019 12:21:46
+   43.326 
+   43.326 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   43.327 configsip: 0, SPIWP:0xee
+   43.337 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   43.338 mode:DIO, clock div:2
+   43.338 load:0x3fff0030,len:4640
+   43.342 load:0x40078000,len:15632
+   43.342 load:0x40080400,len:3164
+   43.342 entry 0x4008059c
+   43.396 [T0] 16275
+   44.392 [CICLO] ble_arduino,14,1,1,1,0,16275,650000,100837,219153,988454
+   46.438 ets Jul 29 2019 12:21:46
+   46.438 
+   46.439 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   46.439 configsip: 0, SPIWP:0xee
+   46.450 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   46.450 mode:DIO, clock div:2
+   46.450 load:0x3fff0030,len:4640
+   46.454 load:0x40078000,len:15632
+   46.454 load:0x40080400,len:3164
+   46.455 entry 0x4008059c
+   46.508 [T0] 16277
+   47.486 [CICLO] ble_arduino,15,1,1,1,0,16277,634000,100837,219474,972776
+   49.546 ets Jul 29 2019 12:21:46
+   49.546 
+   49.547 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   49.547 configsip: 0, SPIWP:0xee
+   49.558 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   49.558 mode:DIO, clock div:2
+   49.558 load:0x3fff0030,len:4640
+   49.562 load:0x40078000,len:15632
+   49.562 load:0x40080400,len:3164
+   49.563 entry 0x4008059c
+   49.616 [T0] 16282
+   49.617 [CICLO] ble_arduino,16,1,1,1,0,16282,651996,100837,219454,990757
+   51.657 ets Jul 29 2019 12:21:46
+   51.657 
+   51.657 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   51.657 configsip: 0, SPIWP:0xee
+   51.668 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   51.668 mode:DIO, clock div:2
+   51.668 load:0x3fff0030,len:4640
+   51.672 load:0x40078000,len:15632
+   51.672 load:0x40080400,len:3164
+   51.673 entry 0x4008059c
+   51.726 [T0] 16271
+   52.720 [CICLO] ble_arduino,17,1,1,1,0,16271,649004,100837,219488,987788
+   54.766 ets Jul 29 2019 12:21:46
+   54.767 
+   54.767 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   54.767 configsip: 0, SPIWP:0xee
+   54.778 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   54.778 mode:DIO, clock div:2
+   54.778 load:0x3fff0030,len:4640
+   54.782 load:0x40078000,len:15632
+   54.782 load:0x40080400,len:3164
+   54.783 entry 0x4008059c
+   54.836 [T0] 16275
+   55.828 [CICLO] ble_arduino,18,1,1,1,0,16275,647000,100837,218384,984685
+   57.879 ets Jul 29 2019 12:21:46
+   57.880 
+   57.880 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   57.880 configsip: 0, SPIWP:0xee
+   57.891 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   57.891 mode:DIO, clock div:2
+   57.891 load:0x3fff0030,len:4640
+   57.895 load:0x40078000,len:15632
+   57.895 load:0x40080400,len:3164
+   57.895 entry 0x4008059c
+   57.949 [T0] 16279
+   58.944 [CICLO] ble_arduino,19,1,1,1,0,16279,649000,100837,219383,987689
+   60.991 ets Jul 29 2019 12:21:46
+   60.991 
+   60.991 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   60.991 configsip: 0, SPIWP:0xee
+   61.002 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   61.002 mode:DIO, clock div:2
+   61.002 load:0x3fff0030,len:4640
+   61.006 load:0x40078000,len:15632
+   61.007 load:0x40080400,len:3164
+   61.007 entry 0x4008059c
+   61.060 [T0] 16280
+   62.046 [CICLO] ble_arduino,20,1,1,1,0,16280,638995,100837,219473,977774
+   64.103 ets Jul 29 2019 12:21:46
+   64.103 
+   64.103 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   64.104 configsip: 0, SPIWP:0xee
+   64.115 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   64.115 mode:DIO, clock div:2
+   64.115 load:0x3fff0030,len:4640
+   64.119 load:0x40078000,len:15632
+   64.119 load:0x40080400,len:3164
+   64.119 entry 0x4008059c
+   64.173 [T0] 16271
+   65.158 [CICLO] ble_arduino,21,1,1,1,0,16271,639004,100837,219478,977779
+   67.216 ets Jul 29 2019 12:21:46
+   67.216 
+   67.216 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   67.216 configsip: 0, SPIWP:0xee
+   67.227 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   67.227 mode:DIO, clock div:2
+   67.228 load:0x3fff0030,len:4640
+   67.232 load:0x40078000,len:15632
+   67.232 load:0x40080400,len:3164
+   67.232 entry 0x4008059c
+   67.286 [T0] 16277
+   68.276 [CICLO] ble_arduino,22,1,1,1,0,16277,644000,100837,219387,982690
+   70.330 ets Jul 29 2019 12:21:46
+   70.330 
+   70.330 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   70.331 configsip: 0, SPIWP:0xee
+   70.341 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   70.341 mode:DIO, clock div:2
+   70.341 load:0x3fff0030,len:4640
+   70.346 load:0x40078000,len:15632
+   70.346 load:0x40080400,len:3164
+   70.346 entry 0x4008059c
+   70.399 [T0] 16273
+   71.393 [CICLO] ble_arduino,23,1,1,1,0,16273,647000,100837,219521,985821
+   73.443 ets Jul 29 2019 12:21:46
+   73.443 
+   73.444 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   73.444 configsip: 0, SPIWP:0xee
+   73.455 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   73.455 mode:DIO, clock div:2
+   73.455 load:0x3fff0030,len:4640
+   73.459 load:0x40078000,len:15632
+   73.459 load:0x40080400,len:3164
+   73.459 entry 0x4008059c
+   73.513 [T0] 16274
+   74.500 [CICLO] ble_arduino,24,1,1,1,0,16274,641004,100837,219381,979685
+   76.556 ets Jul 29 2019 12:21:46
+   76.556 
+   76.557 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   76.557 configsip: 0, SPIWP:0xee
+   76.568 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   76.568 mode:DIO, clock div:2
+   76.568 load:0x3fff0030,len:4640
+   76.572 load:0x40078000,len:15632
+   76.572 load:0x40080400,len:3164
+   76.572 entry 0x4008059c
+   76.626 [T0] 16275
+   77.619 [CICLO] ble_arduino,25,1,1,1,0,16275,646999,100837,219519,985819
+   79.671 ets Jul 29 2019 12:21:46
+   79.671 
+   79.671 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   79.672 configsip: 0, SPIWP:0xee
+   79.683 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   79.683 mode:DIO, clock div:2
+   79.683 load:0x3fff0030,len:4640
+   79.687 load:0x40078000,len:15632
+   79.687 load:0x40080400,len:3164
+   79.687 entry 0x4008059c
+   79.741 [T0] 16271
+   80.732 [CICLO] ble_arduino,26,1,1,1,0,16271,644000,100837,219492,982789
+   82.784 ets Jul 29 2019 12:21:46
+   82.784 
+   82.784 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   82.784 configsip: 0, SPIWP:0xee
+   82.795 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   82.795 mode:DIO, clock div:2
+   82.795 load:0x3fff0030,len:4640
+   82.799 load:0x40078000,len:15632
+   82.799 load:0x40080400,len:3164
+   82.800 entry 0x4008059c
+   82.853 [T0] 16277
+   83.849 [CICLO] ble_arduino,27,1,1,1,0,16277,648996,100837,219435,987734
+   85.896 ets Jul 29 2019 12:21:46
+   85.896 
+   85.896 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   85.896 configsip: 0, SPIWP:0xee
+   85.908 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   85.908 mode:DIO, clock div:2
+   85.908 load:0x3fff0030,len:4640
+   85.912 load:0x40078000,len:15632
+   85.912 load:0x40080400,len:3164
+   85.912 entry 0x4008059c
+   85.966 [T0] 16267
+   86.958 [CICLO] ble_arduino,28,1,1,1,0,16267,646004,100837,219378,984675
+   89.009 ets Jul 29 2019 12:21:46
+   89.009 
+   89.009 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   89.009 configsip: 0, SPIWP:0xee
+   89.020 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   89.021 mode:DIO, clock div:2
+   89.021 load:0x3fff0030,len:4640
+   89.025 load:0x40078000,len:15632
+   89.025 load:0x40080400,len:3164
+   89.025 entry 0x4008059c
+   89.078 [T0] 16273
+   90.075 [CICLO] ble_arduino,29,1,1,1,0,16273,650000,100837,219138,988437
+   92.122 ets Jul 29 2019 12:21:46
+   92.122 
+   92.122 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   92.122 configsip: 0, SPIWP:0xee
+   92.134 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   92.134 mode:DIO, clock div:2
+   92.134 load:0x3fff0030,len:4640
+   92.137 load:0x40078000,len:15632
+   92.138 load:0x40080400,len:3164
+   92.138 entry 0x4008059c
+   92.191 [T0] 16275
+   93.182 [CICLO] ble_arduino,30,1,1,1,0,16275,644000,100837,219478,982778
+   95.232 ets Jul 29 2019 12:21:46
+   95.232 
+   95.232 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   95.232 configsip: 0, SPIWP:0xee
+   95.243 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   95.243 mode:DIO, clock div:2
+   95.244 load:0x3fff0030,len:4640
+   95.247 load:0x40078000,len:15632
+   95.248 load:0x40080400,len:3164
+   95.248 entry 0x4008059c
+   95.301 [T0] 16272
+   96.291 [CICLO] ble_arduino,31,1,1,1,0,16272,644000,100837,219476,982774
+   97.362 ets Jul 29 2019 12:21:46
+   97.362 
+   97.362 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   97.362 configsip: 0, SPIWP:0xee
+   97.373 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   97.374 mode:DIO, clock div:2
+   97.374 load:0x3fff0030,len:4640
+   97.377 load:0x40078000,len:15632
+   97.378 load:0x40080400,len:3164
+   97.378 entry 0x4008059c
+   97.452 [T0] 16274
+   98.419 [CICLO] ble_arduino,32,1,1,1,0,16274,641999,100837,219492,980792
+  100.472 ets Jul 29 2019 12:21:46
+  100.472 
+  100.472 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  100.473 configsip: 0, SPIWP:0xee
+  100.483 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  100.484 mode:DIO, clock div:2
+  100.484 load:0x3fff0030,len:4640
+  100.488 load:0x40078000,len:15632
+  100.488 load:0x40080400,len:3164
+  100.488 entry 0x4008059c
+  100.541 [T0] 16276
+  101.531 [CICLO] ble_arduino,33,1,1,1,0,16276,644000,100837,219474,982776
+  103.582 ets Jul 29 2019 12:21:46
+  103.582 
+  103.583 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  103.583 configsip: 0, SPIWP:0xee
+  103.594 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  103.594 mode:DIO, clock div:2
+  103.594 load:0x3fff0030,len:4640
+  103.598 load:0x40078000,len:15632
+  103.598 load:0x40080400,len:3164
+  103.598 entry 0x4008059c
+  103.652 [T0] 16278
+  104.645 [CICLO] ble_arduino,34,1,1,1,0,16278,648000,100837,218102,985405
+  106.694 ets Jul 29 2019 12:21:46
+  106.694 
+  106.694 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  106.694 configsip: 0, SPIWP:0xee
+  106.705 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  106.705 mode:DIO, clock div:2
+  106.705 load:0x3fff0030,len:4640
+  106.709 load:0x40078000,len:15632
+  106.709 load:0x40080400,len:3164
+  106.710 entry 0x4008059c
+  106.763 [T0] 16276
+  107.731 [CICLO] ble_arduino,35,1,1,1,0,16276,622000,100837,219522,960823
+  109.804 ets Jul 29 2019 12:21:46
+  109.804 
+  109.804 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  109.805 configsip: 0, SPIWP:0xee
+  109.815 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  109.816 mode:DIO, clock div:2
+  109.816 load:0x3fff0030,len:4640
+  109.820 load:0x40078000,len:15632
+  109.820 load:0x40080400,len:3164
+  109.820 entry 0x4008059c
+  109.873 [T0] 16273
+  110.866 [CICLO] ble_arduino,36,1,1,1,0,16273,646000,100837,219381,984680
+  112.917 ets Jul 29 2019 12:21:46
+  112.917 
+  112.917 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  112.917 configsip: 0, SPIWP:0xee
+  112.928 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  112.928 mode:DIO, clock div:2
+  112.928 load:0x3fff0030,len:4640
+  112.933 load:0x40078000,len:15632
+  112.933 load:0x40080400,len:3164
+  112.933 entry 0x4008059c
+  112.986 [T0] 16275
+  113.983 [CICLO] ble_arduino,37,1,1,1,0,16275,651000,100837,218124,988425
+  116.030 ets Jul 29 2019 12:21:46
+  116.030 
+  116.030 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  116.031 configsip: 0, SPIWP:0xee
+  116.041 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  116.042 mode:DIO, clock div:2
+  116.042 load:0x3fff0030,len:4640
+  116.046 load:0x40078000,len:15632
+  116.046 load:0x40080400,len:3164
+  116.046 entry 0x4008059c
+  116.100 [T0] 16284
+  117.090 [CICLO] ble_arduino,38,1,1,1,0,16284,643996,100837,219515,982821
+  119.144 ets Jul 29 2019 12:21:46
+  119.144 
+  119.144 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  119.144 configsip: 0, SPIWP:0xee
+  119.155 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  119.156 mode:DIO, clock div:2
+  119.156 load:0x3fff0030,len:4640
+  119.160 load:0x40078000,len:15632
+  119.160 load:0x40080400,len:3164
+  119.160 entry 0x4008059c
+  119.214 [T0] 16277
+  120.212 [CICLO] ble_arduino,39,1,1,1,0,16277,652000,100837,219522,990824
+  122.257 ets Jul 29 2019 12:21:46
+  122.257 
+  122.257 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  122.257 configsip: 0, SPIWP:0xee
+  122.268 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  122.268 mode:DIO, clock div:2
+  122.269 load:0x3fff0030,len:4640
+  122.272 load:0x40078000,len:15632
+  122.273 load:0x40080400,len:3164
+  122.273 entry 0x4008059c
+  122.326 [T0] 16278
+  123.320 [CICLO] ble_arduino,40,1,1,1,0,16278,647000,100837,219518,985822
+  125.370 ets Jul 29 2019 12:21:46
+  125.371 
+  125.371 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  125.372 configsip: 0, SPIWP:0xee
+  125.382 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  125.382 mode:DIO, clock div:2
+  125.382 load:0x3fff0030,len:4640
+  125.386 load:0x40078000,len:15632
+  125.386 load:0x40080400,len:3164
+  125.386 entry 0x4008059c
+  125.440 [T0] 16268
+  126.435 [CICLO] ble_arduino,41,1,1,1,0,16268,649004,100837,219478,987777
+  127.825 ets Jul 29 2019 12:21:46
+  127.826 
+  127.826 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  127.826 configsip: 0, SPIWP:0xee
+  127.837 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  127.837 mode:DIO, clock div:2
+  127.837 load:0x3fff0030,len:4640
+  127.841 load:0x40078000,len:15632
+  127.841 load:0x40080400,len:3164
+  127.841 entry 0x4008059c
+  127.895 [T0] 16271
+  128.879 [CICLO] ble_arduino,42,1,1,1,0,16271,637999,100837,219165,976462
+  130.936 ets Jul 29 2019 12:21:46
+  130.936 
+  130.937 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  130.937 configsip: 0, SPIWP:0xee
+  130.948 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  130.948 mode:DIO, clock div:2
+  130.948 load:0x3fff0030,len:4640
+  130.952 load:0x40078000,len:15632
+  130.952 load:0x40080400,len:3164
+  130.952 entry 0x4008059c
+  131.006 [T0] 16279
+  131.982 [CICLO] ble_arduino,43,1,1,1,0,16279,630996,100837,219387,969688
+  134.049 ets Jul 29 2019 12:21:46
+  134.049 
+  134.049 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  134.049 configsip: 0, SPIWP:0xee
+  134.060 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  134.060 mode:DIO, clock div:2
+  134.061 load:0x3fff0030,len:4640
+  134.065 load:0x40078000,len:15632
+  134.065 load:0x40080400,len:3164
+  134.065 entry 0x4008059c
+  134.118 [T0] 16271
+  135.110 [CICLO] ble_arduino,44,1,1,1,0,16271,645000,100837,219577,983873
+  137.163 ets Jul 29 2019 12:21:46
+  137.163 
+  137.163 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  137.163 configsip: 0, SPIWP:0xee
+  137.174 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  137.174 mode:DIO, clock div:2
+  137.175 load:0x3fff0030,len:4640
+  137.179 load:0x40078000,len:15632
+  137.179 load:0x40080400,len:3164
+  137.179 entry 0x4008059c
+  137.232 [T0] 16274
+  138.226 [CICLO] ble_arduino,45,1,1,1,0,16274,646999,100837,219518,985818
+  140.277 ets Jul 29 2019 12:21:46
+  140.277 
+  140.278 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  140.278 configsip: 0, SPIWP:0xee
+  140.289 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  140.289 mode:DIO, clock div:2
+  140.289 load:0x3fff0030,len:4640
+  140.293 load:0x40078000,len:15632
+  140.293 load:0x40080400,len:3164
+  140.293 entry 0x4008059c
+  140.347 [T0] 16278
+  141.328 [CICLO] ble_arduino,46,1,1,1,0,16278,635000,100837,219138,973442
+  143.390 ets Jul 29 2019 12:21:46
+  143.390 
+  143.391 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  143.391 configsip: 0, SPIWP:0xee
+  143.402 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  143.402 mode:DIO, clock div:2
+  143.402 load:0x3fff0030,len:4640
+  143.406 load:0x40078000,len:15632
+  143.406 load:0x40080400,len:3164
+  143.406 entry 0x4008059c
+  143.459 [T0] 16266
+  144.436 [CICLO] ble_arduino,47,1,1,1,0,16266,629008,100837,219411,967711
+  146.502 ets Jul 29 2019 12:21:46
+  146.502 
+  146.503 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  146.503 configsip: 0, SPIWP:0xee
+  146.514 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  146.514 mode:DIO, clock div:2
+  146.514 load:0x3fff0030,len:4640
+  146.518 load:0x40078000,len:15632
+  146.518 load:0x40080400,len:3164
+  146.518 entry 0x4008059c
+  146.572 [T0] 16275
+  147.571 [CICLO] ble_arduino,48,1,1,1,0,16275,652000,100837,219487,990788
+  149.616 ets Jul 29 2019 12:21:46
+  149.616 
+  149.617 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  149.617 configsip: 0, SPIWP:0xee
+  149.628 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  149.628 mode:DIO, clock div:2
+  149.628 load:0x3fff0030,len:4640
+  149.632 load:0x40078000,len:15632
+  149.632 load:0x40080400,len:3164
+  149.633 entry 0x4008059c
+  149.686 [T0] 16281
+  150.679 [CICLO] ble_arduino,49,1,1,1,0,16281,645996,100837,219387,984690
+  152.730 ets Jul 29 2019 12:21:46
+  152.730 
+  152.731 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  152.731 configsip: 0, SPIWP:0xee
+  152.742 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  152.742 mode:DIO, clock div:2
+  152.742 load:0x3fff0030,len:4640
+  152.746 load:0x40078000,len:15632
+  152.746 load:0x40080400,len:3164
+  152.746 entry 0x4008059c
+  152.800 [T0] 16280
+  153.788 [CICLO] ble_arduino,50,1,1,1,0,16280,641000,100837,219381,979688
+  155.842 ets Jul 29 2019 12:21:46
+  155.843 
+  155.843 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  155.843 configsip: 0, SPIWP:0xee
+  155.854 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  155.854 mode:DIO, clock div:2
+  155.855 load:0x3fff0030,len:4640
+  155.858 load:0x40078000,len:15632
+  155.858 load:0x40080400,len:3164
+  155.859 entry 0x4008059c
+  155.912 [T0] 16274
+  156.908 [CICLO] ble_arduino,51,1,1,1,0,16274,648999,100837,219473,987773
+  158.955 ets Jul 29 2019 12:21:46
+  158.955 
+  158.955 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  158.956 configsip: 0, SPIWP:0xee
+  158.967 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  158.967 mode:DIO, clock div:2
+  158.967 load:0x3fff0030,len:4640
+  158.971 load:0x40078000,len:15632
+  158.971 load:0x40080400,len:3164
+  158.971 entry 0x4008059c
+  159.025 [T0] 16273
+  159.337 [CICLO] ble_arduino,52,1,1,1,0,16273,649000,100837,219387,987687
+  161.386 ets Jul 29 2019 12:21:46
+  161.386 
+  161.386 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  161.386 configsip: 0, SPIWP:0xee
+  161.397 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  161.398 mode:DIO, clock div:2
+  161.398 load:0x3fff0030,len:4640
+  161.401 load:0x40078000,len:15632
+  161.402 load:0x40080400,len:3164
+  161.402 entry 0x4008059c
+  161.455 [T0] 16280
+  162.449 [CICLO] ble_arduino,53,1,1,1,0,16280,646995,100837,219477,985779
+  164.499 ets Jul 29 2019 12:21:46
+  164.499 
+  164.500 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  164.500 configsip: 0, SPIWP:0xee
+  164.511 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  164.511 mode:DIO, clock div:2
+  164.511 load:0x3fff0030,len:4640
+  164.515 load:0x40078000,len:15632
+  164.515 load:0x40080400,len:3164
+  164.515 entry 0x4008059c
+  164.569 [T0] 16269
+  165.575 [CICLO] ble_arduino,54,1,1,1,0,16269,659000,100837,219492,997787
+  167.612 ets Jul 29 2019 12:21:46
+  167.612 
+  167.613 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  167.613 configsip: 0, SPIWP:0xee
+  167.624 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  167.624 mode:DIO, clock div:2
+  167.624 load:0x3fff0030,len:4640
+  167.628 load:0x40078000,len:15632
+  167.628 load:0x40080400,len:3164
+  167.628 entry 0x4008059c
+  167.682 [T0] 16272
+  168.666 [CICLO] ble_arduino,55,1,1,1,0,16272,640004,100837,217023,976325
+  170.725 ets Jul 29 2019 12:21:46
+  170.725 
+  170.725 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  170.725 configsip: 0, SPIWP:0xee
+  170.737 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  170.737 mode:DIO, clock div:2
+  170.738 load:0x3fff0030,len:4640
+  170.741 load:0x40078000,len:15632
+  170.741 load:0x40080400,len:3164
+  170.741 entry 0x4008059c
+  170.794 [T0] 16281
+  171.791 [CICLO] ble_arduino,56,1,1,1,0,16281,651000,100837,218101,988408
+  173.836 ets Jul 29 2019 12:21:46
+  173.836 
+  173.837 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  173.837 configsip: 0, SPIWP:0xee
+  173.848 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  173.848 mode:DIO, clock div:2
+  173.848 load:0x3fff0030,len:4640
+  173.852 load:0x40078000,len:15632
+  173.853 load:0x40080400,len:3164
+  173.853 entry 0x4008059c
+  173.906 [T0] 16273
+  174.900 [CICLO] ble_arduino,57,1,1,1,0,16273,647000,100837,219557,985856
+  176.950 ets Jul 29 2019 12:21:46
+  176.951 
+  176.951 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  176.951 configsip: 0, SPIWP:0xee
+  176.962 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  176.962 mode:DIO, clock div:2
+  176.962 load:0x3fff0030,len:4640
+  176.966 load:0x40078000,len:15632
+  176.966 load:0x40080400,len:3164
+  176.966 entry 0x4008059c
+  177.020 [T0] 16278
+  178.013 [CICLO] ble_arduino,58,1,1,1,0,16278,646000,100837,219383,984688
+  180.065 ets Jul 29 2019 12:21:46
+  180.065 
+  180.065 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  180.065 configsip: 0, SPIWP:0xee
+  180.076 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  180.077 mode:DIO, clock div:2
+  180.077 load:0x3fff0030,len:4640
+  180.081 load:0x40078000,len:15632
+  180.081 load:0x40080400,len:3164
+  180.081 entry 0x4008059c
+  180.135 [T0] 16274
+  181.111 [CICLO] ble_arduino,59,1,1,1,0,16274,630004,100837,219117,968421
+  183.178 ets Jul 29 2019 12:21:46
+  183.178 
+  183.178 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  183.178 configsip: 0, SPIWP:0xee
+  183.189 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  183.189 mode:DIO, clock div:2
+  183.189 load:0x3fff0030,len:4640
+  183.193 load:0x40078000,len:15632
+  183.194 load:0x40080400,len:3164
+  183.194 entry 0x4008059c
+  183.247 [T0] 16274
+  184.256 [CICLO] ble_arduino,60,1,1,1,0,16274,663000,100837,218110,1000409
+  186.291 ets Jul 29 2019 12:21:46
+  186.291 
+  186.291 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  186.292 configsip: 0, SPIWP:0xee
+  186.302 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  186.303 mode:DIO, clock div:2
+  186.303 load:0x3fff0030,len:4640
+  186.307 load:0x40078000,len:15632
+  186.307 load:0x40080400,len:3164
+  186.307 entry 0x4008059c
+  186.361 [T0] 16274
+  187.339 [CICLO] ble_arduino,61,1,1,1,0,16274,632996,100837,218120,970415
+  189.404 ets Jul 29 2019 12:21:46
+  189.404 
+  189.404 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  189.404 configsip: 0, SPIWP:0xee
+  189.415 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  189.415 mode:DIO, clock div:2
+  189.415 load:0x3fff0030,len:4640
+  189.419 load:0x40078000,len:15632
+  189.419 load:0x40080400,len:3164
+  189.420 entry 0x4008059c
+  189.473 [T0] 16270
+  190.464 [CICLO] ble_arduino,62,1,1,1,0,16270,644000,100837,219477,982774
+  191.842 ets Jul 29 2019 12:21:46
+  191.842 
+  191.842 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  191.842 configsip: 0, SPIWP:0xee
+  191.853 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  191.853 mode:DIO, clock div:2
+  191.853 load:0x3fff0030,len:4640
+  191.857 load:0x40078000,len:15632
+  191.858 load:0x40080400,len:3164
+  191.858 entry 0x4008059c
+  191.911 [T0] 16280
+  192.898 [CICLO] ble_arduino,63,1,1,1,0,16280,639996,100837,219559,978861
+  194.955 ets Jul 29 2019 12:21:46
+  194.955 
+  194.955 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  194.955 configsip: 0, SPIWP:0xee
+  194.966 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  194.966 mode:DIO, clock div:2
+  194.967 load:0x3fff0030,len:4640
+  194.970 load:0x40078000,len:15632
+  194.971 load:0x40080400,len:3164
+  194.971 entry 0x4008059c
+  195.024 [T0] 16279
+  196.011 [CICLO] ble_arduino,64,1,1,1,0,16279,640996,100837,219384,979685
+  198.067 ets Jul 29 2019 12:21:46
+  198.067 
+  198.067 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  198.068 configsip: 0, SPIWP:0xee
+  198.079 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  198.079 mode:DIO, clock div:2
+  198.079 load:0x3fff0030,len:4640
+  198.083 load:0x40078000,len:15632
+  198.083 load:0x40080400,len:3164
+  198.083 entry 0x4008059c
+  198.137 [T0] 16273
+  199.129 [CICLO] ble_arduino,65,1,1,1,0,16273,645000,100837,219138,983437
+  201.181 ets Jul 29 2019 12:21:46
+  201.181 
+  201.181 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  201.181 configsip: 0, SPIWP:0xee
+  201.192 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  201.192 mode:DIO, clock div:2
+  201.193 load:0x3fff0030,len:4640
+  201.196 load:0x40078000,len:15632
+  201.197 load:0x40080400,len:3164
+  201.197 entry 0x4008059c
+  201.250 [T0] 16276
+  202.249 [CICLO] ble_arduino,66,1,1,1,0,16276,650999,100837,219388,989689
+  204.295 ets Jul 29 2019 12:21:46
+  204.295 
+  204.295 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  204.295 configsip: 0, SPIWP:0xee
+  204.306 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  204.306 mode:DIO, clock div:2
+  204.307 load:0x3fff0030,len:4640
+  204.310 load:0x40078000,len:15632
+  204.311 load:0x40080400,len:3164
+  204.311 entry 0x4008059c
+  204.364 [T0] 16275
+  205.346 [CICLO] ble_arduino,67,1,1,1,0,16275,635000,100837,219600,973900
+  207.411 ets Jul 29 2019 12:21:46
+  207.411 
+  207.411 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  207.412 configsip: 0, SPIWP:0xee
+  207.423 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  207.423 mode:DIO, clock div:2
+  207.423 load:0x3fff0030,len:4640
+  207.427 load:0x40078000,len:15632
+  207.427 load:0x40080400,len:3164
+  207.427 entry 0x4008059c
+  207.481 [T0] 16274
+  208.461 [CICLO] ble_arduino,68,1,1,1,0,16274,632000,100837,219572,970871
+  210.529 ets Jul 29 2019 12:21:46
+  210.529 
+  210.529 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  210.530 configsip: 0, SPIWP:0xee
+  210.540 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  210.541 mode:DIO, clock div:2
+  210.541 load:0x3fff0030,len:4640
+  210.545 load:0x40078000,len:15632
+  210.545 load:0x40080400,len:3164
+  210.545 entry 0x4008059c
+  210.599 [T0] 16280
+  211.597 [CICLO] ble_arduino,69,1,1,1,0,16280,650000,100837,219138,988444
+  213.647 ets Jul 29 2019 12:21:46
+  213.647 
+  213.647 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  213.647 configsip: 0, SPIWP:0xee
+  213.658 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  213.658 mode:DIO, clock div:2
+  213.659 load:0x3fff0030,len:4640
+  213.663 load:0x40078000,len:15632
+  213.663 load:0x40080400,len:3164
+  213.663 entry 0x4008059c
+  213.717 [T0] 16276
+  214.714 [CICLO] ble_arduino,70,1,1,1,0,16276,649996,100837,219567,988865
+  216.762 ets Jul 29 2019 12:21:46
+  216.762 
+  216.762 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  216.762 configsip: 0, SPIWP:0xee
+  216.773 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  216.773 mode:DIO, clock div:2
+  216.773 load:0x3fff0030,len:4640
+  216.777 load:0x40078000,len:15632
+  216.778 load:0x40080400,len:3164
+  216.778 entry 0x4008059c
+  216.831 [T0] 16284
+  217.819 [CICLO] ble_arduino,71,1,1,1,0,16284,640995,100837,219382,979687
+  219.875 ets Jul 29 2019 12:21:46
+  219.875 
+  219.875 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  219.875 configsip: 0, SPIWP:0xee
+  219.886 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  219.887 mode:DIO, clock div:2
+  219.887 load:0x3fff0030,len:4640
+  219.891 load:0x40078000,len:15632
+  219.891 load:0x40080400,len:3164
+  219.891 entry 0x4008059c
+  219.945 [T0] 16276
+  220.951 [CICLO] ble_arduino,72,1,1,1,0,16276,659003,100837,219478,997784
+  222.289 ets Jul 29 2019 12:21:46
+  222.290 
+  222.290 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  222.290 configsip: 0, SPIWP:0xee
+  222.301 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  222.301 mode:DIO, clock div:2
+  222.301 load:0x3fff0030,len:4640
+  222.305 load:0x40078000,len:15632
+  222.305 load:0x40080400,len:3164
+  222.306 entry 0x4008059c
+  222.359 [T0] 16269
+  223.352 [CICLO] ble_arduino,73,1,1,1,0,16269,647004,100837,219519,985817
+  225.402 ets Jul 29 2019 12:21:46
+  225.402 
+  225.402 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  225.402 configsip: 0, SPIWP:0xee
+  225.413 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  225.413 mode:DIO, clock div:2
+  225.413 load:0x3fff0030,len:4640
+  225.417 load:0x40078000,len:15632
+  225.418 load:0x40080400,len:3164
+  225.418 entry 0x4008059c
+  225.471 [T0] 16268
+  226.462 [CICLO] ble_arduino,74,1,1,1,0,16268,644004,100837,219478,982776
+  228.513 ets Jul 29 2019 12:21:46
+  228.513 
+  228.514 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  228.514 configsip: 0, SPIWP:0xee
+  228.525 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  228.525 mode:DIO, clock div:2
+  228.525 load:0x3fff0030,len:4640
+  228.529 load:0x40078000,len:15632
+  228.529 load:0x40080400,len:3164
+  228.529 entry 0x4008059c
+  228.583 [T0] 16269
+  229.566 [CICLO] ble_arduino,75,1,1,1,0,16269,637000,100837,219521,975816
+  231.633 ets Jul 29 2019 12:21:46
+  231.633 
+  231.633 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  231.633 configsip: 0, SPIWP:0xee
+  231.644 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  231.644 mode:DIO, clock div:2
+  231.644 load:0x3fff0030,len:4640
+  231.648 load:0x40078000,len:15632
+  231.649 load:0x40080400,len:3164
+  231.649 entry 0x4008059c
+  231.703 [T0] 16271
+  232.686 [CICLO] ble_arduino,76,1,1,1,0,16271,633000,100837,219165,971462
+  234.759 ets Jul 29 2019 12:21:46
+  234.759 
+  234.759 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  234.760 configsip: 0, SPIWP:0xee
+  234.771 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  234.771 mode:DIO, clock div:2
+  234.771 load:0x3fff0030,len:4640
+  234.775 load:0x40078000,len:15632
+  234.775 load:0x40080400,len:3164
+  234.775 entry 0x4008059c
+  234.829 [T0] 16272
+  235.815 [CICLO] ble_arduino,77,1,1,1,0,16272,636008,100837,219378,974683
+  237.886 ets Jul 29 2019 12:21:46
+  237.886 
+  237.886 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  237.887 configsip: 0, SPIWP:0xee
+  237.897 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  237.897 mode:DIO, clock div:2
+  237.898 load:0x3fff0030,len:4640
+  237.902 load:0x40078000,len:15632
+  237.902 load:0x40080400,len:3164
+  237.902 entry 0x4008059c
+  237.956 [T0] 16270
+  238.948 [CICLO] ble_arduino,78,1,1,1,0,16270,641000,100837,219387,979683

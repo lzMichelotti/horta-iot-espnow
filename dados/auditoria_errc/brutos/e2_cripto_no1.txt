@@ -1,0 +1,1188 @@
+    0.017 ets Jul 29 2019 12:21:46
+    0.017 
+    0.020 rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+    0.021 configsip: 0, SPIWP:0xee
+    0.029 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+    0.030 mode:DIO, clock div:2
+    0.031 load:0x3fff0030,len:4640
+    0.033 load:0x40078000,len:15632
+    0.034 load:0x40080400,len:3164
+    0.034 entry 0x4008059c
+    0.398 [T0] 15011
+    0.699 [CICLO] espnow_cripto,0,1,0,3,0,15011,96260,190249,2022,305704
+    3.425 ets Jul 29 2019 12:21:46
+    3.426 
+    3.426 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+    3.426 configsip: 0, SPIWP:0xee
+    3.437 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+    3.437 mode:DIO, clock div:2
+    3.438 load:0x3fff0030,len:4640
+    3.441 load:0x40078000,len:15632
+    3.441 load:0x40080400,len:3164
+    3.441 entry 0x4008059c
+    3.489 [T0] 15010
+    3.531 [CICLO] espnow_cripto,1,1,1,1,0,15010,30925,3671,2051,53821
+    6.531 ets Jul 29 2019 12:21:46
+    6.531 
+    6.531 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+    6.531 configsip: 0, SPIWP:0xee
+    6.542 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+    6.542 mode:DIO, clock div:2
+    6.542 load:0x3fff0030,len:4640
+    6.546 load:0x40078000,len:15632
+    6.547 load:0x40080400,len:3164
+    6.547 entry 0x4008059c
+    6.594 [T0] 15012
+    6.637 [CICLO] espnow_cripto,2,1,1,1,0,15012,30922,3930,2049,54075
+    9.638 ets Jul 29 2019 12:21:46
+    9.638 
+    9.638 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+    9.639 configsip: 0, SPIWP:0xee
+    9.650 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+    9.650 mode:DIO, clock div:2
+    9.650 load:0x3fff0030,len:4640
+    9.654 load:0x40078000,len:15632
+    9.654 load:0x40080400,len:3164
+    9.654 entry 0x4008059c
+    9.701 [T0] 15006
+    9.747 [CICLO] espnow_cripto,3,1,1,1,0,15006,30925,7122,2051,57268
+   12.743 ets Jul 29 2019 12:21:46
+   12.743 
+   12.743 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   12.744 configsip: 0, SPIWP:0xee
+   12.754 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   12.755 mode:DIO, clock div:2
+   12.755 load:0x3fff0030,len:4640
+   12.759 load:0x40078000,len:15632
+   12.759 load:0x40080400,len:3164
+   12.759 entry 0x4008059c
+   12.806 [T0] 15005
+   12.849 [CICLO] espnow_cripto,4,1,1,1,0,15005,30925,3676,2052,53820
+   15.156 ets Jul 29 2019 12:21:46
+   15.156 
+   15.157 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   15.157 configsip: 0, SPIWP:0xee
+   15.168 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   15.168 mode:DIO, clock div:2
+   15.168 load:0x3fff0030,len:4640
+   15.172 load:0x40078000,len:15632
+   15.172 load:0x40080400,len:3164
+   15.172 entry 0x4008059c
+   15.219 [T0] 15007
+   15.262 [CICLO] espnow_cripto,5,1,1,1,0,15007,30926,3676,2051,53823
+   18.262 ets Jul 29 2019 12:21:46
+   18.262 
+   18.262 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   18.263 configsip: 0, SPIWP:0xee
+   18.274 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   18.274 mode:DIO, clock div:2
+   18.274 load:0x3fff0030,len:4640
+   18.278 load:0x40078000,len:15632
+   18.278 load:0x40080400,len:3164
+   18.278 entry 0x4008059c
+   18.325 [T0] 15008
+   18.368 [CICLO] espnow_cripto,6,1,1,1,0,15008,30925,3639,2069,53805
+   21.365 ets Jul 29 2019 12:21:46
+   21.365 
+   21.366 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   21.366 configsip: 0, SPIWP:0xee
+   21.377 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   21.377 mode:DIO, clock div:2
+   21.377 load:0x3fff0030,len:4640
+   21.381 load:0x40078000,len:15632
+   21.381 load:0x40080400,len:3164
+   21.381 entry 0x4008059c
+   21.429 [T0] 15006
+   21.471 [CICLO] espnow_cripto,7,1,1,1,0,15006,30925,3671,2067,53833
+   24.471 ets Jul 29 2019 12:21:46
+   24.471 
+   24.471 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   24.471 configsip: 0, SPIWP:0xee
+   24.482 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   24.482 mode:DIO, clock div:2
+   24.482 load:0x3fff0030,len:4640
+   24.486 load:0x40078000,len:15632
+   24.487 load:0x40080400,len:3164
+   24.487 entry 0x4008059c
+   24.534 [T0] 15006
+   24.578 [CICLO] espnow_cripto,8,1,1,1,0,15006,30931,4559,2075,54732
+   27.576 ets Jul 29 2019 12:21:46
+   27.576 
+   27.576 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   27.576 configsip: 0, SPIWP:0xee
+   27.587 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   27.587 mode:DIO, clock div:2
+   27.587 load:0x3fff0030,len:4640
+   27.591 load:0x40078000,len:15632
+   27.591 load:0x40080400,len:3164
+   27.592 entry 0x4008059c
+   27.639 [T0] 15009
+   27.688 [CICLO] espnow_cripto,9,1,1,1,0,15009,30922,9741,2051,59883
+   30.685 ets Jul 29 2019 12:21:46
+   30.685 
+   30.686 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   30.686 configsip: 0, SPIWP:0xee
+   30.696 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   30.697 mode:DIO, clock div:2
+   30.697 load:0x3fff0030,len:4640
+   30.701 load:0x40078000,len:15632
+   30.701 load:0x40080400,len:3164
+   30.701 entry 0x4008059c
+   30.749 [T0] 15009
+   30.791 [CICLO] espnow_cripto,10,1,1,1,0,15009,30922,3680,2052,53824
+   33.794 ets Jul 29 2019 12:21:46
+   33.794 
+   33.794 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   33.794 configsip: 0, SPIWP:0xee
+   33.805 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   33.806 mode:DIO, clock div:2
+   33.806 load:0x3fff0030,len:4640
+   33.810 load:0x40078000,len:15632
+   33.810 load:0x40080400,len:3164
+   33.810 entry 0x4008059c
+   33.857 [T0] 15004
+   33.901 [CICLO] espnow_cripto,11,1,1,1,0,15004,30922,4648,2053,54788
+   36.903 ets Jul 29 2019 12:21:46
+   36.903 
+   36.904 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   36.904 configsip: 0, SPIWP:0xee
+   36.914 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   36.915 mode:DIO, clock div:2
+   36.915 load:0x3fff0030,len:4640
+   36.919 load:0x40078000,len:15632
+   36.919 load:0x40080400,len:3164
+   36.919 entry 0x4008059c
+   36.966 [T0] 15012
+   37.010 [CICLO] espnow_cripto,12,1,1,1,0,15012,30922,3667,2055,53819
+   40.010 ets Jul 29 2019 12:21:46
+   40.010 
+   40.010 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   40.010 configsip: 0, SPIWP:0xee
+   40.021 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   40.021 mode:DIO, clock div:2
+   40.022 load:0x3fff0030,len:4640
+   40.025 load:0x40078000,len:15632
+   40.026 load:0x40080400,len:3164
+   40.026 entry 0x4008059c
+   40.073 [T0] 15003
+   40.134 [CICLO] espnow_cripto,13,1,1,1,0,15003,30926,5184,2072,55347
+   43.117 ets Jul 29 2019 12:21:46
+   43.118 
+   43.118 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   43.119 configsip: 0, SPIWP:0xee
+   43.129 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   43.129 mode:DIO, clock div:2
+   43.130 load:0x3fff0030,len:4640
+   43.133 load:0x40078000,len:15632
+   43.133 load:0x40080400,len:3164
+   43.133 entry 0x4008059c
+   43.180 [T0] 15009
+   43.224 [CICLO] espnow_cripto,14,1,1,1,0,15009,30922,4283,2047,54424
+   45.536 ets Jul 29 2019 12:21:46
+   45.536 
+   45.536 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   45.536 configsip: 0, SPIWP:0xee
+   45.547 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   45.547 mode:DIO, clock div:2
+   45.547 load:0x3fff0030,len:4640
+   45.551 load:0x40078000,len:15632
+   45.552 load:0x40080400,len:3164
+   45.552 entry 0x4008059c
+   45.599 [T0] 15008
+   45.642 [CICLO] espnow_cripto,15,1,1,1,0,15008,30925,3696,2060,53851
+   48.642 ets Jul 29 2019 12:21:46
+   48.642 
+   48.642 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   48.642 configsip: 0, SPIWP:0xee
+   48.653 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   48.653 mode:DIO, clock div:2
+   48.654 load:0x3fff0030,len:4640
+   48.658 load:0x40078000,len:15632
+   48.658 load:0x40080400,len:3164
+   48.658 entry 0x4008059c
+   48.705 [T0] 15008
+   48.748 [CICLO] espnow_cripto,16,1,1,1,0,15008,30922,3671,2051,53815
+   51.747 ets Jul 29 2019 12:21:46
+   51.747 
+   51.748 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   51.748 configsip: 0, SPIWP:0xee
+   51.759 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   51.759 mode:DIO, clock div:2
+   51.759 load:0x3fff0030,len:4640
+   51.763 load:0x40078000,len:15632
+   51.763 load:0x40080400,len:3164
+   51.763 entry 0x4008059c
+   51.810 [T0] 15003
+   51.857 [CICLO] espnow_cripto,17,1,1,1,0,15003,30960,7411,2070,57606
+   54.852 ets Jul 29 2019 12:21:46
+   54.852 
+   54.852 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   54.852 configsip: 0, SPIWP:0xee
+   54.863 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   54.864 mode:DIO, clock div:2
+   54.864 load:0x3fff0030,len:4640
+   54.868 load:0x40078000,len:15632
+   54.868 load:0x40080400,len:3164
+   54.868 entry 0x4008059c
+   54.915 [T0] 15006
+   54.959 [CICLO] espnow_cripto,18,1,1,1,0,15006,30925,4495,2056,54645
+   57.956 ets Jul 29 2019 12:21:46
+   57.956 
+   57.956 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   57.957 configsip: 0, SPIWP:0xee
+   57.968 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   57.968 mode:DIO, clock div:2
+   57.968 load:0x3fff0030,len:4640
+   57.972 load:0x40078000,len:15632
+   57.972 load:0x40080400,len:3164
+   57.972 entry 0x4008059c
+   58.019 [T0] 15007
+   58.064 [CICLO] espnow_cripto,19,1,1,1,0,15007,30944,5600,2053,55767
+   61.065 ets Jul 29 2019 12:21:46
+   61.065 
+   61.065 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   61.065 configsip: 0, SPIWP:0xee
+   61.076 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   61.076 mode:DIO, clock div:2
+   61.076 load:0x3fff0030,len:4640
+   61.080 load:0x40078000,len:15632
+   61.081 load:0x40080400,len:3164
+   61.081 entry 0x4008059c
+   61.128 [T0] 15009
+   61.171 [CICLO] espnow_cripto,20,1,1,1,0,15009,30922,3676,2052,53820
+   64.173 ets Jul 29 2019 12:21:46
+   64.173 
+   64.173 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   64.174 configsip: 0, SPIWP:0xee
+   64.184 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   64.185 mode:DIO, clock div:2
+   64.185 load:0x3fff0030,len:4640
+   64.189 load:0x40078000,len:15632
+   64.189 load:0x40080400,len:3164
+   64.189 entry 0x4008059c
+   64.236 [T0] 15009
+   64.280 [CICLO] espnow_cripto,21,1,1,1,0,15009,30925,3639,2074,53811
+   67.282 ets Jul 29 2019 12:21:46
+   67.282 
+   67.283 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   67.283 configsip: 0, SPIWP:0xee
+   67.294 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   67.294 mode:DIO, clock div:2
+   67.294 load:0x3fff0030,len:4640
+   67.298 load:0x40078000,len:15632
+   67.298 load:0x40080400,len:3164
+   67.299 entry 0x4008059c
+   67.345 [T0] 15002
+   67.388 [CICLO] espnow_cripto,22,1,1,1,0,15002,30925,3732,2051,53873
+   70.387 ets Jul 29 2019 12:21:46
+   70.387 
+   70.388 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   70.388 configsip: 0, SPIWP:0xee
+   70.399 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   70.399 mode:DIO, clock div:2
+   70.399 load:0x3fff0030,len:4640
+   70.403 load:0x40078000,len:15632
+   70.403 load:0x40080400,len:3164
+   70.404 entry 0x4008059c
+   70.451 [T0] 15008
+   70.493 [CICLO] espnow_cripto,23,1,1,1,0,15008,30922,3663,2055,53815
+   73.494 ets Jul 29 2019 12:21:46
+   73.494 
+   73.494 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   73.494 configsip: 0, SPIWP:0xee
+   73.505 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   73.505 mode:DIO, clock div:2
+   73.505 load:0x3fff0030,len:4640
+   73.509 load:0x40078000,len:15632
+   73.510 load:0x40080400,len:3164
+   73.510 entry 0x4008059c
+   73.557 [T0] 15002
+   73.599 [CICLO] espnow_cripto,24,1,1,1,0,15002,30926,3672,2068,53829
+   76.599 ets Jul 29 2019 12:21:46
+   76.599 
+   76.599 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   76.599 configsip: 0, SPIWP:0xee
+   76.610 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   76.611 mode:DIO, clock div:2
+   76.611 load:0x3fff0030,len:4640
+   76.614 load:0x40078000,len:15632
+   76.615 load:0x40080400,len:3164
+   76.615 entry 0x4008059c
+   76.662 [T0] 15004
+   76.705 [CICLO] espnow_cripto,25,1,1,1,0,15004,30926,3724,2059,53876
+   79.009 ets Jul 29 2019 12:21:46
+   79.009 
+   79.009 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   79.009 configsip: 0, SPIWP:0xee
+   79.020 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   79.021 mode:DIO, clock div:2
+   79.021 load:0x3fff0030,len:4640
+   79.024 load:0x40078000,len:15632
+   79.025 load:0x40080400,len:3164
+   79.025 entry 0x4008059c
+   79.072 [T0] 15009
+   79.117 [CICLO] espnow_cripto,26,1,1,1,0,15009,30925,5398,2047,55542
+   82.114 ets Jul 29 2019 12:21:46
+   82.114 
+   82.115 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   82.115 configsip: 0, SPIWP:0xee
+   82.126 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   82.127 mode:DIO, clock div:2
+   82.127 load:0x3fff0030,len:4640
+   82.130 load:0x40078000,len:15632
+   82.130 load:0x40080400,len:3164
+   82.130 entry 0x4008059c
+   82.178 [T0] 15004
+   82.221 [CICLO] espnow_cripto,27,1,1,1,0,15004,30922,3668,2072,53827
+   85.217 ets Jul 29 2019 12:21:46
+   85.217 
+   85.218 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   85.218 configsip: 0, SPIWP:0xee
+   85.229 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   85.229 mode:DIO, clock div:2
+   85.229 load:0x3fff0030,len:4640
+   85.233 load:0x40078000,len:15632
+   85.233 load:0x40080400,len:3164
+   85.234 entry 0x4008059c
+   85.281 [T0] 15008
+   85.324 [CICLO] espnow_cripto,28,1,1,1,0,15008,30926,4332,2050,54479
+   88.323 ets Jul 29 2019 12:21:46
+   88.323 
+   88.324 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   88.324 configsip: 0, SPIWP:0xee
+   88.335 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   88.335 mode:DIO, clock div:2
+   88.335 load:0x3fff0030,len:4640
+   88.339 load:0x40078000,len:15632
+   88.339 load:0x40080400,len:3164
+   88.339 entry 0x4008059c
+   88.386 [T0] 15006
+   88.429 [CICLO] espnow_cripto,29,1,1,1,0,15006,30922,3664,2055,53809
+   91.431 ets Jul 29 2019 12:21:46
+   91.431 
+   91.431 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   91.431 configsip: 0, SPIWP:0xee
+   91.442 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   91.442 mode:DIO, clock div:2
+   91.442 load:0x3fff0030,len:4640
+   91.446 load:0x40078000,len:15632
+   91.446 load:0x40080400,len:3164
+   91.447 entry 0x4008059c
+   91.494 [T0] 15002
+   91.537 [CICLO] espnow_cripto,30,1,1,1,0,15002,30930,3639,2053,53787
+   94.539 ets Jul 29 2019 12:21:46
+   94.539 
+   94.539 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   94.539 configsip: 0, SPIWP:0xee
+   94.551 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   94.551 mode:DIO, clock div:2
+   94.551 load:0x3fff0030,len:4640
+   94.554 load:0x40078000,len:15632
+   94.555 load:0x40080400,len:3164
+   94.555 entry 0x4008059c
+   94.602 [T0] 15009
+   94.646 [CICLO] espnow_cripto,31,1,1,1,0,15009,30974,4204,2064,54414
+   97.648 ets Jul 29 2019 12:21:46
+   97.648 
+   97.648 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   97.649 configsip: 0, SPIWP:0xee
+   97.660 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   97.660 mode:DIO, clock div:2
+   97.660 load:0x3fff0030,len:4640
+   97.664 load:0x40078000,len:15632
+   97.664 load:0x40080400,len:3164
+   97.665 entry 0x4008059c
+   97.711 [T0] 15003
+   97.757 [CICLO] espnow_cripto,32,1,1,1,0,15003,30925,6255,2066,56411
+  100.755 ets Jul 29 2019 12:21:46
+  100.755 
+  100.756 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  100.756 configsip: 0, SPIWP:0xee
+  100.767 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  100.767 mode:DIO, clock div:2
+  100.767 load:0x3fff0030,len:4640
+  100.771 load:0x40078000,len:15632
+  100.771 load:0x40080400,len:3164
+  100.771 entry 0x4008059c
+  100.818 [T0] 15007
+  100.861 [CICLO] espnow_cripto,33,1,1,1,0,15007,30922,3639,2069,53800
+  103.864 ets Jul 29 2019 12:21:46
+  103.864 
+  103.864 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  103.864 configsip: 0, SPIWP:0xee
+  103.875 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  103.875 mode:DIO, clock div:2
+  103.875 load:0x3fff0030,len:4640
+  103.880 load:0x40078000,len:15632
+  103.880 load:0x40080400,len:3164
+  103.880 entry 0x4008059c
+  103.927 [T0] 15007
+  103.984 [CICLO] espnow_cripto,34,1,1,1,0,15007,30960,3733,2052,53914
+  106.969 ets Jul 29 2019 12:21:46
+  106.969 
+  106.969 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  106.970 configsip: 0, SPIWP:0xee
+  106.980 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  106.980 mode:DIO, clock div:2
+  106.980 load:0x3fff0030,len:4640
+  106.984 load:0x40078000,len:15632
+  106.985 load:0x40080400,len:3164
+  106.985 entry 0x4008059c
+  107.032 [T0] 15005
+  107.079 [CICLO] espnow_cripto,35,1,1,1,0,15005,30925,7749,2049,57892
+  109.392 ets Jul 29 2019 12:21:46
+  109.392 
+  109.392 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  109.392 configsip: 0, SPIWP:0xee
+  109.404 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  109.404 mode:DIO, clock div:2
+  109.404 load:0x3fff0030,len:4640
+  109.408 load:0x40078000,len:15632
+  109.408 load:0x40080400,len:3164
+  109.408 entry 0x4008059c
+  109.455 [T0] 15003
+  109.499 [CICLO] espnow_cripto,36,1,1,1,0,15003,30925,4230,2070,54390
+  112.498 ets Jul 29 2019 12:21:46
+  112.498 
+  112.498 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  112.498 configsip: 0, SPIWP:0xee
+  112.509 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  112.509 mode:DIO, clock div:2
+  112.509 load:0x3fff0030,len:4640
+  112.513 load:0x40078000,len:15632
+  112.513 load:0x40080400,len:3164
+  112.513 entry 0x4008059c
+  112.561 [T0] 15007
+  112.604 [CICLO] espnow_cripto,37,1,1,1,0,15007,30925,3640,2070,53804
+  115.605 ets Jul 29 2019 12:21:46
+  115.605 
+  115.605 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  115.605 configsip: 0, SPIWP:0xee
+  115.616 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  115.616 mode:DIO, clock div:2
+  115.616 load:0x3fff0030,len:4640
+  115.620 load:0x40078000,len:15632
+  115.621 load:0x40080400,len:3164
+  115.621 entry 0x4008059c
+  115.668 [T0] 15003
+  115.711 [CICLO] espnow_cripto,38,1,1,1,0,15003,30925,3655,2059,53809
+  118.711 ets Jul 29 2019 12:21:46
+  118.711 
+  118.711 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  118.711 configsip: 0, SPIWP:0xee
+  118.722 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  118.723 mode:DIO, clock div:2
+  118.723 load:0x3fff0030,len:4640
+  118.727 load:0x40078000,len:15632
+  118.727 load:0x40080400,len:3164
+  118.727 entry 0x4008059c
+  118.774 [T0] 15003
+  118.817 [CICLO] espnow_cripto,39,1,1,1,0,15003,30926,3627,2061,53784
+  121.817 ets Jul 29 2019 12:21:46
+  121.817 
+  121.818 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  121.818 configsip: 0, SPIWP:0xee
+  121.829 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  121.829 mode:DIO, clock div:2
+  121.829 load:0x3fff0030,len:4640
+  121.833 load:0x40078000,len:15632
+  121.833 load:0x40080400,len:3164
+  121.833 entry 0x4008059c
+  121.880 [T0] 15010
+  121.923 [CICLO] espnow_cripto,40,1,1,1,0,15010,30922,3671,2051,53817
+  124.926 ets Jul 29 2019 12:21:46
+  124.926 
+  124.926 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  124.926 configsip: 0, SPIWP:0xee
+  124.937 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  124.937 mode:DIO, clock div:2
+  124.937 load:0x3fff0030,len:4640
+  124.941 load:0x40078000,len:15632
+  124.942 load:0x40080400,len:3164
+  124.942 entry 0x4008059c
+  124.989 [T0] 15005
+  125.034 [CICLO] espnow_cripto,41,1,1,1,0,15005,30926,5720,2059,55877
+  128.038 ets Jul 29 2019 12:21:46
+  128.038 
+  128.039 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  128.039 configsip: 0, SPIWP:0xee
+  128.050 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  128.050 mode:DIO, clock div:2
+  128.050 load:0x3fff0030,len:4640
+  128.054 load:0x40078000,len:15632
+  128.054 load:0x40080400,len:3164
+  128.054 entry 0x4008059c
+  128.101 [T0] 15009
+  128.145 [CICLO] espnow_cripto,42,1,1,1,0,15009,30922,3864,2057,54013
+  131.149 ets Jul 29 2019 12:21:46
+  131.149 
+  131.150 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  131.150 configsip: 0, SPIWP:0xee
+  131.161 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  131.161 mode:DIO, clock div:2
+  131.162 load:0x3fff0030,len:4640
+  131.165 load:0x40078000,len:15632
+  131.165 load:0x40080400,len:3164
+  131.165 entry 0x4008059c
+  131.213 [T0] 15006
+  131.258 [CICLO] espnow_cripto,43,1,1,1,0,15006,30925,5864,2073,56030
+  134.255 ets Jul 29 2019 12:21:46
+  134.256 
+  134.256 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  134.256 configsip: 0, SPIWP:0xee
+  134.267 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  134.267 mode:DIO, clock div:2
+  134.267 load:0x3fff0030,len:4640
+  134.271 load:0x40078000,len:15632
+  134.271 load:0x40080400,len:3164
+  134.271 entry 0x4008059c
+  134.319 [T0] 15006
+  134.362 [CICLO] espnow_cripto,44,1,1,1,0,15006,30922,3664,2072,53824
+  137.362 ets Jul 29 2019 12:21:46
+  137.362 
+  137.362 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  137.363 configsip: 0, SPIWP:0xee
+  137.373 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  137.374 mode:DIO, clock div:2
+  137.374 load:0x3fff0030,len:4640
+  137.378 load:0x40078000,len:15632
+  137.378 load:0x40080400,len:3164
+  137.378 entry 0x4008059c
+  137.425 [T0] 15000
+  137.468 [CICLO] espnow_cripto,45,1,1,1,0,15000,30925,3680,2051,53819
+  139.774 ets Jul 29 2019 12:21:46
+  139.774 
+  139.774 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  139.774 configsip: 0, SPIWP:0xee
+  139.785 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  139.785 mode:DIO, clock div:2
+  139.785 load:0x3fff0030,len:4640
+  139.789 load:0x40078000,len:15632
+  139.789 load:0x40080400,len:3164
+  139.790 entry 0x4008059c
+  139.837 [T0] 15008
+  139.880 [CICLO] espnow_cripto,46,1,1,1,0,15008,30922,4445,2079,54615
+  142.875 ets Jul 29 2019 12:21:46
+  142.875 
+  142.876 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  142.876 configsip: 0, SPIWP:0xee
+  142.887 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  142.887 mode:DIO, clock div:2
+  142.887 load:0x3fff0030,len:4640
+  142.891 load:0x40078000,len:15632
+  142.891 load:0x40080400,len:3164
+  142.891 entry 0x4008059c
+  142.938 [T0] 15003
+  142.981 [CICLO] espnow_cripto,47,1,1,1,0,15003,30925,3676,2068,53834
+  145.976 ets Jul 29 2019 12:21:46
+  145.976 
+  145.976 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  145.977 configsip: 0, SPIWP:0xee
+  145.987 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  145.988 mode:DIO, clock div:2
+  145.988 load:0x3fff0030,len:4640
+  145.992 load:0x40078000,len:15632
+  145.992 load:0x40080400,len:3164
+  145.992 entry 0x4008059c
+  146.039 [T0] 15007
+  146.082 [CICLO] espnow_cripto,48,1,1,1,0,15007,30922,3639,2053,53784
+  149.082 ets Jul 29 2019 12:21:46
+  149.082 
+  149.082 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  149.082 configsip: 0, SPIWP:0xee
+  149.093 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  149.093 mode:DIO, clock div:2
+  149.093 load:0x3fff0030,len:4640
+  149.097 load:0x40078000,len:15632
+  149.098 load:0x40080400,len:3164
+  149.098 entry 0x4008059c
+  149.145 [T0] 15001
+  149.190 [CICLO] espnow_cripto,49,1,1,1,0,15001,30930,6243,2055,56389
+  152.190 ets Jul 29 2019 12:21:46
+  152.190 
+  152.190 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  152.190 configsip: 0, SPIWP:0xee
+  152.201 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  152.201 mode:DIO, clock div:2
+  152.202 load:0x3fff0030,len:4640
+  152.206 load:0x40078000,len:15632
+  152.206 load:0x40080400,len:3164
+  152.206 entry 0x4008059c
+  152.253 [T0] 15008
+  152.296 [CICLO] espnow_cripto,50,1,1,1,0,15008,30972,3706,2049,53898
+  155.299 ets Jul 29 2019 12:21:46
+  155.299 
+  155.300 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  155.300 configsip: 0, SPIWP:0xee
+  155.311 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  155.311 mode:DIO, clock div:2
+  155.311 load:0x3fff0030,len:4640
+  155.315 load:0x40078000,len:15632
+  155.315 load:0x40080400,len:3164
+  155.315 entry 0x4008059c
+  155.362 [T0] 14996
+  155.407 [CICLO] espnow_cripto,51,1,1,1,0,14996,30926,5215,2051,55351
+  158.413 ets Jul 29 2019 12:21:46
+  158.413 
+  158.413 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  158.413 configsip: 0, SPIWP:0xee
+  158.424 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  158.424 mode:DIO, clock div:2
+  158.424 load:0x3fff0030,len:4640
+  158.428 load:0x40078000,len:15632
+  158.428 load:0x40080400,len:3164
+  158.429 entry 0x4008059c
+  158.476 [T0] 15006
+  158.519 [CICLO] espnow_cripto,52,1,1,1,0,15006,30925,3660,2069,53822
+  161.527 ets Jul 29 2019 12:21:46
+  161.527 
+  161.527 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  161.528 configsip: 0, SPIWP:0xee
+  161.538 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  161.539 mode:DIO, clock div:2
+  161.539 load:0x3fff0030,len:4640
+  161.543 load:0x40078000,len:15632
+  161.543 load:0x40080400,len:3164
+  161.543 entry 0x4008059c
+  161.590 [T0] 15007
+  161.633 [CICLO] espnow_cripto,53,1,1,1,0,15007,30922,3680,2068,53838
+  164.636 ets Jul 29 2019 12:21:46
+  164.636 
+  164.636 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  164.636 configsip: 0, SPIWP:0xee
+  164.647 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  164.647 mode:DIO, clock div:2
+  164.647 load:0x3fff0030,len:4640
+  164.651 load:0x40078000,len:15632
+  164.651 load:0x40080400,len:3164
+  164.652 entry 0x4008059c
+  164.699 [T0] 15014
+  164.742 [CICLO] espnow_cripto,54,1,1,1,0,15014,30922,3640,2054,53791
+  167.739 ets Jul 29 2019 12:21:46
+  167.739 
+  167.740 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  167.740 configsip: 0, SPIWP:0xee
+  167.751 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  167.751 mode:DIO, clock div:2
+  167.751 load:0x3fff0030,len:4640
+  167.755 load:0x40078000,len:15632
+  167.755 load:0x40080400,len:3164
+  167.755 entry 0x4008059c
+  167.802 [T0] 15008
+  167.848 [CICLO] espnow_cripto,55,1,1,1,0,15008,30925,6600,2070,56765
+  170.844 ets Jul 29 2019 12:21:46
+  170.844 
+  170.845 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  170.845 configsip: 0, SPIWP:0xee
+  170.856 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  170.856 mode:DIO, clock div:2
+  170.856 load:0x3fff0030,len:4640
+  170.860 load:0x40078000,len:15632
+  170.860 load:0x40080400,len:3164
+  170.860 entry 0x4008059c
+  170.907 [T0] 15008
+  170.951 [CICLO] espnow_cripto,56,1,1,1,0,15008,30922,4712,2068,54875
+  173.239 ets Jul 29 2019 12:21:46
+  173.239 
+  173.239 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  173.240 configsip: 0, SPIWP:0xee
+  173.250 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  173.250 mode:DIO, clock div:2
+  173.250 load:0x3fff0030,len:4640
+  173.255 load:0x40078000,len:15632
+  173.255 load:0x40080400,len:3164
+  173.255 entry 0x4008059c
+  173.306 [T0] 15005
+  173.345 [CICLO] espnow_cripto,57,1,1,1,0,15005,30922,3692,2051,53833
+  176.334 ets Jul 29 2019 12:21:46
+  176.334 
+  176.334 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  176.334 configsip: 0, SPIWP:0xee
+  176.345 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  176.345 mode:DIO, clock div:2
+  176.345 load:0x3fff0030,len:4640
+  176.349 load:0x40078000,len:15632
+  176.350 load:0x40080400,len:3164
+  176.350 entry 0x4008059c
+  176.397 [T0] 15009
+  176.439 [CICLO] espnow_cripto,58,1,1,1,0,15009,30925,3680,2051,53828
+  179.431 ets Jul 29 2019 12:21:46
+  179.432 
+  179.432 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  179.432 configsip: 0, SPIWP:0xee
+  179.443 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  179.443 mode:DIO, clock div:2
+  179.443 load:0x3fff0030,len:4640
+  179.447 load:0x40078000,len:15632
+  179.447 load:0x40080400,len:3164
+  179.448 entry 0x4008059c
+  179.495 [T0] 15011
+  179.538 [CICLO] espnow_cripto,59,1,1,1,0,15011,30922,3664,2056,53813
+  182.552 ets Jul 29 2019 12:21:46
+  182.552 
+  182.552 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  182.552 configsip: 0, SPIWP:0xee
+  182.563 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  182.563 mode:DIO, clock div:2
+  182.563 load:0x3fff0030,len:4640
+  182.567 load:0x40078000,len:15632
+  182.568 load:0x40080400,len:3164
+  182.568 entry 0x4008059c
+  182.615 [T0] 15003
+  182.658 [CICLO] espnow_cripto,60,1,1,1,0,15003,30926,3696,2075,53863
+  185.670 ets Jul 29 2019 12:21:46
+  185.670 
+  185.671 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  185.671 configsip: 0, SPIWP:0xee
+  185.682 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  185.682 mode:DIO, clock div:2
+  185.682 load:0x3fff0030,len:4640
+  185.686 load:0x40078000,len:15632
+  185.686 load:0x40080400,len:3164
+  185.686 entry 0x4008059c
+  185.734 [T0] 15011
+  185.781 [CICLO] espnow_cripto,61,1,1,1,0,15011,30922,7800,2055,57948
+  188.788 ets Jul 29 2019 12:21:46
+  188.788 
+  188.788 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  188.788 configsip: 0, SPIWP:0xee
+  188.799 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  188.799 mode:DIO, clock div:2
+  188.799 load:0x3fff0030,len:4640
+  188.803 load:0x40078000,len:15632
+  188.804 load:0x40080400,len:3164
+  188.804 entry 0x4008059c
+  188.851 [T0] 15001
+  188.898 [CICLO] espnow_cripto,62,1,1,1,0,15001,30925,7062,2071,57223
+  191.905 ets Jul 29 2019 12:21:46
+  191.905 
+  191.905 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  191.905 configsip: 0, SPIWP:0xee
+  191.916 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  191.916 mode:DIO, clock div:2
+  191.917 load:0x3fff0030,len:4640
+  191.921 load:0x40078000,len:15632
+  191.921 load:0x40080400,len:3164
+  191.921 entry 0x4008059c
+  191.968 [T0] 15004
+  192.011 [CICLO] espnow_cripto,63,1,1,1,0,15004,30926,3732,2067,53892
+  195.021 ets Jul 29 2019 12:21:46
+  195.021 
+  195.022 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  195.022 configsip: 0, SPIWP:0xee
+  195.033 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  195.033 mode:DIO, clock div:2
+  195.033 load:0x3fff0030,len:4640
+  195.037 load:0x40078000,len:15632
+  195.037 load:0x40080400,len:3164
+  195.037 entry 0x4008059c
+  195.085 [T0] 15007
+  195.130 [CICLO] espnow_cripto,64,1,1,1,0,15007,30922,5659,2069,55819
+  198.120 ets Jul 29 2019 12:21:46
+  198.120 
+  198.121 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  198.121 configsip: 0, SPIWP:0xee
+  198.132 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  198.132 mode:DIO, clock div:2
+  198.132 load:0x3fff0030,len:4640
+  198.136 load:0x40078000,len:15632
+  198.136 load:0x40080400,len:3164
+  198.136 entry 0x4008059c
+  198.183 [T0] 15009
+  198.228 [CICLO] espnow_cripto,65,1,1,1,0,15009,30922,5158,2047,55298
+  201.217 ets Jul 29 2019 12:21:46
+  201.218 
+  201.218 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  201.218 configsip: 0, SPIWP:0xee
+  201.229 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  201.229 mode:DIO, clock div:2
+  201.229 load:0x3fff0030,len:4640
+  201.233 load:0x40078000,len:15632
+  201.233 load:0x40080400,len:3164
+  201.234 entry 0x4008059c
+  201.280 [T0] 15010
+  201.323 [CICLO] espnow_cripto,66,1,1,1,0,15010,30922,3676,2051,53821
+  203.623 ets Jul 29 2019 12:21:46
+  203.623 
+  203.623 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  203.623 configsip: 0, SPIWP:0xee
+  203.634 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  203.634 mode:DIO, clock div:2
+  203.634 load:0x3fff0030,len:4640
+  203.638 load:0x40078000,len:15632
+  203.638 load:0x40080400,len:3164
+  203.639 entry 0x4008059c
+  203.685 [T0] 15004
+  203.728 [CICLO] espnow_cripto,67,1,1,1,0,15004,30925,4147,2045,54284
+  206.711 ets Jul 29 2019 12:21:46
+  206.712 
+  206.712 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  206.712 configsip: 0, SPIWP:0xee
+  206.723 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  206.723 mode:DIO, clock div:2
+  206.723 load:0x3fff0030,len:4640
+  206.727 load:0x40078000,len:15632
+  206.727 load:0x40080400,len:3164
+  206.727 entry 0x4008059c
+  206.774 [T0] 15003
+  206.817 [CICLO] espnow_cripto,68,1,1,1,0,15003,30925,3667,2071,53830
+  209.800 ets Jul 29 2019 12:21:46
+  209.800 
+  209.800 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  209.801 configsip: 0, SPIWP:0xee
+  209.811 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  209.812 mode:DIO, clock div:2
+  209.812 load:0x3fff0030,len:4640
+  209.816 load:0x40078000,len:15632
+  209.816 load:0x40080400,len:3164
+  209.816 entry 0x4008059c
+  209.863 [T0] 15011
+  209.907 [CICLO] espnow_cripto,69,1,1,1,0,15011,30944,5629,2069,55815
+  212.920 ets Jul 29 2019 12:21:46
+  212.920 
+  212.920 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  212.920 configsip: 0, SPIWP:0xee
+  212.931 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  212.931 mode:DIO, clock div:2
+  212.932 load:0x3fff0030,len:4640
+  212.935 load:0x40078000,len:15632
+  212.936 load:0x40080400,len:3164
+  212.936 entry 0x4008059c
+  212.984 [T0] 15002
+  213.035 [CICLO] espnow_cripto,70,1,1,1,0,15002,30925,11575,2070,61735
+  216.068 ets Jul 29 2019 12:21:46
+  216.068 
+  216.068 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  216.068 configsip: 0, SPIWP:0xee
+  216.080 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  216.080 mode:DIO, clock div:2
+  216.080 load:0x3fff0030,len:4640
+  216.084 load:0x40078000,len:15632
+  216.084 load:0x40080400,len:3164
+  216.084 entry 0x4008059c
+  216.132 [T0] 15010
+  216.176 [CICLO] espnow_cripto,71,1,1,1,0,15010,30925,3777,2054,53929
+  219.217 ets Jul 29 2019 12:21:46
+  219.217 
+  219.218 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  219.218 configsip: 0, SPIWP:0xee
+  219.229 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  219.229 mode:DIO, clock div:2
+  219.229 load:0x3fff0030,len:4640
+  219.233 load:0x40078000,len:15632
+  219.233 load:0x40080400,len:3164
+  219.234 entry 0x4008059c
+  219.281 [T0] 15005
+  219.324 [CICLO] espnow_cripto,72,1,1,1,0,15005,30925,3680,2052,53824
+  222.335 ets Jul 29 2019 12:21:46
+  222.335 
+  222.335 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  222.335 configsip: 0, SPIWP:0xee
+  222.346 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  222.346 mode:DIO, clock div:2
+  222.346 load:0x3fff0030,len:4640
+  222.350 load:0x40078000,len:15632
+  222.350 load:0x40080400,len:3164
+  222.351 entry 0x4008059c
+  222.398 [T0] 15009
+  222.441 [CICLO] espnow_cripto,73,1,1,1,0,15009,30925,4109,2049,54255
+  225.451 ets Jul 29 2019 12:21:46
+  225.451 
+  225.451 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  225.451 configsip: 0, SPIWP:0xee
+  225.462 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  225.463 mode:DIO, clock div:2
+  225.463 load:0x3fff0030,len:4640
+  225.467 load:0x40078000,len:15632
+  225.467 load:0x40080400,len:3164
+  225.467 entry 0x4008059c
+  225.514 [T0] 15010
+  225.558 [CICLO] espnow_cripto,74,1,1,1,0,15010,30925,4347,2056,54502
+  228.563 ets Jul 29 2019 12:21:46
+  228.563 
+  228.563 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  228.563 configsip: 0, SPIWP:0xee
+  228.574 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  228.574 mode:DIO, clock div:2
+  228.574 load:0x3fff0030,len:4640
+  228.578 load:0x40078000,len:15632
+  228.579 load:0x40080400,len:3164
+  228.579 entry 0x4008059c
+  228.626 [T0] 15004
+  228.674 [CICLO] espnow_cripto,75,1,1,1,0,15004,30925,9049,2073,59214
+  231.668 ets Jul 29 2019 12:21:46
+  231.668 
+  231.668 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  231.668 configsip: 0, SPIWP:0xee
+  231.679 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  231.679 mode:DIO, clock div:2
+  231.680 load:0x3fff0030,len:4640
+  231.683 load:0x40078000,len:15632
+  231.684 load:0x40080400,len:3164
+  231.684 entry 0x4008059c
+  231.731 [T0] 15007
+  231.774 [CICLO] espnow_cripto,76,1,1,1,0,15007,30922,3930,2050,54070
+  234.000 ets Jul 29 2019 12:21:46
+  234.000 
+  234.000 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  234.000 configsip: 0, SPIWP:0xee
+  234.011 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  234.011 mode:DIO, clock div:2
+  234.011 load:0x3fff0030,len:4640
+  234.015 load:0x40078000,len:15632
+  234.016 load:0x40080400,len:3164
+  234.016 entry 0x4008059c
+  234.063 [T0] 15003
+  234.111 [CICLO] espnow_cripto,77,1,1,1,0,15003,30925,8914,2066,59070
+  237.096 ets Jul 29 2019 12:21:46
+  237.096 
+  237.096 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  237.096 configsip: 0, SPIWP:0xee
+  237.107 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  237.108 mode:DIO, clock div:2
+  237.108 load:0x3fff0030,len:4640
+  237.111 load:0x40078000,len:15632
+  237.111 load:0x40080400,len:3164
+  237.112 entry 0x4008059c
+  237.159 [T0] 15006
+  237.201 [CICLO] espnow_cripto,78,1,1,1,0,15006,30922,3660,2069,53817
+  240.186 ets Jul 29 2019 12:21:46
+  240.186 
+  240.186 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  240.186 configsip: 0, SPIWP:0xee
+  240.197 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  240.197 mode:DIO, clock div:2
+  240.198 load:0x3fff0030,len:4640
+  240.202 load:0x40078000,len:15632
+  240.202 load:0x40080400,len:3164
+  240.203 entry 0x4008059c
+  240.249 [T0] 15003
+  240.295 [CICLO] espnow_cripto,79,1,1,1,0,15003,30922,6914,2049,57050
+  243.279 ets Jul 29 2019 12:21:46
+  243.279 
+  243.279 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  243.279 configsip: 0, SPIWP:0xee
+  243.290 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  243.290 mode:DIO, clock div:2
+  243.290 load:0x3fff0030,len:4640
+  243.294 load:0x40078000,len:15632
+  243.294 load:0x40080400,len:3164
+  243.294 entry 0x4008059c
+  243.341 [T0] 15008
+  243.384 [CICLO] espnow_cripto,80,1,1,1,0,15008,30925,3664,2072,53831
+  246.409 ets Jul 29 2019 12:21:46
+  246.409 
+  246.409 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  246.410 configsip: 0, SPIWP:0xee
+  246.420 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  246.420 mode:DIO, clock div:2
+  246.420 load:0x3fff0030,len:4640
+  246.424 load:0x40078000,len:15632
+  246.425 load:0x40080400,len:3164
+  246.425 entry 0x4008059c
+  246.472 [T0] 15006
+  246.517 [CICLO] espnow_cripto,81,1,1,1,0,15006,30925,4412,2069,54573
+  249.538 ets Jul 29 2019 12:21:46
+  249.538 
+  249.538 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  249.538 configsip: 0, SPIWP:0xee
+  249.550 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  249.550 mode:DIO, clock div:2
+  249.550 load:0x3fff0030,len:4640
+  249.554 load:0x40078000,len:15632
+  249.554 load:0x40080400,len:3164
+  249.554 entry 0x4008059c
+  249.601 [T0] 15009
+  249.645 [CICLO] espnow_cripto,82,1,1,1,0,15009,30922,3640,2070,53802
+  252.663 ets Jul 29 2019 12:21:46
+  252.663 
+  252.664 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  252.664 configsip: 0, SPIWP:0xee
+  252.675 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  252.675 mode:DIO, clock div:2
+  252.676 load:0x3fff0030,len:4640
+  252.679 load:0x40078000,len:15632
+  252.679 load:0x40080400,len:3164
+  252.679 entry 0x4008059c
+  252.727 [T0] 15003
+  252.770 [CICLO] espnow_cripto,83,1,1,1,0,15003,30925,3680,2051,53822
+  255.780 ets Jul 29 2019 12:21:46
+  255.781 
+  255.781 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  255.781 configsip: 0, SPIWP:0xee
+  255.792 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  255.792 mode:DIO, clock div:2
+  255.792 load:0x3fff0030,len:4640
+  255.796 load:0x40078000,len:15632
+  255.796 load:0x40080400,len:3164
+  255.796 entry 0x4008059c
+  255.844 [T0] 15010
+  255.887 [CICLO] espnow_cripto,84,1,1,1,0,15010,30925,3671,2051,53821
+  258.899 ets Jul 29 2019 12:21:46
+  258.899 
+  258.899 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  258.900 configsip: 0, SPIWP:0xee
+  258.911 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  258.911 mode:DIO, clock div:2
+  258.911 load:0x3fff0030,len:4640
+  258.915 load:0x40078000,len:15632
+  258.915 load:0x40080400,len:3164
+  258.915 entry 0x4008059c
+  258.963 [T0] 15009
+  259.006 [CICLO] espnow_cripto,85,1,1,1,0,15009,30922,3684,2051,53828
+  262.007 ets Jul 29 2019 12:21:46
+  262.007 
+  262.007 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  262.007 configsip: 0, SPIWP:0xee
+  262.018 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  262.018 mode:DIO, clock div:2
+  262.018 load:0x3fff0030,len:4640
+  262.022 load:0x40078000,len:15632
+  262.023 load:0x40080400,len:3164
+  262.023 entry 0x4008059c
+  262.070 [T0] 15013
+  262.113 [CICLO] espnow_cripto,86,1,1,1,0,15013,30925,3763,2055,53920
+  265.115 ets Jul 29 2019 12:21:46
+  265.115 
+  265.115 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  265.115 configsip: 0, SPIWP:0xee
+  265.127 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  265.127 mode:DIO, clock div:2
+  265.127 load:0x3fff0030,len:4640
+  265.131 load:0x40078000,len:15632
+  265.131 load:0x40080400,len:3164
+  265.131 entry 0x4008059c
+  265.178 [T0] 15003
+  265.223 [CICLO] espnow_cripto,87,1,1,1,0,15003,30925,5798,2051,55941
+  267.480 ets Jul 29 2019 12:21:46
+  267.480 
+  267.480 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  267.480 configsip: 0, SPIWP:0xee
+  267.491 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  267.491 mode:DIO, clock div:2
+  267.491 load:0x3fff0030,len:4640
+  267.495 load:0x40078000,len:15632
+  267.495 load:0x40080400,len:3164
+  267.495 entry 0x4008059c
+  267.542 [T0] 15014
+  267.585 [CICLO] espnow_cripto,88,1,1,1,0,15014,30923,3676,2052,53825
+  270.560 ets Jul 29 2019 12:21:46
+  270.560 
+  270.560 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  270.560 configsip: 0, SPIWP:0xee
+  270.571 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  270.571 mode:DIO, clock div:2
+  270.571 load:0x3fff0030,len:4640
+  270.575 load:0x40078000,len:15632
+  270.575 load:0x40080400,len:3164
+  270.575 entry 0x4008059c
+  270.622 [T0] 15003
+  270.665 [CICLO] espnow_cripto,89,1,1,1,0,15003,30925,3659,2052,53803
+  273.641 ets Jul 29 2019 12:21:46
+  273.641 
+  273.641 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  273.642 configsip: 0, SPIWP:0xee
+  273.652 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  273.652 mode:DIO, clock div:2
+  273.652 load:0x3fff0030,len:4640
+  273.656 load:0x40078000,len:15632
+  273.657 load:0x40080400,len:3164
+  273.657 entry 0x4008059c
+  273.704 [T0] 15008
+  273.746 [CICLO] espnow_cripto,90,1,1,1,0,15008,30922,3680,2067,53839
+  276.761 ets Jul 29 2019 12:21:46
+  276.761 
+  276.761 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  276.761 configsip: 0, SPIWP:0xee
+  276.773 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  276.773 mode:DIO, clock div:2
+  276.773 load:0x3fff0030,len:4640
+  276.777 load:0x40078000,len:15632
+  276.777 load:0x40080400,len:3164
+  276.777 entry 0x4008059c
+  276.825 [T0] 15007
+  276.869 [CICLO] espnow_cripto,91,1,1,1,0,15007,30923,3664,2056,53814
+  279.934 ets Jul 29 2019 12:21:46
+  279.934 
+  279.934 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  279.935 configsip: 0, SPIWP:0xee
+  279.946 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  279.946 mode:DIO, clock div:2
+  279.946 load:0x3fff0030,len:4640
+  279.950 load:0x40078000,len:15632
+  279.950 load:0x40080400,len:3164
+  279.950 entry 0x4008059c
+  279.998 [T0] 15008
+  280.044 [CICLO] espnow_cripto,92,1,1,1,0,15008,30925,5799,2054,55950
+  283.056 ets Jul 29 2019 12:21:46
+  283.056 
+  283.056 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  283.056 configsip: 0, SPIWP:0xee
+  283.067 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  283.067 mode:DIO, clock div:2
+  283.068 load:0x3fff0030,len:4640
+  283.072 load:0x40078000,len:15632
+  283.072 load:0x40080400,len:3164
+  283.072 entry 0x4008059c
+  283.119 [T0] 15004
+  283.162 [CICLO] espnow_cripto,93,1,1,1,0,15004,30925,3664,2055,53810
+  286.163 ets Jul 29 2019 12:21:46
+  286.163 
+  286.163 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  286.163 configsip: 0, SPIWP:0xee
+  286.174 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  286.174 mode:DIO, clock div:2
+  286.174 load:0x3fff0030,len:4640
+  286.179 load:0x40078000,len:15632
+  286.179 load:0x40080400,len:3164
+  286.179 entry 0x4008059c
+  286.226 [T0] 15002
+  286.272 [CICLO] espnow_cripto,94,1,1,1,0,15002,30926,6676,2051,56818
+  289.271 ets Jul 29 2019 12:21:46
+  289.271 
+  289.271 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  289.271 configsip: 0, SPIWP:0xee
+  289.282 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  289.282 mode:DIO, clock div:2
+  289.282 load:0x3fff0030,len:4640
+  289.286 load:0x40078000,len:15632
+  289.287 load:0x40080400,len:3164
+  289.287 entry 0x4008059c
+  289.334 [T0] 15008
+  289.378 [CICLO] espnow_cripto,95,1,1,1,0,15008,30922,5371,2053,55520
+  292.376 ets Jul 29 2019 12:21:46
+  292.376 
+  292.376 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  292.376 configsip: 0, SPIWP:0xee
+  292.387 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  292.388 mode:DIO, clock div:2
+  292.388 load:0x3fff0030,len:4640
+  292.392 load:0x40078000,len:15632
+  292.392 load:0x40080400,len:3164
+  292.392 entry 0x4008059c
+  292.439 [T0] 15003
+  292.484 [CICLO] espnow_cripto,96,1,1,1,0,15003,30925,5799,2051,55941
+  295.481 ets Jul 29 2019 12:21:46
+  295.481 
+  295.482 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  295.482 configsip: 0, SPIWP:0xee
+  295.493 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  295.493 mode:DIO, clock div:2
+  295.493 load:0x3fff0030,len:4640
+  295.497 load:0x40078000,len:15632
+  295.497 load:0x40080400,len:3164
+  295.497 entry 0x4008059c
+  295.545 [T0] 15012
+  295.587 [CICLO] espnow_cripto,97,1,1,1,0,15012,30925,3639,2053,53793
+  297.856 ets Jul 29 2019 12:21:46
+  297.856 
+  297.857 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  297.857 configsip: 0, SPIWP:0xee
+  297.868 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  297.868 mode:DIO, clock div:2
+  297.868 load:0x3fff0030,len:4640
+  297.872 load:0x40078000,len:15632
+  297.872 load:0x40080400,len:3164
+  297.872 entry 0x4008059c
+  297.919 [T0] 15007
+  297.962 [CICLO] espnow_cripto,98,1,1,1,0,15007,30925,3664,2055,53813
