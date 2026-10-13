@@ -3,6 +3,7 @@
 // ciclo inteiro (ler → ligar rádio → enviar → dormir) e o loop() nunca roda.
 // O estado entre ciclos fica na RAM do RTC (contadores.cpp).
 #include <Arduino.h>
+#include <esp_mac.h>
 #include <esp_sleep.h>
 #include <esp_timer.h>
 
@@ -13,6 +14,7 @@
 #include "energia.h"
 #include "envio.h"
 #include "protecao.h"
+#include "segredos.h"
 #include "sensores.h"
 
 namespace {
@@ -61,14 +63,14 @@ void imprimirEnvio(const protocolo::PacoteLeitura& p, const envio::Resultado& r,
 
 // Modo de teste de duplicata: reenvia o pacote atual e o do ciclo anterior.
 // O anterior fica na RAM do RTC (a RAM comum se perde no deep sleep).
-RTC_DATA_ATTR uint8_t pacoteAnterior[sizeof(protocolo::PacoteLeitura)];
+RTC_DATA_ATTR uint8_t pacoteAnterior[sizeof(protocolo::PacoteAssinado)];
 RTC_DATA_ATTR bool temAnterior = false;
 
 void testeDuplicata(const protocolo::PacoteLeitura& p, const uint8_t* bytes, const envio::Resultado& r) {
   if (config::TESTE_DUPLICATA_A_CADA > 0 && r.ack &&
       p.seq % config::TESTE_DUPLICATA_A_CADA == config::TESTE_DUPLICATA_A_CADA - 1) {
     envio::Resultado dup, ant;
-    envio::enviar(bytes, sizeof(p), dup);
+    envio::enviar(bytes, sizeof(protocolo::PacoteAssinado), dup);
     Serial.printf("[TESTE] reenvio do seq %lu (duplicado): ack=%u\n", (unsigned long)p.seq, dup.ack);
     if (temAnterior) {
       envio::enviar(pacoteAnterior, sizeof(pacoteAnterior), ant);
@@ -140,8 +142,16 @@ void setup() {
     Serial.println("[BOOT] no sensor - etapa 5");
     Serial.printf("[BOOT] boot=%u motivo=%u protocolo v%u (%u bytes) canal=%u destino=" MACSTR " periodo=%lu ms\n",
                   contadores::boot(), contadores::motivoBoot(), protocolo::VERSAO,
-                  (unsigned)sizeof(protocolo::PacoteLeitura), config::CANAL_WIFI, MAC2STR(config::MAC_COORDENADOR),
+                  (unsigned)sizeof(protocolo::PacoteAssinado), config::CANAL_WIFI, MAC2STR(config::MAC_COORDENADOR),
                   (unsigned long)config::PERIODO_CICLO_MS);
+    // A chave é derivada do MAC STA (ferramentas/chaves.py no MAC): gravada
+    // para outra placa, o coordenador recusaria todo pacote (assinatura_invalida).
+    uint8_t mac[6];
+    esp_read_mac(mac, ESP_MAC_WIFI_STA);
+    if (memcmp(mac, segredos::MAC_DA_CHAVE, sizeof(mac)) != 0)
+      Serial.printf("[BOOT] ERRO: chave gerada para " MACSTR ", mas este no e " MACSTR
+                    " (ferramentas/chaves.py no MAC)\n",
+                    MAC2STR(segredos::MAC_DA_CHAVE), MAC2STR(mac));
     if (config::TESTE_DUPLICATA_A_CADA > 0)
       Serial.printf("[BOOT] MODO DE TESTE: duplicata a cada %lu ciclos\n",
                     (unsigned long)config::TESTE_DUPLICATA_A_CADA);
@@ -177,15 +187,19 @@ void setup() {
     while (true) {
     }  // o prazo de protecao deve interromper isto
   }
-  uint8_t bytes[sizeof(p)];
-  memcpy(bytes, &p, sizeof(p));
+  // Protocolo v2: pacote + assinatura HMAC-SHA256 (docs/protocolo.md, seção 12).
+  protocolo::PacoteAssinado assinado;
+  bool assinou = protocolo::assinar(p, segredos::CHAVE_NO, protocolo::hmacSha256, assinado);
+  if (!assinou && config::LOGS) Serial.println("[ESPNOW] ERRO: falha ao assinar; pacote nao enviado");
+  uint8_t bytes[sizeof(assinado)];
+  memcpy(bytes, &assinado, sizeof(bytes));
   energia::desligarSensores();
   marcar(LEITURA);
 
   envio::Resultado r;
   bool ligado = envio::ligar(r);
   marcar(LIGAR);
-  if (ligado) {
+  if (ligado && assinou) {
     envio::enviar(bytes, sizeof(bytes), r);
     testeDuplicata(p, bytes, r);
   }
