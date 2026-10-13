@@ -2,7 +2,7 @@
 
 Formato dos bytes que o nó sensor envia ao coordenador pelo ESP-NOW (Etapa 3). Definido uma única vez em [`comum/protocolo/src/protocolo.h`](../comum/protocolo/src/protocolo.h), incluído pelos dois firmwares; testado sem rádio no PC (`cd no_sensor && pio test -e native`).
 
-**Versão 1: `PacoteLeitura`, 22 bytes, binário, little-endian.**
+**Versão 2: `PacoteAssinado`, 38 bytes = `PacoteLeitura` (22 bytes, binário, little-endian, `versao = 2`) + assinatura HMAC-SHA256 de 16 bytes (seção 12).** A versão 1 (só os 22 bytes, sem assinatura) é recusada pelo coordenador a partir da v2; os registros v1 já gravados no histórico continuam legíveis (o histórico não revalida o pacote).
 
 ![Pacote byte a byte](figuras/pacote_bytes.png)
 
@@ -17,7 +17,8 @@ Formato dos bytes que o nó sensor envia ao coordenador pelo ESP-NOW (Etapa 3). 
 | Umidade do solo | **tensão em mV**; o % é calculado no coordenador | recalibrar no campo sem regravar os nós; o histórico guarda o dado bruto |
 | Estados | 2 bits por grandeza, num único byte | `ok`, `erro`, `fora_de_faixa` (+1 valor reservado) |
 | Instrumentação | tempo acordado e tentativas do ciclo anterior, motivo do boot, flags | consumo, taxa de entrega e diagnóstico em campo por 5 bytes (40 µs no ar) |
-| Checksum próprio | **nenhum** | o quadro 802.11 já tem FCS (CRC-32); estrutura conferida por versão, tamanho e faixas; autenticidade fica para a criptografia (etapa 4) |
+| Checksum próprio | **nenhum** | o quadro 802.11 já tem FCS (CRC-32); estrutura conferida por versão, tamanho e faixas |
+| Autenticidade (v2) | **HMAC-SHA256 truncado em 16 B**, chave derivada por nó; sem a criptografia nativa (CCMP) | a CCMP sozinha não impede um quadro sem cifra com MAC forjado (teste E4, `docs/auditoria_errc.md`) e limita o coordenador a 7 peers cifrados; seção 12 |
 | Horário | **não vai no pacote** | o nó não tem relógio; o coordenador marca data e hora (DS3231) ao receber. Os únicos campos de tempo são durações medidas pelo contador interno do nó |
 
 ## 2. Conceitos e fontes
@@ -103,13 +104,15 @@ Verificações, nesta ordem; a primeira que falhar define o motivo, e o pacote �
 | # | Verificação | Motivo registrado |
 |---|---|---|
 | 1 | ponteiro nulo ou menos de 2 bytes | `tamanho_curto` |
-| 2 | `versao` ≠ 1 | `versao_desconhecida` |
+| 2 | `versao` ≠ 2 | `versao_desconhecida` |
 | 3 | `tipo` ≠ 1 | `tipo_desconhecido` |
-| 4 | tamanho ≠ 22 | `tamanho_errado` |
-| 5 | algum estado = 3 | `estado_reservado` |
-| 6 | estado `ok` com valor fora da faixa (seção 3) | `temperatura_fora`, `umidade_ar_fora`, `solo_fora`, `alimentacao_fora` |
+| 4 | tamanho ≠ 38 (`PacoteAssinado`) | `tamanho_errado` |
+| 5 | HMAC dos bytes 0–21 com a chave do nó de origem ≠ bytes 22–37 (seção 12) | `assinatura_invalida` |
+| 6 | algum estado = 3 | `estado_reservado` |
+| 7 | estado `ok` com valor fora da faixa (seção 3) | `temperatura_fora`, `umidade_ar_fora`, `solo_fora`, `alimentacao_fora` |
 
 - Versão e tipo vêm antes do tamanho exato: um nó com firmware novo (outra versão, outro tamanho) aparece como `versao_desconhecida`, o diagnóstico útil.
+- A assinatura vem antes do conteúdo: nada de um pacote não autenticado é interpretado.
 - Valores com estado `fora_de_faixa` ou `erro` não são verificados (o nó já os marcou).
 - Bits reservados de `flags` e valores desconhecidos de `motivo_boot` são **aceitos**, para compatibilidade com versões futuras.
 
@@ -123,10 +126,12 @@ Um rastreador por nó (MAC) no coordenador classifica cada pacote válido:
 | mesmo `boot`, `seq` posterior ao último | `novo` | aceita; `seq − último − 1` pacotes **perdidos** |
 | mesmo `boot` e mesmo `seq` | `duplicado` | descarta |
 | mesmo `boot`, `seq` anterior ao último | `antigo` | descarta |
-| `boot` diferente do último (maior ou menor) | `reinicio` | aceita; conta reinício; os `seq` anteriores a este no novo boot contam como perdidos |
+| `boot` posterior ao último | `reinicio` | aceita; conta reinício; os `seq` anteriores a este no novo boot contam como perdidos |
+| `boot` anterior ao último (v2) | `boot_antigo` | descarta; conta em `bootsAntigos` |
 
-- **Volta do contador:** a comparação de `seq` usa aritmética modular de 32 bits (como o RFC 1982): depois de 0xFFFFFFFF vem 0, classificado como `novo`, sem confundir com reinício. A 1 pacote por minuto, a volta levaria ~8000 anos; o teste existe por correção.
-- **Por que qualquer `boot` diferente é reinício:** a NVS do nó pode ser apagada (gravação com apagamento total) e o contador recomeçar em 1. Tratar "boot menor" como pacote antigo travaria o nó para sempre.
+- **Volta dos contadores:** as comparações usam aritmética modular (como o RFC 1982): `seq` em 32 bits (depois de 0xFFFFFFFF vem 0, classificado como `novo`) e `boot` em 16 bits (depois de 65535 vem 0, classificado como `reinicio`). A 1 pacote por minuto, a volta do `seq` levaria ~8000 anos; os testes existem por correção.
+- **Por que "boot anterior" é descartado (mudança da v2):** até a v1, qualquer boot diferente era reinício, para tolerar a NVS do nó apagada. Com a assinatura, isso abria uma brecha: um pacote **autêntico** gravado de um boot antigo e reenviado passaria como reinício. Agora o boot só pode avançar. Se a NVS de um nó for apagada (o contador recomeça), o coordenador recusa o nó até alguém liberá-lo (`esquecer()`, por comando no console).
+- **Coordenador religado:** `restaurar(boot, seq)` retoma o último par aceito de cada nó, para que um pacote repetido não passe como `primeiro`. O último par vem do histórico.
 - **Limitação:** perdas no fim de um boot (antes de o nó reiniciar) não são detectáveis.
 - **Taxa de entrega** (avaliação): `aceitos / (aceitos + perdidos)` por nó.
 
@@ -138,7 +143,7 @@ O coordenador guarda, por MAC, os pontos de calibração (`mv_seco`, `mv_umido`)
 
 - Todo quadro 802.11 termina com o **FCS (CRC-32)**, que aparece no formato do quadro ESP-NOW na documentação da Espressif. Pelo padrão IEEE 802.11, o receptor descarta quadros com FCS inválido antes de entregá-los ao software.
 - O ESP-NOW não acrescenta outro CRC na parte do fabricante.
-- Um checksum próprio só detectaria erros introduzidos depois da recepção (bugs); contra isso existem a versão, o tamanho exato e a validação de faixas. Contra adulteração, a proteção certa é a criptografia do ESP-NOW (etapa 4), e não um checksum.
+- Um checksum próprio só detectaria erros introduzidos depois da recepção (bugs); contra isso existem a versão, o tamanho exato e a validação de faixas. Contra adulteração e falsificação, a proteção é a assinatura HMAC da v2 (seção 12), e não um checksum.
 
 ## 9. Overhead no ar
 
@@ -176,15 +181,37 @@ Script: [`ferramentas/overhead_protocolo.py`](../ferramentas/overhead_protocolo.
 
 ## 10. Testes
 
-`cd no_sensor && pio test -e native`: 27 testes Unity no PC ([Unity no PlatformIO](https://docs.platformio.org/en/latest/advanced/unit-testing/frameworks/unity.html)), em [`no_sensor/test/test_protocolo/`](../no_sensor/test/test_protocolo/test_main.cpp):
+`cd no_sensor && pio test -e native`: 37 testes Unity no PC ([Unity no PlatformIO](https://docs.platformio.org/en/latest/advanced/unit-testing/frameworks/unity.html)), em [`no_sensor/test/test_protocolo/`](../no_sensor/test/test_protocolo/test_main.cpp):
 
 | Grupo | O que cobre |
 |---|---|
-| Layout | tamanho de 22 bytes; os 22 bytes esperados, em little-endian, de um pacote montado |
+| Layout | tamanhos de 22 e 38 bytes; os 22 bytes esperados, em little-endian, de um pacote montado |
 | Montagem | bits de estado; limites exatos das faixas (−40,00 e 85,00 °C) e um passo além; saturação; umidade negativa; `erro`, `NaN`, `reservado` e infinito |
 | Validação | ida e volta montar → validar; buffer em endereço ímpar; tamanho curto, versão desconhecida (inclusive com outro tamanho), tipo desconhecido, tamanho errado, estado reservado, cada faixa com estado `ok`; valores aceitos com `fora_de_faixa`/`erro`; flags e motivo desconhecidos aceitos; bits `ANTERIOR_SEM_ACK` e `CICLO_ANTERIOR_ABORTADO` preservados |
-| Sequência | sequência normal e lacuna; primeiro pacote; duplicado e antigo; reinício × duplicata; boot menor; estouro de `seq` com e sem lacuna |
+| Assinatura | assinatura = 16 primeiros bytes do HMAC; chave errada; cada bit dos bytes 2–37 alterado; pacote v1 e v2 sem assinatura; assinatura conferida antes do conteúdo; falha do HMAC; chave derivada depende do MAC e da mestra |
+| Sequência | sequência normal e lacuna; primeiro pacote; duplicado e antigo; reinício × duplicata; volta do boot; boot antigo descartado; `restaurar` depois de religar; `esquecer` com NVS apagada; estouro de `seq` com e sem lacuna |
+
+Na placa: `cd no_sensor && pio test -e esp32doit-devkit-v1 -f test_hmac_esp32` (HMAC-SHA256 do mbedTLS contra a RFC 4231 e tempo de assinar/validar; seção 12).
 
 ## 11. Evolução
 
 Qualquer mudança de campo, tamanho ou significado exige **incrementar `VERSAO`** e atualizar este documento, os `static_assert` e os testes. Um coordenador antigo descarta pacotes de versão nova com o motivo `versao_desconhecida`, em vez de interpretar bytes errados. Tipos novos de mensagem (ex.: "nó iniciou") usam o campo `tipo`, com structs próprias que começam pelos mesmos dois bytes (`versao`, `tipo`).
+
+## 12. Autenticação (v2)
+
+Motivo: na auditoria (`docs/auditoria_errc.md`, testes E3 e E4), a criptografia nativa do ESP-NOW (CCMP) recusou uma chave errada, mas o coordenador **aceitou quadros sem cifra** vindos do MAC de um peer cifrado, e o callback de recepção não informa se o quadro veio cifrado. Como o MAC de origem pode ser forjado, a autenticidade passou para a aplicação.
+
+| Item | Escolha | Fonte / motivo |
+|---|---|---|
+| Algoritmo | HMAC-SHA256 | [RFC 2104](https://www.rfc-editor.org/rfc/rfc2104); `mbedtls_md_hmac` do mbedTLS do ESP-IDF 5.5 (sem dependência nova), SHA-256 no acelerador de hardware (`CONFIG_MBEDTLS_HARDWARE_SHA=y`) |
+| Mensagem assinada | os 22 bytes do `PacoteLeitura` (com `boot` e `seq`) | `boot`/`seq` autenticados são a base da antirrepetição (seção 6) |
+| Assinatura | 16 primeiros bytes do HMAC | RFC 2104, seção 5: não menos que metade da saída do hash e não menos que 80 bits |
+| Chaves | 32 bytes | RFC 2104, seção 3: menos que L (32 B no SHA-256) é desaconselhado |
+| Chave de cada nó | `HMAC-SHA256(chave_mestra, MAC STA do nó)` | o coordenador guarda só a mestra e calcula a chave de qualquer nó pelo MAC de origem, sem cadastro; cada nó guarda só a sua, e quem a extrair não falsifica os outros nós |
+| Comparação | tempo constante (OR de XORs) | o tempo de resposta não revela quantos bytes da assinatura estão certos |
+| Ordem na validação | assinatura antes de estados e faixas | nada de um pacote não autenticado é interpretado |
+| O que não faz | não cifra | as leituras continuam legíveis no ar (aceitável para dados de horta); a confidencialidade não é requisito |
+
+Custo medido na placa (`no_sensor/test/test_hmac_esp32`, média de 1000, 240 MHz): **assinar 136 µs, validar 137 µs, derivar uma chave 135 µs**. No ar, o quadro passa de 65 para 81 bytes (~0,71 → ~0,84 ms a 1 Mbps). Perto dos ~23 ms de rádio ligado por ciclo, o custo é desprezível.
+
+Correção: o HMAC do mbedTLS confere com os vetores da [RFC 4231](https://www.rfc-editor.org/rfc/rfc4231) (casos 1, 2 e 6) no mesmo teste na placa. Os testes no PC usam uma função de HMAC substituta para testar formato e lógica (assinatura nos bytes 22–37, chave errada, qualquer bit alterado, pacote sem assinatura, derivação de chave, boot antigo).

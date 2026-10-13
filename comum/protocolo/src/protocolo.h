@@ -17,7 +17,9 @@
 namespace protocolo {
 
 // ---------------------------------------------------------------- Identificação
-constexpr uint8_t VERSAO = 1;
+// v1: PacoteLeitura de 22 B sem autenticação.
+// v2: os mesmos 22 B (versao = 2) + assinatura HMAC-SHA256 de 16 B (PacoteAssinado).
+constexpr uint8_t VERSAO = 2;
 
 enum class Tipo : uint8_t {
   LEITURA = 1,  // leituras de um ciclo do nó
@@ -85,9 +87,48 @@ static_assert(offsetof(PacoteLeitura, flags) == 21, "offset de flags");
 static_assert(__BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__,
               "o protocolo assume plataforma little-endian (ESP32 e PC x86-64)");
 
+// ---------------------------------------------------------------- Autenticação (v2)
+// HMAC-SHA256 (RFC 2104) sobre os 22 B do PacoteLeitura, truncado em 16 B.
+// RFC 2104, seção 5: truncar para não menos que metade da saída do hash e não
+// menos que 80 bits. Seção 3: chave de pelo menos L bytes (32 no SHA-256).
+constexpr size_t TAMANHO_HMAC = 32;        // saída do HMAC-SHA256
+constexpr size_t TAMANHO_ASSINATURA = 16;  // metade de TAMANHO_HMAC
+constexpr size_t TAMANHO_CHAVE = 32;
+constexpr size_t TAMANHO_MAC = 6;
+
+// HMAC-SHA256 fornecido pela plataforma: no ESP32, hmacSha256 (mbedTLS, abaixo);
+// nos testes no PC, uma função de teste. Devolve false em caso de erro.
+using FuncaoHmac = bool (*)(const uint8_t* chave, size_t tamanhoChave, const uint8_t* mensagem,
+                            size_t tamanhoMensagem, uint8_t saida[TAMANHO_HMAC]);
+
+#if defined(ESP_PLATFORM)
+// mbedtls_md_hmac com SHA-256 (mbedTLS do ESP-IDF; o SHA usa o acelerador de
+// hardware do ESP32, CONFIG_MBEDTLS_HARDWARE_SHA). Implementado em hmac_esp32.cpp.
+bool hmacSha256(const uint8_t* chave, size_t tamanhoChave, const uint8_t* mensagem, size_t tamanhoMensagem,
+                uint8_t saida[TAMANHO_HMAC]);
+#endif
+
+// O que vai no ar a partir da v2: o pacote e, logo depois, a assinatura.
+struct __attribute__((packed)) PacoteAssinado {
+  PacoteLeitura leitura;                    //  0  versao = 2
+  uint8_t assinatura[TAMANHO_ASSINATURA];   // 22  HMAC-SHA256(chave do nó, bytes 0–21)[0..15]
+};
+static_assert(sizeof(PacoteAssinado) == 38, "PacoteAssinado deve ter 38 bytes");
+static_assert(offsetof(PacoteAssinado, assinatura) == 22, "offset da assinatura");
+
+// Chave de cada nó derivada da chave mestra do coordenador (diversificação de
+// chaves): chaveNo = HMAC-SHA256(chaveMestra, MAC STA do nó). O coordenador
+// guarda só a mestra e calcula a chave de qualquer nó pelo MAC de origem; cada
+// nó guarda só a sua (quem extrair a chave de um nó não falsifica os outros).
+bool derivarChaveNo(const uint8_t chaveMestra[TAMANHO_CHAVE], const uint8_t mac[TAMANHO_MAC], FuncaoHmac hmac,
+                    uint8_t chaveNo[TAMANHO_CHAVE]);
+
+// Assina o pacote (nó). Devolve false se o HMAC falhar.
+bool assinar(const PacoteLeitura& p, const uint8_t chave[TAMANHO_CHAVE], FuncaoHmac hmac, PacoteAssinado& saida);
+
 // Carga útil máxima do ESP-NOW v1.0 (ESP_NOW_MAX_DATA_LEN), ESP-IDF v5.5.
 constexpr size_t ESPNOW_MAX_CARGA = 250;
-static_assert(sizeof(PacoteLeitura) <= ESPNOW_MAX_CARGA, "pacote maior que a carga do ESP-NOW v1");
+static_assert(sizeof(PacoteAssinado) <= ESPNOW_MAX_CARGA, "pacote maior que a carga do ESP-NOW v1");
 
 // ---------------------------------------------------------------- Faixas válidas
 // Mesmas fontes do firmware do nó (docs/sensores.md, seção 6).
@@ -139,21 +180,26 @@ enum class Rejeicao : uint8_t {
   TAMANHO_CURTO,        // menos de 2 bytes: não dá nem para ler versão e tipo
   VERSAO_DESCONHECIDA,  // versao != VERSAO
   TIPO_DESCONHECIDO,    // tipo != LEITURA
-  TAMANHO_ERRADO,       // versão e tipo conhecidos, mas tamanho != sizeof(PacoteLeitura)
+  TAMANHO_ERRADO,       // versão e tipo conhecidos, mas tamanho != sizeof(PacoteAssinado)
   ESTADO_RESERVADO,     // algum estado com o valor 3
   TEMPERATURA_FORA,     // estado OK com valor fora da faixa válida
   UMIDADE_AR_FORA,
   SOLO_FORA,
   ALIMENTACAO_FORA,
+  ASSINATURA_INVALIDA,  // HMAC não confere (chave errada, pacote alterado ou forjado)
 };
 
 const char* nomeRejeicao(Rejeicao r);
 
-// Valida os bytes recebidos e, se válidos, copia-os (memcpy) para `saida`.
+// Valida os bytes recebidos (PacoteAssinado) e, se válidos, copia a leitura
+// (memcpy) para `saida`. `chave` é a chave do nó de origem (derivarChaveNo).
 // Ordem das verificações: tamanho mínimo, versão, tipo, tamanho exato,
-// estados, faixas. Versão e tipo vêm antes do tamanho exato para que uma
-// versão futura, com outro tamanho, seja registrada como versão desconhecida.
-Rejeicao validar(const uint8_t* dados, size_t tamanho, PacoteLeitura& saida);
+// assinatura, estados, faixas. Versão e tipo vêm antes do tamanho exato para
+// que uma versão futura, com outro tamanho, seja registrada como versão
+// desconhecida; a assinatura vem antes do conteúdo para que nada de um pacote
+// não autenticado seja interpretado.
+Rejeicao validar(const uint8_t* dados, size_t tamanho, const uint8_t chave[TAMANHO_CHAVE], FuncaoHmac hmac,
+                 PacoteLeitura& saida);
 
 // ---------------------------------------------------------------- Sequência (coordenador)
 // Classificação de um pacote válido pelo par (boot, seq), um rastreador por nó (MAC).
@@ -162,7 +208,9 @@ enum class Classe : uint8_t {
   NOVO,       // mesmo boot, seq posterior ao último (pode haver perdas no meio)
   DUPLICADO,  // mesmo boot e mesmo seq do último aceito: descartar
   ANTIGO,     // mesmo boot e seq anterior ao último: descartar
-  REINICIO,   // boot diferente do último: o nó reiniciou (seq recomeça de 0)
+  REINICIO,   // boot posterior ao último: o nó reiniciou (seq recomeça de 0)
+  BOOT_ANTIGO,  // boot anterior ao último: repetição de um pacote antigo, ou a NVS do
+                // nó foi apagada (liberar com esquecer()); descartar
 };
 
 const char* nomeClasse(Classe c);
@@ -173,13 +221,23 @@ constexpr bool aceitar(Classe c) {
 
 class RastreadorSequencia {
  public:
-  // Classifica e atualiza os contadores. A comparação de seq usa aritmética
-  // modular (RFC 1982): depois de 0xFFFFFFFF vem 0, sem confundir com reinício.
+  // Classifica e atualiza os contadores. As comparações de seq (32 bits) e de
+  // boot (16 bits) usam aritmética modular (RFC 1982): depois de 0xFFFFFFFF vem
+  // 0, sem confundir com reinício; depois do boot 65535 vem o 0.
   Classe registrar(uint16_t boot, uint32_t seq);
+
+  // Retoma o último (boot, seq) aceito conhecido (ex.: lido do histórico quando
+  // o coordenador liga), para que pacotes repetidos não passem como PRIMEIRO.
+  // Os contadores não mudam; o próximo pacote do mesmo boot conta as lacunas.
+  void restaurar(uint16_t boot, uint32_t seq);
+
+  // Esquece o nó: o próximo pacote é PRIMEIRO (ex.: depois de apagar a NVS do nó).
+  void esquecer() { iniciado_ = false; }
 
   uint32_t aceitos() const { return aceitos_; }
   uint32_t perdidos() const { return perdidos_; }    // lacunas de seq dentro de um boot
-  uint32_t descartados() const { return descartados_; }  // duplicados + antigos
+  uint32_t descartados() const { return descartados_; }  // duplicados + antigos + boots antigos
+  uint32_t bootsAntigos() const { return bootsAntigos_; }
   uint32_t reinicios() const { return reinicios_; }
   uint32_t ultimaLacuna() const { return ultimaLacuna_; }  // perdidos no último registro
 
@@ -190,6 +248,7 @@ class RastreadorSequencia {
   uint32_t aceitos_ = 0;
   uint32_t perdidos_ = 0;
   uint32_t descartados_ = 0;
+  uint32_t bootsAntigos_ = 0;
   uint32_t reinicios_ = 0;
   uint32_t ultimaLacuna_ = 0;
 };

@@ -30,7 +30,33 @@ bool foraComEstadoOk(uint8_t estados, Grandeza g, long valor, long minimo, long 
   return lerEstado(estados, g) == Estado::OK && (valor < minimo || valor > maximo);
 }
 
+// Compara sem sair no primeiro byte diferente: o tempo não revela quantos bytes
+// da assinatura um atacante acertou.
+bool iguaisTempoConstante(const uint8_t* a, const uint8_t* b, size_t n) {
+  uint8_t diferenca = 0;
+  for (size_t i = 0; i < n; i++) diferenca |= static_cast<uint8_t>(a[i] ^ b[i]);
+  return diferenca == 0;
+}
+
 }  // namespace
+
+bool derivarChaveNo(const uint8_t chaveMestra[TAMANHO_CHAVE], const uint8_t mac[TAMANHO_MAC], FuncaoHmac hmac,
+                    uint8_t chaveNo[TAMANHO_CHAVE]) {
+  static_assert(TAMANHO_CHAVE == TAMANHO_HMAC, "a chave derivada é a saída inteira do HMAC");
+  if (hmac == nullptr) return false;
+  return hmac(chaveMestra, TAMANHO_CHAVE, mac, TAMANHO_MAC, chaveNo);
+}
+
+bool assinar(const PacoteLeitura& p, const uint8_t chave[TAMANHO_CHAVE], FuncaoHmac hmac, PacoteAssinado& saida) {
+  if (hmac == nullptr) return false;
+  uint8_t bytes[sizeof(PacoteLeitura)];
+  std::memcpy(bytes, &p, sizeof(bytes));
+  uint8_t completo[TAMANHO_HMAC];
+  if (!hmac(chave, TAMANHO_CHAVE, bytes, sizeof(bytes), completo)) return false;
+  std::memcpy(&saida.leitura, bytes, sizeof(bytes));
+  std::memcpy(saida.assinatura, completo, TAMANHO_ASSINATURA);
+  return true;
+}
 
 PacoteLeitura montarLeitura(const DadosLeitura& d) {
   PacoteLeitura p{};
@@ -74,15 +100,22 @@ const char* nomeRejeicao(Rejeicao r) {
     case Rejeicao::UMIDADE_AR_FORA:     return "umidade_ar_fora";
     case Rejeicao::SOLO_FORA:           return "solo_fora";
     case Rejeicao::ALIMENTACAO_FORA:    return "alimentacao_fora";
+    case Rejeicao::ASSINATURA_INVALIDA: return "assinatura_invalida";
   }
   return "?";
 }
 
-Rejeicao validar(const uint8_t* dados, size_t tamanho, PacoteLeitura& saida) {
+Rejeicao validar(const uint8_t* dados, size_t tamanho, const uint8_t chave[TAMANHO_CHAVE], FuncaoHmac hmac,
+                 PacoteLeitura& saida) {
   if (dados == nullptr || tamanho < 2) return Rejeicao::TAMANHO_CURTO;
   if (dados[0] != VERSAO) return Rejeicao::VERSAO_DESCONHECIDA;
   if (dados[1] != static_cast<uint8_t>(Tipo::LEITURA)) return Rejeicao::TIPO_DESCONHECIDO;
-  if (tamanho != sizeof(PacoteLeitura)) return Rejeicao::TAMANHO_ERRADO;
+  if (tamanho != sizeof(PacoteAssinado)) return Rejeicao::TAMANHO_ERRADO;
+
+  uint8_t esperado[TAMANHO_HMAC];
+  if (chave == nullptr || hmac == nullptr || !hmac(chave, TAMANHO_CHAVE, dados, sizeof(PacoteLeitura), esperado) ||
+      !iguaisTempoConstante(esperado, dados + sizeof(PacoteLeitura), TAMANHO_ASSINATURA))
+    return Rejeicao::ASSINATURA_INVALIDA;
 
   PacoteLeitura p;
   std::memcpy(&p, dados, sizeof(p));  // cópia para variável local: sem acesso desalinhado
@@ -110,8 +143,15 @@ const char* nomeClasse(Classe c) {
     case Classe::DUPLICADO: return "duplicado";
     case Classe::ANTIGO:    return "antigo";
     case Classe::REINICIO:  return "reinicio";
+    case Classe::BOOT_ANTIGO: return "boot_antigo";
   }
   return "?";
+}
+
+void RastreadorSequencia::restaurar(uint16_t boot, uint32_t seq) {
+  iniciado_ = true;
+  boot_ = boot;
+  seq_ = seq;
 }
 
 Classe RastreadorSequencia::registrar(uint16_t boot, uint32_t seq) {
@@ -122,9 +162,18 @@ Classe RastreadorSequencia::registrar(uint16_t boot, uint32_t seq) {
     iniciado_ = true;
     c = Classe::PRIMEIRO;
   } else if (boot != boot_) {
-    // Qualquer boot diferente é tratado como reinício (inclusive menor: a NVS do nó
-    // pode ter sido apagada). O seq recomeça de 0, então os seq anteriores a este
-    // no novo boot se perderam. Perdas no fim do boot anterior não são detectáveis.
+    // O contador de boots do nó só avança (NVS). Um boot "atrás" do último, na
+    // metade do círculo de 16 bits, é um pacote antigo repetido (com assinatura
+    // válida, mas capturado antes) ou a NVS do nó foi apagada: descartar até
+    // alguém chamar esquecer(). Sem esta regra, reenviar um pacote de um boot
+    // anterior passaria como reinício.
+    if (static_cast<uint16_t>(boot - boot_) >= 0x8000u) {
+      descartados_++;
+      bootsAntigos_++;
+      return Classe::BOOT_ANTIGO;
+    }
+    // O seq recomeça de 0, então os seq anteriores a este no novo boot se
+    // perderam. Perdas no fim do boot anterior não são detectáveis.
     reinicios_++;
     ultimaLacuna_ = seq;
     c = Classe::REINICIO;

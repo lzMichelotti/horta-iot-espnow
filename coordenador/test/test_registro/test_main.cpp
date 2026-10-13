@@ -15,10 +15,11 @@ void tearDown() {}
 
 namespace {
 
-// Pacote real do NÓ 1 (boot 38, seq 3), capturado no passo 3.
+// Pacote real do NÓ 1 (boot 38, seq 3), capturado no passo 3, ainda no
+// protocolo v1. O registro grava os 22 B como chegaram (a versão também).
 protocolo::PacoteLeitura pacoteExemplo() {
   protocolo::PacoteLeitura p{};
-  p.versao = protocolo::VERSAO;
+  p.versao = 1;
   p.tipo = static_cast<uint8_t>(protocolo::Tipo::LEITURA);
   p.boot = 38;
   p.seq = 3;
