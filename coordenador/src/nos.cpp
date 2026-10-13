@@ -3,12 +3,18 @@
 #include <esp_mac.h>
 
 #include "configuracao.h"
+#include "segredos.h"
 
 namespace nos {
 
 namespace {
 
 No tabela[config::MAX_NOS];
+
+void derivarChave(No& n) {
+  n.temChave = chaveMestraValida() &&
+               protocolo::derivarChaveNo(segredos::CHAVE_MESTRA, n.mac, protocolo::hmacSha256, n.chave);
+}
 
 void copiarNome(No& n) {
   const cadastro::No* c = configuracao::tabela().buscar(n.mac);
@@ -26,6 +32,7 @@ No* buscar(const uint8_t mac[6]) {
       n.usado = true;
       memcpy(n.mac, mac, 6);
       copiarNome(n);
+      derivarChave(n);
       return &n;
     }
   return nullptr;
@@ -51,6 +58,23 @@ void atualizarUltima(const registro::Registro& r) {
   if (n == nullptr) return;
   n->ultima = r;
   n->temUltima = true;
+  protocolo::PacoteLeitura p = r.pacote;  // cópia: não ler campos packed por referência
+  n->sequencia.restaurar(p.boot, p.seq);
+}
+
+bool esquecer(const uint8_t mac[6]) {
+  for (auto& n : tabela)
+    if (n.usado && memcmp(n.mac, mac, 6) == 0) {
+      n.sequencia.esquecer();
+      return true;
+    }
+  return false;
+}
+
+bool chaveMestraValida() {
+  for (uint8_t b : segredos::CHAVE_MESTRA)
+    if (b != 0) return true;
+  return false;
 }
 
 void contarRecepcao(No& n, int8_t rssi) {

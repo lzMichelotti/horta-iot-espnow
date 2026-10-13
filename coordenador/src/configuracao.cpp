@@ -91,6 +91,7 @@ void pontoDaUltima(const uint8_t mac[6], cadastro::Ponto ponto) {
 void uso() {
   Serial.println("[CFG] uso: no | no nome MAC NOME | no cal MAC SECO UMIDO | no seco MAC | no umido MAC");
   Serial.println("[CFG]      no semcal MAC | no apagar MAC | no padrao");
+  Serial.println("[CFG]      no esquecer MAC");
 }
 
 }  // namespace
@@ -163,6 +164,10 @@ void comando(const char* argumento) {
     resultado(cad.removerCalibracao(mac));
   } else if (strcmp(tok[0], "apagar") == 0 && n == 2) {
     resultado(cad.remover(mac));
+  } else if (strcmp(tok[0], "esquecer") == 0 && n == 2) {
+    // Não mexe no cadastro (NVS): só no rastreador de sequência, em RAM.
+    Serial.printf("[CFG] esquecer " MACSTR ": %s\n", MAC2STR(mac),
+                  nos::esquecer(mac) ? "ok (proximo pacote aceito como primeiro)" : "no nao visto desde o boot");
   } else {
     uso();
   }

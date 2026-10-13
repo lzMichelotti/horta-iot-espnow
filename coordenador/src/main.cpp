@@ -64,6 +64,7 @@ void executar(char* linha) {
     Serial.println("[CONSOLE]   no cal MAC SECO UMIDO        calibracao do solo em mV (seco > umido)");
     Serial.println("[CONSOLE]   no seco MAC | no umido MAC   ponto de calibracao = solo da ultima leitura");
     Serial.println("[CONSOLE]   no semcal MAC | no apagar MAC | no padrao (semente do config.h)");
+    Serial.println("[CONSOLE]   no esquecer MAC              aceita o no de novo (NVS do no apagada: boot_antigo)");
     Serial.println("[CONSOLE]   consulta [de=T] [ate=T] [no=MAC] [ordem=asc|desc] [cursor=N] [limite=N]");
     Serial.println("[CONSOLE]            [maxlidos=N] [mostrar=0|1]   historico paginado (T: epoch ou ISO)");
     Serial.println("[CONSOLE]   consulta ultimas             ultima leitura de cada no");
@@ -156,7 +157,8 @@ void processar(const radio::Recebido& r) {
   nos::contarRecepcao(*n, r.rssi);
 
   protocolo::PacoteLeitura p{};
-  protocolo::Rejeicao rej = protocolo::validar(r.dados, r.tamanho, p);
+  protocolo::Rejeicao rej =
+      protocolo::validar(r.dados, r.tamanho, n->temChave ? n->chave : nullptr, protocolo::hmacSha256, p);
   Serial.printf("[CSV] %lu," MACSTR ",%s,%d,%d,%u,%s", millis(), MAC2STR(r.mac), n->nome, r.rssi, r.ruido,
                 r.tamanhoOriginal, protocolo::nomeRejeicao(rej));
   if (rej != protocolo::Rejeicao::NENHUMA) {
@@ -186,7 +188,10 @@ void setup() {
   imprimirParticoes();
   imprimirMac("STA", ESP_MAC_WIFI_STA);
   imprimirMac("AP ", ESP_MAC_WIFI_SOFTAP);
-  Serial.printf("[BOOT] protocolo v%u (%u bytes)\n", protocolo::VERSAO, (unsigned)sizeof(protocolo::PacoteLeitura));
+  Serial.printf("[BOOT] protocolo v%u (%u bytes, assinatura HMAC-SHA256 de %u)\n", protocolo::VERSAO,
+                (unsigned)sizeof(protocolo::PacoteAssinado), (unsigned)protocolo::TAMANHO_ASSINATURA);
+  if (!nos::chaveMestraValida())
+    Serial.println("[BOOT] ERRO: CHAVE_MESTRA nao gerada (ferramentas/chaves.py mestra); todo pacote sera recusado");
   configuracao::iniciar();  // antes do histórico: os nós da carga já recebem o nome do cadastro
   historico::iniciar(consulta::observar);  // antes do rádio: a leitura dos segmentos não disputa com a fila do ESP-NOW
   if (!radio::iniciar()) Serial.println("[BOOT] ERRO: radio nao iniciou");
