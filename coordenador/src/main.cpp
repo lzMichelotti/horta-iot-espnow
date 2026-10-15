@@ -14,6 +14,7 @@
 #include "config.h"
 #include "configuracao.h"
 #include "consulta.h"
+#include "exportar.h"
 #include "historico.h"
 #include "nos.h"
 #include "radio.h"
@@ -40,6 +41,8 @@ void executar(char* linha) {
     historico::comando(argumento);
   } else if (strcmp(linha, "no") == 0) {
     configuracao::comando(argumento);
+  } else if (strcmp(linha, "exportar") == 0) {
+    exportar::comando(argumento);
   } else if (strcmp(linha, "consulta") == 0) {
     consulta::comando(argumento);
 #ifdef TESTE_GRAVACAO
@@ -68,6 +71,8 @@ void executar(char* linha) {
     Serial.println("[CONSOLE]   consulta [de=T] [ate=T] [no=MAC] [ordem=asc|desc] [cursor=N] [limite=N]");
     Serial.println("[CONSOLE]            [maxlidos=N] [mostrar=0|1]   historico paginado (T: epoch ou ISO)");
     Serial.println("[CONSOLE]   consulta ultimas             ultima leitura de cada no");
+    Serial.println("[CONSOLE]   exportar [de=T] [ate=T] [no=MAC] [cursor=N]   historico em CSV (linhas [EXP])");
+    Serial.println("[CONSOLE]   exportar parar               interrompe a exportacao");
     Serial.println("[CONSOLE]   reiniciar                    reset por software (esp_restart)");
   } else {
     Serial.printf("[CONSOLE] comando desconhecido: \"%s\" (digite ajuda)\n", linha);
@@ -205,6 +210,7 @@ void loop() {
   radio::Recebido r;
   if (radio::receber(r, 100)) processar(r);
   lerConsole();
+  exportar::passo();  // uma página por volta: a fila do ESP-NOW continua sendo atendida
 
   static uint32_t descartadosAntes = 0;
   uint32_t d = radio::descartadosFilaCheia();

@@ -193,21 +193,15 @@ Pagina executar(const filtro::Filtro& f, Visitante visitar, void* contexto) {
   return pg;
 }
 
-void comando(const char* argumento) {
-  if (argumento != nullptr && strcmp(argumento, "ultimas") == 0) {
-    imprimirUltimas();
-    return;
-  }
-  filtro::Filtro f;
-  ContextoSerial ctx{true};
-  char copia[160];
+bool interpretarFiltro(const char* argumento, filtro::Filtro& f, bool* mostrar, const char* prefixo) {
+  char copia[config::CONSOLE_LINHA_MAX + 1];
   strncpy(copia, argumento ? argumento : "", sizeof(copia) - 1);
   copia[sizeof(copia) - 1] = '\0';
   for (char* tok = strtok(copia, " "); tok != nullptr; tok = strtok(nullptr, " ")) {
     char* v = strchr(tok, '=');
     if (v == nullptr) {
-      Serial.printf("[CONSULTA] parametro sem '=': %s\n", tok);
-      return;
+      Serial.printf("%s parametro sem '=': %s\n", prefixo, tok);
+      return false;
     }
     *v++ = '\0';
     int64_t t = 0;
@@ -233,17 +227,28 @@ void comando(const char* argumento) {
       f.limite = static_cast<uint16_t>(n);
     } else if (strcmp(tok, "maxlidos") == 0) {
       f.maxLidos = strtoul(v, nullptr, 10);
-    } else if (strcmp(tok, "mostrar") == 0) {
-      ctx.mostrar = atoi(v) != 0;
+    } else if (strcmp(tok, "mostrar") == 0 && mostrar != nullptr) {
+      *mostrar = atoi(v) != 0;
     } else {
       ok = false;
     }
     if (!ok) {
-      Serial.printf("[CONSULTA] parametro invalido: %s=%s\n", tok, v);
-      return;
+      Serial.printf("%s parametro invalido: %s=%s\n", prefixo, tok, v);
+      return false;
     }
   }
   if (f.porHora && f.ate == 0) f.ate = UINT32_MAX;  // só "de": até o fim
+  return true;
+}
+
+void comando(const char* argumento) {
+  if (argumento != nullptr && strcmp(argumento, "ultimas") == 0) {
+    imprimirUltimas();
+    return;
+  }
+  filtro::Filtro f;
+  ContextoSerial ctx{true};
+  if (!interpretarFiltro(argumento, f, &ctx.mostrar, "[CONSULTA]")) return;
 
   if (ctx.mostrar)
     Serial.println("[CONSULTA] id,mac,hora,utc,boot_coord,desde_boot_s,boot_no,seq,temp_c100,ur_c100,solo_mv,"

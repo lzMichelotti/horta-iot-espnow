@@ -48,6 +48,11 @@ const registro::Registro* ultimaLeitura(const uint8_t mac[6]);
 
 const filtro::Ancoras& ancoras();
 
+// Lê "de=T ate=T no=MAC ordem=asc|desc cursor=N limite=N maxlidos=N" (e
+// "mostrar=0|1", se mostrar != nullptr) para o filtro. Erros saem na serial
+// com o prefixo dado; false se algum parâmetro for inválido.
+bool interpretarFiltro(const char* argumento, filtro::Filtro& f, bool* mostrar, const char* prefixo);
+
 // Comando "consulta" da serial (teste da API):
 //   consulta [de=T] [ate=T] [no=MAC] [ordem=asc|desc] [cursor=N] [limite=N] [maxlidos=N] [mostrar=0|1]
 //   consulta ultimas
