@@ -1,0 +1,65 @@
+# Exportação interrompida (COORD desanexada pelo usbipd no meio)
+aguardando o boot da COORD...
+hora acertada com o relógio do PC
+exportando (histórico inteiro)...
+a porta caiu: device reports readiness to read but returned no data (device disconnected or multiple access on port?)
+INCOMPLETA: 6754 linhas recebidas em 83 s; arquivo mantido em dados/etapa7/rascunho/interrompida.csv.parcial
+saida=1
+## serial
+1792088265.344 ets Jul 29 2019 12:21:46
+1792088265.345 rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+1792088265.345 configsip: 0, SPIWP:0xee
+1792088265.356 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+1792088265.356 mode:DIO, clock div:2
+1792088265.356 load:0x3fff0030,len:4640
+1792088265.359 load:0x40078000,len:15632
+1792088265.360 load:0x40080400,len:3164
+1792088265.360 entry 0x4008059c
+1792088265.955 [BOOT] coordenador - etapa 7
+1792088265.968 [RELOGIO] boot 106, motivo do reset 1
+1792088265.969 [RELOGIO] utc=invalida epoch=0 valida=0 fonte=nenhuma boot=106 desde_boot_ms=224
+1792088265.979 [PART] nome,tipo,subtipo,endereco,tamanho_kb
+1792088265.979 [PART] nvs,1,0x02,0x009000,20
+1792088265.980 [PART] otadata,1,0x00,0x00e000,8
+1792088265.990 [PART] app0,0,0x00,0x010000,2048
+1792088265.990 [PART] littlefs,1,0x83,0x210000,1920
+1792088265.991 [PART] coredump,1,0x03,0x3f0000,64
+1792088265.991 [MAC] STA 88:57:21:70:91:fc
+1792088265.999 [MAC] AP  88:57:21:70:91:fd
+1792088265.999 [BOOT] protocolo v2 (38 bytes, assinatura HMAC-SHA256 de 16)
+1792088265.999 [CFG] cadastro lido da NVS: 1 nos
+1792088266.281 [FS] LittleFS montado: 1364 KB usados de 1920 KB
+1792088269.005 [FS] carga: 56 segmentos, 27710 registros validos, 0 invalidos, em 2702 ms
+1792088269.006 [FS] estado: ok (rotacoes de emergencia 0, falhas seguidas 0)
+1792088269.100 [WIFI] varrendo canais...
+1792088273.140 [WIFI] varredura: 30 redes em 4005 ms
+1792088273.206 [WIFI] canal  1: 6 no canal, 7 sobrepostas, mais forte -57 dBm
+1792088273.212 [WIFI] canal  6: 2 no canal, 14 sobrepostas, mais forte -27 dBm
+1792088273.212 [WIFI] canal 11: 8 no canal, 7 sobrepostas, mais forte -27 dBm
+1792088273.424 [WIFI] SoftAP "horta-coord" canal 1, MAC AP 88:57:21:70:91:FD, IP 192.168.4.1
+1792088273.435 [ESPNOW] pronto: versao 2, fila de 16 itens (272 bytes cada)
+1792088273.446 [CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags
+1792088273.450 [RESUMO] t_ms,mac,nome,recebidos,rejeitados,aceitos,perdidos,descartados,reinicios,sem_ack,entrega_pct,rssi_medio,rssi_min,rssi_max
+1792088273.560 [RELOGIO] acertada (antes: invalida)
+1792088273.561 [RELOGIO] utc=2026-10-15T18:17:53Z epoch=1792088273 valida=1 fonte=manual boot=106 desde_boot_ms=7771
+1792088273.673 [EXPORT] inicio
+1792088276.060 [CSV] 10257,88:57:21:70:93:70,no1,-50,-96,38,nenhuma,novo,1,56,1566,0,0,739,3501,5,8,425,3,3
+1792088276.202 [FS] gravado,79,210,146483
+1792088285.938 [CSV] 20203,88:57:21:70:93:70,no1,-49,-96,38,nenhuma,novo,0,56,1567,0,0,741,3501,5,8,236,1,1
+1792088285.999 [FS] gravado,79,211,68664
+1792088295.847 [CSV] 30093,88:57:21:70:93:70,no1,-50,-96,38,nenhuma,novo,0,56,1568,0,0,736,3503,5,8,290,1,1
+1792088295.917 [FS] gravado,79,212,76936
+1792088305.737 [CSV] 39924,88:57:21:70:93:70,no1,-50,-96,38,nenhuma,novo,0,56,1569,0,0,739,3500,5,8,262,1,1
+1792088305.811 [FS] gravado,79,213,79006
+1792088316.070 [CSV] 50317,88:57:21:70:93:70,no1,-52,-96,38,nenhuma,novo,0,56,1570,0,0,733,3502,5,8,237,1,1
+1792088316.143 [FS] gravado,79,214,80848
+1792088325.992 [RESUMO] 60247,88:57:21:70:93:70,no1,5,0,5,1,0,0,1,83.33,-50.2,-52,-49
+1792088326.001 [RESUMO] 60248,02:00:00:00:00:00,desconhecido,0,0,0,0,0,0,0,0.00,0.0,0,0
+1792088326.002 [CSV] 60260,88:57:21:70:93:70,no1,-51,-96,38,nenhuma,novo,0,56,1571,0,0,727,3500,5,8,262,1,1
+1792088326.575 [FS] gravado,79,215,576870
+1792088336.015 [CSV] 70223,88:57:21:70:93:70,no1,-51,-96,38,nenhuma,novo,0,56,1572,0,0,736,3498,5,8,236,1,1
+1792088336.083 [FS] gravado,79,216,74745
+1792088346.131 [CSV] 80276,88:57:21:70:93:70,no1,-51,-96,38,nenhuma,novo,0,56,1573,0,0,739,3502,5,8,239,1,1
+1792088346.201 [FS] gravado,79,217,76546
+1792088355.762 [CSV] 89858,88:57:21:70:93:70,no1,-50,-96,38,nenhuma,novo,0,56,1574,0,0,742,3499,5,8,236,1,1
+1792088355.837 [FS] gravado,79,218,78831
