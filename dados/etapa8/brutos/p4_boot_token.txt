@@ -1,0 +1,47 @@
+1792447221.127 # abrir
+1792447221.142 < ets Jul 29 2019 12:21:46
+1792447221.143 < 
+1792447221.143 < rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+1792447221.143 < configsip: 0, SPIWP:0xee
+1792447221.154 < clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+1792447221.154 < mode:DIO, clock div:2
+1792447221.154 < load:0x3fff0030,len:4640
+1792447221.158 < load:0x40078000,len:15632
+1792447221.158 < load:0x40080400,len:3164
+1792447221.158 < entry 0x4008059c
+1792447221.773 < 
+1792447221.776 < [BOOT] coordenador 8.0 - etapa 8
+1792447221.789 < [RELOGIO] boot 128, motivo do reset 1
+1792447221.790 < [RELOGIO] utc=invalida epoch=0 valida=0 fonte=nenhuma boot=128 desde_boot_ms=222
+1792447221.800 < [PART] nome,tipo,subtipo,endereco,tamanho_kb
+1792447221.800 < [PART] nvs,1,0x02,0x009000,20
+1792447221.801 < [PART] otadata,1,0x00,0x00e000,8
+1792447221.811 < [PART] app0,0,0x00,0x010000,2048
+1792447221.811 < [PART] littlefs,1,0x83,0x210000,1920
+1792447221.812 < [PART] coredump,1,0x03,0x3f0000,64
+1792447221.812 < [MAC] STA 88:57:21:70:91:fc
+1792447221.822 < [MAC] AP  88:57:21:70:91:fd
+1792447221.823 < [BOOT] protocolo v3 (42 bytes, assinatura HMAC-SHA256 de 16)
+1792447221.823 < [CFG] cadastro lido da NVS: 1 nos
+1792447221.828 < [HTTP] token das rotas de escrita: NAO configurado (escritas recusadas; 'token gerar')
+1792447221.887 < [FS] LittleFS montado: 148 KB usados de 1920 KB
+1792447222.175 < [FS] carga: 6 segmentos, 2579 registros validos, 0 invalidos, em 282 ms
+1792447222.176 < [FS] estado: ok (rotacoes de emergencia 0, falhas seguidas 0)
+1792447222.282 < [WIFI] varrendo canais...
+1792447226.095 < [WIFI] varredura: 21 redes em 3804 ms
+1792447226.140 < [WIFI] canal  1: 6 no canal, 5 sobrepostas, mais forte -75 dBm
+1792447226.148 < [WIFI] canal  6: 2 no canal, 8 sobrepostas, mais forte -33 dBm
+1792447226.148 < [WIFI] canal 11: 5 no canal, 3 sobrepostas, mais forte -33 dBm
+1792447226.352 < [WIFI] SoftAP "horta-coord" canal 1, MAC AP 88:57:21:70:91:FD, IP 192.168.4.1
+1792447226.363 < [ESPNOW] pronto: versao 2, fila de 16 itens (272 bytes cada)
+1792447226.363 < [HTTP] servidor na porta 80: http://192.168.4.1/api/v1/status
+1792447226.363 < [HTTP] metodo,uri,codigo,bytes,us
+1792447226.363 > token
+1792447226.385 < [CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags,idade_s,conf
+1792447226.393 < [RESUMO] t_ms,mac,nome,recebidos,rejeitados,aceitos,perdidos,descartados,reinicios,sem_ack,entrega_pct,rssi_medio,rssi_min,rssi_max,fora_de_ordem
+1792447226.393 < [HTTP] token: nao configurado (escritas recusadas)
+1792447228.397 > token gerar
+1792447228.411 < [HTTP] token novo (anote; o anterior deixou de valer): (omitido)
+1792447230.414 > token
+1792447230.418 < [HTTP] token: configurado
+1792447232.423 # fechar
