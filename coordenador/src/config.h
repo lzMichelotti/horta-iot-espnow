@@ -70,7 +70,13 @@ constexpr uint8_t TESTE_CONFIRMACAO_MODO = 0;
 constexpr const char* VERSAO_FIRMWARE = "coordenador 8.0";
 constexpr uint16_t API_PAGINA_PADRAO = 50;   // leituras por página sem "limite"
 constexpr uint16_t API_PAGINA_MAXIMA = 200;  // ~80 KB de JSON (provisório: confirmar com a medição)
-constexpr uint16_t API_PAGINA_CSV = 50;      // linhas por página na exportação CSV
+// Convivência com o ESP-NOW (passo 5): a COORD monta cada resposta em blocos e
+// esvazia a fila do ESP-NOW entre um bloco e outro, para a confirmação ao nó
+// sair dentro da espera de 30 ms dele. Medido com o servidor parado durante a
+// página inteira: 1/18 confirmações com páginas de 200 (~0,5 s por página).
+constexpr uint16_t API_BLOCO_LEITURAS = 10;  // leituras em JSON por bloco (~2,4 ms cada)
+constexpr uint16_t API_PAGINA_CSV = 20;      // linhas por bloco na exportação CSV (~1,2 ms cada)
+constexpr uint32_t API_CACHE_ESPACO_MS = 30000;  // LittleFS.usedBytes() percorre o sistema de arquivos
 // Registros lidos da flash por página, no máximo: com um filtro que descarta
 // quase tudo, a página volta com menos itens (fim = false) em vez de segurar o
 // loop() lendo o histórico inteiro (~1,45 s para 27 mil registros, Etapa 7).

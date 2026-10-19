@@ -334,8 +334,16 @@ void rotaStatus() {
 
   const anel::Indice& ind = historico::indice();
   e.chave("armazenamento").objeto().campo("estado", historico::nomeEstado(historico::estado()));
+  // Cache: LittleFS.usedBytes() percorre o sistema de arquivos (~30 ms medidos no passo 5).
+  static uint32_t cacheMs = 0;
+  static size_t totalB = 0, usadoB = 0;
+  if (historico::montado() && (totalB == 0 || millis() - cacheMs >= config::API_CACHE_ESPACO_MS)) {
+    totalB = LittleFS.totalBytes();
+    usadoB = LittleFS.usedBytes();
+    cacheMs = millis();
+  }
   if (historico::montado())
-    e.campoNatural("total_kb", LittleFS.totalBytes() / 1024).campoNatural("usado_kb", LittleFS.usedBytes() / 1024);
+    e.campoNatural("total_kb", totalB / 1024).campoNatural("usado_kb", usadoB / 1024);
   else
     e.campoNulo("total_kb").campoNulo("usado_kb");
   e.campoNatural("registros", ind.totalValidos())
@@ -420,15 +428,33 @@ bool visitarJson(const consulta::Item& it, void* ctx) {
 void rotaLeituras() {
   filtro::Filtro f;
   if (!lerFiltro(f, true)) return;
-  f.maxLidos = config::API_MAX_LIDOS;  // uma página nunca lê a flash inteira
   comecar();
   json::Escritor e(destino, nullptr);
   e.objeto().chave("leituras").lista();
-  consulta::Pagina pg = consulta::executar(f, visitarJson, &e);
+  // A página pedida é montada em blocos de API_BLOCO_LEITURAS, cada um uma
+  // consulta retomada pelo cursor; entre os blocos, o ESP-NOW é atendido
+  // (nunca dentro de um bloco: a gravação mexe no índice que ela percorre).
+  const uint16_t pedidas = f.limite;
+  uint16_t entregues = 0;
+  uint32_t lidos = 0;
+  bool rotacionado = false;
+  consulta::Pagina pg;
+  for (;;) {
+    uint16_t falta = pedidas - entregues;
+    f.limite = falta < config::API_BLOCO_LEITURAS ? falta : config::API_BLOCO_LEITURAS;
+    f.maxLidos = config::API_MAX_LIDOS - lidos;  // a página inteira nunca lê mais que isto
+    pg = consulta::executar(f, visitarJson, &e);
+    entregues += pg.entregues;
+    lidos += pg.lidos;
+    rotacionado = rotacionado || pg.cursorRotacionado;
+    if (pg.fim || entregues >= pedidas || lidos >= config::API_MAX_LIDOS || !clienteConectado()) break;
+    f.cursor = pg.proximoCursor;
+    if (ocioso != nullptr) ocioso();
+  }
   e.fimLista()
       .campoNatural("proximo_cursor", pg.proximoCursor)
       .campoBool("fim", pg.fim)
-      .campoBool("cursor_rotacionado", pg.cursorRotacionado)
+      .campoBool("cursor_rotacionado", rotacionado)
       .fimObjeto();
   terminar(200);
 }
