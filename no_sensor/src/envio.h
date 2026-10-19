@@ -21,8 +21,8 @@ struct Resultado {
 // Liga o Wi-Fi e o ESP-NOW e cadastra o coordenador. Mede `r.ligarUs`.
 bool ligar(Resultado& r);
 
-// Envia `dados` ao coordenador com até MAX_ENVIOS tentativas.
-void enviar(const uint8_t* dados, size_t tamanho, Resultado& r);
+// Envia `dados` ao coordenador com até `maxEnvios` tentativas (≤ MAX_ENVIOS).
+void enviar(const uint8_t* dados, size_t tamanho, Resultado& r, uint8_t maxEnvios = config::MAX_ENVIOS);
 
 // Resposta recebida do coordenador (Etapa 7.1): só quadros vindos do MAC AP do
 // coordenador e do tamanho de uma confirmação entram na fila de recepção.

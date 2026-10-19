@@ -86,9 +86,10 @@ bool ligar(Resultado& r) {
   return true;
 }
 
-void enviar(const uint8_t* dados, size_t tamanho, Resultado& r) {
+void enviar(const uint8_t* dados, size_t tamanho, Resultado& r, uint8_t maxEnvios) {
+  if (maxEnvios > config::MAX_ENVIOS) maxEnvios = config::MAX_ENVIOS;
   int64_t inicio = esp_timer_get_time();
-  for (uint8_t k = 0; k < config::MAX_ENVIOS && !r.ack; k++) {
+  for (uint8_t k = 0; k < maxEnvios && !r.ack; k++) {
     if (k > 0) {
       uint32_t espera = config::BACKOFF_MS[k - 1] + esp_random() % (config::SORTEIO_MS + 1);
       delay(espera);

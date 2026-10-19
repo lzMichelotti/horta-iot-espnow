@@ -34,7 +34,7 @@ uint32_t agoraS() {
 }
 
 // Assina e envia a entrada i (0 = mais antiga, que vai com SEM_ANTERIORES).
-bool enviarEntrada(uint16_t i, envio::Resultado& r) {
+bool enviarEntrada(uint16_t i, envio::Resultado& r, uint8_t maxEnvios = config::MAX_ENVIOS) {
   protocolo::PacoteLeitura p = fila::paraEnvio(f.em(i), agoraS(), i == 0);
   protocolo::PacoteAssinado a;
   if (!protocolo::assinar(p, segredos::CHAVE_NO, protocolo::hmacSha256, a)) {
@@ -43,7 +43,7 @@ bool enviarEntrada(uint16_t i, envio::Resultado& r) {
   }
   uint8_t bytes[sizeof(a)];
   memcpy(bytes, &a, sizeof(bytes));
-  envio::enviar(bytes, sizeof(bytes), r);
+  envio::enviar(bytes, sizeof(bytes), r, maxEnvios);
   return r.ack;
 }
 
@@ -95,9 +95,11 @@ void sincronizar(Resultado& r) {
   int64_t inicio = esp_timer_get_time();
   if (r.filaAntes == 0) return;
 
-  // 1. A leitura nova (a última da fila).
+  // 1. A leitura nova (a última da fila). Regra adaptativa (Etapa 8, passo 0):
+  // se o ciclo anterior terminou sem ACK, só ENVIOS_APOS_FALHA tentativa(s).
   envio::descartarRespostas();
-  enviarEntrada(f.quantidade() - 1, r.nova);
+  uint8_t tentativas = contadores::anteriorSemAck() ? config::ENVIOS_APOS_FALHA : config::MAX_ENVIOS;
+  enviarEntrada(f.quantidade() - 1, r.nova, tentativas);
   if (r.nova.ack) {
     // 2. Confirmação do que já está gravado ("tudo até X").
     bool confirmou = esperarConfirmacao(esp_timer_get_time(), r);

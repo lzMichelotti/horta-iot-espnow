@@ -71,6 +71,15 @@ constexpr uint8_t MAC_COORDENADOR[6] = {0x88, 0x57, 0x21, 0x70, 0x91, 0xFD};
 // Retransmissão na aplicação (docs/comunicacao.md). A camada MAC já repete o
 // quadro antes de reportar FAIL; estas tentativas cobrem falhas mais longas.
 constexpr uint8_t MAX_ENVIOS = 3;                    // 1 envio + 2 retransmissões
+// Etapa 8, passo 0 (regra adaptativa): se o ciclo anterior terminou sem ACK
+// (coordenador provavelmente fora do ar), a leitura nova tem só esta tentativa.
+// A fila da Etapa 7.1 guarda a leitura; insistir no mesmo ciclo só gastava
+// bateria (343–526 ms acordado com 3 tentativas, docs/energia.md, seção 5).
+#ifdef TESTE_ENVIOS_APOS_FALHA  // env teste_tentativas3: comportamento anterior, para comparar
+constexpr uint8_t ENVIOS_APOS_FALHA = TESTE_ENVIOS_APOS_FALHA;
+#else
+constexpr uint8_t ENVIOS_APOS_FALHA = 1;
+#endif
 constexpr uint32_t BACKOFF_MS[MAX_ENVIOS - 1] = {10, 30};  // espera antes da 2ª e da 3ª
 constexpr uint32_t SORTEIO_MS = 10;                  // + 0..10 ms aleatórios (evita colisões repetidas)
 // Espera máxima pelo callback de envio: rede de segurança. O FAIL chegou por

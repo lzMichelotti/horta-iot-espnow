@@ -3,7 +3,8 @@
 // Confirmação cumulativa, assinada; regras em docs/protocolo.md, seção 13.
 //
 // Ciclo (rádio já ligado):
-//  1. envia a leitura nova (SEM_ANTERIORES se ela é a única da fila);
+//  1. envia a leitura nova (SEM_ANTERIORES se ela é a única da fila), com até
+//     MAX_ENVIOS tentativas, ou ENVIOS_APOS_FALHA se o ciclo anterior ficou sem ACK;
 //  2. espera a confirmação por ESPERA_CONFIRMACAO_MS e libera tudo até ela;
 //  3. se sobrou alguma além da nova (o coordenador recusou por buraco, ou não
 //     tem histórico do nó), reenvia em ordem, da mais antiga, até
