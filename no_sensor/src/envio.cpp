@@ -30,10 +30,28 @@ void aoEnviar(const esp_now_send_info_t* /*info*/, esp_now_send_status_t status)
   xQueueOverwrite(confirmacoes, &c);
 }
 
+// Respostas do coordenador (Etapa 7.1). O callback roda na tarefa do Wi-Fi:
+// só copia para a fila, sem bloquear ("do not do lengthy operations in the
+// callback function. Instead, post the necessary data to a queue", ESP-IDF
+// v5.5, ESP-NOW). A validação (assinatura) fica para o setup().
+constexpr size_t FILA_RESPOSTAS = 4;
+QueueHandle_t respostas = nullptr;
+
+void aoReceber(const esp_now_recv_info_t* info, const uint8_t* dados, int len) {
+  if (info == nullptr || dados == nullptr || len <= 0 || len > static_cast<int>(sizeof(Resposta::dados))) return;
+  if (memcmp(info->src_addr, config::MAC_COORDENADOR, sizeof(config::MAC_COORDENADOR)) != 0) return;
+  Resposta r;
+  memcpy(r.dados, dados, len);
+  r.tamanho = static_cast<uint8_t>(len);
+  r.instanteUs = esp_timer_get_time();
+  xQueueSend(respostas, &r, 0);  // cheia: descarta (o nó só usa uma por envio)
+}
+
 }  // namespace
 
 bool ligar(Resultado& r) {
   if (confirmacoes == nullptr) confirmacoes = xQueueCreate(1, sizeof(Confirmacao));
+  if (respostas == nullptr) respostas = xQueueCreate(FILA_RESPOSTAS, sizeof(Resposta));
   int64_t t0 = esp_timer_get_time();
 
   WiFi.persistent(false);  // não gravar a config do Wi-Fi na NVS a cada ciclo
@@ -50,6 +68,8 @@ bool ligar(Resultado& r) {
 
   esp_err_t err = esp_now_init();
   if (err == ESP_OK) err = esp_now_register_send_cb(aoEnviar);
+  // Receber sem criptografia não exige cadastrar o remetente (ESP-IDF v5.5, ESP-NOW).
+  if (err == ESP_OK) err = esp_now_register_recv_cb(aoReceber);
   if (err == ESP_OK) {
     esp_now_peer_info_t peer{};
     memcpy(peer.peer_addr, config::MAC_COORDENADOR, sizeof(peer.peer_addr));
@@ -90,6 +110,14 @@ void enviar(const uint8_t* dados, size_t tamanho, Resultado& r) {
     }
   }
   r.totalUs = static_cast<uint32_t>(esp_timer_get_time() - inicio);
+}
+
+void descartarRespostas() {
+  if (respostas != nullptr) xQueueReset(respostas);
+}
+
+bool receberResposta(Resposta& r, uint32_t esperaMs) {
+  return respostas != nullptr && xQueueReceive(respostas, &r, pdMS_TO_TICKS(esperaMs)) == pdTRUE;
 }
 
 void desligar() {

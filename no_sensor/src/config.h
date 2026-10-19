@@ -77,6 +77,23 @@ constexpr uint32_t SORTEIO_MS = 10;                  // + 0..10 ms aleatórios (
 // callback em 28–50 ms em todos os testes de bancada (docs/comunicacao.md, 6.1).
 constexpr uint32_t TEMPO_LIMITE_CALLBACK_MS = 100;
 
+// ---------------------------------------------------------------- Fila e reenvio (Etapa 7.1)
+// Leituras guardadas na memória RTC lenta até o coordenador confirmar que
+// estão gravadas (docs/protocolo.md, seção 13). 256 × 26 B = 6656 B dos ~7,5 KB
+// livres (medido no ELF): ~2,7 dias a cada 15 min. Estourar a RTC lenta é erro
+// de link, não de execução. Cheia: descarta a mais antiga.
+#ifdef TESTE_FILA_CAPACIDADE  // env teste_fila: fila pequena para testar a política de fila cheia
+constexpr uint16_t FILA_CAPACIDADE = TESTE_FILA_CAPACIDADE;
+#else
+constexpr uint16_t FILA_CAPACIDADE = 256;
+#endif
+// Pendentes reenviadas por ciclo depois que o coordenador recusa a nova
+// (buraco): 12 de 16 lugares na fila de recepção do coordenador.
+constexpr uint8_t REENVIOS_POR_CICLO = 12;
+// Espera pela confirmação depois do ACK MAC da leitura nova (estimativa de
+// 2–6 ms; ajustar com o tempo medido). Sem resposta: guarda tudo e dorme.
+constexpr uint32_t ESPERA_CONFIRMACAO_MS = 30;
+
 // ---------------------------------------------------------------- Ciclo (deep sleep)
 // Período entre pacotes: o nó dorme (período − tempo acordado), então o
 // intervalo não acumula o tempo acordado. 15 min (Etapa 5, passo 6): resolve a

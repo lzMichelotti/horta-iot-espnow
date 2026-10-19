@@ -16,6 +16,10 @@ uint8_t motivoBoot();  // esp_reset_reason()
 // Devolve o seq do próximo pacote e avança o contador (0 é o primeiro do boot).
 uint32_t proximoSeq();
 
+// Último seq gerado neste boot (o do pacote atual, depois de proximoSeq()):
+// nenhuma confirmação pode ir além de (boot(), ultimoSeq()).
+uint32_t ultimoSeq();
+
 // Resultado do envio do pacote atual, para o campo tentativas_ant e o bit
 // ANTERIOR_SEM_ACK do próximo pacote (RAM do RTC; 0 depois de ligar).
 void registrarEnvio(uint8_t tentativas, bool ack);

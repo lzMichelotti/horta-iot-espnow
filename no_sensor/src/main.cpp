@@ -7,6 +7,7 @@
 #include <esp_sleep.h>
 #include <esp_timer.h>
 
+#include <fila.h>
 #include <protocolo.h>
 
 #include "config.h"
@@ -14,6 +15,7 @@
 #include "energia.h"
 #include "envio.h"
 #include "protecao.h"
+#include "reenvio.h"
 #include "segredos.h"
 #include "sensores.h"
 
@@ -49,36 +51,40 @@ protocolo::PacoteLeitura montar(const sensores::Leituras& r) {
   return protocolo::montarLeitura(d);
 }
 
-void imprimirEnvio(const protocolo::PacoteLeitura& p, const envio::Resultado& r, uint32_t leituraUs,
-                   uint32_t cicloUs) {
+void imprimirEnvio(const protocolo::PacoteLeitura& p, const reenvio::Resultado& rc, uint32_t ligarUs,
+                   uint32_t leituraUs, uint32_t cicloUs) {
+  const envio::Resultado& r = rc.nova;
   Serial.printf("[ENVIO] %u,%lu,%u,%u,%lu", p.boot, (unsigned long)p.seq, r.ack, r.tentativas,
-                (unsigned long)r.ligarUs);
+                (unsigned long)ligarUs);
   for (uint8_t k = 0; k < config::MAX_ENVIOS; k++)
     if (k < r.tentativas) Serial.printf(",%ld", (long)r.tentativaUs[k]);
     else Serial.print(",");
-  Serial.printf(",%lu,%s,%u,%u,%lu,%lu,%u\n", (unsigned long)r.totalUs,
+  Serial.printf(",%lu,%s,%u,%u,%lu,%lu,%u", (unsigned long)rc.totalUs,
                 r.ultimoErro == ESP_OK ? "" : esp_err_to_name(r.ultimoErro), p.tentativas_ant, p.flags,
                 (unsigned long)leituraUs, (unsigned long)cicloUs, p.acordado_ant_ms);
+  // Etapa 7.1: confirmação e fila.
+  if (!rc.confirmou) Serial.print(",,");
+  else if (rc.nadaGravado) Serial.printf(",nada,%ld", (long)rc.respostaUs);
+  else Serial.printf(",%u:%lu,%ld", rc.confBoot, (unsigned long)rc.confSeq, (long)rc.respostaUs);
+  Serial.printf(",%u,%u,%u,%u,%u,%u,%lu\n", rc.recusadas, rc.filaAntes, rc.liberadas, rc.reenviadas,
+                rc.reenviadasAck, rc.filaDepois, (unsigned long)reenvio::descartadas());
 }
 
-// Modo de teste de duplicata: reenvia o pacote atual e o do ciclo anterior.
-// O anterior fica na RAM do RTC (a RAM comum se perde no deep sleep).
-RTC_DATA_ATTR uint8_t pacoteAnterior[sizeof(protocolo::PacoteAssinado)];
-RTC_DATA_ATTR bool temAnterior = false;
-
-void testeDuplicata(const protocolo::PacoteLeitura& p, const uint8_t* bytes, const envio::Resultado& r) {
-  if (config::TESTE_DUPLICATA_A_CADA > 0 && r.ack &&
-      p.seq % config::TESTE_DUPLICATA_A_CADA == config::TESTE_DUPLICATA_A_CADA - 1) {
-    envio::Resultado dup, ant;
-    envio::enviar(bytes, sizeof(protocolo::PacoteAssinado), dup);
-    Serial.printf("[TESTE] reenvio do seq %lu (duplicado): ack=%u\n", (unsigned long)p.seq, dup.ack);
-    if (temAnterior) {
-      envio::enviar(pacoteAnterior, sizeof(pacoteAnterior), ant);
-      Serial.printf("[TESTE] reenvio do seq %lu (antigo): ack=%u\n", (unsigned long)(p.seq - 1), ant.ack);
-    }
+// Modo de teste de duplicata (env teste_duplicata): a cada N ciclos, depois do
+// envio normal, repete a leitura nova. O coordenador deve classificá-la como
+// "duplicado", não gravar e responder com a confirmação.
+void testeDuplicata(const protocolo::PacoteLeitura& p, const reenvio::Resultado& rc) {
+#ifdef TESTE_DUPLICATA
+  if (rc.nova.ack && p.seq % config::TESTE_DUPLICATA_A_CADA == config::TESTE_DUPLICATA_A_CADA - 1) {
+    envio::Resultado dup;
+    bool conf = reenvio::repetirNova(dup);
+    Serial.printf("[TESTE] repeticao do seq %lu (duplicado): ack=%u confirmacao=%u\n", (unsigned long)p.seq,
+                  dup.ack, conf);
   }
-  memcpy(pacoteAnterior, bytes, sizeof(pacoteAnterior));
-  temAnterior = true;
+#else
+  (void)p;
+  (void)rc;
+#endif
 }
 
 // ---------------------------------------------------------------- Fases do ciclo
@@ -135,15 +141,19 @@ void setup() {
     Serial.printf("[T0] %lld\n", esp_timer_get_time());
   }
   contadores::iniciar();
+  reenvio::iniciar();
   if (contadores::motivoBoot() != ESP_RST_DEEPSLEEP) flushAntUs = 0;
   if (config::LOGS && contadores::motivoBoot() != ESP_RST_DEEPSLEEP) {
     // Só no boot "de verdade": no despertar, o cabeçalho seria repetido a cada ciclo.
     Serial.println();
-    Serial.println("[BOOT] no sensor - etapa 5");
+    Serial.println("[BOOT] no sensor - etapa 7.1");
     Serial.printf("[BOOT] boot=%u motivo=%u protocolo v%u (%u bytes) canal=%u destino=" MACSTR " periodo=%lu ms\n",
                   contadores::boot(), contadores::motivoBoot(), protocolo::VERSAO,
                   (unsigned)sizeof(protocolo::PacoteAssinado), config::CANAL_WIFI, MAC2STR(config::MAC_COORDENADOR),
                   (unsigned long)config::PERIODO_CICLO_MS);
+    Serial.printf("[BOOT] fila: %u leituras na memoria RTC (%u bytes), reenvio de ate %u por ciclo\n",
+                  config::FILA_CAPACIDADE, (unsigned)(config::FILA_CAPACIDADE * sizeof(fila::Entrada)),
+                  config::REENVIOS_POR_CICLO);
     // A chave é derivada do MAC STA (ferramentas/chaves.py no MAC): gravada
     // para outra placa, o coordenador recusaria todo pacote (assinatura_invalida).
     uint8_t mac[6];
@@ -158,7 +168,10 @@ void setup() {
     // t1..tN: µs do esp_now_send ao callback em cada tentativa (−1 = sem callback no prazo).
     Serial.print("[ENVIO] boot,seq,ack,tentativas,ligar_us");
     for (uint8_t k = 1; k <= config::MAX_ENVIOS; k++) Serial.printf(",t%u_us", k);
-    Serial.println(",envio_us,erro,tent_ant,flags,leitura_us,ciclo_us,acordado_ant_ms");
+    // Etapa 7.1: conf = boot:seq confirmado (ou "nada"); resp_us = do ACK MAC da nova à confirmação;
+    // fila_antes inclui a nova; descartadas = fila cheia, desde o power-on.
+    Serial.println(",envio_us,erro,tent_ant,flags,leitura_us,ciclo_us,acordado_ant_ms,conf,resp_us,conf_recusadas,"
+                   "fila_antes,liberadas,reenviadas,reenviadas_ack,fila_depois,descartadas");
     // Durações em µs; setup_us = da aplicação ao setup(); fim_us = esp_timer antes do flush;
     // light_sleep_us = parte do ciclo dormida em light sleep (dentro das fases dos sensores).
     Serial.println("[FASES] setup_us,serial_nvs_us,sens_iniciar_us,leitura_us,ligar_us,envio_us,desligar_us,"
@@ -182,35 +195,39 @@ void setup() {
     dormir(static_cast<uint32_t>(esp_timer_get_time()), protecao::periodoMs(modo));
   }
   protocolo::PacoteLeitura p = montar(leituras);
+  // Guardada antes de tudo o que pode falhar (rádio, prazo de 3 s): o seq
+  // consumido sempre tem a leitura na fila.
+  bool descartou = reenvio::guardar(p);
+  if (descartou && config::LOGS)
+    Serial.printf("[FILA] cheia: a mais antiga foi descartada (%lu no total)\n",
+                  (unsigned long)reenvio::descartadas());
   if (config::TESTE_TRAVAR_A_CADA_N > 0 && p.seq % config::TESTE_TRAVAR_A_CADA_N == config::TESTE_TRAVAR_A_CADA_N - 1) {
     if (config::LOGS) Serial.printf("[TESTE] travando o ciclo do seq %lu\n", (unsigned long)p.seq);
     while (true) {
     }  // o prazo de protecao deve interromper isto
   }
-  // Protocolo v2: pacote + assinatura HMAC-SHA256 (docs/protocolo.md, seção 12).
-  protocolo::PacoteAssinado assinado;
-  bool assinou = protocolo::assinar(p, segredos::CHAVE_NO, protocolo::hmacSha256, assinado);
-  if (!assinou && config::LOGS) Serial.println("[ESPNOW] ERRO: falha ao assinar; pacote nao enviado");
-  uint8_t bytes[sizeof(assinado)];
-  memcpy(bytes, &assinado, sizeof(bytes));
   energia::desligarSensores();
   marcar(LEITURA);
 
-  envio::Resultado r;
-  bool ligado = envio::ligar(r);
+  // Envio com confirmação e reenvio das pendentes (Etapa 7.1); cada pacote é
+  // assinado no envio (protocolo v3, docs/protocolo.md, seções 12 e 13).
+  envio::Resultado ligacao;
+  bool ligado = envio::ligar(ligacao);
   marcar(LIGAR);
-  if (ligado && assinou) {
-    envio::enviar(bytes, sizeof(bytes), r);
-    testeDuplicata(p, bytes, r);
+  reenvio::Resultado rc;
+  if (ligado) {
+    reenvio::sincronizar(rc);
+    testeDuplicata(p, rc);
   }
   marcar(ENVIO);
   envio::desligar();
-  contadores::registrarEnvio(r.tentativas, r.ack);
+  contadores::registrarEnvio(rc.nova.tentativas, rc.nova.ack);
   marcar(DESLIGAR);
 
   // esp_timer conta desde o início da aplicação: o tempo de ROM e bootloader
   // antes disso não entra (medido pelo PC, docs/energia.md).
-  if (config::LOGS) imprimirEnvio(p, r, leituras.duracaoUs, static_cast<uint32_t>(marcas[DESLIGAR]));
+  if (config::LOGS)
+    imprimirEnvio(p, rc, ligacao.ligarUs, leituras.duracaoUs, static_cast<uint32_t>(marcas[DESLIGAR]));
   marcar(IMPRESSAO);  // a linha [FASES] e o flush ficam de fora (flush: no próximo ciclo)
   if (config::LOGS) imprimirFases();
   contadores::registrarAcordado((static_cast<uint32_t>(esp_timer_get_time()) + 500) / 1000);

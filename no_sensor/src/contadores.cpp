@@ -48,6 +48,8 @@ uint8_t motivoBoot() { return motivo; }
 
 uint32_t proximoSeq() { return seqRtc++; }
 
+uint32_t ultimoSeq() { return seqRtc - 1; }
+
 void registrarEnvio(uint8_t tentativas, bool ack) {
   tentativasAntRtc = tentativas;
   semAckAntRtc = !ack;
