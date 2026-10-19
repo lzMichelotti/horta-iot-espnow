@@ -6,6 +6,11 @@ placa. Também comanda o pino EN de cada placa pela linha RTS da ponte USB
 
   --reset-no 30,60        reinicia o NÓ 1 aos 30 s e aos 60 s
   --coord-off 20:80       mantém a COORD em reset (EN em 0) de 20 s a 80 s
+  --reset-coord-gravacao 3
+                          (Etapa 7.1) reinicia a COORD logo depois da 3ª linha
+                          "[FS] gravado" contada a partir do fim do --coord-off
+                          (ou do início): a gravação seguinte da rajada de
+                          reenvio fica em andamento no instante do reset
 
 Uso:
   .venv/bin/python ferramentas/capturar_seriais.py <duracao_s> <prefixo_saida> [opções]
@@ -41,15 +46,19 @@ def main():
     ap.add_argument("--reset-no", type=lista_floats, default=[], help="instantes (s) para reiniciar o NÓ 1")
     ap.add_argument("--coord-off", default="", help="janela INICIO:FIM (s) com a COORD em reset")
     ap.add_argument("--so", choices=list(PORTAS), help="capturar só uma placa")
+    ap.add_argument("--reset-coord-gravacao", type=int, default=0,
+                    help="reiniciar a COORD depois da N-ésima gravação após o --coord-off")
     args = ap.parse_args()
 
     # Eventos de RTS por placa: (instante, valor). RTS ativo = EN em 0 = chip em reset.
     eventos = {"coord": [], "no1": []}
     for t in args.reset_no:
         eventos["no1"] += [(t, True), (t + 0.1, False)]
+    fim_off = 0.0
     if args.coord_off:
         ini, fim = (float(x) for x in args.coord_off.split(":"))
         eventos["coord"] += [(ini, True), (fim, False)]
+        fim_off = fim
 
     t0 = time.time()
     placas = [args.so] if args.so else list(PORTAS)
@@ -61,6 +70,7 @@ def main():
         s.rts = False
         s.open()
         pendentes = sorted(eventos[nome])
+        gravacoes = 0  # "[FS] gravado" depois do --coord-off (gatilho do reset na gravação)
         with open(f"{args.prefixo}_{nome}.txt", "w", encoding="utf-8") as saida:
             while (agora := time.time() - t0) < args.duracao:
                 while pendentes and pendentes[0][0] <= agora:
@@ -74,6 +84,14 @@ def main():
                     texto = SCAN_SSID.sub(r"\1(omitido)", texto)
                     saida.write(f"{time.time() - t0:9.3f} {texto}\n")
                     saida.flush()
+                    if (nome == "coord" and args.reset_coord_gravacao and texto.startswith("[FS] gravado")
+                            and time.time() - t0 > fim_off):
+                        gravacoes += 1
+                        if gravacoes == args.reset_coord_gravacao:
+                            t = time.time() - t0
+                            s.rts = True
+                            saida.write(f"{t:9.3f} #RTS ativo (EN=0) depois da gravacao {gravacoes}\n")
+                            pendentes = sorted(pendentes + [(t + 0.1, False)])
         s.close()
 
     threads = [threading.Thread(target=ler, args=(n,)) for n in placas]
