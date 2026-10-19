@@ -1,0 +1,77 @@
+    0.017 ets Jul 29 2019 12:21:46
+    0.017 
+    0.018 rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+    0.019 configsip: 0, SPIWP:0xee
+    0.027 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+    0.028 mode:DIO, clock div:2
+    0.028 load:0x3fff0030,len:4640
+    0.031 load:0x40078000,len:15632
+    0.031 load:0x40080400,len:3164
+    0.031 entry 0x4008059c
+    0.632 
+    0.632 [BOOT] coordenador - etapa 7.1
+    0.632 [BOOT] MODO DE TESTE: confirmacao forjada (chave errada)
+    0.642 [RELOGIO] boot 120, motivo do reset 1
+    0.643 [RELOGIO] utc=invalida epoch=0 valida=0 fonte=nenhuma boot=120 desde_boot_ms=222
+    0.643 [PART] nome,tipo,subtipo,endereco,tamanho_kb
+    0.654 [PART] nvs,1,0x02,0x009000,20
+    0.654 [PART] otadata,1,0x00,0x00e000,8
+    0.654 [PART] app0,0,0x00,0x010000,2048
+    0.665 [PART] littlefs,1,0x83,0x210000,1920
+    0.665 [PART] coredump,1,0x03,0x3f0000,64
+    0.665 [MAC] STA 88:57:21:70:91:fc
+    0.665 [MAC] AP  88:57:21:70:91:fd
+    0.670 [BOOT] protocolo v3 (42 bytes, assinatura HMAC-SHA256 de 16)
+    0.670 [CFG] cadastro lido da NVS: 1 nos
+    0.699 [FS] LittleFS montado: 124 KB usados de 1920 KB
+    0.883 [FS] carga: 5 segmentos, 2078 registros validos, 0 invalidos, em 177 ms
+    0.883 [FS] estado: ok (rotacoes de emergencia 0, falhas seguidas 0)
+    1.028 [WIFI] varrendo canais...
+    5.042 [WIFI] varredura: 26 redes em 4005 ms
+    5.043 [SCAN] canal,rssi_dbm,ssid
+    5.043 [SCAN] 7,-19,(omitido)
+    5.043 [SCAN] 3,-61,(omitido)
+    5.053 [SCAN] 11,-68,(omitido)
+    5.054 [SCAN] 9,-69,(omitido)
+    5.054 [SCAN] 1,-79,(omitido)
+    5.054 [SCAN] 5,-80,(omitido)
+    5.054 [SCAN] 4,-83,(omitido)
+    5.064 [SCAN] 11,-83,(omitido)
+    5.065 [SCAN] 11,-84,(omitido)
+    5.065 [SCAN] 6,-87,(omitido)
+    5.065 [SCAN] 8,-88,(omitido)
+    5.065 [SCAN] 11,-88,(omitido)
+    5.065 [SCAN] 9,-89,(omitido)
+    5.075 [SCAN] 3,-90,(omitido)
+    5.076 [SCAN] 1,-91,(omitido)
+    5.076 [SCAN] 1,-91,(omitido)
+    5.076 [SCAN] 1,-91,(omitido)
+    5.076 [SCAN] 1,-92,(omitido)
+    5.077 [SCAN] 5,-93,(omitido)
+    5.087 [SCAN] 6,-93,(omitido)
+    5.087 [SCAN] 8,-93,(omitido)
+    5.087 [SCAN] 8,-93,(omitido)
+    5.087 [SCAN] 3,-94,(omitido)
+    5.088 [SCAN] 5,-94,(omitido)
+    5.098 [SCAN] 4,-95,(omitido)
+    5.098 [SCAN] 1,-97,(omitido)
+    5.098 [WIFI] canal  1: 6 no canal, 8 sobrepostas, mais forte -61 dBm
+    5.107 [WIFI] canal  6: 2 no canal, 14 sobrepostas, mais forte -19 dBm
+    5.108 [WIFI] canal 11: 4 no canal, 6 sobrepostas, mais forte -19 dBm
+    5.312 [WIFI] SoftAP "horta-coord" canal 1, MAC AP 88:57:21:70:91:FD, IP 192.168.4.1
+    5.323 [ESPNOW] pronto: versao 2, fila de 16 itens (272 bytes cada)
+    5.334 [CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags,idade_s,conf
+    5.341 [RESUMO] t_ms,mac,nome,recebidos,rejeitados,aceitos,perdidos,descartados,reinicios,sem_ack,entrega_pct,rssi_medio,rssi_min,rssi_max,fora_de_ordem
+   10.336 [CSV] 9923,88:57:21:70:93:70,no1,-42,-96,42,nenhuma,fora_de_ordem,0,68,1,0,0,591,3390,5,8,922,3,2,0,67:0
+   20.280 [CSV] 19867,88:57:21:70:93:70,no1,-43,-96,42,nenhuma,fora_de_ordem,0,68,2,0,0,593,3387,5,8,129,1,0,0,67:0
+   30.244 [CSV] 29830,88:57:21:70:93:70,no1,-38,-96,42,nenhuma,fora_de_ordem,0,68,3,0,0,589,3388,5,8,118,1,0,0,67:0
+   40.211 [CSV] 39799,88:57:21:70:93:70,no1,-72,-96,42,nenhuma,fora_de_ordem,0,68,4,0,0,586,3385,5,8,120,1,0,0,67:0
+   50.178 [CSV] 49765,88:57:21:70:93:70,no1,-37,-96,42,nenhuma,fora_de_ordem,0,68,5,0,0,590,3389,5,8,120,1,0,0,67:0
+   60.145 [CSV] 59733,88:57:21:70:93:70,no1,-42,-96,42,nenhuma,fora_de_ordem,0,68,6,0,0,589,3389,5,8,122,1,0,0,67:0
+   60.445 [RESUMO] 60035,88:57:21:70:93:70,no1,6,0,0,0,0,0,1,0.00,-45.7,-72,-37,6
+   70.118 [CSV] 69706,88:57:21:70:93:70,no1,-38,-96,42,nenhuma,fora_de_ordem,0,68,7,0,0,589,3388,5,8,124,1,0,0,67:0
+   80.104 [CSV] 79692,88:57:21:70:93:70,no1,-31,-96,42,nenhuma,fora_de_ordem,0,68,8,0,0,591,3386,5,8,124,1,0,0,67:0
+   90.050 [CSV] 89638,88:57:21:70:93:70,no1,-42,-96,42,nenhuma,fora_de_ordem,0,68,9,0,0,586,3385,5,8,140,1,0,0,67:0
+  100.018 [CSV] 99606,88:57:21:70:93:70,no1,-38,-96,42,nenhuma,fora_de_ordem,0,68,10,0,0,592,3388,5,8,118,1,0,0,67:0
+  109.994 [CSV] 109582,88:57:21:70:93:70,no1,-42,-96,42,nenhuma,fora_de_ordem,0,68,11,0,0,591,3388,5,8,118,1,0,0,67:0
+  119.958 [CSV] 119547,88:57:21:70:93:70,no1,-42,-96,42,nenhuma,fora_de_ordem,0,68,12,0,0,591,3387,5,8,126,1,0,0,67:0

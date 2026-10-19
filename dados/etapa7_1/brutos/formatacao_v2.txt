@@ -1,0 +1,111 @@
+1792421013.880 # abrir
+1792421013.895 < ets Jul 29 2019 12:21:46
+1792421013.896 < 
+1792421013.896 < rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+1792421013.896 < configsip: 0, SPIWP:0xee
+1792421013.907 < clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+1792421013.907 < mode:DIO, clock div:2
+1792421013.907 < load:0x3fff0030,len:4640
+1792421013.911 < load:0x40078000,len:15632
+1792421013.911 < load:0x40080400,len:3164
+1792421013.912 < entry 0x4008059c
+1792421014.507 < 
+1792421014.507 < [BOOT] coordenador - etapa 7.1
+1792421014.520 < [RELOGIO] boot 110, motivo do reset 1
+1792421014.521 < [RELOGIO] utc=invalida epoch=0 valida=0 fonte=nenhuma boot=110 desde_boot_ms=222
+1792421014.531 < [PART] nome,tipo,subtipo,endereco,tamanho_kb
+1792421014.531 < [PART] nvs,1,0x02,0x009000,20
+1792421014.531 < [PART] otadata,1,0x00,0x00e000,8
+1792421014.542 < [PART] app0,0,0x00,0x010000,2048
+1792421014.542 < [PART] littlefs,1,0x83,0x210000,1920
+1792421014.543 < [PART] coredump,1,0x03,0x3f0000,64
+1792421014.543 < [MAC] STA 88:57:21:70:91:fc
+1792421014.551 < [MAC] AP  88:57:21:70:91:fd
+1792421014.551 < [BOOT] protocolo v3 (42 bytes, assinatura HMAC-SHA256 de 16)
+1792421014.552 < [CFG] cadastro lido da NVS: 1 nos
+1792421014.719 < [FS] LittleFS montado: 1368 KB usados de 1920 KB
+1792421015.318 < [FS] /h/00000026.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.339 < [FS] /h/00000027.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.361 < [FS] /h/00000028.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.382 < [FS] /h/00000029.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.403 < [FS] /h/00000030.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.423 < [FS] /h/00000031.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.444 < [FS] /h/00000032.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.466 < [FS] /h/00000033.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.486 < [FS] /h/00000034.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.507 < [FS] /h/00000035.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.528 < [FS] /h/00000036.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.549 < [FS] /h/00000037.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.569 < [FS] /h/00000038.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.590 < [FS] /h/00000039.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.611 < [FS] /h/00000040.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.632 < [FS] /h/00000041.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.653 < [FS] /h/00000042.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.675 < [FS] /h/00000043.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.696 < [FS] /h/00000044.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.717 < [FS] /h/00000045.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.738 < [FS] /h/00000046.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.758 < [FS] /h/00000047.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.779 < [FS] /h/00000048.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.799 < [FS] /h/00000049.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.820 < [FS] /h/00000050.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.840 < [FS] /h/00000051.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.860 < [FS] /h/00000052.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.880 < [FS] /h/00000053.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.899 < [FS] /h/00000054.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.919 < [FS] /h/00000055.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.937 < [FS] /h/00000056.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.957 < [FS] /h/00000057.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.975 < [FS] /h/00000058.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421015.995 < [FS] /h/00000059.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421016.014 < [FS] /h/00000060.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421016.038 < [FS] /h/00000061.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421016.061 < [FS] /h/00000062.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421016.084 < [FS] /h/00000063.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421016.108 < [FS] /h/00000064.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421016.131 < [FS] /h/00000065.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421016.154 < [FS] /h/00000066.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421016.177 < [FS] /h/00000067.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421016.199 < [FS] /h/00000068.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421016.222 < [FS] /h/00000069.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421016.245 < [FS] /h/00000070.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421016.267 < [FS] /h/00000071.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421016.290 < [FS] /h/00000072.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421016.312 < [FS] /h/00000073.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421016.334 < [FS] /h/00000074.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421016.356 < [FS] /h/00000075.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421016.378 < [FS] /h/00000076.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421016.398 < [FS] /h/00000077.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421016.419 < [FS] /h/00000078.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421016.439 < [FS] /h/00000079.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421016.459 < [FS] /h/00000080.seg: 28 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421016.478 < [FS] /h/00000081.seg: 44 bytes sobrando no fim (escrita parcial?); segmento fechado
+1792421016.485 < [FS] carga: 56 segmentos, 0 registros validos, 25452 invalidos, em 1774 ms
+1792421016.486 < [FS] estado: ok (rotacoes de emergencia 0, falhas seguidas 0)
+1792421016.569 < [WIFI] varrendo canais...
+1792421020.546 < [WIFI] varredura: 25 redes em 4005 ms
+1792421020.601 < [WIFI] canal  1: 5 no canal, 4 sobrepostas, mais forte -69 dBm
+1792421020.601 < [WIFI] canal  6: 3 no canal, 12 sobrepostas, mais forte -31 dBm
+1792421020.606 < [WIFI] canal 11: 5 no canal, 8 sobrepostas, mais forte -31 dBm
+1792421020.813 < [WIFI] SoftAP "horta-coord" canal 1, MAC AP 88:57:21:70:91:FD, IP 192.168.4.1
+1792421020.824 < [ESPNOW] pronto: versao 2, fila de 16 itens (272 bytes cada)
+1792421020.835 < [CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags,idade_s,conf
+1792421020.835 > fs
+1792421020.841 < [RESUMO] t_ms,mac,nome,recebidos,rejeitados,aceitos,perdidos,descartados,reinicios,sem_ack,entrega_pct,rssi_medio,rssi_min,rssi_max,fora_de_ordem
+1792421021.106 < [FS] 1368 KB usados de 1920 KB; politica: 470 registros/segmento, max 56 segmentos
+1792421021.116 < [FS] segmentos: 56 (26 a 81), registros validos: 0
+1792421021.117 < [FS] gravacoes neste boot: 0 ok, 0 falhas; tempo (us): ultima 0, media 0, max 0
+1792421021.118 < [FS] estado: ok (rotacoes de emergencia 0, falhas seguidas 0)
+1792421022.922 > fs formatar
+1792421023.016 < [FS] formatando a particao (apaga todo o historico)...
+1792421023.095 < [FS] format: ok em 78 ms
+1792421023.095 < [FS] LittleFS montado: 8 KB usados de 1920 KB
+1792421023.146 < [FS] carga: 0 segmentos, 0 registros validos, 0 invalidos, em 44 ms
+1792421023.146 < [FS] estado: ok (rotacoes de emergencia 0, falhas seguidas 0)
+1792421027.954 > fs
+1792421028.049 < [FS] 16 KB usados de 1920 KB; politica: 470 registros/segmento, max 56 segmentos
+1792421028.060 < [FS] segmentos: 0 (0 a 0), registros validos: 0
+1792421028.060 < [FS] gravacoes neste boot: 0 ok, 0 falhas; tempo (us): ultima 0, media 0, max 0
+1792421028.061 < [FS] estado: ok (rotacoes de emergencia 0, falhas seguidas 0)
+1792421029.585 < [CSV] 15358,88:57:21:70:93:70,no1,-34,-96,38,versao_desconhecida,,,,,,,,,,,,,,,
+1792421029.986 # fechar
