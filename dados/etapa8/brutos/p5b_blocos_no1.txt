@@ -1,0 +1,1603 @@
+    0.015 ets Jul 29 2019 12:21:46
+    0.016 
+    0.018 rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+    0.018 configsip: 0, SPIWP:0xee
+    0.028 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+    0.028 mode:DIO, clock div:1
+    0.029 load:0x3fff0030,len:4876
+    0.030 ho 0 tail 12 room 4
+    0.032 load:0x40078000,len:16532
+    0.032 load:0x40080400,len:3500
+    0.033 entry 0x400805b4
+    0.324 [T0] 12176
+    0.337 
+    0.337 [BOOT] no sensor - etapa 7.1
+    0.348 [BOOT] boot=81 motivo=1 protocolo v3 (42 bytes) canal=1 destino=88:57:21:70:91:fd periodo=10000 ms
+    0.348 [BOOT] fila: 256 leituras na memoria RTC (6656 bytes), reenvio de ate 12 por ciclo
+    0.370 [ENVIO] boot,seq,ack,tentativas,ligar_us,t1_us,t2_us,t3_us,envio_us,erro,tent_ant,flags,leitura_us,ciclo_us,acordado_ant_ms,conf,resp_us,conf_recusadas,fila_antes,liberadas,reenviadas,reenviadas_ack,fila_depois,descartadas
+    0.473 [FASES] setup_us,serial_nvs_us,sens_iniciar_us,leitura_us,ligar_us,envio_us,desligar_us,impressao_us,flush_a
+    0.554 nt_us,fim_us,lig
+    0.813 ht_sleep_us,light_sleeps,modo
+    2.624 [ENVIO] 81,0,0,3,82732,-1,-1,-1,352792,,0,0,405096,2302009,0,,,0,1,0,0,0,1,0
+    2.626 [FASES] 11462,48230,40992,405239,82762,352809,1360515,344,0,2302353,437706,4,0
+   10.200 ets Jul 29 2019 12:21:46
+   10.200 
+   10.200 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   10.200 configsip: 0, SPIWP:0xee
+   10.211 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   10.211 mode:DIO, clock div:1
+   10.211 load:0x3fff0030,len:4876
+   10.211 ho 0 tail 12 room 4
+   10.217 load:0x40078000,len:16532
+   10.217 load:0x40080400,len:3500
+   10.217 entry 0x400805b4
+   10.248 [T0] 12180
+   10.306 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+   10.312 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+   10.374 [SENS] AHT20 nao iniciou: s
+   10.405 em_resposta
+   10.510 [ENVIO] 81,1,1,1,19932,4329,,,66621,,3,2,98550,263803,2314,80:119,5315,0,2,0,2,2,2,0
+   10.512 [FASES] 11467,903,65174,98696,19959,66636,968,472,1961,264275,90067,2,0
+   20.164 ets Jul 29 2019 12:21:46
+   20.164 
+   20.164 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   20.164 configsip: 0, SPIWP:0xee
+   20.175 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   20.175 mode:DIO, clock div:1
+   20.175 load:0x3fff0030,len:4876
+   20.176 ho 0 tail 12 room 4
+   20.181 load:0x40078000,len:16532
+   20.181 load:0x40080400,len:3500
+   20.181 entry 0x400805b4
+   20.212 [T0] 12173
+   20.271 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+   20.277 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+   20.280 [SENS] AHT20 nao iniciou: sem_resposta
+   20.336 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+   20.342 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+   20.405 [ENVIO] 81,2,1,1,19894,5968,,,25589,,1,0,70360,194514,276,81:1,18529,0,3,2,0,0,1,0
+   20.407 [FASES] 11462,902,65156,70507,19922,25606,959,465,1959,194979,0,0,0
+   30.139 ets Jul 29 2019 12:21:46
+   30.139 
+   30.139 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   30.139 configsip: 0, SPIWP:0xee
+   30.150 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   30.150 mode:DIO, clock div:1
+   30.150 load:0x3fff0030,len:4876
+   30.151 ho 0 tail 12 room 4
+   30.156 load:0x40078000,len:16532
+   30.157 load:0x40080400,len:3500
+   30.157 entry 0x400805b4
+   30.187 [T0] 12178
+   30.246 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+   30.252 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+   30.255 [SENS] AHT20 nao iniciou: sem_resposta
+   30.310 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+   30.316 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+   30.368 [ENVIO] 81,3,1,1,19889,1883,,,13866,,1,0,70346,182805,206,81:2,10898,0,2,1,0,0,1,0
+   30.370 [FASES] 11465,903,65174,70493,19917,13882,971,452,1446,183257,0,0,0
+   40.108 ets Jul 29 2019 12:21:46
+   40.109 
+   40.109 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   40.109 configsip: 0, SPIWP:0xee
+   40.120 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   40.120 mode:DIO, clock div:1
+   40.120 load:0x3fff0030,len:4876
+   40.120 ho 0 tail 12 room 4
+   40.126 load:0x40078000,len:16532
+   40.126 load:0x40080400,len:3500
+   40.126 entry 0x400805b4
+   40.157 [T0] 12178
+   40.216 [    63][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+   40.222 [    72][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+   40.225 [SENS] AHT20 nao iniciou: sem_resposta
+   40.281 [   128][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+   40.287 [   137][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+   40.527 [ENVIO] 81,4,1,2,19914,-1,66486,,201387,,1,0,70360,371354,195,81:3,19279,0,2,1,0,0,1,0
+   40.528 [FASES] 11465,903,66155,70507,19942,201403,979,467,1446,371821,0,0,0
+   50.056 ets Jul 29 2019 12:21:46
+   50.056 
+   50.056 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   50.056 configsip: 0, SPIWP:0xee
+   50.067 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   50.067 mode:DIO, clock div:1
+   50.067 load:0x3fff0030,len:4876
+   50.067 ho 0 tail 12 room 4
+   50.073 load:0x40078000,len:16532
+   50.073 load:0x40080400,len:3500
+   50.073 entry 0x400805b4
+   50.104 [T0] 12179
+   50.163 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+   50.169 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+   50.172 [SENS] AHT20 nao iniciou: sem_resposta
+   50.227 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+   50.233 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+   50.298 [ENVIO] 81,5,1,1,19889,22803,,,27278,,2,0,70346,196212,383,81:4,3389,0,2,1,0,0,1,0
+   50.300 [FASES] 11466,904,65172,70493,19917,27295,965,459,1829,196671,0,0,0
+   60.020 ets Jul 29 2019 12:21:46
+   60.020 
+   60.020 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   60.020 configsip: 0, SPIWP:0xee
+   60.031 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   60.031 mode:DIO, clock div:1
+   60.031 load:0x3fff0030,len:4876
+   60.031 ho 0 tail 12 room 4
+   60.037 load:0x40078000,len:16532
+   60.037 load:0x40080400,len:3500
+   60.037 entry 0x400805b4
+   60.068 [T0] 12180
+   60.127 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+   60.133 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+   60.136 [SENS] AHT20 nao iniciou: sem_resposta
+   60.192 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+   60.197 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+   60.244 [ENVIO] 81,6,1,1,19888,1836,,,8845,,1,0,70347,177782,208,81:5,5928,0,2,1,0,0,1,0
+   60.246 [FASES] 11467,903,65173,70494,19914,8863,968,459,1446,178241,0,0,0
+   69.992 ets Jul 29 2019 12:21:46
+   69.992 
+   69.992 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   69.992 configsip: 0, SPIWP:0xee
+   70.003 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   70.003 mode:DIO, clock div:1
+   70.003 load:0x3fff0030,len:4876
+   70.003 ho 0 tail 12 room 4
+   70.009 load:0x40078000,len:16532
+   70.009 load:0x40080400,len:3500
+   70.009 entry 0x400805b4
+   70.040 [T0] 12173
+   70.100 [    63][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+   70.105 [    72][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+   70.109 [SENS] AHT20 nao iniciou: sem_resposta
+   70.164 [   128][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+   70.170 [   137][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+   70.224 [ENVIO] 81,7,1,1,19888,10026,,,15797,,1,0,70365,185728,189,81:6,4693,0,2,1,0,0,1,0
+   70.226 [FASES] 11460,903,66155,70512,19916,15813,969,461,1187,186189,0,0,0
+   79.958 ets Jul 29 2019 12:21:46
+   79.958 
+   79.958 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   79.958 configsip: 0, SPIWP:0xee
+   79.969 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   79.969 mode:DIO, clock div:1
+   79.969 load:0x3fff0030,len:4876
+   79.969 ho 0 tail 12 room 4
+   79.975 load:0x40078000,len:16532
+   79.975 load:0x40080400,len:3500
+   79.975 entry 0x400805b4
+   80.006 [T0] 12169
+   80.065 [    63][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+   80.071 [    72][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+   80.074 [SENS] AHT20 nao iniciou: sem_resposta
+   80.130 [   128][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+   80.136 [   137][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+   80.229 [ENVIO] 81,8,1,1,19893,48941,,,54755,,1,0,70359,224681,197,81:7,4733,0,2,1,0,0,1,0
+   80.230 [FASES] 11458,902,66157,70507,19920,54772,965,457,1446,225138,0,0,0
+   89.921 ets Jul 29 2019 12:21:46
+   89.921 
+   89.922 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   89.922 configsip: 0, SPIWP:0xee
+   89.933 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   89.933 mode:DIO, clock div:1
+   89.933 load:0x3fff0030,len:4876
+   89.933 ho 0 tail 12 room 4
+   89.939 load:0x40078000,len:16532
+   89.939 load:0x40080400,len:3500
+   89.939 entry 0x400805b4
+   89.969 [T0] 12177
+   90.028 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+   90.034 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+   90.037 [SENS] AHT20 nao iniciou: sem_resposta
+   90.093 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+   90.098 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+   90.149 [ENVIO] 81,9,1,1,19893,6046,,,12258,,1,0,70360,181183,236,81:8,5133,0,2,1,0,0,1,0
+   90.150 [FASES] 11465,903,65156,70508,19920,12274,957,462,1446,181645,0,0,0
+   99.896 ets Jul 29 2019 12:21:46
+   99.896 
+   99.896 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   99.897 configsip: 0, SPIWP:0xee
+   99.907 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   99.907 mode:DIO, clock div:1
+   99.907 load:0x3fff0030,len:4876
+   99.907 ho 0 tail 12 room 4
+   99.913 load:0x40078000,len:16532
+   99.913 load:0x40080400,len:3500
+   99.913 entry 0x400805b4
+   99.944 [T0] 12177
+  100.004 [    63][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  100.010 [    72][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  100.013 [SENS] AHT20 nao iniciou: sem_resposta
+  100.069 [   128][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  100.074 [   137][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  100.142 [ENVIO] 81,10,1,1,19893,24554,,,29998,,1,0,70360,199929,193,81:9,4358,0,2,1,0,0,1,0
+  100.144 [FASES] 11466,902,66157,70507,19921,30015,961,468,1359,200397,0,0,0
+  109.862 ets Jul 29 2019 12:21:46
+  109.863 
+  109.863 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  109.863 configsip: 0, SPIWP:0xee
+  109.873 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  109.874 mode:DIO, clock div:1
+  109.874 load:0x3fff0030,len:4876
+  109.874 ho 0 tail 12 room 4
+  109.880 load:0x40078000,len:16532
+  109.880 load:0x40080400,len:3500
+  109.880 entry 0x400805b4
+  109.911 [T0] 12179
+  109.969 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  109.975 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  110.037 [SENS] AHT20 nao iniciou: s
+  110.068 em_resposta
+  110.151 [ENVIO] 81,11,1,1,19944,37914,,,45399,,1,0,98549,242594,212,81:10,6402,0,2,1,0,0,1,0
+  110.154 [FASES] 11467,903,65175,98695,19971,45416,967,464,1532,243058,90060,2,0
+  119.828 ets Jul 29 2019 12:21:46
+  119.828 
+  119.828 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  119.828 configsip: 0, SPIWP:0xee
+  119.839 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  119.839 mode:DIO, clock div:1
+  119.839 load:0x3fff0030,len:4876
+  119.839 ho 0 tail 12 room 4
+  119.845 load:0x40078000,len:16532
+  119.845 load:0x40080400,len:3500
+  119.846 entry 0x400805b4
+  119.876 [T0] 12180
+  119.935 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  119.941 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  119.944 [SENS] AHT20 nao iniciou: sem_resposta
+  119.999 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  120.005 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  120.070 [ENVIO] 81,12,1,1,19894,21576,,,26480,,1,0,70360,195413,254,81:11,3814,0,2,1,0,0,1,0
+  120.072 [FASES] 11467,903,65156,70507,19921,26497,962,462,1963,195875,0,0,0
+  129.790 ets Jul 29 2019 12:21:46
+  129.790 
+  129.790 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  129.791 configsip: 0, SPIWP:0xee
+  129.801 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  129.801 mode:DIO, clock div:1
+  129.801 load:0x3fff0030,len:4876
+  129.802 ho 0 tail 12 room 4
+  129.807 load:0x40078000,len:16532
+  129.808 load:0x40080400,len:3500
+  129.808 entry 0x400805b4
+  129.838 [T0] 12175
+  129.897 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  129.903 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  129.965 [SENS] AHT20 nao iniciou: s
+  129.995 em_resposta
+  130.092 [ENVIO] 81,13,1,1,19946,51292,,,58173,,1,0,98543,255361,207,81:12,5802,0,2,1,0,0,1,0
+  130.094 [FASES] 11462,903,65174,98689,19973,58189,971,465,1618,255826,90058,2,0
+  139.753 ets Jul 29 2019 12:21:46
+  139.753 
+  139.754 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  139.754 configsip: 0, SPIWP:0xee
+  139.765 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  139.765 mode:DIO, clock div:1
+  139.765 load:0x3fff0030,len:4876
+  139.765 ho 0 tail 12 room 4
+  139.770 load:0x40078000,len:16532
+  139.771 load:0x40080400,len:3500
+  139.771 entry 0x400805b4
+  139.801 [T0] 12177
+  139.860 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  139.866 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  139.869 [SENS] AHT20 nao iniciou: sem_resposta
+  139.925 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  139.931 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  139.996 [ENVIO] 81,14,1,1,19896,21191,,,27043,,1,0,70360,195983,267,81:13,4763,0,2,1,0,0,1,0
+  139.997 [FASES] 11464,903,65155,70507,19924,27059,971,466,1963,196449,0,0,0
+  149.720 ets Jul 29 2019 12:21:46
+  149.721 
+  149.721 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  149.721 configsip: 0, SPIWP:0xee
+  149.731 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  149.732 mode:DIO, clock div:1
+  149.732 load:0x3fff0030,len:4876
+  149.732 ho 0 tail 12 room 4
+  149.737 load:0x40078000,len:16532
+  149.738 load:0x40080400,len:3500
+  149.738 entry 0x400805b4
+  149.769 [T0] 12172
+  149.827 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  149.833 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  149.895 [SENS] AHT20 nao iniciou: s
+  149.926 em_resposta
+  150.035 [ENVIO] 81,15,1,1,19930,66027,,,70906,,1,0,98545,268084,208,81:14,3799,0,2,1,0,0,1,0
+  150.037 [FASES] 11459,903,65174,98691,19956,70923,978,469,1617,268553,90064,2,0
+  159.683 ets Jul 29 2019 12:21:46
+  159.683 
+  159.683 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  159.684 configsip: 0, SPIWP:0xee
+  159.694 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  159.694 mode:DIO, clock div:1
+  159.694 load:0x3fff0030,len:4876
+  159.695 ho 0 tail 12 room 4
+  159.700 load:0x40078000,len:16532
+  159.700 load:0x40080400,len:3500
+  159.700 entry 0x400805b4
+  159.731 [T0] 12180
+  159.790 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  159.796 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  159.799 [SENS] AHT20 nao iniciou: sem_resposta
+  159.855 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  159.860 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  159.908 [ENVIO] 81,16,1,1,19885,4849,,,10134,,1,0,70365,179058,280,81:15,4211,0,2,1,0,0,1,0
+  159.910 [FASES] 11467,903,65155,70512,19911,10151,959,470,1962,179528,0,0,0
+  169.657 ets Jul 29 2019 12:21:46
+  169.657 
+  169.657 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  169.658 configsip: 0, SPIWP:0xee
+  169.668 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  169.669 mode:DIO, clock div:1
+  169.669 load:0x3fff0030,len:4876
+  169.669 ho 0 tail 12 room 4
+  169.674 load:0x40078000,len:16532
+  169.675 load:0x40080400,len:3500
+  169.675 entry 0x400805b4
+  169.705 [T0] 12178
+  169.765 [    63][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  169.771 [    72][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  169.774 [SENS] AHT20 nao iniciou: sem_resposta
+  169.830 [   128][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  169.835 [   137][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  169.930 [ENVIO] 81,17,1,1,19885,44890,,,56272,,1,0,70365,226203,191,81:16,10310,0,2,1,0,0,1,0
+  169.932 [FASES] 11467,902,66157,70512,19911,56289,965,465,1532,226668,0,0,0
+  179.622 ets Jul 29 2019 12:21:46
+  179.622 
+  179.622 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  179.623 configsip: 0, SPIWP:0xee
+  179.633 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  179.633 mode:DIO, clock div:1
+  179.633 load:0x3fff0030,len:4876
+  179.633 ho 0 tail 12 room 4
+  179.639 load:0x40078000,len:16532
+  179.639 load:0x40080400,len:3500
+  179.639 entry 0x400805b4
+  179.670 [T0] 12175
+  179.729 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  179.735 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  179.738 [SENS] AHT20 nao iniciou: sem_resposta
+  179.794 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  179.799 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  179.913 [ENVIO] 81,18,1,1,19886,44674,,,75350,,1,0,70365,244258,238,,,0,2,0,0,0,2,0
+  179.914 [FASES] 11462,903,65155,70513,19913,75366,946,437,1704,244695,0,0,0
+  189.579 ets Jul 29 2019 12:21:46
+  189.579 
+  189.579 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  189.579 configsip: 0, SPIWP:0xee
+  189.590 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  189.590 mode:DIO, clock div:1
+  189.591 load:0x3fff0030,len:4876
+  189.591 ho 0 tail 12 room 4
+  189.596 load:0x40078000,len:16532
+  189.596 load:0x40080400,len:3500
+  189.596 entry 0x400805b4
+  189.627 [T0] 12175
+  189.686 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  189.691 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  189.695 [SENS] AHT20 nao iniciou: sem_resposta
+  189.750 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  189.756 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  189.823 [ENVIO] 81,19,1,1,19893,6076,,,28802,,1,0,70359,197728,256,81:18,21647,0,3,2,0,0,1,0
+  189.825 [FASES] 11462,902,65156,70506,19920,28819,963,463,842,198191,0,0,0
+  199.543 ets Jul 29 2019 12:21:46
+  199.543 
+  199.543 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  199.543 configsip: 0, SPIWP:0xee
+  199.555 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  199.555 mode:DIO, clock div:1
+  199.555 load:0x3fff0030,len:4876
+  199.555 ho 0 tail 12 room 4
+  199.561 load:0x40078000,len:16532
+  199.561 load:0x40080400,len:3500
+  199.561 entry 0x400805b4
+  199.592 [T0] 12175
+  199.650 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  199.656 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  199.718 [SENS] AHT20 nao iniciou: s
+  199.748 em_resposta
+  199.815 [ENVIO] 81,20,1,1,19923,13582,,,28479,,1,0,98543,225639,209,81:19,13805,0,2,1,0,0,1,0
+  199.818 [FASES] 11464,902,65175,98690,19950,28495,963,465,1532,226104,90051,2,0
+  209.519 ets Jul 29 2019 12:21:46
+  209.519 
+  209.520 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  209.520 configsip: 0, SPIWP:0xee
+  209.531 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  209.531 mode:DIO, clock div:1
+  209.531 load:0x3fff0030,len:4876
+  209.531 ho 0 tail 12 room 4
+  209.537 load:0x40078000,len:16532
+  209.537 load:0x40080400,len:3500
+  209.537 entry 0x400805b4
+  209.568 [T0] 12177
+  209.627 [    63][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  209.633 [    72][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  209.636 [SENS] AHT20 nao iniciou: sem_resposta
+  209.692 [   128][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  209.698 [   137][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  209.791 [ENVIO] 81,21,1,1,19898,48864,,,55204,,1,0,70359,225141,237,81:20,5254,0,2,1,0,0,1,0
+  209.793 [FASES] 11464,903,66155,70506,19925,55220,968,466,2048,225607,0,0,0
+  219.479 ets Jul 29 2019 12:21:46
+  219.479 
+  219.479 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  219.480 configsip: 0, SPIWP:0xee
+  219.490 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  219.490 mode:DIO, clock div:1
+  219.491 load:0x3fff0030,len:4876
+  219.491 ho 0 tail 12 room 4
+  219.497 load:0x40078000,len:16532
+  219.497 load:0x40080400,len:3500
+  219.497 entry 0x400805b4
+  219.527 [T0] 12177
+  219.586 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  219.592 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  219.595 [SENS] AHT20 nao iniciou: sem_resposta
+  219.651 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  219.657 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  219.799 [ENVIO] 81,22,1,1,19896,74017,,,104343,,1,0,70361,273260,237,,,0,2,0,0,0,2,0
+  219.800 [FASES] 11464,903,65155,70508,19923,104361,946,439,1618,273699,0,0,0
+  229.436 ets Jul 29 2019 12:21:46
+  229.437 
+  229.437 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  229.437 configsip: 0, SPIWP:0xee
+  229.448 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  229.448 mode:DIO, clock div:1
+  229.448 load:0x3fff0030,len:4876
+  229.448 ho 0 tail 12 room 4
+  229.454 load:0x40078000,len:16532
+  229.454 load:0x40080400,len:3500
+  229.454 entry 0x400805b4
+  229.485 [T0] 12177
+  229.543 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  229.549 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  229.553 [SENS] AHT20 nao iniciou: sem_resposta
+  229.608 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  229.614 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  229.672 [ENVIO] 81,23,1,1,19917,6101,,,19846,,1,0,70360,188816,285,81:22,12668,0,3,2,0,0,1,0
+  229.673 [FASES] 11466,902,65157,70507,19945,19863,976,457,1015,189273,0,0,0
+  239.405 ets Jul 29 2019 12:21:46
+  239.405 
+  239.406 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  239.406 configsip: 0, SPIWP:0xee
+  239.417 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  239.417 mode:DIO, clock div:1
+  239.417 load:0x3fff0030,len:4876
+  239.417 ho 0 tail 12 room 4
+  239.423 load:0x40078000,len:16532
+  239.423 load:0x40080400,len:3500
+  239.423 entry 0x400805b4
+  239.454 [T0] 12176
+  239.513 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  239.518 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  239.522 [SENS] AHT20 nao iniciou: sem_resposta
+  239.577 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  239.583 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  239.668 [ENVIO] 81,24,1,1,19889,32112,,,47082,,1,0,70346,216010,201,81:23,13885,0,2,1,0,0,1,0
+  239.670 [FASES] 11463,904,65174,70493,19916,47098,962,466,1618,216476,0,0,0
+  249.366 ets Jul 29 2019 12:21:46
+  249.366 
+  249.366 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  249.367 configsip: 0, SPIWP:0xee
+  249.377 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  249.377 mode:DIO, clock div:1
+  249.377 load:0x3fff0030,len:4876
+  249.378 ho 0 tail 12 room 4
+  249.383 load:0x40078000,len:16532
+  249.384 load:0x40080400,len:3500
+  249.384 entry 0x400805b4
+  249.414 [T0] 12173
+  249.473 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  249.479 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  249.482 [SENS] AHT20 nao iniciou: sem_resposta
+  249.538 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  249.543 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  249.655 [ENVIO] 81,25,1,1,19896,42662,,,73344,,1,0,70360,242259,228,,,0,2,0,0,0,2,0
+  249.656 [FASES] 11462,903,65156,70508,19923,73361,946,437,1704,242696,0,0,0
+  259.321 ets Jul 29 2019 12:21:46
+  259.321 
+  259.322 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  259.322 configsip: 0, SPIWP:0xee
+  259.333 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  259.333 mode:DIO, clock div:1
+  259.333 load:0x3fff0030,len:4876
+  259.333 ho 0 tail 12 room 4
+  259.339 load:0x40078000,len:16532
+  259.339 load:0x40080400,len:3500
+  259.339 entry 0x400805b4
+  259.370 [T0] 12153
+  259.429 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  259.434 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  259.438 [SENS] AHT20 nao iniciou: sem_resposta
+  259.493 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  259.499 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  259.594 [ENVIO] 81,26,1,1,19886,43697,,,56979,,1,0,70364,225903,254,81:25,12198,0,3,2,0,0,1,0
+  259.596 [FASES] 11442,905,65174,70512,19913,56995,962,472,843,226375,0,0,0
+  269.282 ets Jul 29 2019 12:21:46
+  269.282 
+  269.283 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  269.283 configsip: 0, SPIWP:0xee
+  269.293 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  269.294 mode:DIO, clock div:1
+  269.294 load:0x3fff0030,len:4876
+  269.294 ho 0 tail 12 room 4
+  269.300 load:0x40078000,len:16532
+  269.300 load:0x40080400,len:3500
+  269.300 entry 0x400805b4
+  269.331 [T0] 12176
+  269.389 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  269.395 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  269.398 [SENS] AHT20 nao iniciou: sem_resposta
+  269.454 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  269.460 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  269.643 [ENVIO] 81,27,1,2,19894,-1,1402,,145591,,1,0,70359,314518,238,81:26,23553,0,2,1,0,0,1,0
+  269.646 [FASES] 11464,903,65155,70506,19922,145608,960,472,1618,314990,0,0,0
+  279.226 ets Jul 29 2019 12:21:46
+  279.226 
+  279.226 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  279.226 configsip: 0, SPIWP:0xee
+  279.237 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  279.237 mode:DIO, clock div:1
+  279.237 load:0x3fff0030,len:4876
+  279.237 ho 0 tail 12 room 4
+  279.243 load:0x40078000,len:16532
+  279.243 load:0x40080400,len:3500
+  279.243 entry 0x400805b4
+  279.274 [T0] 12179
+  279.333 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  279.338 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  279.400 [SENS] AHT20 nao iniciou: s
+  279.431 em_resposta
+  279.526 [ENVIO] 81,28,1,1,19923,25983,,,56352,,2,0,98551,253565,326,,,0,2,0,0,0,2,0
+  279.527 [FASES] 11467,903,65174,98697,19950,56372,1002,468,1911,254033,90072,2,0
+  289.187 ets Jul 29 2019 12:21:46
+  289.187 
+  289.187 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  289.187 configsip: 0, SPIWP:0xee
+  289.198 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  289.198 mode:DIO, clock div:1
+  289.198 load:0x3fff0030,len:4876
+  289.199 ho 0 tail 12 room 4
+  289.204 load:0x40078000,len:16532
+  289.205 load:0x40080400,len:3500
+  289.205 entry 0x400805b4
+  289.235 [T0] 12174
+  289.294 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  289.300 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  289.303 [SENS] AHT20 nao iniciou: sem_resposta
+  289.359 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  289.365 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  289.480 [ENVIO] 81,29,1,1,19892,47026,,,77349,,1,0,70361,246259,265,,,0,3,0,0,0,3,0
+  289.481 [FASES] 11463,902,65157,70507,19919,77365,946,437,1273,246696,0,0,0
+  299.144 ets Jul 29 2019 12:21:46
+  299.144 
+  299.145 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  299.145 configsip: 0, SPIWP:0xee
+  299.155 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  299.156 mode:DIO, clock div:1
+  299.156 load:0x3fff0030,len:4876
+  299.156 ho 0 tail 12 room 4
+  299.161 load:0x40078000,len:16532
+  299.162 load:0x40080400,len:3500
+  299.162 entry 0x400805b4
+  299.193 [T0] 12174
+  299.251 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  299.257 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  299.261 [SENS] AHT20 nao iniciou: sem_resposta
+  299.316 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  299.322 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  299.488 [ENVIO] 81,30,1,1,19898,97550,,,128344,,1,0,70360,297261,258,,,0,4,0,0,0,4,0
+  299.489 [FASES] 11461,902,65160,70507,19925,128360,946,439,842,297700,0,0,0
+  309.095 ets Jul 29 2019 12:21:46
+  309.095 
+  309.095 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  309.095 configsip: 0, SPIWP:0xee
+  309.106 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  309.106 mode:DIO, clock div:1
+  309.106 load:0x3fff0030,len:4876
+  309.106 ho 0 tail 12 room 4
+  309.112 load:0x40078000,len:16532
+  309.112 load:0x40080400,len:3500
+  309.113 entry 0x400805b4
+  309.143 [T0] 12176
+  309.201 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  309.207 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  309.269 [SENS] AHT20 nao iniciou: s
+  309.300 em_resposta
+  309.367 [ENVIO] 81,31,1,1,19925,15674,,,28661,,1,0,98560,225838,309,81:30,11889,0,5,4,0,0,1,0
+  309.369 [FASES] 11463,903,65174,98706,19952,28678,962,465,929,226303,90068,2,0
+  319.069 ets Jul 29 2019 12:21:46
+  319.069 
+  319.069 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  319.069 configsip: 0, SPIWP:0xee
+  319.079 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  319.080 mode:DIO, clock div:1
+  319.080 load:0x3fff0030,len:4876
+  319.080 ho 0 tail 12 room 4
+  319.085 load:0x40078000,len:16532
+  319.086 load:0x40080400,len:3500
+  319.086 entry 0x400805b4
+  319.116 [T0] 12174
+  319.175 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  319.181 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  319.185 [SENS] AHT20 nao iniciou: sem_resposta
+  319.240 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  319.246 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  319.363 [ENVIO] 81,32,1,1,19894,59967,,,78636,,1,0,70359,247562,238,81:31,17584,0,2,1,0,0,1,0
+  319.364 [FASES] 11463,902,65157,70506,19922,78653,959,468,1959,248030,0,0,0
+  329.030 ets Jul 29 2019 12:21:46
+  329.030 
+  329.030 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  329.030 configsip: 0, SPIWP:0xee
+  329.041 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  329.041 mode:DIO, clock div:1
+  329.041 load:0x3fff0030,len:4876
+  329.041 ho 0 tail 12 room 4
+  329.047 load:0x40078000,len:16532
+  329.047 load:0x40080400,len:3500
+  329.048 entry 0x400805b4
+  329.078 [T0] 12173
+  329.137 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  329.142 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  329.146 [SENS] AHT20 nao iniciou: sem_resposta
+  329.201 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  329.207 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  329.330 [ENVIO] 81,33,1,1,19914,53838,,,84326,,1,0,70360,253267,259,,,0,2,0,0,0,2,0
+  329.331 [FASES] 11460,903,65160,70508,19941,84343,952,437,1701,253704,0,0,0
+  338.986 ets Jul 29 2019 12:21:46
+  338.986 
+  338.987 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  338.987 configsip: 0, SPIWP:0xee
+  338.997 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  338.997 mode:DIO, clock div:1
+  338.997 load:0x3fff0030,len:4876
+  338.998 ho 0 tail 12 room 4
+  339.003 load:0x40078000,len:16532
+  339.004 load:0x40080400,len:3500
+  339.004 entry 0x400805b4
+  339.034 [T0] 12177
+  339.093 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  339.099 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  339.102 [SENS] AHT20 nao iniciou: sem_resposta
+  339.158 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  339.164 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  339.221 [ENVIO] 81,34,1,1,19892,5070,,,19384,,1,0,70360,188316,265,81:33,13225,0,3,2,0,0,1,0
+  339.223 [FASES] 11464,903,65155,70508,19918,19401,967,459,842,188775,0,0,0
+  348.961 ets Jul 29 2019 12:21:46
+  348.961 
+  348.961 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  348.962 configsip: 0, SPIWP:0xee
+  348.972 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  348.972 mode:DIO, clock div:1
+  348.973 load:0x3fff0030,len:4876
+  348.973 ho 0 tail 12 room 4
+  348.978 load:0x40078000,len:16532
+  348.979 load:0x40080400,len:3500
+  348.979 entry 0x400805b4
+  349.010 [T0] 12175
+  349.068 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  349.074 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  349.135 [SENS] AHT20 nao iniciou: s
+  349.167 em_resposta
+  349.229 [ENVIO] 81,35,1,1,19948,6074,,,23934,,1,0,98556,221136,200,81:34,16781,0,2,1,0,0,1,0
+  349.231 [FASES] 11462,903,65174,98703,19975,23950,969,472,1532,221608,90060,2,0
+  358.937 ets Jul 29 2019 12:21:46
+  358.937 
+  358.937 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  358.937 configsip: 0, SPIWP:0xee
+  358.949 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  358.949 mode:DIO, clock div:1
+  358.949 load:0x3fff0030,len:4876
+  358.949 ho 0 tail 12 room 4
+  358.955 load:0x40078000,len:16532
+  358.955 load:0x40080400,len:3500
+  358.955 entry 0x400805b4
+  358.986 [T0] 12174
+  359.045 [    63][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  359.051 [    72][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  359.054 [SENS] AHT20 nao iniciou: sem_resposta
+  359.110 [   128][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  359.116 [   137][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  359.181 [ENVIO] 81,36,1,1,19896,1836,,,26955,,1,0,70357,196883,233,81:35,24038,0,2,1,0,0,1,0
+  359.183 [FASES] 11462,903,66156,70504,19923,26971,964,471,1963,197354,0,0,0
+  368.906 ets Jul 29 2019 12:21:46
+  368.906 
+  368.906 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  368.906 configsip: 0, SPIWP:0xee
+  368.917 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  368.917 mode:DIO, clock div:1
+  368.917 load:0x3fff0030,len:4876
+  368.917 ho 0 tail 12 room 4
+  368.923 load:0x40078000,len:16532
+  368.924 load:0x40080400,len:3500
+  368.924 entry 0x400805b4
+  368.954 [T0] 12177
+  369.013 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  369.019 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  369.081 [SENS] AHT20 nao iniciou: s
+  369.111 em_resposta
+  369.166 [ENVIO] 81,37,1,1,19939,1862,,,16276,,1,0,98551,213462,209,81:36,13328,0,2,1,0,0,1,0
+  369.168 [FASES] 11464,903,65174,98697,19966,16292,966,464,1618,213926,90057,2,0
+  378.879 ets Jul 29 2019 12:21:46
+  378.879 
+  378.880 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  378.880 configsip: 0, SPIWP:0xee
+  378.891 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  378.891 mode:DIO, clock div:1
+  378.891 load:0x3fff0030,len:4876
+  378.891 ho 0 tail 12 room 4
+  378.897 load:0x40078000,len:16532
+  378.897 load:0x40080400,len:3500
+  378.897 entry 0x400805b4
+  378.927 [T0] 12177
+  378.986 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  378.992 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  378.995 [SENS] AHT20 nao iniciou: sem_resposta
+  379.051 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  379.057 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  379.108 [ENVIO] 81,38,1,1,19889,3712,,,13023,,1,0,70346,181951,225,81:37,8228,0,2,1,0,0,1,0
+  379.110 [FASES] 11464,903,65175,70492,19916,13039,962,466,1962,182417,0,0,0
+  388.847 ets Jul 29 2019 12:21:46
+  388.847 
+  388.847 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  388.847 configsip: 0, SPIWP:0xee
+  388.858 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  388.858 mode:DIO, clock div:1
+  388.858 load:0x3fff0030,len:4876
+  388.858 ho 0 tail 12 room 4
+  388.864 load:0x40078000,len:16532
+  388.864 load:0x40080400,len:3500
+  388.865 entry 0x400805b4
+  388.895 [T0] 12181
+  388.955 [    63][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  388.961 [    72][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  388.964 [SENS] AHT20 nao iniciou: sem_resposta
+  389.019 [   128][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  389.025 [   137][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  389.142 [ENVIO] 81,39,1,1,19892,64203,,,78890,,1,0,70360,248828,194,81:38,13613,0,2,1,0,0,1,0
+  389.144 [FASES] 11468,903,66155,70507,19919,78907,969,462,1532,249290,0,0,0
+  398.803 ets Jul 29 2019 12:21:46
+  398.803 
+  398.804 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  398.804 configsip: 0, SPIWP:0xee
+  398.814 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  398.815 mode:DIO, clock div:1
+  398.815 load:0x3fff0030,len:4876
+  398.815 ho 0 tail 12 room 4
+  398.820 load:0x40078000,len:16532
+  398.821 load:0x40080400,len:3500
+  398.821 entry 0x400805b4
+  398.852 [T0] 12177
+  398.910 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  398.916 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  398.919 [SENS] AHT20 nao iniciou: sem_resposta
+  398.975 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  398.981 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  399.955 [ENVIO] 81,40,1,2,19920,-1,36841,,147456,,1,0,70357,1105815,261,81:39,-51125,0,2,1,0,0,1,0
+  399.958 [FASES] 11464,903,65155,70504,19948,147473,790368,364,1703,1106179,0,0,0
+  408.725 ets Jul 29 2019 12:21:46
+  408.725 
+  408.726 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  408.726 configsip: 0, SPIWP:0xee
+  408.737 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  408.737 mode:DIO, clock div:1
+  408.737 load:0x3fff0030,len:4876
+  408.737 ho 0 tail 12 room 4
+  408.742 load:0x40078000,len:16532
+  408.743 load:0x40080400,len:3500
+  408.743 entry 0x400805b4
+  408.774 [T0] 12178
+  408.832 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  408.838 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  408.842 [SENS] AHT20 nao iniciou: sem_resposta
+  408.897 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  408.903 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  409.000 [ENVIO] 81,41,1,1,19912,41722,,,58809,,2,0,70346,227777,1117,81:40,16013,0,2,1,0,0,1,0
+  409.002 [FASES] 11467,902,65176,70493,19940,58825,974,468,2582,228245,0,0,0
+  418.682 ets Jul 29 2019 12:21:46
+  418.682 
+  418.682 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  418.682 configsip: 0, SPIWP:0xee
+  418.693 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  418.693 mode:DIO, clock div:1
+  418.693 load:0x3fff0030,len:4876
+  418.693 ho 0 tail 12 room 4
+  418.699 load:0x40078000,len:16532
+  418.699 load:0x40080400,len:3500
+  418.699 entry 0x400805b4
+  418.730 [T0] 12155
+  418.789 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  418.795 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  418.798 [SENS] AHT20 nao iniciou: sem_resposta
+  418.854 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  418.859 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  418.930 [ENVIO] 81,42,1,1,19896,1836,,,32344,,1,0,70361,201262,240,,,0,2,0,0,0,2,0
+  418.931 [FASES] 11444,904,65175,70509,19923,32360,947,437,1743,201699,0,0,0
+  428.651 ets Jul 29 2019 12:21:46
+  428.651 
+  428.651 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  428.651 configsip: 0, SPIWP:0xee
+  428.662 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  428.662 mode:DIO, clock div:1
+  428.663 load:0x3fff0030,len:4876
+  428.663 ho 0 tail 12 room 4
+  428.668 load:0x40078000,len:16532
+  428.668 load:0x40080400,len:3500
+  428.668 entry 0x400805b4
+  428.699 [T0] 12176
+  428.758 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  428.764 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  428.826 [SENS] AHT20 nao iniciou: s
+  428.856 em_resposta
+  428.933 [ENVIO] 81,43,1,1,19943,7778,,,38327,,1,0,98547,235494,213,,,0,3,0,0,0,3,0
+  428.934 [FASES] 11463,904,65174,98693,19970,38343,947,442,757,235936,90059,2,0
+  438.612 ets Jul 29 2019 12:21:46
+  438.613 
+  438.614 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  438.614 configsip: 0, SPIWP:0xee
+  438.624 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  438.624 mode:DIO, clock div:1
+  438.624 load:0x3fff0030,len:4876
+  438.624 ho 0 tail 12 room 4
+  438.630 load:0x40078000,len:16532
+  438.630 load:0x40080400,len:3500
+  438.630 entry 0x400805b4
+  438.661 [T0] 12173
+  438.719 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  438.725 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  438.729 [SENS] AHT20 nao iniciou: sem_resposta
+  438.784 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  438.790 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  438.864 [ENVIO] 81,44,1,1,19895,16934,,,35314,,1,0,70358,204246,247,81:43,17285,0,4,3,0,0,1,0
+  438.865 [FASES] 11461,903,65157,70506,19922,35330,967,462,1014,204708,0,0,0
+  448.582 ets Jul 29 2019 12:21:46
+  448.582 
+  448.582 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  448.582 configsip: 0, SPIWP:0xee
+  448.593 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  448.593 mode:DIO, clock div:1
+  448.593 load:0x3fff0030,len:4876
+  448.593 ho 0 tail 12 room 4
+  448.599 load:0x40078000,len:16532
+  448.599 load:0x40080400,len:3500
+  448.599 entry 0x400805b4
+  448.630 [T0] 12176
+  448.689 [    63][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  448.695 [    72][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  448.699 [SENS] AHT20 nao iniciou: sem_resposta
+  448.755 [   128][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  448.760 [   137][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  448.846 [ENVIO] 81,45,1,1,19892,18230,,,47953,,1,0,70360,217885,216,81:44,28648,0,2,1,0,0,1,0
+  448.848 [FASES] 11463,903,66160,70507,19919,47970,963,472,1704,218357,0,0,0
+  458.543 ets Jul 29 2019 12:21:46
+  458.543 
+  458.544 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  458.544 configsip: 0, SPIWP:0xee
+  458.555 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  458.555 mode:DIO, clock div:1
+  458.555 load:0x3fff0030,len:4876
+  458.555 ho 0 tail 12 room 4
+  458.560 load:0x40078000,len:16532
+  458.561 load:0x40080400,len:3500
+  458.561 entry 0x400805b4
+  458.592 [T0] 12177
+  458.650 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  458.656 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  458.659 [SENS] AHT20 nao iniciou: sem_resposta
+  458.714 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  458.720 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  458.774 [ENVIO] 81,46,1,1,19896,4421,,,15154,,1,0,70359,184078,230,81:45,9648,0,2,1,0,0,1,0
+  458.775 [FASES] 11463,904,65154,70506,19922,15172,957,469,1703,184547,0,0,0
+  468.520 ets Jul 29 2019 12:21:46
+  468.520 
+  468.520 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  468.520 configsip: 0, SPIWP:0xee
+  468.531 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  468.531 mode:DIO, clock div:1
+  468.531 load:0x3fff0030,len:4876
+  468.531 ho 0 tail 12 room 4
+  468.537 load:0x40078000,len:16532
+  468.537 load:0x40080400,len:3500
+  468.537 entry 0x400805b4
+  468.568 [T0] 12174
+  468.628 [    63][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  468.634 [    72][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  468.637 [SENS] AHT20 nao iniciou: sem_resposta
+  468.692 [   128][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  468.698 [   137][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  468.787 [ENVIO] 81,47,1,1,19892,33378,,,50559,,1,0,70361,220490,196,81:46,16097,0,2,1,0,0,1,0
+  468.789 [FASES] 11461,902,66160,70508,19920,50576,963,463,1532,220953,0,0,0
+  478.484 ets Jul 29 2019 12:21:46
+  478.484 
+  478.485 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  478.485 configsip: 0, SPIWP:0xee
+  478.496 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  478.496 mode:DIO, clock div:1
+  478.496 load:0x3fff0030,len:4876
+  478.496 ho 0 tail 12 room 4
+  478.502 load:0x40078000,len:16532
+  478.502 load:0x40080400,len:3500
+  478.502 entry 0x400805b4
+  478.533 [T0] 12178
+  478.591 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  478.597 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  478.600 [SENS] AHT20 nao iniciou: sem_resposta
+  478.656 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  478.662 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  478.717 [ENVIO] 81,48,1,1,19887,4111,,,16923,,1,0,70365,185850,232,81:47,11733,0,2,1,0,0,1,0
+  478.719 [FASES] 11465,904,65153,70512,19915,16939,962,471,1704,186321,0,0,0
+  488.448 ets Jul 29 2019 12:21:46
+  488.448 
+  488.448 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  488.448 configsip: 0, SPIWP:0xee
+  488.459 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  488.459 mode:DIO, clock div:1
+  488.459 load:0x3fff0030,len:4876
+  488.459 ho 0 tail 12 room 4
+  488.466 load:0x40078000,len:16532
+  488.466 load:0x40080400,len:3500
+  488.466 entry 0x400805b4
+  488.497 [T0] 12176
+  488.556 [    63][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  488.562 [    72][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  488.566 [SENS] AHT20 nao iniciou: sem_resposta
+  488.621 [   128][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  488.627 [   137][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  488.698 [ENVIO] 81,49,1,1,19891,5911,,,33456,,1,0,70361,203382,198,81:48,26462,0,2,1,0,0,1,0
+  488.700 [FASES] 11463,903,66155,70508,19919,33472,962,463,1618,203845,0,0,0
+  498.410 ets Jul 29 2019 12:21:46
+  498.411 
+  498.411 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  498.411 configsip: 0, SPIWP:0xee
+  498.421 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  498.422 mode:DIO, clock div:1
+  498.422 load:0x3fff0030,len:4876
+  498.422 ho 0 tail 12 room 4
+  498.428 load:0x40078000,len:16532
+  498.428 load:0x40080400,len:3500
+  498.428 entry 0x400805b4
+  498.459 [T0] 12181
+  498.517 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  498.523 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  498.585 [SENS] AHT20 nao iniciou: s
+  498.616 em_resposta
+  498.693 [ENVIO] 81,50,1,1,19922,12948,,,39059,,1,0,98545,236221,215,81:49,25026,0,2,1,0,0,1,0
+  498.696 [FASES] 11468,904,65173,98690,19949,39075,962,467,1618,236688,90059,2,0
+  508.404 ets Jul 29 2019 12:21:46
+  508.404 
+  508.405 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  508.405 configsip: 0, SPIWP:0xee
+  508.406 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  508.406 mode:DIO, clock div:1
+  508.406 load:0x3fff0030,len:4876
+  508.406 ho 0 tail 12 room 4
+  508.406 load:0x40078000,len:16532
+  508.407 load:0x40080400,len:3500
+  508.407 entry 0x400805b4
+  508.426 [T0] 12172
+  508.485 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  508.491 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  508.494 [SENS] AHT20 nao iniciou: sem_resposta
+  508.550 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  508.555 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  508.629 [ENVIO] 81,51,1,1,19896,5040,,,35344,,1,0,70361,204257,248,,,0,2,0,0,0,2,0
+  508.630 [FASES] 11461,902,65157,70507,19924,35360,946,438,2048,204695,0,0,0
+  518.336 ets Jul 29 2019 12:21:46
+  518.336 
+  518.336 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  518.336 configsip: 0, SPIWP:0xee
+  518.347 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  518.348 mode:DIO, clock div:1
+  518.348 load:0x3fff0030,len:4876
+  518.348 ho 0 tail 12 room 4
+  518.354 load:0x40078000,len:16532
+  518.354 load:0x40080400,len:3500
+  518.354 entry 0x400805b4
+  518.385 [T0] 12173
+  518.443 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  518.449 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  518.452 [SENS] AHT20 nao iniciou: sem_resposta
+  518.508 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  518.514 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  518.604 [ENVIO] 81,52,1,1,19892,21891,,,52343,,1,0,70346,221257,216,,,0,3,0,0,0,3,0
+  518.605 [FASES] 11461,903,65174,70493,19919,52361,946,438,757,221695,0,0,0
+  528.300 ets Jul 29 2019 12:21:46
+  528.300 
+  528.300 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  528.300 configsip: 0, SPIWP:0xee
+  528.311 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  528.311 mode:DIO, clock div:1
+  528.311 load:0x3fff0030,len:4876
+  528.311 ho 0 tail 12 room 4
+  528.317 load:0x40078000,len:16532
+  528.317 load:0x40080400,len:3500
+  528.317 entry 0x400805b4
+  528.348 [T0] 12177
+  528.407 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  528.412 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  528.416 [SENS] AHT20 nao iniciou: sem_resposta
+  528.471 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  528.477 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  528.558 [ENVIO] 81,53,1,1,19914,19342,,,42691,,1,0,70360,211645,233,81:52,22265,0,4,3,0,0,1,0
+  528.560 [FASES] 11464,903,65156,70507,19941,42708,966,468,756,212113,0,0,0
+  538.264 ets Jul 29 2019 12:21:46
+  538.265 
+  538.265 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  538.265 configsip: 0, SPIWP:0xee
+  538.276 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  538.276 mode:DIO, clock div:1
+  538.276 load:0x3fff0030,len:4876
+  538.276 ho 0 tail 12 room 4
+  538.282 load:0x40078000,len:16532
+  538.282 load:0x40080400,len:3500
+  538.282 entry 0x400805b4
+  538.313 [T0] 12178
+  538.372 [    63][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  538.378 [    72][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  538.382 [SENS] AHT20 nao iniciou: sem_resposta
+  538.437 [   128][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  538.443 [   137][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  538.505 [ENVIO] 81,54,1,1,19896,3186,,,24472,,1,0,70359,194403,223,81:53,20196,0,2,1,0,0,1,0
+  538.507 [FASES] 11465,903,66155,70507,19923,24489,961,463,1618,194866,0,0,0
+  548.232 ets Jul 29 2019 12:21:46
+  548.232 
+  548.232 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  548.232 configsip: 0, SPIWP:0xee
+  548.243 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  548.243 mode:DIO, clock div:1
+  548.243 load:0x3fff0030,len:4876
+  548.243 ho 0 tail 12 room 4
+  548.249 load:0x40078000,len:16532
+  548.249 load:0x40080400,len:3500
+  548.249 entry 0x400805b4
+  548.280 [T0] 12177
+  548.338 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  548.344 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  548.348 [SENS] AHT20 nao iniciou: sem_resposta
+  548.404 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  548.409 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  548.479 [ENVIO] 81,55,1,1,19889,11692,,,31359,,1,0,70347,200288,206,81:54,18584,0,2,1,0,0,1,0
+  548.481 [FASES] 11464,903,65173,70494,19916,31375,963,463,1617,200751,0,0,0
+  558.192 ets Jul 29 2019 12:21:46
+  558.192 
+  558.192 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  558.193 configsip: 0, SPIWP:0xee
+  558.203 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  558.203 mode:DIO, clock div:1
+  558.204 load:0x3fff0030,len:4876
+  558.204 ho 0 tail 12 room 4
+  558.209 load:0x40078000,len:16532
+  558.209 load:0x40080400,len:3500
+  558.209 entry 0x400805b4
+  558.240 [T0] 12171
+  558.299 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  558.305 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  558.308 [SENS] AHT20 nao iniciou: sem_resposta
+  558.364 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  558.370 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  558.442 [ENVIO] 81,56,1,1,19890,18063,,,34994,,1,0,70346,203923,212,81:55,15847,0,2,1,0,0,1,0
+  558.444 [FASES] 11458,903,65179,70493,19916,35012,962,471,1704,204394,0,0,0
+  568.165 ets Jul 29 2019 12:21:46
+  568.165 
+  568.165 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  568.165 configsip: 0, SPIWP:0xee
+  568.175 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  568.175 mode:DIO, clock div:1
+  568.175 load:0x3fff0030,len:4876
+  568.176 ho 0 tail 12 room 4
+  568.182 load:0x40078000,len:16532
+  568.182 load:0x40080400,len:3500
+  568.182 entry 0x400805b4
+  568.213 [T0] 12179
+  568.271 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  568.277 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  568.281 [SENS] AHT20 nao iniciou: sem_resposta
+  568.336 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  568.342 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  568.411 [ENVIO] 81,57,1,1,19890,24203,,,31483,,1,0,70346,200415,216,81:56,6195,0,2,1,0,0,1,0
+  568.413 [FASES] 11466,903,65174,70493,19916,31500,963,462,1704,200877,0,0,0
+  578.129 ets Jul 29 2019 12:21:46
+  578.129 
+  578.130 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  578.130 configsip: 0, SPIWP:0xee
+  578.140 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  578.141 mode:DIO, clock div:1
+  578.141 load:0x3fff0030,len:4876
+  578.141 ho 0 tail 12 room 4
+  578.146 load:0x40078000,len:16532
+  578.147 load:0x40080400,len:3500
+  578.147 entry 0x400805b4
+  578.178 [T0] 12176
+  578.236 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  578.242 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  578.245 [SENS] AHT20 nao iniciou: sem_resposta
+  578.301 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  578.307 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  578.367 [ENVIO] 81,58,1,1,19889,16389,,,21745,,1,0,70345,190679,212,81:57,4265,0,2,1,0,0,1,0
+  578.368 [FASES] 11465,902,65176,70493,19916,21762,965,459,1618,191138,0,0,0
+  588.095 ets Jul 29 2019 12:21:46
+  588.095 
+  588.095 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  588.095 configsip: 0, SPIWP:0xee
+  588.106 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  588.106 mode:DIO, clock div:1
+  588.106 load:0x3fff0030,len:4876
+  588.106 ho 0 tail 12 room 4
+  588.112 load:0x40078000,len:16532
+  588.112 load:0x40080400,len:3500
+  588.112 entry 0x400805b4
+  588.143 [T0] 12175
+  588.202 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  588.208 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  588.270 [SENS] AHT20 nao iniciou: s
+  588.300 em_resposta
+  588.378 [ENVIO] 81,59,1,1,19926,23203,,,39307,,1,0,98551,236478,202,81:58,15019,0,2,1,0,0,1,0
+  588.380 [FASES] 11462,903,65174,98697,19952,39324,966,467,1617,236945,90062,2,0
+  598.064 ets Jul 29 2019 12:21:46
+  598.064 
+  598.064 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  598.064 configsip: 0, SPIWP:0xee
+  598.075 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  598.075 mode:DIO, clock div:1
+  598.075 load:0x3fff0030,len:4876
+  598.075 ho 0 tail 12 room 4
+  598.081 load:0x40078000,len:16532
+  598.081 load:0x40080400,len:3500
+  598.081 entry 0x400805b4
+  598.112 [T0] 12177
+  598.171 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  598.176 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  598.180 [SENS] AHT20 nao iniciou: sem_resposta
+  598.235 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  598.241 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  598.334 [ENVIO] 81,60,1,1,19892,36735,,,54923,,1,0,70359,223854,248,81:59,17109,0,2,1,0,0,1,0
+  598.336 [FASES] 11464,904,65158,70506,19920,54940,962,470,2048,224324,0,0,0
+  608.019 ets Jul 29 2019 12:21:46
+  608.019 
+  608.020 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  608.020 configsip: 0, SPIWP:0xee
+  608.031 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  608.031 mode:DIO, clock div:1
+  608.031 load:0x3fff0030,len:4876
+  608.031 ho 0 tail 12 room 4
+  608.037 load:0x40078000,len:16532
+  608.037 load:0x40080400,len:3500
+  608.037 entry 0x400805b4
+  608.067 [T0] 12176
+  608.126 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  608.132 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  608.135 [SENS] AHT20 nao iniciou: sem_resposta
+  608.191 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  608.197 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  608.268 [ENVIO] 81,61,1,1,19894,11642,,,33670,,1,0,70360,202609,236,81:60,20950,0,2,1,0,0,1,0
+  608.270 [FASES] 11463,903,65160,70507,19920,33687,969,464,1704,203073,0,0,0
+  617.989 ets Jul 29 2019 12:21:46
+  617.989 
+  617.989 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  617.989 configsip: 0, SPIWP:0xee
+  618.000 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  618.000 mode:DIO, clock div:1
+  618.001 load:0x3fff0030,len:4876
+  618.001 ho 0 tail 12 room 4
+  618.006 load:0x40078000,len:16532
+  618.006 load:0x40080400,len:3500
+  618.006 entry 0x400805b4
+  618.037 [T0] 12179
+  618.095 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  618.101 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  618.104 [SENS] AHT20 nao iniciou: sem_resposta
+  618.160 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  618.166 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  618.224 [ENVIO] 81,62,1,1,19889,3518,,,20354,,1,0,70346,189286,214,81:61,15746,0,2,1,0,0,1,0
+  618.226 [FASES] 11466,903,65174,70493,19916,20372,962,464,1702,189750,0,0,0
+  627.957 ets Jul 29 2019 12:21:46
+  627.958 
+  627.958 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  627.958 configsip: 0, SPIWP:0xee
+  627.969 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  627.969 mode:DIO, clock div:1
+  627.970 load:0x3fff0030,len:4876
+  627.970 ho 0 tail 12 room 4
+  627.975 load:0x40078000,len:16532
+  627.975 load:0x40080400,len:3500
+  627.975 entry 0x400805b4
+  628.006 [T0] 12181
+  628.015 [    13][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  628.021 [    22][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  628.024 [SENS] AHT20 nao iniciou: sem_resposta
+  628.080 [    78][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  628.086 [    87][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  628.172 [ENVIO] 81,63,1,1,19904,17705,,,48347,,1,0,70477,168263,201,,,0,2,0,0,0,2,0
+  628.173 [FASES] 11468,903,16027,70624,19931,48364,946,438,1618,168701,0,0,0
+  637.914 ets Jul 29 2019 12:21:46
+  637.914 
+  637.914 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  637.915 configsip: 0, SPIWP:0xee
+  637.925 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  637.925 mode:DIO, clock div:1
+  637.926 load:0x3fff0030,len:4876
+  637.926 ho 0 tail 12 room 4
+  637.931 load:0x40078000,len:16532
+  637.932 load:0x40080400,len:3500
+  637.932 entry 0x400805b4
+  637.962 [T0] 12178
+  638.022 [    63][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  638.028 [    72][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  638.031 [SENS] AHT20 nao iniciou: sem_resposta
+  638.087 [   128][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  638.093 [   137][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  638.166 [ENVIO] 81,64,1,1,19894,17859,,,35105,,1,0,70361,205044,180,81:63,16157,0,3,2,0,0,1,0
+  638.168 [FASES] 11465,903,66155,70508,19921,35121,971,464,843,205508,0,0,0
+  647.875 ets Jul 29 2019 12:21:46
+  647.875 
+  647.875 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  647.875 configsip: 0, SPIWP:0xee
+  647.886 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  647.886 mode:DIO, clock div:1
+  647.887 load:0x3fff0030,len:4876
+  647.887 ho 0 tail 12 room 4
+  647.892 load:0x40078000,len:16532
+  647.893 load:0x40080400,len:3500
+  647.893 entry 0x400805b4
+  647.923 [T0] 12172
+  647.983 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  647.988 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  648.049 [SENS] AHT20 nao iniciou: s
+  648.080 em_resposta
+  648.137 [ENVIO] 81,65,1,1,19924,9767,,,18205,,1,0,98553,215373,217,81:64,7353,0,2,1,0,0,1,0
+  648.139 [FASES] 11460,903,65175,98700,19951,18221,963,468,1618,215841,90068,2,0
+  657.845 ets Jul 29 2019 12:21:46
+  657.845 
+  657.845 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  657.845 configsip: 0, SPIWP:0xee
+  657.856 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  657.856 mode:DIO, clock div:1
+  657.856 load:0x3fff0030,len:4876
+  657.857 ho 0 tail 12 room 4
+  657.862 load:0x40078000,len:16532
+  657.862 load:0x40080400,len:3500
+  657.862 entry 0x400805b4
+  657.893 [T0] 12175
+  657.952 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  657.958 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  657.961 [SENS] AHT20 nao iniciou: sem_resposta
+  658.016 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  658.022 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  658.076 [ENVIO] 81,66,1,1,19889,2883,,,16128,,1,0,70346,185055,227,81:65,12160,0,2,1,0,0,1,0
+  658.078 [FASES] 11464,903,65176,70493,19916,16145,958,470,1877,185525,0,0,0
+  667.811 ets Jul 29 2019 12:21:46
+  667.812 
+  667.812 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  667.812 configsip: 0, SPIWP:0xee
+  667.823 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  667.823 mode:DIO, clock div:1
+  667.823 load:0x3fff0030,len:4876
+  667.823 ho 0 tail 12 room 4
+  667.829 load:0x40078000,len:16532
+  667.829 load:0x40080400,len:3500
+  667.829 entry 0x400805b4
+  667.860 [T0] 12179
+  667.919 [    63][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  667.925 [    72][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  667.929 [SENS] AHT20 nao iniciou: sem_resposta
+  667.984 [   128][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  667.990 [   137][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  668.060 [ENVIO] 81,67,1,1,19893,20913,,,32008,,1,0,70360,201944,197,81:66,10018,0,2,1,0,0,1,0
+  668.062 [FASES] 11466,903,66155,70507,19921,32025,967,469,1618,202413,0,0,0
+  677.777 ets Jul 29 2019 12:21:46
+  677.777 
+  677.778 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  677.778 configsip: 0, SPIWP:0xee
+  677.788 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  677.789 mode:DIO, clock div:1
+  677.789 load:0x3fff0030,len:4876
+  677.789 ho 0 tail 12 room 4
+  677.795 load:0x40078000,len:16532
+  677.795 load:0x40080400,len:3500
+  677.795 entry 0x400805b4
+  677.825 [T0] 12173
+  677.884 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  677.890 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  677.893 [SENS] AHT20 nao iniciou: sem_resposta
+  677.949 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  677.955 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  678.071 [ENVIO] 81,68,1,1,19887,69872,,,77807,,1,0,70346,246731,214,81:67,6856,0,2,1,0,0,1,0
+  678.072 [FASES] 11460,903,65174,70493,19914,77824,963,464,1704,247195,0,0,0
+  687.737 ets Jul 29 2019 12:21:46
+  687.737 
+  687.737 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  687.737 configsip: 0, SPIWP:0xee
+  687.748 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  687.748 mode:DIO, clock div:1
+  687.748 load:0x3fff0030,len:4876
+  687.748 ho 0 tail 12 room 4
+  687.754 load:0x40078000,len:16532
+  687.755 load:0x40080400,len:3500
+  687.755 entry 0x400805b4
+  687.785 [T0] 12174
+  687.844 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  687.850 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  687.853 [SENS] AHT20 nao iniciou: sem_resposta
+  687.908 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  687.915 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  688.013 [ENVIO] 81,69,1,1,19894,50122,,,60826,,1,0,70360,229760,258,81:68,9619,0,2,1,0,0,1,0
+  688.015 [FASES] 11461,902,65160,70508,19921,60842,966,463,1618,230223,0,0,0
+  697.693 ets Jul 29 2019 12:21:46
+  697.693 
+  697.693 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  697.693 configsip: 0, SPIWP:0xee
+  697.704 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  697.704 mode:DIO, clock div:1
+  697.704 load:0x3fff0030,len:4876
+  697.704 ho 0 tail 12 room 4
+  697.709 load:0x40078000,len:16532
+  697.710 load:0x40080400,len:3500
+  697.710 entry 0x400805b4
+  697.741 [T0] 12179
+  697.799 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  697.805 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  697.808 [SENS] AHT20 nao iniciou: sem_resposta
+  697.864 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  697.870 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  697.925 [ENVIO] 81,70,1,1,19892,11861,,,17401,,1,0,70360,186333,241,81:69,4452,0,2,1,0,0,1,0
+  697.927 [FASES] 11466,903,65155,70508,19919,17418,964,460,1618,186793,0,0,0
+  707.662 ets Jul 29 2019 12:21:46
+  707.662 
+  707.663 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  707.663 configsip: 0, SPIWP:0xee
+  707.674 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  707.674 mode:DIO, clock div:1
+  707.674 load:0x3fff0030,len:4876
+  707.674 ho 0 tail 12 room 4
+  707.681 load:0x40078000,len:16532
+  707.681 load:0x40080400,len:3500
+  707.681 entry 0x400805b4
+  707.711 [T0] 12174
+  707.720 [    13][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  707.726 [    22][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  707.730 [SENS] AHT20 nao iniciou: sem_resposta
+  707.785 [    78][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  707.791 [    87][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  707.895 [ENVIO] 81,71,1,1,19930,51557,,,65297,,1,0,70474,185250,198,81:70,12663,0,2,1,0,0,1,0
+  707.897 [FASES] 11461,903,16029,70621,19956,65314,966,463,1618,185713,0,0,0
+  717.630 ets Jul 29 2019 12:21:46
+  717.630 
+  717.631 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  717.631 configsip: 0, SPIWP:0xee
+  717.642 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  717.642 mode:DIO, clock div:1
+  717.642 load:0x3fff0030,len:4876
+  717.642 ho 0 tail 12 room 4
+  717.648 load:0x40078000,len:16532
+  717.648 load:0x40080400,len:3500
+  717.648 entry 0x400805b4
+  717.679 [T0] 12176
+  717.737 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  717.743 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  717.746 [SENS] AHT20 nao iniciou: sem_resposta
+  717.803 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  717.808 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  717.876 [ENVIO] 81,72,1,1,19893,22293,,,30564,,1,0,70359,199490,197,81:71,7187,0,2,1,0,0,1,0
+  717.878 [FASES] 11463,903,65155,70507,19920,30580,962,463,1703,199953,0,0,0
+  727.592 ets Jul 29 2019 12:21:46
+  727.592 
+  727.592 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  727.593 configsip: 0, SPIWP:0xee
+  727.603 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  727.604 mode:DIO, clock div:1
+  727.604 load:0x3fff0030,len:4876
+  727.604 ho 0 tail 12 room 4
+  727.609 load:0x40078000,len:16532
+  727.609 load:0x40080400,len:3500
+  727.610 entry 0x400805b4
+  727.641 [T0] 12175
+  727.699 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  727.705 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  727.767 [SENS] AHT20 nao iniciou: s
+  727.797 em_resposta
+  727.848 [ENVIO] 81,73,1,1,19930,2734,,,12925,,1,0,98550,210098,211,81:72,9106,0,2,1,0,0,1,0
+  727.851 [FASES] 11464,902,65176,98696,19957,12941,962,472,1618,210570,90058,2,0
+  737.562 ets Jul 29 2019 12:21:46
+  737.562 
+  737.562 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  737.562 configsip: 0, SPIWP:0xee
+  737.573 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  737.574 mode:DIO, clock div:1
+  737.574 load:0x3fff0030,len:4876
+  737.574 ho 0 tail 12 room 4
+  737.580 load:0x40078000,len:16532
+  737.580 load:0x40080400,len:3500
+  737.580 entry 0x400805b4
+  737.610 [T0] 12178
+  737.669 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  737.676 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  737.737 [SENS] AHT20 nao iniciou: s
+  737.768 em_resposta
+  737.833 [ENVIO] 81,74,1,1,19943,16553,,,27333,,1,0,98549,224519,222,81:73,9698,0,2,1,0,0,1,0
+  737.835 [FASES] 11465,903,65174,98694,19970,27350,963,467,1877,224986,90057,2,0
+  747.534 ets Jul 29 2019 12:21:46
+  747.534 
+  747.534 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  747.534 configsip: 0, SPIWP:0xee
+  747.545 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  747.545 mode:DIO, clock div:1
+  747.545 load:0x3fff0030,len:4876
+  747.546 ho 0 tail 12 room 4
+  747.551 load:0x40078000,len:16532
+  747.551 load:0x40080400,len:3500
+  747.552 entry 0x400805b4
+  747.582 [T0] 12179
+  747.642 [    63][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  747.648 [    72][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  747.651 [SENS] AHT20 nao iniciou: sem_resposta
+  747.707 [   128][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  747.713 [   137][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  747.848 [ENVIO] 81,75,1,1,19894,89668,,,97702,,1,0,70359,267628,236,81:74,6953,0,2,1,0,0,1,0
+  747.850 [FASES] 11466,902,66156,70507,19921,97718,958,467,1962,268095,0,0,0
+  757.494 ets Jul 29 2019 12:21:46
+  757.494 
+  757.494 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  757.495 configsip: 0, SPIWP:0xee
+  757.506 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  757.506 mode:DIO, clock div:1
+  757.506 load:0x3fff0030,len:4876
+  757.506 ho 0 tail 12 room 4
+  757.511 load:0x40078000,len:16532
+  757.511 load:0x40080400,len:3500
+  757.511 entry 0x400805b4
+  757.542 [T0] 12178
+  757.601 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  757.607 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  757.610 [SENS] AHT20 nao iniciou: sem_resposta
+  757.666 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  757.671 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  757.751 [ENVIO] 81,76,1,1,19897,31015,,,41503,,1,0,70360,210436,279,81:75,9395,0,2,1,0,0,1,0
+  757.753 [FASES] 11465,903,65156,70506,19925,41520,961,463,1617,210899,0,0,0
+  767.461 ets Jul 29 2019 12:21:46
+  767.461 
+  767.461 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  767.462 configsip: 0, SPIWP:0xee
+  767.472 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  767.472 mode:DIO, clock div:1
+  767.472 load:0x3fff0030,len:4876
+  767.472 ho 0 tail 12 room 4
+  767.478 load:0x40078000,len:16532
+  767.479 load:0x40080400,len:3500
+  767.479 entry 0x400805b4
+  767.509 [T0] 12176
+  767.569 [    63][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  767.575 [    72][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  767.578 [SENS] AHT20 nao iniciou: sem_resposta
+  767.634 [   128][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  767.639 [   137][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  767.748 [ENVIO] 81,77,1,1,19894,47322,,,71083,,1,0,70360,241011,222,81:76,22676,0,2,1,0,0,1,0
+  767.750 [FASES] 11463,903,66155,70508,19921,71099,962,468,1618,241479,0,0,0
+  777.418 ets Jul 29 2019 12:21:46
+  777.418 
+  777.418 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  777.418 configsip: 0, SPIWP:0xee
+  777.429 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  777.429 mode:DIO, clock div:1
+  777.429 load:0x3fff0030,len:4876
+  777.429 ho 0 tail 12 room 4
+  777.435 load:0x40078000,len:16532
+  777.435 load:0x40080400,len:3500
+  777.435 entry 0x400805b4
+  777.466 [T0] 12177
+  777.525 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  777.531 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  777.533 [SENS] AHT20 nao iniciou: sem_resposta
+  777.590 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  777.595 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  777.666 [ENVIO] 81,78,1,1,19897,25875,,,33009,,1,0,70357,201945,253,81:77,6049,0,2,1,0,0,1,0
+  777.668 [FASES] 11464,902,65160,70505,19924,33025,965,469,1704,202414,0,0,0
+  787.384 ets Jul 29 2019 12:21:46
+  787.384 
+  787.385 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  787.385 configsip: 0, SPIWP:0xee
+  787.395 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  787.396 mode:DIO, clock div:1
+  787.396 load:0x3fff0030,len:4876
+  787.396 ho 0 tail 12 room 4
+  787.401 load:0x40078000,len:16532
+  787.401 load:0x40080400,len:3500
+  787.401 entry 0x400805b4
+  787.433 [T0] 12180
+  787.491 [    62][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  787.497 [    71][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  787.500 [SENS] AHT20 nao iniciou: sem_resposta
+  787.556 [   127][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  787.562 [   136][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  787.612 [ENVIO] 81,79,1,1,19904,3466,,,11976,,1,0,70346,180922,214,81:78,7429,0,2,1,0,0,1,0
+  787.613 [FASES] 11467,903,65174,70493,19930,11994,961,468,1617,181390,0,0,0
+  797.354 ets Jul 29 2019 12:21:46
+  797.354 
+  797.354 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  797.354 configsip: 0, SPIWP:0xee
+  797.365 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  797.365 mode:DIO, clock div:1
+  797.365 load:0x3fff0030,len:4876
+  797.365 ho 0 tail 12 room 4
+  797.371 load:0x40078000,len:16532
+  797.371 load:0x40080400,len:3500
+  797.371 entry 0x400805b4
+  797.402 [T0] 12178
+  797.462 [    63][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  797.467 [    72][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  797.470 [SENS] AHT20 nao iniciou: sem_resposta
+  797.526 [   128][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  797.532 [   137][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  797.578 [ENVIO] 81,80,1,1,19896,1878,,,7548,,1,0,70359,177487,193,81:79,4579,0,2,1,0,0,1,0
+  797.579 [FASES] 11465,903,66155,70506,19924,7565,969,462,1532,177949,0,0,0
+  807.327 ets Jul 29 2019 12:21:46
+  807.327 
+  807.327 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  807.327 configsip: 0, SPIWP:0xee
+  807.338 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  807.338 mode:DIO, clock div:1
+  807.339 load:0x3fff0030,len:4876
+  807.339 ho 0 tail 12 room 4
+  807.344 load:0x40078000,len:16532
+  807.344 load:0x40080400,len:3500
+  807.345 entry 0x400805b4
+  807.375 [T0] 12177
+  807.434 [    63][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  807.440 [    72][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  807.443 [SENS] AHT20 nao iniciou: sem_resposta
+  807.500 [   128][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  807.505 [   137][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  807.550 [ENVIO] 81,81,1,1,19893,1880,,,6801,,1,0,70360,176739,189,81:80,3837,0,2,1,0,0,1,0
+  807.552 [FASES] 11466,902,66157,70508,19920,6818,968,463,1359,177202,0,0,0
+  817.296 ets Jul 29 2019 12:21:46
+  817.296 
+  817.296 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  817.296 configsip: 0, SPIWP:0xee
+  817.307 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  817.307 mode:DIO, clock div:1
+  817.308 load:0x3fff0030,len:4876
+  817.308 ho 0 tail 12 room 4
+  817.313 load:0x40078000,len:16532
+  817.314 load:0x40080400,len:3500
+  817.314 entry 0x400805b4
+  817.344 [T0] 12179
+  817.404 [    63][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  817.410 [    72][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  817.413 [SENS] AHT20 nao iniciou: sem_resposta
+  817.469 [   128][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  817.474 [   137][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  817.520 [ENVIO] 81,82,1,1,19894,1880,,,7360,,1,0,70360,177297,188,81:81,4391,0,2,1,0,0,1,0
+  817.522 [FASES] 11465,903,66156,70506,19922,7376,969,462,1359,177759,0,0,0
+  827.270 ets Jul 29 2019 12:21:46
+  827.270 
+  827.270 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  827.270 configsip: 0, SPIWP:0xee
+  827.281 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  827.281 mode:DIO, clock div:1
+  827.281 load:0x3fff0030,len:4876
+  827.281 ho 0 tail 12 room 4
+  827.287 load:0x40078000,len:16532
+  827.287 load:0x40080400,len:3500
+  827.287 entry 0x400805b4
+  827.318 [T0] 12174
+  827.378 [    63][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  827.384 [    72][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  827.387 [SENS] AHT20 nao iniciou: sem_resposta
+  827.443 [   128][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  827.448 [   137][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  827.494 [ENVIO] 81,83,1,1,19891,1837,,,7140,,1,0,70360,177060,189,81:82,4230,0,2,1,0,0,1,0
+  827.495 [FASES] 11461,904,66155,70508,19918,7158,956,468,1359,177528,0,0,0
+  837.242 ets Jul 29 2019 12:21:46
+  837.242 
+  837.243 rst:0x5 (DEEPSLEEP_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+  837.243 configsip: 0, SPIWP:0xee
+  837.253 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+  837.253 mode:DIO, clock div:1
+  837.253 load:0x3fff0030,len:4876
+  837.253 ho 0 tail 12 room 4
+  837.259 load:0x40078000,len:16532
+  837.260 load:0x40080400,len:3500
+  837.260 entry 0x400805b4
+  837.290 [T0] 12178
+  837.350 [    63][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  837.355 [    72][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  837.359 [SENS] AHT20 nao iniciou: sem_resposta
+  837.415 [   128][E][esp32-hal-i2c-ng.c:321] i2cRead(): i2c_master_receive failed: [259] ESP_ERR_INVALID_STATE
+  837.420 [   137][E][Wire.cpp:539] requestFrom(): i2cRead returned Error 259
+  837.469 [ENVIO] 81,84,1,1,19894,1877,,,10844,,1,0,70360,180787,189,81:83,7882,0,2,1,0,0,1,0
+  837.471 [FASES] 11465,903,66156,70507,19920,10862,974,460,1359,181247,0,0,0
