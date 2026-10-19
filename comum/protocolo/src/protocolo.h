@@ -19,10 +19,13 @@ namespace protocolo {
 // ---------------------------------------------------------------- Identificação
 // v1: PacoteLeitura de 22 B sem autenticação.
 // v2: os mesmos 22 B (versao = 2) + assinatura HMAC-SHA256 de 16 B (PacoteAssinado).
-constexpr uint8_t VERSAO = 2;
+// v3: + idade_s (26 B, assinado 42 B), bit SEM_ANTERIORES e a confirmação
+//     coordenador → nó (Confirmacao). Etapa 7.1, docs/protocolo.md seção 13.
+constexpr uint8_t VERSAO = 3;
 
 enum class Tipo : uint8_t {
-  LEITURA = 1,  // leituras de um ciclo do nó
+  LEITURA = 1,      // leituras de um ciclo do nó (nó → coordenador)
+  CONFIRMACAO = 2,  // "tudo até (boot, seq) está gravado" (coordenador → nó)
 };
 
 // ---------------------------------------------------------------- Estados
@@ -49,7 +52,10 @@ constexpr uint8_t AHT20_NOVA_TENTATIVA = 1u << 0;  // o driver repetiu a consult
 constexpr uint8_t ANTERIOR_SEM_ACK = 1u << 1;      // o pacote anterior esgotou as tentativas sem ACK
                                                    // (desfaz a ambiguidade de tentativas_ant = máximo)
 constexpr uint8_t CICLO_ANTERIOR_ABORTADO = 1u << 2;  // o prazo máximo acordado interrompeu o ciclo anterior
-// bits 3–7: reservados (o receptor ignora; o nó envia 0)
+// v3: o nó não tem nenhuma leitura pendente anterior a esta (é a mais antiga da
+// fila). Calculado no envio. Só com ele o coordenador aceita um buraco de seq.
+constexpr uint8_t SEM_ANTERIORES = 1u << 3;
+// bits 4–7: reservados (o receptor ignora; o nó envia 0)
 }  // namespace flag
 
 // ---------------------------------------------------------------- Pacote
@@ -68,11 +74,18 @@ struct __attribute__((packed)) PacoteLeitura {
   uint16_t acordado_ant_ms;  // 18  tempo acordado no ciclo anterior, ms (0 = desconhecido)
   uint8_t tentativas_ant;    // 20  envios do pacote anterior (0 = desconhecido)
   uint8_t flags;             // 21  ver namespace flag
+  uint32_t idade_s;          // 22  v3: s entre a leitura e este envio (0 = enviada no ciclo em que foi lida).
+                             //     Fora do alinhamento natural: ler só por memcpy (regras no topo).
 };
+
+// Bytes do pacote antes da idade: o que a fila do nó guarda (a idade e o bit
+// SEM_ANTERIORES são escritos no envio).
+constexpr size_t TAMANHO_SEM_IDADE = 22;
 
 // Travas de layout: se alguém mudar um campo sem atualizar a especificação
 // (e a VERSAO), a compilação falha nos dois firmwares e nos testes.
-static_assert(sizeof(PacoteLeitura) == 22, "PacoteLeitura deve ter 22 bytes");
+static_assert(sizeof(PacoteLeitura) == 26, "PacoteLeitura deve ter 26 bytes");
+static_assert(offsetof(PacoteLeitura, idade_s) == TAMANHO_SEM_IDADE, "offset de idade_s");
 static_assert(offsetof(PacoteLeitura, boot) == 2, "offset de boot");
 static_assert(offsetof(PacoteLeitura, seq) == 4, "offset de seq");
 static_assert(offsetof(PacoteLeitura, temperatura_c100) == 8, "offset de temperatura");
@@ -110,11 +123,11 @@ bool hmacSha256(const uint8_t* chave, size_t tamanhoChave, const uint8_t* mensag
 
 // O que vai no ar a partir da v2: o pacote e, logo depois, a assinatura.
 struct __attribute__((packed)) PacoteAssinado {
-  PacoteLeitura leitura;                    //  0  versao = 2
-  uint8_t assinatura[TAMANHO_ASSINATURA];   // 22  HMAC-SHA256(chave do nó, bytes 0–21)[0..15]
+  PacoteLeitura leitura;                    //  0  versao = 3
+  uint8_t assinatura[TAMANHO_ASSINATURA];   // 26  HMAC-SHA256(chave do nó, bytes 0–25)[0..15]
 };
-static_assert(sizeof(PacoteAssinado) == 38, "PacoteAssinado deve ter 38 bytes");
-static_assert(offsetof(PacoteAssinado, assinatura) == 22, "offset da assinatura");
+static_assert(sizeof(PacoteAssinado) == 42, "PacoteAssinado deve ter 42 bytes");
+static_assert(offsetof(PacoteAssinado, assinatura) == 26, "offset da assinatura");
 
 // Chave de cada nó derivada da chave mestra do coordenador (diversificação de
 // chaves): chaveNo = HMAC-SHA256(chaveMestra, MAC STA do nó). O coordenador
@@ -125,6 +138,59 @@ bool derivarChaveNo(const uint8_t chaveMestra[TAMANHO_CHAVE], const uint8_t mac[
 
 // Assina o pacote (nó). Devolve false se o HMAC falhar.
 bool assinar(const PacoteLeitura& p, const uint8_t chave[TAMANHO_CHAVE], FuncaoHmac hmac, PacoteAssinado& saida);
+
+// ---------------------------------------------------------------- Confirmação (v3, coordenador → nó)
+// "Tudo até (boot, seq) deste nó está gravado no histórico" (confirmação
+// cumulativa). Enviada em resposta a todo pacote autêntico, ANTES de gravá-lo:
+// por isso confirma o que já estava gravado, não o pacote que a provocou.
+// Assinada com a MESMA chave do nó: o campo tipo (dentro da assinatura) separa
+// leitura de confirmação, e um pacote refletido de volta não passa.
+namespace flag_conf {
+constexpr uint8_t NADA_GRAVADO = 1u << 0;  // nenhum registro deste nó: boot e seq não valem
+// bits 1–7: reservados
+}  // namespace flag_conf
+
+struct __attribute__((packed)) Confirmacao {
+  uint8_t versao;  //  0  VERSAO
+  uint8_t tipo;    //  1  Tipo::CONFIRMACAO
+  uint16_t boot;   //  2  último (boot, seq) gravado deste nó
+  uint32_t seq;    //  4
+  uint8_t flags;   //  8  flag_conf
+};
+static_assert(sizeof(Confirmacao) == 9, "Confirmacao deve ter 9 bytes");
+
+struct __attribute__((packed)) ConfirmacaoAssinada {
+  Confirmacao conf;                        //  0
+  uint8_t assinatura[TAMANHO_ASSINATURA];  //  9  HMAC-SHA256(chave do nó, bytes 0–8)[0..15]
+};
+static_assert(sizeof(ConfirmacaoAssinada) == 25, "ConfirmacaoAssinada deve ter 25 bytes");
+
+bool assinarConfirmacao(const Confirmacao& c, const uint8_t chave[TAMANHO_CHAVE], FuncaoHmac hmac,
+                        ConfirmacaoAssinada& saida);
+
+enum class RejeicaoConfirmacao : uint8_t {
+  NENHUMA = 0,
+  TAMANHO_ERRADO,       // != sizeof(ConfirmacaoAssinada)
+  VERSAO_DESCONHECIDA,
+  TIPO_DESCONHECIDO,    // não é CONFIRMACAO (ex.: um pacote de leitura refletido)
+  ASSINATURA_INVALIDA,
+  ALEM_DO_GERADO,       // confirma um (boot, seq) que o nó ainda não gerou: recusada
+};
+
+const char* nomeRejeicaoConfirmacao(RejeicaoConfirmacao r);
+
+// Valida os bytes recebidos pelo nó. (ultimoBoot, ultimoSeq) = último par que o
+// nó gerou: ninguém pode confirmar o que ele ainda não enviou (protege, por
+// exemplo, contra uma confirmação antiga repetida depois de a NVS do nó ser
+// apagada). Com NADA_GRAVADO, o par não é conferido.
+RejeicaoConfirmacao validarConfirmacao(const uint8_t* dados, size_t tamanho, const uint8_t chave[TAMANHO_CHAVE],
+                                       FuncaoHmac hmac, uint16_t ultimoBoot, uint32_t ultimoSeq,
+                                       Confirmacao& saida);
+
+// Compara dois pares (boot, seq) na ordem em que o nó os gera, com aritmética
+// modular (RFC 1982): boot em 16 bits e, no mesmo boot, seq em 32 bits.
+// Negativo: a vem antes de b; 0: iguais; positivo: a vem depois.
+int compararPar(uint16_t bootA, uint32_t seqA, uint16_t bootB, uint32_t seqB);
 
 // Carga útil máxima do ESP-NOW v1.0 (ESP_NOW_MAX_DATA_LEN), ESP-IDF v5.5.
 constexpr size_t ESPNOW_MAX_CARGA = 250;
@@ -203,43 +269,58 @@ Rejeicao validar(const uint8_t* dados, size_t tamanho, const uint8_t chave[TAMAN
 
 // ---------------------------------------------------------------- Sequência (coordenador)
 // Classificação de um pacote válido pelo par (boot, seq), um rastreador por nó (MAC).
+// v3 (Etapa 7.1): a "borda" é o último par GRAVADO do nó, e só o próximo é
+// aceito; um buraco só é aceito se o nó declarar SEM_ANTERIORES (as leituras do
+// meio se perderam no próprio nó). Assim o histórico de cada nó fica contínuo e
+// a confirmação cumulativa "tudo até a borda" é sempre verdadeira.
 enum class Classe : uint8_t {
-  PRIMEIRO,   // primeiro pacote do nó desde que o coordenador ligou
-  NOVO,       // mesmo boot, seq posterior ao último (pode haver perdas no meio)
-  DUPLICADO,  // mesmo boot e mesmo seq do último aceito: descartar
-  ANTIGO,     // mesmo boot e seq anterior ao último: descartar
-  REINICIO,   // boot posterior ao último: o nó reiniciou (seq recomeça de 0)
-  BOOT_ANTIGO,  // boot anterior ao último: repetição de um pacote antigo, ou a NVS do
-                // nó foi apagada (liberar com esquecer()); descartar
+  PRIMEIRO,       // sem borda (coordenador sem histórico do nó) e SEM_ANTERIORES
+  NOVO,           // mesmo boot, seq seguinte (ou com buraco declarado por SEM_ANTERIORES)
+  DUPLICADO,      // mesmo boot e mesmo seq da borda: já gravado
+  ANTIGO,         // mesmo boot e seq anterior à borda: já gravado
+  REINICIO,       // boot posterior à borda, com SEM_ANTERIORES: o nó reiniciou
+  BOOT_ANTIGO,    // boot anterior à borda: repetição de um pacote antigo, ou a NVS do
+                  // nó foi apagada (liberar com esquecer())
+  FORA_DE_ORDEM,  // à frente da borda com buraco e sem SEM_ANTERIORES (ou sem borda e sem
+                  // SEM_ANTERIORES): o nó ainda tem leituras anteriores; recusar
 };
 
 const char* nomeClasse(Classe c);
 
+// Classes que são gravadas (e, depois de gravadas, avançam a borda).
 constexpr bool aceitar(Classe c) {
   return c == Classe::PRIMEIRO || c == Classe::NOVO || c == Classe::REINICIO;
 }
 
 class RastreadorSequencia {
  public:
-  // Classifica e atualiza os contadores. As comparações de seq (32 bits) e de
-  // boot (16 bits) usam aritmética modular (RFC 1982): depois de 0xFFFFFFFF vem
-  // 0, sem confundir com reinício; depois do boot 65535 vem o 0.
-  Classe registrar(uint16_t boot, uint32_t seq);
+  // Classifica sem mover a borda. `semAnteriores` = bit SEM_ANTERIORES do
+  // pacote. `lacuna` recebe o número de seq perdidos antes deste (só para as
+  // classes aceitas). Conta as recusas. As comparações de seq (32 bits) e de
+  // boot (16 bits) usam aritmética modular (RFC 1982).
+  Classe classificar(uint16_t boot, uint32_t seq, bool semAnteriores, uint32_t& lacuna);
 
-  // Retoma o último (boot, seq) aceito conhecido (ex.: lido do histórico quando
-  // o coordenador liga), para que pacotes repetidos não passem como PRIMEIRO.
-  // Os contadores não mudam; o próximo pacote do mesmo boot conta as lacunas.
+  // Depois que o registro foi gravado: move a borda para (boot, seq) e conta.
+  // Se a gravação falhar, não chamar: a borda fica, e o reenvio é aceito.
+  void confirmar(uint16_t boot, uint32_t seq, Classe c, uint32_t lacuna);
+
+  // Retoma a borda (ex.: último registro do nó lido do histórico no boot do
+  // coordenador). Os contadores não mudam.
   void restaurar(uint16_t boot, uint32_t seq);
 
-  // Esquece o nó: o próximo pacote é PRIMEIRO (ex.: depois de apagar a NVS do nó).
+  // Esquece o nó (ex.: NVS do nó apagada): fica sem borda até um pacote com SEM_ANTERIORES.
   void esquecer() { iniciado_ = false; }
 
+  bool temBorda() const { return iniciado_; }
+  uint16_t bordaBoot() const { return boot_; }
+  uint32_t bordaSeq() const { return seq_; }
+
   uint32_t aceitos() const { return aceitos_; }
-  uint32_t perdidos() const { return perdidos_; }    // lacunas de seq dentro de um boot
+  uint32_t perdidos() const { return perdidos_; }        // lacunas declaradas pelo nó (fila cheia, reinício)
   uint32_t descartados() const { return descartados_; }  // duplicados + antigos + boots antigos
+  uint32_t foraDeOrdem() const { return foraDeOrdem_; }
   uint32_t bootsAntigos() const { return bootsAntigos_; }
   uint32_t reinicios() const { return reinicios_; }
-  uint32_t ultimaLacuna() const { return ultimaLacuna_; }  // perdidos no último registro
 
  private:
   bool iniciado_ = false;
@@ -248,9 +329,9 @@ class RastreadorSequencia {
   uint32_t aceitos_ = 0;
   uint32_t perdidos_ = 0;
   uint32_t descartados_ = 0;
+  uint32_t foraDeOrdem_ = 0;
   uint32_t bootsAntigos_ = 0;
   uint32_t reinicios_ = 0;
-  uint32_t ultimaLacuna_ = 0;
 };
 
 }  // namespace protocolo

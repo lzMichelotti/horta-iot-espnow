@@ -136,14 +136,67 @@ Rejeicao validar(const uint8_t* dados, size_t tamanho, const uint8_t chave[TAMAN
   return Rejeicao::NENHUMA;
 }
 
+// ---------------------------------------------------------------- Confirmação
+bool assinarConfirmacao(const Confirmacao& c, const uint8_t chave[TAMANHO_CHAVE], FuncaoHmac hmac,
+                        ConfirmacaoAssinada& saida) {
+  if (hmac == nullptr) return false;
+  uint8_t bytes[sizeof(Confirmacao)];
+  std::memcpy(bytes, &c, sizeof(bytes));
+  uint8_t completo[TAMANHO_HMAC];
+  if (!hmac(chave, TAMANHO_CHAVE, bytes, sizeof(bytes), completo)) return false;
+  std::memcpy(&saida.conf, bytes, sizeof(bytes));
+  std::memcpy(saida.assinatura, completo, TAMANHO_ASSINATURA);
+  return true;
+}
+
+const char* nomeRejeicaoConfirmacao(RejeicaoConfirmacao r) {
+  switch (r) {
+    case RejeicaoConfirmacao::NENHUMA:             return "nenhuma";
+    case RejeicaoConfirmacao::TAMANHO_ERRADO:      return "tamanho_errado";
+    case RejeicaoConfirmacao::VERSAO_DESCONHECIDA: return "versao_desconhecida";
+    case RejeicaoConfirmacao::TIPO_DESCONHECIDO:   return "tipo_desconhecido";
+    case RejeicaoConfirmacao::ASSINATURA_INVALIDA: return "assinatura_invalida";
+    case RejeicaoConfirmacao::ALEM_DO_GERADO:      return "alem_do_gerado";
+  }
+  return "?";
+}
+
+RejeicaoConfirmacao validarConfirmacao(const uint8_t* dados, size_t tamanho, const uint8_t chave[TAMANHO_CHAVE],
+                                       FuncaoHmac hmac, uint16_t ultimoBoot, uint32_t ultimoSeq,
+                                       Confirmacao& saida) {
+  if (dados == nullptr || tamanho != sizeof(ConfirmacaoAssinada)) return RejeicaoConfirmacao::TAMANHO_ERRADO;
+  if (dados[0] != VERSAO) return RejeicaoConfirmacao::VERSAO_DESCONHECIDA;
+  if (dados[1] != static_cast<uint8_t>(Tipo::CONFIRMACAO)) return RejeicaoConfirmacao::TIPO_DESCONHECIDO;
+
+  uint8_t esperado[TAMANHO_HMAC];
+  if (chave == nullptr || hmac == nullptr || !hmac(chave, TAMANHO_CHAVE, dados, sizeof(Confirmacao), esperado) ||
+      !iguaisTempoConstante(esperado, dados + sizeof(Confirmacao), TAMANHO_ASSINATURA))
+    return RejeicaoConfirmacao::ASSINATURA_INVALIDA;
+
+  Confirmacao c;
+  std::memcpy(&c, dados, sizeof(c));
+  if (!(c.flags & flag_conf::NADA_GRAVADO) && compararPar(c.boot, c.seq, ultimoBoot, ultimoSeq) > 0)
+    return RejeicaoConfirmacao::ALEM_DO_GERADO;
+  saida = c;
+  return RejeicaoConfirmacao::NENHUMA;
+}
+
+int compararPar(uint16_t bootA, uint32_t seqA, uint16_t bootB, uint32_t seqB) {
+  if (bootA != bootB) return static_cast<uint16_t>(bootA - bootB) < 0x8000u ? 1 : -1;
+  if (seqA == seqB) return 0;
+  return static_cast<uint32_t>(seqA - seqB) < 0x80000000u ? 1 : -1;
+}
+
+// ---------------------------------------------------------------- Sequência
 const char* nomeClasse(Classe c) {
   switch (c) {
-    case Classe::PRIMEIRO:  return "primeiro";
-    case Classe::NOVO:      return "novo";
-    case Classe::DUPLICADO: return "duplicado";
-    case Classe::ANTIGO:    return "antigo";
-    case Classe::REINICIO:  return "reinicio";
-    case Classe::BOOT_ANTIGO: return "boot_antigo";
+    case Classe::PRIMEIRO:      return "primeiro";
+    case Classe::NOVO:          return "novo";
+    case Classe::DUPLICADO:     return "duplicado";
+    case Classe::ANTIGO:        return "antigo";
+    case Classe::REINICIO:      return "reinicio";
+    case Classe::BOOT_ANTIGO:   return "boot_antigo";
+    case Classe::FORA_DE_ORDEM: return "fora_de_ordem";
   }
   return "?";
 }
@@ -154,47 +207,60 @@ void RastreadorSequencia::restaurar(uint16_t boot, uint32_t seq) {
   seq_ = seq;
 }
 
-Classe RastreadorSequencia::registrar(uint16_t boot, uint32_t seq) {
-  ultimaLacuna_ = 0;
-  Classe c;
+Classe RastreadorSequencia::classificar(uint16_t boot, uint32_t seq, bool semAnteriores, uint32_t& lacuna) {
+  lacuna = 0;
   if (!iniciado_) {
-    // Coordenador acabou de ligar: o histórico anterior é desconhecido, não conta perdas.
-    iniciado_ = true;
-    c = Classe::PRIMEIRO;
-  } else if (boot != boot_) {
-    // O contador de boots do nó só avança (NVS). Um boot "atrás" do último, na
+    // Sem borda (histórico do nó desconhecido): só aceita a leitura mais antiga
+    // que o nó tem; senão as anteriores, ainda na fila do nó, seriam recusadas depois.
+    if (semAnteriores) return Classe::PRIMEIRO;
+    foraDeOrdem_++;
+    return Classe::FORA_DE_ORDEM;
+  }
+  if (boot != boot_) {
+    // O contador de boots do nó só avança (NVS). Um boot "atrás" da borda, na
     // metade do círculo de 16 bits, é um pacote antigo repetido (com assinatura
     // válida, mas capturado antes) ou a NVS do nó foi apagada: descartar até
-    // alguém chamar esquecer(). Sem esta regra, reenviar um pacote de um boot
-    // anterior passaria como reinício.
+    // alguém chamar esquecer().
     if (static_cast<uint16_t>(boot - boot_) >= 0x8000u) {
       descartados_++;
       bootsAntigos_++;
       return Classe::BOOT_ANTIGO;
     }
-    // O seq recomeça de 0, então os seq anteriores a este no novo boot se
-    // perderam. Perdas no fim do boot anterior não são detectáveis.
-    reinicios_++;
-    ultimaLacuna_ = seq;
-    c = Classe::REINICIO;
-  } else {
-    uint32_t diferenca = seq - seq_;  // aritmética modular de 32 bits
-    if (diferenca == 0) {
-      descartados_++;
-      return Classe::DUPLICADO;
+    // Boot novo: só se o nó não tem mais nada do boot anterior. Os seq
+    // anteriores a este no boot novo se perderam no nó; perdas no fim do boot
+    // anterior não são detectáveis.
+    if (!semAnteriores) {
+      foraDeOrdem_++;
+      return Classe::FORA_DE_ORDEM;
     }
-    if (diferenca >= 0x80000000u) {  // "atrás" do último na metade do círculo
-      descartados_++;
-      return Classe::ANTIGO;
-    }
-    ultimaLacuna_ = diferenca - 1;
-    c = Classe::NOVO;
+    lacuna = seq;
+    return Classe::REINICIO;
   }
-  perdidos_ += ultimaLacuna_;
+  uint32_t diferenca = seq - seq_;  // aritmética modular de 32 bits
+  if (diferenca == 0) {
+    descartados_++;
+    return Classe::DUPLICADO;
+  }
+  if (diferenca >= 0x80000000u) {  // "atrás" da borda na metade do círculo
+    descartados_++;
+    return Classe::ANTIGO;
+  }
+  if (diferenca > 1 && !semAnteriores) {
+    foraDeOrdem_++;
+    return Classe::FORA_DE_ORDEM;
+  }
+  lacuna = diferenca - 1;
+  return Classe::NOVO;
+}
+
+void RastreadorSequencia::confirmar(uint16_t boot, uint32_t seq, Classe c, uint32_t lacuna) {
+  if (!aceitar(c)) return;
+  if (c == Classe::REINICIO) reinicios_++;
+  perdidos_ += lacuna;
   aceitos_++;
+  iniciado_ = true;
   boot_ = boot;
   seq_ = seq;
-  return c;
 }
 
 }  // namespace protocolo
