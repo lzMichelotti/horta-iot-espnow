@@ -84,7 +84,19 @@ O tempo até o `FAIL` varia com o canal: a camada MAC retransmite o quadro sozin
 
 Esse custo não vem da Etapa 7.1: é a política de retransmissão da Etapa 4 (até 3 envios, cada um esperando o `FAIL` da camada MAC, ~34 ms, com retransmissões automáticas do quadro). Antes da Etapa 7.1, as retransmissões tentavam salvar a leitura. **Agora a leitura fica guardada na fila**, e insistir no mesmo ciclo deixou de ser necessário para não perder dados.
 
-**Melhoria possível (decisão pendente):** com o coordenador fora, uma tentativa só custaria **+3,2–8,1 mC** em vez de +17–42 mC por ciclo. O ganho depende de quanto tempo o coordenador fica fora na prática. Com 1 tentativa, uma falha curta (interferência) atrasa a leitura um ciclo em vez de ser resolvida na hora.
+**Regra adaptativa (Etapa 8, passo 0, adotada):** se o ciclo anterior terminou sem ACK, a leitura nova tem **1 tentativa** (`ENVIOS_APOS_FALHA`); com ACK, continuam as 3 da Etapa 4. Na operação normal nada muda. Numa queda, só o primeiro ciclo paga as 3 tentativas.
+
+Comparação nas mesmas condições de canal (duas capturas seguidas, 19/10/2026 à tarde, 5 min de coordenador fora em cada; `dados/etapa8/brutos/p0_tentativas3` com o env `teste_tentativas3` × `p0_tentativa_adaptativa`):
+
+| Ciclo com o coordenador fora | 3 tentativas (antes) | 1 tentativa (adaptativa) | Redução |
+|---|---|---|---|
+| Acordado, mediana | 680 ms | 385 ms | −43 % |
+| Acordado, p95 / máx. | 2118 / 2257 ms | 917 / 1060 ms | −57 % / −53 % |
+| Rádio, mediana | 506 ms | 236 ms | −53 % |
+| Rádio, p95 | 1941 ms | 741 ms | −62 % |
+| Leituras gravadas | 49/49, 0 duplicatas | 49/49, 0 duplicatas | — |
+
+**Achado:** à tarde, a camada MAC levou mais de 100 ms para desistir de um quadro sem ACK. O callback não chegou no prazo de 100 ms do firmware (`t1_us` = −1), e o `esp_wifi_stop()` **esperou** a MAC terminar as retransmissões (fase "desligar" de 130–520 ms, contra ~1 ms quando o `FAIL` chega). O custo de cada tentativa sem ACK, portanto, varia com a ocupação do canal: 34–44 ms ao meio-dia (T2), centenas de ms à tarde. Com a regra antiga, um ciclo chegou a 2,26 s, perto do prazo máximo acordado de 3 s. A Espressif não documenta o número de retransmissões da MAC nem uma forma de interrompê-las (pendência: investigar).
 
 ## 6. Limitações
 
