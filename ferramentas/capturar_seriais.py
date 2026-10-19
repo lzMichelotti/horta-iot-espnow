@@ -28,6 +28,8 @@ import serial
 
 # Linha da varredura do coordenador: "[SCAN] canal,rssi,ssid" → SSID omitido.
 SCAN_SSID = re.compile(r"^(\[SCAN\] -?\d+,-?\d+,).*$")
+# Etapa 8: o token da API ("token gerar") nunca vai para o arquivo.
+TOKEN = re.compile(r"(token novo \(anote; o anterior deixou de valer\): )[0-9a-f]{32}")
 
 PORTAS = {
     "coord": "/dev/serial/by-id/usb-1a86_USB_Single_Serial_5AC9002039-if00",
@@ -82,6 +84,7 @@ def main():
                     texto = linha.decode(errors="replace").rstrip()
                     # O repositório é público: o nome das redes vizinhas não é gravado.
                     texto = SCAN_SSID.sub(r"\1(omitido)", texto)
+                    texto = TOKEN.sub(r"\1(omitido)", texto)
                     saida.write(f"{time.time() - t0:9.3f} {texto}\n")
                     saida.flush()
                     if (nome == "coord" and args.reset_coord_gravacao and texto.startswith("[FS] gravado")

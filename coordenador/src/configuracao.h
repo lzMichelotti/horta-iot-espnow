@@ -27,6 +27,30 @@ const cadastro::Tabela& tabela();
 // em estado diferente de OK.
 bool umidadeSolo(const registro::Registro& r, int16_t& decimos);
 
+// ---------------------------------------------------------------- Edição pela API HTTP (Etapa 8)
+// As mudanças são aplicadas numa cópia da tabela; só se todas forem válidas a
+// cópia vira o cadastro e é gravada na NVS (nada fica pela metade).
+struct Alteracao {
+  const char* nome = nullptr;    // nullptr = não muda
+  bool mudarCalibracao = false;  // true com os dois pontos abaixo
+  uint16_t mvSeco = 0, mvUmido = 0;
+  bool removerCalibracao = false;
+};
+
+enum class Edicao : uint8_t {
+  OK,
+  INVALIDA,     // ver `motivo` (nome, faixa, ordem, tabela cheia)
+  NAO_ENCONTRADO,
+  SEM_LEITURA,  // calibrar: o nó não tem leitura com o solo em estado ok
+  FALHA_NVS,
+};
+
+// `novo` = o MAC ainda não estava cadastrado (cadastrado agora pelo nome).
+Edicao editar(const uint8_t mac[6], const Alteracao& a, cadastro::Resultado& motivo, bool& novo);
+
+// Ponto seco ou úmido = solo da última leitura do nó (calibração em campo).
+Edicao calibrarPelaUltima(const uint8_t mac[6], cadastro::Ponto ponto, cadastro::Resultado& motivo, uint16_t& mv);
+
 // Comando "no" da serial:
 //   no | no nome MAC NOME | no cal MAC SECO UMIDO | no seco MAC | no umido MAC
 //   no semcal MAC | no apagar MAC | no padrao

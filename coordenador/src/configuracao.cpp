@@ -116,6 +116,45 @@ void iniciar() {
 
 const cadastro::Tabela& tabela() { return cad; }
 
+Edicao editar(const uint8_t mac[6], const Alteracao& a, cadastro::Resultado& motivo, bool& novo) {
+  cadastro::Tabela copia = cad;
+  novo = copia.buscar(mac) == nullptr;
+  motivo = cadastro::Resultado::OK;
+  if (a.nome != nullptr) motivo = copia.definirNome(mac, a.nome);
+  else if (novo) return Edicao::NAO_ENCONTRADO;  // sem nome não dá para cadastrar
+  if (motivo == cadastro::Resultado::OK && a.removerCalibracao) motivo = copia.removerCalibracao(mac);
+  if (motivo == cadastro::Resultado::OK && a.mudarCalibracao)
+    motivo = copia.definirCalibracao(mac, a.mvSeco, a.mvUmido);
+  if (motivo != cadastro::Resultado::OK) return Edicao::INVALIDA;
+  cadastro::Tabela antes = cad;
+  cad = copia;
+  if (!salvar()) {
+    cad = antes;
+    return Edicao::FALHA_NVS;
+  }
+  return Edicao::OK;
+}
+
+Edicao calibrarPelaUltima(const uint8_t mac[6], cadastro::Ponto ponto, cadastro::Resultado& motivo, uint16_t& mv) {
+  motivo = cadastro::Resultado::OK;
+  if (cad.buscar(mac) == nullptr) return Edicao::NAO_ENCONTRADO;
+  const nos::No* n = nos::encontrar(mac);
+  if (n == nullptr || !n->temUltima) return Edicao::SEM_LEITURA;
+  protocolo::PacoteLeitura p = n->ultima.pacote;
+  if (protocolo::lerEstado(p.estados, protocolo::Grandeza::SOLO) != protocolo::Estado::OK) return Edicao::SEM_LEITURA;
+  mv = p.solo_mv;
+  cadastro::Tabela copia = cad;
+  motivo = copia.definirPonto(mac, ponto, mv);
+  if (motivo != cadastro::Resultado::OK) return Edicao::INVALIDA;
+  cadastro::Tabela antes = cad;
+  cad = copia;
+  if (!salvar()) {
+    cad = antes;
+    return Edicao::FALHA_NVS;
+  }
+  return Edicao::OK;
+}
+
 bool umidadeSolo(const registro::Registro& r, int16_t& decimos) {
   uint8_t mac[6];
   memcpy(mac, r.mac, 6);

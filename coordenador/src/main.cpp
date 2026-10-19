@@ -13,6 +13,8 @@
 
 #include <protocolo.h>
 
+#include "api.h"
+#include "autorizacao.h"
 #include "config.h"
 #include "configuracao.h"
 #include "consulta.h"
@@ -47,6 +49,8 @@ void executar(char* linha) {
     exportar::comando(argumento);
   } else if (strcmp(linha, "consulta") == 0) {
     consulta::comando(argumento);
+  } else if (strcmp(linha, "token") == 0) {
+    autorizacao::comando(argumento);
 #ifdef TESTE_GRAVACAO
   } else if (strcmp(linha, "bench") == 0) {
     teste_gravacao::comando(argumento);
@@ -75,6 +79,7 @@ void executar(char* linha) {
     Serial.println("[CONSOLE]   consulta ultimas             ultima leitura de cada no");
     Serial.println("[CONSOLE]   exportar [de=T] [ate=T] [no=MAC] [cursor=N]   historico em CSV (linhas [EXP])");
     Serial.println("[CONSOLE]   exportar parar               interrompe a exportacao");
+    Serial.println("[CONSOLE]   token | token gerar | token apagar   token das rotas de escrita da API HTTP");
     Serial.println("[CONSOLE]   reiniciar                    reset por software (esp_restart)");
   } else {
     Serial.printf("[CONSOLE] comando desconhecido: \"%s\" (digite ajuda)\n", linha);
@@ -228,13 +233,21 @@ void processar(const radio::Recebido& r) {
   if (protocolo::aceitar(c) && gravarHistorico(r, p, c, lacuna)) n->sequencia.confirmar(p.boot, p.seq, c, lacuna);
 }
 
+// Esvazia a fila do ESP-NOW sem esperar. Chamada no loop() e pela API HTTP
+// entre as páginas de uma resposta longa (CSV), para a confirmação ao nó não
+// esperar o fim do download.
+void atenderEspNow() {
+  radio::Recebido r;
+  while (radio::receber(r, 0)) processar(r);
+}
+
 }  // namespace
 
 void setup() {
   Serial.begin(115200);
   delay(200);
   Serial.println();
-  Serial.println("[BOOT] coordenador - etapa 7.1");
+  Serial.printf("[BOOT] %s - etapa 8\n", config::VERSAO_FIRMWARE);
   if (config::TESTE_CONFIRMACAO_MODO != 0)
     Serial.printf("[BOOT] MODO DE TESTE: confirmacao %s\n",
                   config::TESTE_CONFIRMACAO_MODO == 1   ? "forjada (chave errada)"
@@ -249,8 +262,10 @@ void setup() {
   if (!nos::chaveMestraValida())
     Serial.println("[BOOT] ERRO: CHAVE_MESTRA nao gerada (ferramentas/chaves.py mestra); todo pacote sera recusado");
   configuracao::iniciar();  // antes do histórico: os nós da carga já recebem o nome do cadastro
+  autorizacao::iniciar();
   historico::iniciar(consulta::observar);  // antes do rádio: a leitura dos segmentos não disputa com a fila do ESP-NOW
   if (!radio::iniciar()) Serial.println("[BOOT] ERRO: radio nao iniciou");
+  api::iniciar(atenderEspNow);  // depois do SoftAP
   // conf = confirmação enviada ao nó ("boot:seq" gravado até, "nada" ou "erro"); ver docs/protocolo.md, seção 13.
   Serial.println("[CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,"
                  "solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags,idade_s,conf");
@@ -259,8 +274,12 @@ void setup() {
 }
 
 void loop() {
+  // Espera curta (2 ms): com 100 ms, cada requisição HTTP esperaria até 100 ms
+  // para ser atendida. O ESP-NOW continua sendo esvaziado a cada volta.
   radio::Recebido r;
-  if (radio::receber(r, 100)) processar(r);
+  if (radio::receber(r, 2)) processar(r);
+  atenderEspNow();
+  api::atender();
   lerConsole();
   exportar::passo();  // uma página por volta: a fila do ESP-NOW continua sendo atendida
 

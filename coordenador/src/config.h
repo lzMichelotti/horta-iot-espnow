@@ -66,6 +66,16 @@ constexpr uint8_t TESTE_CONFIRMACAO_MODO = TESTE_CONFIRMACAO;
 constexpr uint8_t TESTE_CONFIRMACAO_MODO = 0;
 #endif
 
+// ---------------------------------------------------------------- API HTTP (Etapa 8, docs/api.md)
+constexpr const char* VERSAO_FIRMWARE = "coordenador 8.0";
+constexpr uint16_t API_PAGINA_PADRAO = 50;   // leituras por página sem "limite"
+constexpr uint16_t API_PAGINA_MAXIMA = 200;  // ~80 KB de JSON (provisório: confirmar com a medição)
+constexpr uint16_t API_PAGINA_CSV = 50;      // linhas por página na exportação CSV
+// Registros lidos da flash por página, no máximo: com um filtro que descarta
+// quase tudo, a página volta com menos itens (fim = false) em vez de segurar o
+// loop() lendo o histórico inteiro (~1,45 s para 27 mil registros, Etapa 7).
+constexpr uint32_t API_MAX_LIDOS = 2000;
+
 // ---------------------------------------------------------------- Console (serial)
 constexpr size_t CONSOLE_LINHA_MAX = 160;  // caracteres por comando (a consulta usa ~110)
 

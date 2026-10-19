@@ -15,12 +15,15 @@ Passos:
 
 As linhas [SCAN] (SSIDs das redes vizinhas) não são gravadas.
 """
+import re
 import sys
 import time
 
 import serial
 
 PORTA = "/dev/serial/by-id/usb-1a86_USB_Single_Serial_5AC9002039-if00"
+# Etapa 8: o comando "token gerar" imprime o token da API; ele não vai para o arquivo.
+TOKEN = re.compile(r"(token novo \(anote; o anterior deixou de valer\): )[0-9a-f]{32}")
 
 
 def main():
@@ -32,8 +35,9 @@ def main():
 
     def log(texto):
         linha = f"{time.time():.3f} {texto}"
-        print(linha, flush=True)
-        saida.write(linha + "\n")
+        print(linha, flush=True)  # no terminal, inteira (o token novo aparece aqui)
+        # No arquivo, sem o token da API (os dados brutos vão para o repositório público).
+        saida.write(TOKEN.sub(r"\1(omitido)", linha) + "\n")
         saida.flush()
 
     def ler(segundos, ate=None):
