@@ -31,11 +31,13 @@ void acumular(Resumo& s, const registro::Registro& r, bool ok) {
     s.semHora++;
     return;
   }
+  // Hora da LEITURA (recepção − idade): é por ela que a consulta filtra o período.
+  uint32_t utc = registro::utcLeitura(r.utc_s, r);
   if (s.comHora() == 1) {
-    s.utcMin = s.utcMax = r.utc_s;
+    s.utcMin = s.utcMax = utc;
   } else {
-    if (r.utc_s < s.utcMin) s.utcMin = r.utc_s;
-    if (r.utc_s > s.utcMax) s.utcMax = r.utc_s;
+    if (utc < s.utcMin) s.utcMin = utc;
+    if (utc > s.utcMax) s.utcMax = utc;
   }
 }
 

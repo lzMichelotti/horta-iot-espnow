@@ -46,15 +46,17 @@ const char* nomeHora(Hora h) {
 }
 
 Hora horaEfetiva(const registro::Registro& r, const Ancoras& a, uint32_t& utc) {
+  // A hora gravada (ou reconstruída) é a da RECEPÇÃO; a da leitura desconta a
+  // idade com que o pacote chegou (leituras reenviadas, Etapa 7.1).
   if (registro::horaValida(r)) {
-    utc = r.utc_s;
+    utc = registro::utcLeitura(r.utc_s, r);
     return Hora::VALIDA;
   }
   int64_t d = 0;
   if (a.desvio(r.boot_coord, d)) {
     int64_t v = d + static_cast<int64_t>(r.desde_boot_s);
     if (v >= 0 && v <= static_cast<int64_t>(UINT32_MAX)) {
-      utc = static_cast<uint32_t>(v);
+      utc = registro::utcLeitura(static_cast<uint32_t>(v), r);
       return Hora::RECONSTRUIDA;
     }
   }

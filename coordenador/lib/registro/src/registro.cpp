@@ -45,6 +45,19 @@ Registro montar(const Metadados& m, const protocolo::PacoteLeitura& p) {
   return r;
 }
 
+uint32_t idade(const Registro& r) {
+  uint32_t i;
+  memcpy(&i, reinterpret_cast<const uint8_t*>(&r) + offsetof(Registro, pacote) +
+                 offsetof(protocolo::PacoteLeitura, idade_s),
+         sizeof(i));
+  return i;
+}
+
+uint32_t utcLeitura(uint32_t utcRecepcao, const Registro& r) {
+  uint32_t i = idade(r);
+  return utcRecepcao > i ? utcRecepcao - i : 0;
+}
+
 const char* nomeErro(Erro e) {
   switch (e) {
     case Erro::NENHUM: return "nenhum";

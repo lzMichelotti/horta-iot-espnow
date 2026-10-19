@@ -14,7 +14,7 @@ void tearDown() {}
 
 namespace {
 
-registro::Registro registroCom(bool horaValida, uint32_t utc, uint16_t boot) {
+registro::Registro registroCom(bool horaValida, uint32_t utc, uint16_t boot, uint32_t idade = 0) {
   registro::Metadados m{};
   m.horaValida = horaValida;
   m.fonteRelogio = horaValida ? 1 : 0;
@@ -23,6 +23,7 @@ registro::Registro registroCom(bool horaValida, uint32_t utc, uint16_t boot) {
   m.classe = protocolo::Classe::NOVO;
   protocolo::PacoteLeitura p{};
   p.versao = protocolo::VERSAO;
+  p.idade_s = idade;
   return registro::montar(m, p);
 }
 
@@ -86,6 +87,17 @@ void test_acumular() {
   TEST_ASSERT_EQUAL_UINT32(2000, s.utcMax);
   TEST_ASSERT_EQUAL_UINT16(7, s.bootPrimeiro);
   TEST_ASSERT_EQUAL_UINT16(8, s.bootUltimo);
+}
+
+// O resumo guarda a hora da LEITURA (recepção − idade): uma leitura reenviada
+// 1 h depois entra no período em que foi medida.
+void test_resumo_usa_hora_da_leitura() {
+  Resumo s;
+  acumular(s, registroCom(true, 10000, 1), true);
+  acumular(s, registroCom(true, 10010, 1, 3600), true);  // reenviada, lida às 6410
+  TEST_ASSERT_EQUAL_UINT32(6410, s.utcMin);
+  TEST_ASSERT_EQUAL_UINT32(10000, s.utcMax);
+  TEST_ASSERT_TRUE(cruza(s, 6000, 7000));
 }
 
 void test_cruza() {
@@ -256,6 +268,7 @@ int main(int, char**) {
   RUN_TEST(test_interpretar_nome);
   RUN_TEST(test_nome_ida_e_volta);
   RUN_TEST(test_acumular);
+  RUN_TEST(test_resumo_usa_hora_da_leitura);
   RUN_TEST(test_cruza);
   RUN_TEST(test_id_global);
   RUN_TEST(test_politica_limitada);

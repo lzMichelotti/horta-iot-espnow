@@ -55,7 +55,8 @@ void assertIds(std::initializer_list<uint64_t> esperado, const std::vector<uint6
   for (uint64_t e : esperado) TEST_ASSERT_EQUAL_UINT64(e, obtido[i++]);
 }
 
-registro::Registro reg(bool valida, uint32_t utc, uint16_t boot, uint32_t desdeBoot_s, uint8_t ultimoMac = 1) {
+registro::Registro reg(bool valida, uint32_t utc, uint16_t boot, uint32_t desdeBoot_s, uint8_t ultimoMac = 1,
+                       uint32_t idade = 0) {
   registro::Metadados m{};
   m.horaValida = valida;
   m.utc_s = utc;
@@ -65,6 +66,7 @@ registro::Registro reg(bool valida, uint32_t utc, uint16_t boot, uint32_t desdeB
   m.classe = protocolo::Classe::NOVO;
   protocolo::PacoteLeitura p{};
   p.versao = protocolo::VERSAO;
+  p.idade_s = idade;
   return registro::montar(m, p);
 }
 
@@ -132,6 +134,19 @@ void test_hora_efetiva() {
   b.registrar(reg(false, 0, 3, 5));
   b.registrar(reg(true, 10, 3, 100));  // desvio −90
   TEST_ASSERT_EQUAL(Hora::SEM_HORA, horaEfetiva(reg(false, 0, 3, 5), b, utc));
+}
+
+// Leitura reenviada: a hora efetiva é a da leitura (recepção − idade), tanto
+// com a hora gravada quanto com a reconstruída.
+void test_hora_efetiva_desconta_a_idade() {
+  Ancoras a;
+  a.registrar(reg(false, 0, 7, 60));
+  a.registrar(reg(true, 1791300000, 7, 3600));  // desvio = 1791296400
+  uint32_t utc = 0;
+  TEST_ASSERT_EQUAL(Hora::VALIDA, horaEfetiva(reg(true, 1791300500, 7, 4100, 1, 21600), a, utc));
+  TEST_ASSERT_EQUAL_UINT32(1791300500 - 21600, utc);
+  TEST_ASSERT_EQUAL(Hora::RECONSTRUIDA, horaEfetiva(reg(false, 0, 7, 60, 1, 900), a, utc));
+  TEST_ASSERT_EQUAL_UINT32(1791296460 - 900, utc);
 }
 
 // ---------------------------------------------------------------- Filtro
@@ -261,6 +276,7 @@ int main(int, char**) {
   RUN_TEST(test_boot_sem_nenhuma_hora);
   RUN_TEST(test_ancoras_capacidade);
   RUN_TEST(test_hora_efetiva);
+  RUN_TEST(test_hora_efetiva_desconta_a_idade);
   RUN_TEST(test_passa);
   RUN_TEST(test_pode_pular);
   RUN_TEST(test_percurso_completo);

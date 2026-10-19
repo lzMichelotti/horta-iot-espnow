@@ -42,7 +42,7 @@ uint32_t crc32(uint32_t crc, const uint8_t* dados, size_t tamanho) {
 const char* cabecalho() {
   return "id,mac,nome,hora,utc,boot_coord,desde_boot_s,classe,perdidos,rssi,ruido,"
          "boot_no,seq,temp_c,ur_pct,solo_mv,solo_pct,alim_mv,"
-         "est_temp,est_ur,est_solo,est_alim,motivo_boot,acordado_ant_ms,tentativas_ant,flags";
+         "est_temp,est_ur,est_solo,est_alim,motivo_boot,acordado_ant_ms,tentativas_ant,flags,idade_s";
 }
 
 size_t formatarLinha(char (&saida)[TAM_LINHA], uint64_t id, const registro::Registro& r, const char* nome,
@@ -66,13 +66,13 @@ size_t formatarLinha(char (&saida)[TAM_LINHA], uint64_t id, const registro::Regi
   int n = snprintf(saida, TAM_LINHA,
                    "%llu,%02X:%02X:%02X:%02X:%02X:%02X,%s,%s,%s,%u,%lu,%s,%u,%d,%d,"
                    "%u,%lu,%s,%s,%s,%s,%s,"
-                   "%s,%s,%s,%s,%u,%u,%u,%u",
+                   "%s,%s,%s,%s,%u,%u,%u,%u,%lu",
                    static_cast<unsigned long long>(id), r.mac[0], r.mac[1], r.mac[2], r.mac[3], r.mac[4], r.mac[5],
                    nome, filtro::nomeHora(hora), utc, r.boot_coord, static_cast<unsigned long>(r.desde_boot_s),
                    protocolo::nomeClasse(static_cast<protocolo::Classe>(r.classe)), r.perdidos, r.rssi, r.ruido,
                    p.boot, static_cast<unsigned long>(p.seq), temp, ur, solo, pct, alim, nomeEstado(eT),
                    nomeEstado(eU), nomeEstado(eS), nomeEstado(eA), p.motivo_boot, p.acordado_ant_ms,
-                   p.tentativas_ant, p.flags);
+                   p.tentativas_ant, p.flags, static_cast<unsigned long>(p.idade_s));
   if (n < 0) {
     saida[0] = '\0';
     return 0;

@@ -15,11 +15,11 @@ void tearDown() {}
 
 namespace {
 
-// Pacote real do NÓ 1 (boot 38, seq 3), capturado no passo 3, ainda no
-// protocolo v1. O registro grava os 22 B como chegaram (a versão também).
+// Valores de um pacote real do NÓ 1 (boot 38, seq 3), no formato v3 e
+// reenviado 1 h depois (idade_s = 3600). O registro grava os 26 B como chegaram.
 protocolo::PacoteLeitura pacoteExemplo() {
   protocolo::PacoteLeitura p{};
-  p.versao = 1;
+  p.versao = 3;
   p.tipo = static_cast<uint8_t>(protocolo::Tipo::LEITURA);
   p.boot = 38;
   p.seq = 3;
@@ -32,6 +32,7 @@ protocolo::PacoteLeitura pacoteExemplo() {
   p.acordado_ant_ms = 133;
   p.tentativas_ant = 1;
   p.flags = 0;
+  p.idade_s = 3600;
   return p;
 }
 
@@ -51,10 +52,11 @@ Metadados metadadosExemplo() {
   return m;
 }
 
-const uint8_t REFERENCIA[48] = {
-    0x01, 0x03, 0x08, 0x00, 0xE8, 0x05, 0xC5, 0x6A, 0x10, 0x0E, 0x00, 0x00, 0x88, 0x57, 0x21, 0x70,
-    0x93, 0x70, 0xEA, 0xA0, 0x01, 0x00, 0x02, 0x00, 0x01, 0x01, 0x26, 0x00, 0x03, 0x00, 0x00, 0x00,
-    0x76, 0x08, 0x5A, 0x1D, 0x2A, 0x04, 0x3A, 0x0D, 0x00, 0x08, 0x85, 0x00, 0x01, 0x00, 0x8F, 0x3F,
+const uint8_t REFERENCIA[52] = {
+    0x02, 0x03, 0x08, 0x00, 0xE8, 0x05, 0xC5, 0x6A, 0x10, 0x0E, 0x00, 0x00, 0x88, 0x57, 0x21, 0x70,
+    0x93, 0x70, 0xEA, 0xA0, 0x01, 0x00, 0x02, 0x00, 0x03, 0x01, 0x26, 0x00, 0x03, 0x00, 0x00, 0x00,
+    0x76, 0x08, 0x5A, 0x1D, 0x2A, 0x04, 0x3A, 0x0D, 0x00, 0x08, 0x85, 0x00, 0x01, 0x00, 0x10, 0x0E,
+    0x00, 0x00, 0xB3, 0x91,
 };
 
 const uint8_t* bytesDe(const Registro& r) { return reinterpret_cast<const uint8_t*>(&r); }
@@ -136,13 +138,23 @@ void test_ler_ida_e_volta() {
   TEST_ASSERT_EQUAL_UINT32(3, p.seq);
   TEST_ASSERT_EQUAL_UINT16(1066, p.solo_mv);
   TEST_ASSERT_EQUAL_UINT16(133, p.acordado_ant_ms);
+  TEST_ASSERT_EQUAL_UINT32(3600, p.idade_s);
+  TEST_ASSERT_EQUAL_UINT32(3600, idade(r));
+  TEST_ASSERT_EQUAL_UINT32(1791297000 - 3600, utcLeitura(r.utc_s, r));
+}
+
+// Hora da leitura = hora da recepção − idade; nunca "antes de 1970".
+void test_utc_da_leitura_desconta_a_idade() {
+  Registro r = montar(metadadosExemplo(), pacoteExemplo());
+  TEST_ASSERT_EQUAL_UINT32(1791297000 - 3600, utcLeitura(1791297000, r));
+  TEST_ASSERT_EQUAL_UINT32(0, utcLeitura(100, r));
 }
 
 // Qualquer bit invertido é detectado (CRC-16 detecta todo erro de 1 bit).
 void test_ler_detecta_cada_bit_invertido() {
   for (size_t i = 0; i < sizeof(REFERENCIA); i++) {
     for (int b = 0; b < 8; b++) {
-      uint8_t copia[48];
+      uint8_t copia[52];
       memcpy(copia, REFERENCIA, sizeof(copia));
       copia[i] ^= static_cast<uint8_t>(1u << b);
       Registro r{};
@@ -155,22 +167,23 @@ void test_ler_detecta_cada_bit_invertido() {
 
 void test_ler_rejeita_tamanho_e_versao() {
   Registro r{};
-  TEST_ASSERT_EQUAL(Erro::TAMANHO_CURTO, ler(nullptr, 48, r));
+  TEST_ASSERT_EQUAL(Erro::TAMANHO_CURTO, ler(nullptr, 52, r));
   TEST_ASSERT_EQUAL(Erro::TAMANHO_CURTO, ler(REFERENCIA, 0, r));
-  TEST_ASSERT_EQUAL(Erro::TAMANHO_ERRADO, ler(REFERENCIA, 47, r));
+  TEST_ASSERT_EQUAL(Erro::TAMANHO_ERRADO, ler(REFERENCIA, 51, r));
+  TEST_ASSERT_EQUAL(Erro::TAMANHO_ERRADO, ler(REFERENCIA, 48, r));  // tamanho do registro v1
 
-  uint8_t maior[49] = {};
-  memcpy(maior, REFERENCIA, 48);
+  uint8_t maior[53] = {};
+  memcpy(maior, REFERENCIA, 52);
   TEST_ASSERT_EQUAL(Erro::TAMANHO_ERRADO, ler(maior, sizeof(maior), r));
 
-  uint8_t v2[48];
-  memcpy(v2, REFERENCIA, 48);
-  v2[0] = 2;
-  TEST_ASSERT_EQUAL(Erro::VERSAO_DESCONHECIDA, ler(v2, 48, r));
+  uint8_t v1[52];  // registro da Etapa 7 (v1, 48 B): não é lido como v2
+  memcpy(v1, REFERENCIA, 52);
+  v1[0] = 1;
+  TEST_ASSERT_EQUAL(Erro::VERSAO_DESCONHECIDA, ler(v1, 52, r));
 
-  uint8_t apagado[48];  // flash apagada (0xFF): não é registro
+  uint8_t apagado[52];  // flash apagada (0xFF): não é registro
   memset(apagado, 0xFF, sizeof(apagado));
-  TEST_ASSERT_EQUAL(Erro::VERSAO_DESCONHECIDA, ler(apagado, 48, r));
+  TEST_ASSERT_EQUAL(Erro::VERSAO_DESCONHECIDA, ler(apagado, 52, r));
 }
 
 // Bits reservados em flags (versão futura compatível) não impedem a leitura.
@@ -200,6 +213,7 @@ int main(int, char**) {
   RUN_TEST(test_montar_satura);
   RUN_TEST(test_montar_fonte_e_bits_reservados);
   RUN_TEST(test_ler_ida_e_volta);
+  RUN_TEST(test_utc_da_leitura_desconta_a_idade);
   RUN_TEST(test_ler_detecta_cada_bit_invertido);
   RUN_TEST(test_ler_rejeita_tamanho_e_versao);
   RUN_TEST(test_ler_ignora_bits_reservados);

@@ -31,7 +31,7 @@ struct Resumo {
   uint32_t posicoes = 0;   // registros ocupados no arquivo (tamanho / 48), válidos ou não
   uint32_t validos = 0;    // CRC e versão corretos
   uint32_t semHora = 0;    // válidos com hora inválida
-  uint32_t utcMin = 0;     // só dos válidos com hora (sem sentido se comHora() == 0)
+  uint32_t utcMin = 0;     // hora da LEITURA, só dos válidos com hora (sem sentido se comHora() == 0)
   uint32_t utcMax = 0;
   uint16_t bootPrimeiro = 0;  // boot do coordenador no 1º e no último registro válido
   uint16_t bootUltimo = 0;

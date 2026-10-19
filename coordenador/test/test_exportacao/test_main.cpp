@@ -47,7 +47,7 @@ registro::Registro registroExemplo(uint8_t estados = 0, int16_t temp = 2166, boo
 
 const char* LINHA_REFERENCIA =
     "1234,88:57:21:70:93:70,no1,valida,2026-10-06T14:30:00Z,8,3600,novo,2,-22,-96,"
-    "38,3,21.66,75.14,1066,44.8,3386,ok,ok,ok,ok,8,133,1,0";
+    "38,3,21.66,75.14,1066,44.8,3386,ok,ok,ok,ok,8,133,1,0,0";
 
 }  // namespace
 
@@ -78,7 +78,7 @@ void test_crc_do_conteudo_igual_ao_python() {
   c = crc32(c, reinterpret_cast<const uint8_t*>("\n"), 1);
   c = crc32(c, reinterpret_cast<const uint8_t*>(l), strlen(l));
   c = crc32(c, reinterpret_cast<const uint8_t*>("\n"), 1);
-  TEST_ASSERT_EQUAL_HEX32(0xFB74C6E9, c);
+  TEST_ASSERT_EQUAL_HEX32(0xE21FBC86, c);
 }
 
 void test_numero_de_colunas_igual_ao_cabecalho() {
@@ -90,7 +90,7 @@ void test_numero_de_colunas_igual_ao_cabecalho() {
   char l[TAM_LINHA];
   formatarLinha(l, 1, registroExemplo(5), "x", filtro::Hora::SEM_HORA, 0, false, 0);  // células vazias
   TEST_ASSERT_EQUAL(colunas(cabecalho()), colunas(l));
-  TEST_ASSERT_EQUAL(26, colunas(cabecalho()));
+  TEST_ASSERT_EQUAL(27, colunas(cabecalho()));
 }
 
 // Temperatura e umidade com estado erro: células vazias; sem hora e sem %.
@@ -99,7 +99,7 @@ void test_celulas_vazias() {
   formatarLinha(l, 7, registroExemplo(0x05), "no1", filtro::Hora::SEM_HORA, 0, false, 0);
   TEST_ASSERT_EQUAL_STRING(
       "7,88:57:21:70:93:70,no1,sem_hora,,8,3600,novo,2,-22,-96,"
-      "38,3,,,1066,,3386,erro,erro,ok,ok,8,133,1,0",
+      "38,3,,,1066,,3386,erro,erro,ok,ok,8,133,1,0,0",
       l);
 }
 

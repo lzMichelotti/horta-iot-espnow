@@ -42,7 +42,8 @@ class Ancoras {
 enum class Hora : uint8_t { VALIDA, RECONSTRUIDA, SEM_HORA };
 const char* nomeHora(Hora h);
 
-// Hora usada no filtro: a gravada, a reconstruída ou nenhuma.
+// Hora da LEITURA usada no filtro: a gravada ou a reconstruída (ambas da
+// recepção), menos a idade do pacote; ou nenhuma.
 Hora horaEfetiva(const registro::Registro& r, const Ancoras& a, uint32_t& utc);
 
 // ---------------------------------------------------------------- Filtro

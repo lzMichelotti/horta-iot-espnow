@@ -23,7 +23,8 @@ const char* cabecalho();
 constexpr size_t TAM_LINHA = 256;
 
 // Uma linha do CSV (sem '\n'), na ordem do cabeçalho:
-// - hora: valida/reconstruida/sem_hora; utc em ISO 8601 (vazio sem hora);
+// - hora: valida/reconstruida/sem_hora; utc = hora da LEITURA (recepção − idade_s)
+//   em ISO 8601 (vazio sem hora); idade_s na última coluna;
 // - temperatura e umidade em unidades (2 casas), solo e alimentação em mV;
 // - valor com estado erro (ou reservado) sai como célula vazia;
 // - solo_pct vazio se temPct == false (sem calibração ou solo sem estado ok).
