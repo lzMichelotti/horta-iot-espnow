@@ -1,6 +1,7 @@
 #include "radio.h"
 
 #include <WiFi.h>
+#include <esp_mac.h>
 #include <atomic>
 #include <freertos/FreeRTOS.h>
 #include <freertos/queue.h>
@@ -14,6 +15,13 @@ namespace {
 
 QueueHandle_t fila = nullptr;
 std::atomic<uint32_t> descartados{0};
+std::atomic<uint32_t> enviosAck{0}, enviosSemAck{0}, enviosErro{0};
+
+// Callback de envio (tarefa do Wi-Fi): só conta.
+void aoEnviar(const esp_now_send_info_t* /*info*/, esp_now_send_status_t status) {
+  if (status == ESP_NOW_SEND_SUCCESS) enviosAck++;
+  else enviosSemAck++;
+}
 
 // Callback de recepção (ESP-IDF 5.5): roda na tarefa do Wi-Fi.
 // `dados` só é válido durante a chamada; por isso a cópia vai por valor na fila.
@@ -98,8 +106,9 @@ bool iniciar() {
   uint32_t versao = 0;
   esp_now_get_version(&versao);
   err = esp_now_register_recv_cb(aoReceber);
+  if (err == ESP_OK) err = esp_now_register_send_cb(aoEnviar);
   if (err != ESP_OK) {
-    Serial.printf("[ESPNOW] esp_now_register_recv_cb: %s\n", esp_err_to_name(err));
+    Serial.printf("[ESPNOW] registro dos callbacks: %s\n", esp_err_to_name(err));
     return false;
   }
   Serial.printf("[ESPNOW] pronto: versao %lu, fila de %u itens (%u bytes cada)\n", (unsigned long)versao,
@@ -112,5 +121,30 @@ bool receber(Recebido& r, uint32_t esperaMs) {
 }
 
 uint32_t descartadosFilaCheia() { return descartados.load(); }
+
+bool enviarConfirmacao(const uint8_t mac[ESP_NOW_ETH_ALEN], const uint8_t* dados, size_t tamanho) {
+  if (!esp_now_is_peer_exist(mac)) {
+    esp_now_peer_info_t peer{};
+    memcpy(peer.peer_addr, mac, ESP_NOW_ETH_ALEN);
+    // Canal do SoftAP: "must be set as the channel that station or softap is on" (esp_now.h).
+    peer.channel = config::CANAL_WIFI;
+    peer.ifidx = WIFI_IF_AP;  // o coordenador só tem a interface AP ligada
+    peer.encrypt = false;
+    esp_err_t err = esp_now_add_peer(&peer);
+    if (err != ESP_OK) {
+      Serial.printf("[ESPNOW] esp_now_add_peer " MACSTR ": %s\n", MAC2STR(mac), esp_err_to_name(err));
+      enviosErro++;
+      return false;
+    }
+  }
+  esp_err_t err = esp_now_send(mac, dados, tamanho);
+  if (err != ESP_OK) {
+    enviosErro++;
+    return false;
+  }
+  return true;
+}
+
+Envios envios() { return {enviosAck.load(), enviosSemAck.load(), enviosErro.load()}; }
 
 }  // namespace radio

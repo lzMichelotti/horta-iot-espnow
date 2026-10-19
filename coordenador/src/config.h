@@ -34,15 +34,16 @@ constexpr int64_t HORA_MAXIMA_UTC = 4102444800;  // 2100-01-01T00:00:00Z
 constexpr const char* FS_ROTULO = "littlefs";  // rótulo da partição em particoes.csv
 constexpr const char* FS_PONTO = "/littlefs";  // ponto de montagem no VFS
 constexpr const char* HIST_DIR = "/h";
-// 500 registros × 48 B = 24 000 B: cabem em 6 blocos de 4 KB com os ponteiros
+// 470 registros × 52 B = 24 440 B: cabem em 6 blocos de 4 KB com os ponteiros
 // da lista CTZ do LittleFS (32 B). 56 segmentos ≈ 75 % da partição de 1920 KB;
-// o resto é folga do LittleFS. Com 2 nós a cada 15 min: ~146 dias de histórico.
+// o resto é folga do LittleFS. Com 2 nós a cada 15 min: ~137 dias de histórico.
+// (Etapa 7: 500 × 48 B; o registro passou a 52 B na Etapa 7.1.)
 // O env teste_rotacao reduz os dois valores para forçar a rotação na bancada.
 #ifdef HIST_TESTE_REGISTROS_POR_SEGMENTO
 constexpr uint32_t HIST_REGISTROS_POR_SEGMENTO = HIST_TESTE_REGISTROS_POR_SEGMENTO;
 constexpr uint32_t HIST_MAX_SEGMENTOS = HIST_TESTE_MAX_SEGMENTOS;
 #else
-constexpr uint32_t HIST_REGISTROS_POR_SEGMENTO = 500;
+constexpr uint32_t HIST_REGISTROS_POR_SEGMENTO = 470;
 constexpr uint32_t HIST_MAX_SEGMENTOS = 56;
 #endif
 // Rotação de emergência (passo 9): antes de abrir um segmento novo, sobra pelo
@@ -51,6 +52,19 @@ constexpr uint32_t HIST_MAX_SEGMENTOS = 56;
 constexpr size_t HIST_MARGEM_LIVRE = 2 * 6 * 4096;
 // Gravações seguidas com erro até o estado virar FALHAS_DE_GRAVACAO.
 constexpr uint32_t HIST_FALHAS_ALERTA = 3;
+
+// ---------------------------------------------------------------- Confirmação (Etapa 7.1)
+// Modos de teste da segurança da confirmação (env teste_conf_*). O histórico
+// grava normalmente; só a resposta ao nó muda. Em nenhum deles o nó pode
+// liberar leituras (docs/protocolo.md, seção 13):
+//   1 = forjada: assinada com uma chave errada;
+//   2 = antiga: repete sempre a primeira confirmação autêntica enviada ao nó;
+//   3 = além do gerado: autêntica, mas confirmando seq que o nó ainda não enviou.
+#ifdef TESTE_CONFIRMACAO
+constexpr uint8_t TESTE_CONFIRMACAO_MODO = TESTE_CONFIRMACAO;
+#else
+constexpr uint8_t TESTE_CONFIRMACAO_MODO = 0;
+#endif
 
 // ---------------------------------------------------------------- Console (serial)
 constexpr size_t CONSOLE_LINHA_MAX = 160;  // caracteres por comando (a consulta usa ~110)

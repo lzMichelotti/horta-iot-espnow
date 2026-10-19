@@ -91,9 +91,9 @@ void imprimirResumo() {
     uint32_t esperados = s.aceitos() + s.perdidos();
     float entrega = esperados ? 100.0f * s.aceitos() / esperados : 0.0f;
     float rssiMedio = n.recebidos ? (float)n.somaRssi / n.recebidos : 0.0f;
-    Serial.printf("[RESUMO] %lu," MACSTR ",%s,%lu,%lu,%lu,%lu,%lu,%lu,%lu,%.2f,%.1f,%d,%d\n", millis(),
+    Serial.printf("[RESUMO] %lu," MACSTR ",%s,%lu,%lu,%lu,%lu,%lu,%lu,%lu,%.2f,%.1f,%d,%d,%lu\n", millis(),
                   MAC2STR(n.mac), n.nome, n.recebidos, n.rejeitados, s.aceitos(), s.perdidos(), s.descartados(),
-                  s.reinicios(), n.semAck, entrega, rssiMedio, n.rssiMin, n.rssiMax);
+                  s.reinicios(), n.semAck, entrega, rssiMedio, n.rssiMin, n.rssiMax, s.foraDeOrdem());
   }
 }
 

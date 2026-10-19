@@ -33,4 +33,18 @@ bool receber(Recebido& r, uint32_t esperaMs);
 // Pacotes perdidos porque a fila estava cheia (instrumentação).
 uint32_t descartadosFilaCheia();
 
+// Envia a confirmação (Etapa 7.1) ao nó, por unicast no canal do SoftAP. O nó
+// é cadastrado como peer na primeira vez (o ESP-NOW só envia a peers
+// cadastrados: esp_now_send → ESP_ERR_ESPNOW_NOT_FOUND). Não espera o ACK MAC:
+// o callback de envio só conta (instrumentação). false se não saiu.
+bool enviarConfirmacao(const uint8_t mac[ESP_NOW_ETH_ALEN], const uint8_t* dados, size_t tamanho);
+
+// Confirmações com e sem ACK da camada MAC, e com erro no esp_now_send.
+struct Envios {
+  uint32_t ack;
+  uint32_t semAck;
+  uint32_t erros;
+};
+Envios envios();
+
 }  // namespace radio

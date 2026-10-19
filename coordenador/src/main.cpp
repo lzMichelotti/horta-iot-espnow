@@ -3,7 +3,9 @@
 // reinício). Uma linha [CSV] por pacote e um [RESUMO] por nó a cada minuto.
 // Etapa 7: relógio provisório (acerto pela serial), console de comandos e
 // histórico no LittleFS (um registro por pacote aceito, linha [FS] gravado).
-// (DS3231 e HTTP: etapas 6 e 8.)
+// Etapa 7.1: confirmação cumulativa assinada para o nó ("tudo até (boot, seq)
+// está gravado"), enviada antes de gravar; a borda de cada nó só avança depois
+// do close() (docs/protocolo.md, seção 13). (DS3231 e HTTP: etapas 6 e 8.)
 #include <Arduino.h>
 #include <cstring>
 #include <esp_mac.h>
@@ -128,8 +130,9 @@ void imprimirMac(const char* nome, esp_mac_type_t tipo) {
 // Um registro (lib/registro) por pacote aceito; duplicados e antigos não entram.
 // Linha: [FS] gravado,segmento,posicao,us (posicao = índice do registro no segmento).
 // Sem histórico (LittleFS não montado) ou com a gravação falhando, o registro
-// ainda atualiza a última leitura em RAM: o app continua com o valor atual.
-void gravarHistorico(const radio::Recebido& r, const protocolo::PacoteLeitura& p, protocolo::Classe c,
+// ainda atualiza a última leitura em RAM (o app continua com o valor atual),
+// mas devolve false: a borda não avança e o nó continua com a leitura.
+bool gravarHistorico(const radio::Recebido& r, const protocolo::PacoteLeitura& p, protocolo::Classe c,
                      uint32_t perdidos) {
   relogio::Instante agora = relogio::agora();
   registro::Metadados m{};
@@ -148,9 +151,47 @@ void gravarHistorico(const radio::Recebido& r, const protocolo::PacoteLeitura& p
     const anel::Resumo* s = historico::indice().atual();
     Serial.printf("[FS] gravado,%lu,%lu,%lu\n", (unsigned long)s->numero, (unsigned long)(s->posicoes - 1),
                   (unsigned long)historico::ultimaGravacaoUs());
-  } else {
-    consulta::observar(reg);  // gravar() chama o observador só quando grava
+    return true;
   }
+  consulta::observar(reg);  // gravar() chama o observador só quando grava
+  return false;
+}
+
+// Confirmação para o nó: "tudo até a borda está gravado" (ou NADA_GRAVADO).
+// Vai ANTES de gravar o pacote atual (opção b do passo 2): confirma o que já
+// estava na flash. Devolve o texto da linha [CSV] ("boot:seq", "nada" ou "erro").
+void responder(nos::No& n, const uint8_t mac[6], char (&texto)[24]) {
+  protocolo::Confirmacao c{};
+  c.versao = protocolo::VERSAO;
+  c.tipo = static_cast<uint8_t>(protocolo::Tipo::CONFIRMACAO);
+  if (n.sequencia.temBorda()) {
+    c.boot = n.sequencia.bordaBoot();
+    c.seq = n.sequencia.bordaSeq();
+  } else {
+    c.flags = protocolo::flag_conf::NADA_GRAVADO;
+  }
+
+  // Modos de teste (config.h): nada disso é gravado no histórico.
+  static const uint8_t CHAVE_ERRADA[protocolo::TAMANHO_CHAVE] = {};
+  const uint8_t* chave = n.chave;
+  if (config::TESTE_CONFIRMACAO_MODO == 1) chave = CHAVE_ERRADA;
+  if (config::TESTE_CONFIRMACAO_MODO == 2) {
+    if (!n.temConfAntiga) {
+      n.confAntiga = c;
+      n.temConfAntiga = true;
+    }
+    c = n.confAntiga;
+  }
+  if (config::TESTE_CONFIRMACAO_MODO == 3 && n.sequencia.temBorda()) c.seq += 1000;
+
+  protocolo::ConfirmacaoAssinada a;
+  bool ok = n.temChave && protocolo::assinarConfirmacao(c, chave, protocolo::hmacSha256, a);
+  uint8_t bytes[sizeof(a)];
+  memcpy(bytes, &a, sizeof(bytes));
+  ok = ok && radio::enviarConfirmacao(mac, bytes, sizeof(bytes));
+  if (!ok) snprintf(texto, sizeof(texto), "erro");
+  else if (c.flags & protocolo::flag_conf::NADA_GRAVADO) snprintf(texto, sizeof(texto), "nada");
+  else snprintf(texto, sizeof(texto), "%u:%lu", c.boot, (unsigned long)c.seq);
 }
 
 void processar(const radio::Recebido& r) {
@@ -168,18 +209,23 @@ void processar(const radio::Recebido& r) {
                 r.tamanhoOriginal, protocolo::nomeRejeicao(rej));
   if (rej != protocolo::Rejeicao::NENHUMA) {
     n->rejeitados++;
-    Serial.println(",,,,,,,,,,,,,");  // 13 campos vazios: classe, perdidos e os 11 do pacote
+    Serial.println(",,,,,,,,,,,,,,,");  // 15 campos vazios: classe, perdidos, os 11 do pacote, idade e conf
     return;
   }
 
-  protocolo::Classe c = n->sequencia.registrar(p.boot, p.seq);
+  // Etapa 7.1: classifica sem mover a borda, responde e só então grava.
+  uint32_t lacuna = 0;
+  bool semAnteriores = (p.flags & protocolo::flag::SEM_ANTERIORES) != 0;
+  protocolo::Classe c = n->sequencia.classificar(p.boot, p.seq, semAnteriores, lacuna);
+  char conf[24];
+  responder(*n, r.mac, conf);
   if (p.flags & protocolo::flag::ANTERIOR_SEM_ACK) n->semAck++;
-  Serial.printf(",%s,%lu,%u,%lu,%d,%u,%u,%u,%u,%u,%u,%u,%u\n", protocolo::nomeClasse(c),
-                (unsigned long)n->sequencia.ultimaLacuna(), p.boot, (unsigned long)p.seq, p.temperatura_c100,
-                p.umidade_ar_c100, p.solo_mv, p.alimentacao_mv, p.estados, p.motivo_boot, p.acordado_ant_ms,
-                p.tentativas_ant, p.flags);
+  Serial.printf(",%s,%lu,%u,%lu,%d,%u,%u,%u,%u,%u,%u,%u,%u,%lu,%s\n", protocolo::nomeClasse(c),
+                (unsigned long)lacuna, p.boot, (unsigned long)p.seq, p.temperatura_c100, p.umidade_ar_c100,
+                p.solo_mv, p.alimentacao_mv, p.estados, p.motivo_boot, p.acordado_ant_ms, p.tentativas_ant, p.flags,
+                (unsigned long)p.idade_s, conf);
 
-  if (protocolo::aceitar(c)) gravarHistorico(r, p, c, n->sequencia.ultimaLacuna());
+  if (protocolo::aceitar(c) && gravarHistorico(r, p, c, lacuna)) n->sequencia.confirmar(p.boot, p.seq, c, lacuna);
 }
 
 }  // namespace
@@ -188,7 +234,12 @@ void setup() {
   Serial.begin(115200);
   delay(200);
   Serial.println();
-  Serial.println("[BOOT] coordenador - etapa 7");
+  Serial.println("[BOOT] coordenador - etapa 7.1");
+  if (config::TESTE_CONFIRMACAO_MODO != 0)
+    Serial.printf("[BOOT] MODO DE TESTE: confirmacao %s\n",
+                  config::TESTE_CONFIRMACAO_MODO == 1   ? "forjada (chave errada)"
+                  : config::TESTE_CONFIRMACAO_MODO == 2 ? "antiga (sempre a primeira)"
+                                                        : "alem do gerado (+1000)");
   relogio::iniciar();
   imprimirParticoes();
   imprimirMac("STA", ESP_MAC_WIFI_STA);
@@ -200,10 +251,11 @@ void setup() {
   configuracao::iniciar();  // antes do histórico: os nós da carga já recebem o nome do cadastro
   historico::iniciar(consulta::observar);  // antes do rádio: a leitura dos segmentos não disputa com a fila do ESP-NOW
   if (!radio::iniciar()) Serial.println("[BOOT] ERRO: radio nao iniciou");
+  // conf = confirmação enviada ao nó ("boot:seq" gravado até, "nada" ou "erro"); ver docs/protocolo.md, seção 13.
   Serial.println("[CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,"
-                 "solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags");
+                 "solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags,idade_s,conf");
   Serial.println("[RESUMO] t_ms,mac,nome,recebidos,rejeitados,aceitos,perdidos,descartados,reinicios,sem_ack,"
-                 "entrega_pct,rssi_medio,rssi_min,rssi_max");
+                 "entrega_pct,rssi_medio,rssi_min,rssi_max,fora_de_ordem");
 }
 
 void loop() {

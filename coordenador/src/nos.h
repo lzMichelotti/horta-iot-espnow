@@ -32,6 +32,9 @@ struct No {
   // gravação): o app tem o valor atual logo depois de um reinício.
   bool temUltima = false;
   registro::Registro ultima{};
+  // Só no modo de teste 2 da confirmação (config.h): a primeira enviada ao nó.
+  bool temConfAntiga = false;
+  protocolo::Confirmacao confAntiga{};
 };
 
 // Encontra o nó pelo MAC ou ocupa uma posição livre. nullptr se a tabela estiver cheia.
