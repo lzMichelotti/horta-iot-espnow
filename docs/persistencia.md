@@ -1,6 +1,6 @@
 # Persistência no coordenador
 
-Como o coordenador guarda o que recebe (Etapa 7): tabela de partições, formato do registro, organização do histórico no LittleFS, política de gravação, montagem e queda de energia, relógio provisório, consulta, exportação e cadastro dos nós. O nó sensor não tem sistema de arquivos; o único estado dele que sobrevive a um reset é o contador de boots na NVS ([`protocolo.md`](protocolo.md), seção 4).
+Como o coordenador guarda o que recebe (Etapa 7; registro v2 e confirmação ao nó na Etapa 7.1): tabela de partições, formato do registro, organização do histórico no LittleFS, política de gravação, montagem e queda de energia, relógio provisório, consulta, exportação e cadastro dos nós. O nó sensor não tem sistema de arquivos; o único estado dele que sobrevive a um reset é o contador de boots na NVS ([`protocolo.md`](protocolo.md), seção 4).
 
 Fontes principais:
 
@@ -27,13 +27,14 @@ Fontes principais:
 |---|---|---|
 | Sistema de arquivos | **LittleFS** | *"Designed as fail-safe, with own wear levelling and with fixed amount of RAM usage independent on the file system size"*; proteção contra queda de energia *"Yes (integrated)"*, contra *"Partial"* do SPIFFS e *"No"* do FatFS [IDF-FS]. O SPIFFS ainda *"tends to slow down when exceeding around 70% of the dedicated partition size"* [IDF-FS] |
 | Tabela de partições | própria, baseada na `no_ota.csv` do Arduino-ESP32: app único de 2 MB, **LittleFS de 1920 KB** | sem OTA (o coordenador é gravado pela USB); o espaço da segunda app vira histórico (seção 3) |
-| Registro | **48 B fixos** = 24 B de metadados + os **22 B do pacote, sem alteração** + CRC-16 | tamanho fixo permite endereçar o registro *i* por *i* × 48; guardar o pacote bruto preserva tudo o que o nó mandou (inclusive campos que só serão usados depois) |
+| Registro | **52 B fixos** (v2, Etapa 7.1) = 24 B de metadados + os **26 B do pacote v3, sem alteração** + CRC-16 (v1, Etapa 7: 48 B com o pacote v2 de 22 B) | tamanho fixo permite endereçar o registro *i* por *i* × 52; guardar o pacote bruto preserva tudo o que o nó mandou, inclusive a idade da leitura |
 | Identificação do nó no registro | **MAC** (6 B), não índice do cadastro | o registro continua certo se o cadastro for editado ou apagado |
 | Solo | **mV** no registro; o % é calculado na consulta com a calibração **atual** | recalibrar em campo corrige todo o histórico |
-| Organização | **segmentos em anel**: arquivos `/h/NNNNNNNN.seg` de 500 registros, no máximo 56 | rotação = apagar um arquivo inteiro (barato e atômico no LittleFS); cada segmento tem um resumo em RAM para pular segmentos na consulta (seção 5) |
+| Organização | **segmentos em anel**: arquivos `/h/NNNNNNNN.seg` de 470 registros (500 no registro v1), no máximo 56 | rotação = apagar um arquivo inteiro (barato e atômico no LittleFS); cada segmento tem um resumo em RAM para pular segmentos na consulta (seção 5) |
 | Gravação | **imediata, abrir + anexar + fechar por registro** (G1) | cada leitura aceita fica na flash ~60 ms depois de chegar; o lote seria ~8× mais rápido, mas perderia até um lote numa queda (seção 6) |
 | Montagem | partição **sem** a assinatura do LittleFS → formata sozinho; LittleFS **existente que não monta → não formata** | não apagar um histórico que talvez dê para recuperar; o estado `nao_montado` aparece no console (e no app, Etapa 8) (seção 7) |
-| Hora | registro guarda `utc_s` (0 se inválida) **e** `boot_coord` + `desde_boot_s` | permite reconstruir a hora dos registros gravados antes do acerto no mesmo boot (seção 8) |
+| Hora | registro guarda `utc_s` da **recepção** (0 se inválida) **e** `boot_coord` + `desde_boot_s`; a hora da **leitura** = recepção − `idade_s` do pacote, calculada na consulta | permite reconstruir a hora dos registros gravados antes do acerto no mesmo boot (seção 8) e corrigir as leituras reenviadas pelo nó (Etapa 7.1) |
+| Confirmação ao nó (Etapa 7.1) | a borda (boot, seq) de cada nó só avança **depois do `close()`** | o coordenador confirma ao nó só o que está na flash; o nó guarda a leitura até lá ([`protocolo.md`](protocolo.md), seção 13) |
 | Cadastro | NVS, não LittleFS | ver seção 10 |
 
 ## 3. Tabelas de partições
@@ -54,16 +55,16 @@ Diferenças para a `no_ota.csv` do Arduino-ESP32: a app é `factory` em vez de `
 
 As duas tabelas foram lidas de volta da flash (`esptool read-flash 0x8000` + `gen_esp32part.py`) e conferidas com o que o firmware imprime no boot (`[PART]`): [`dados/etapa7/brutos/particoes_lidas.txt`](../dados/etapa7/brutos/particoes_lidas.txt).
 
-## 4. Registro v1 (48 bytes)
+## 4. Registro v2 (52 bytes)
 
-Definido em [`coordenador/lib/registro/src/registro.h`](../coordenador/lib/registro/src/registro.h). Little-endian, `packed`, campos naturalmente alinhados (o `seq` do pacote cai no offset 28, múltiplo de 4).
+Definido em [`coordenador/lib/registro/src/registro.h`](../coordenador/lib/registro/src/registro.h). Little-endian, `packed`; o `seq` do pacote cai no offset 28 (múltiplo de 4) e a `idade_s` no 46 (fora do alinhamento natural: lida só por cópia, `registro::idade`).
 
 | Offset | Campo | Tipo | Bytes | Conteúdo |
 |---|---|---|---|---|
-| 0 | `versao` | uint8 | 1 | 1 |
+| 0 | `versao` | uint8 | 1 | 2 (1 = registro da Etapa 7, 48 B) |
 | 1 | `flags` | uint8 | 1 | bit 0: hora válida; bits 1–2: fonte do relógio (0 nenhuma, 1 manual, 2 herdada, 3 reservado ao DS3231); bits 3–7 reservados |
 | 2 | `boot_coord` | uint16 | 2 | contador de boots do coordenador |
-| 4 | `utc_s` | uint32 | 4 | UTC em s desde 1970; **0 se a hora não é válida** |
+| 4 | `utc_s` | uint32 | 4 | UTC da **recepção**, em s desde 1970; **0 se a hora não é válida** |
 | 8 | `desde_boot_s` | uint32 | 4 | s desde o boot do coordenador |
 | 12 | `mac` | 6 × uint8 | 6 | MAC de origem do nó |
 | 18 | `rssi` | int8 | 1 | dBm |
@@ -71,18 +72,20 @@ Definido em [`coordenador/lib/registro/src/registro.h`](../coordenador/lib/regis
 | 20 | `classe` | uint8 | 1 | `protocolo::Classe` (só `primeiro`, `novo` e `reinicio` são gravados) |
 | 21 | `reservado` | uint8 | 1 | 0 |
 | 22 | `perdidos` | uint16 | 2 | lacuna de `seq` antes deste pacote (satura em 65535) |
-| 24 | `pacote` | `PacoteLeitura` | 22 | os 22 bytes recebidos, sem a assinatura |
-| 46 | `crc` | uint16 | 2 | CRC-16/CCITT-FALSE dos bytes 0–45 |
+| 24 | `pacote` | `PacoteLeitura` | 26 | os 26 bytes recebidos (protocolo v3), sem a assinatura; inclui `idade_s` no offset 46 |
+| 50 | `crc` | uint16 | 2 | CRC-16/CCITT-FALSE dos bytes 0–49 |
 
 - **CRC-16/CCITT-FALSE** (polinômio 0x1021, inicial 0xFFFF; verificação de `"123456789"` = 0x29B1; no Python, `binascii.crc_hqx(dados, 0xFFFF)`): detecta registro corrompido ou escrito pela metade. A assinatura HMAC não é gravada; ela já foi conferida na recepção.
 - **Leitura** (`registro::ler`): versão → tamanho → CRC, copiando com `memcpy` (mesma regra do pacote: nunca ler campo de `struct packed` por ponteiro). Versão antes do tamanho: um registro de versão futura, com outro tamanho, é identificado como tal.
-- **Por que guardar o pacote inteiro:** 2 bytes a mais que extrair só as grandezas, e o histórico passa a ter `motivo_boot`, `acordado_ant_ms`, `tentativas_ant` e `flags` de cada ciclo: os dados de consumo e de diagnóstico da avaliação.
+- **Por que guardar o pacote inteiro:** poucos bytes a mais que extrair só as grandezas, e o histórico passa a ter `motivo_boot`, `acordado_ant_ms`, `tentativas_ant`, `flags` e `idade_s` de cada ciclo: os dados de consumo, de diagnóstico e de reenvio da avaliação.
+- **Hora da leitura** (`registro::utcLeitura`): recepção − idade, sem passar de 0. Usada no resumo dos segmentos (para o pulo de segmentos por período), na hora efetiva das consultas e na coluna `utc` da exportação (que ganhou a coluna `idade_s`).
+- **Troca de versão (Etapa 7.1):** um arquivo com registros de 48 e de 52 B misturados não pode ser lido por posição. O histórico v1 (só dados de bancada) foi exportado (27 604 linhas, CRC conferido) e a partição foi formatada antes de gravar o firmware novo. Um firmware v2 que encontrar segmentos v1 os marca como fechados (tamanho não múltiplo de 52) e conta os registros como inválidos, sem travar (testado: 56 segmentos, 25 452 inválidos, carga em 1,8 s).
 
 ## 5. Segmentos em anel, retenção e desgaste
 
 Lógica pura em [`lib/anel`](../coordenador/lib/anel/src/anel.h) (testada no PC); operações de arquivo em [`src/historico.cpp`](../coordenador/src/historico.cpp).
 
-- Cada segmento é um arquivo `/littlefs/h/NNNNNNNN.seg` (8 dígitos) com até **K = 500** registros (24 000 B = 6 blocos de 4 KB, contando os ponteiros da lista CTZ do LittleFS [LFS]).
+- Cada segmento é um arquivo `/littlefs/h/NNNNNNNN.seg` (8 dígitos) com até **K = 470** registros (24 440 B, que cabem em 6 blocos de 4 KB contando os ponteiros da lista CTZ do LittleFS [LFS]). Com o registro v1 eram 500 × 48 = 24 000 B; com 52 B, 500 registros ocupariam 7 blocos.
 - Cheio, abre o número seguinte; acima de **56 segmentos**, apaga o mais antigo antes de gravar.
 - **Id global** de um registro = número do segmento × K + posição. Cresce com o tempo, é estável enquanto K não mudar e serve de cursor de paginação.
 - No boot, o coordenador lista `/h`, ordena os números e lê todos os segmentos, montando um **resumo por segmento** em RAM: posições, válidos, sem hora, `utc` mínimo e máximo, primeiro e último `boot_coord`, e se está *fechado* (arquivo com tamanho não múltiplo de 48, ex.: escrita parcial; não recebe mais registros para não desalinhar os seguintes).
@@ -91,10 +94,10 @@ Lógica pura em [`lib/anel`](../coordenador/lib/anel/src/anel.h) (testada no PC)
 
 | Grandeza | Valor |
 |---|---|
-| Registros | 56 × 500 = **28 000** (entre 27 500 e 28 000, conforme o segmento atual) |
-| Espaço ocupado cheio (medido) | **1356 KB de 1920 KB (70,6 %)** |
-| Com 2 nós a cada 15 min (192 registros/dia) | **~143–146 dias** |
-| Com 8 nós | ~36 dias |
+| Registros | 56 × 470 = **26 320** (entre 25 850 e 26 320, conforme o segmento atual) |
+| Espaço ocupado cheio (medido com o registro v1) | **1356 KB de 1920 KB (70,6 %)**; o v2 usa os mesmos 6 blocos por segmento |
+| Com 2 nós a cada 15 min (192 registros/dia) | **~135–137 dias** (v1: ~143–146) |
+| Com 8 nós | ~34 dias (v1: ~36) |
 
 A folga de ~29 % é deliberada: o LittleFS precisa de blocos livres para a cópia na escrita (*copy-on-write*) e para o seu nivelamento de desgaste.
 
@@ -203,23 +206,24 @@ Por que NVS e não um arquivo no LittleFS: a configuração fica independente do
 
 ## 11. Testes
 
-`cd coordenador && pio test -e native`: **71 testes Unity no PC**, todos passando (19/10/2026).
+`cd coordenador && pio test -e native`: **74 testes Unity no PC**, todos passando (71 na Etapa 7; +3 na 7.1).
 
 | Suíte | Testes | O que cobre |
 |---|---|---|
-| `test_registro` | 12 | CRC (vetor 0x29B1), bytes iguais à referência em Python, hora inválida ou fora do `uint32`, saturação, cada bit invertido detectado, tamanho e versão |
-| `test_anel` | 15 | nomes de segmento, resumo, id global, plano de rotação, rotação simulada, continuação depois do boot, segmento fechado |
-| `test_filtro` | 14 | âncoras, hora reconstruída, filtro, pulo de segmentos, percurso e paginação nas duas ordens |
+| `test_registro` | 13 | CRC (vetor 0x29B1), 52 bytes iguais à referência em Python (registro v2 com pacote v3), hora da leitura = recepção − idade, hora inválida ou fora do `uint32`, saturação, cada bit invertido detectado, tamanho e versão (registro v1 recusado) |
+| `test_anel` | 16 | nomes de segmento, resumo (pela hora da leitura), id global, plano de rotação, rotação simulada, continuação depois do boot, segmento fechado |
+| `test_filtro` | 15 | âncoras, hora reconstruída, hora efetiva descontando a idade, filtro, pulo de segmentos, percurso e paginação nas duas ordens |
 | `test_cadastro` | 12 | nomes, MAC, calibração, umidade do solo, tabela cheia, blob (ida e volta, inválido) |
 | `test_calendario` | 11 | epoch ↔ data, bissextos, interpretação de epoch e ISO 8601, rejeições, reconstrução |
-| `test_exportacao` | 7 | CRC-32 (vetor 0xCBF43926, igual ao Python), linha de referência, colunas, células vazias |
+| `test_exportacao` | 7 | CRC-32 (vetor 0xCBF43926, igual ao Python), linha de referência, colunas (27, com `idade_s`), células vazias |
 
 Na placa: os testes de bancada das seções 6, 7 e 9, com os dados brutos em [`dados/etapa7/brutos/`](../dados/etapa7/brutos/).
 
 ## 12. Limitações e pendências
 
-- **O coordenador é ponto único de falha.** Se ele estiver desligado, as leituras do período se perdem: o ACK do ESP-NOW só confirma o rádio ([`comunicacao.md`](comunicacao.md), 1.2), e o nó não guarda nada. É o objeto da **Etapa 7.1** (confirmação de aplicação e reenvio).
-- **O rastreador avança antes da gravação.** Em `processar()`, `sequencia.registrar()` vem antes de `gravarHistorico()`: se a gravação falhar sem reinício, um reenvio do mesmo pacote seria recusado como `duplicado`. Hoje não há reenvio, então isso não perde nada além da própria leitura; precisa mudar na Etapa 7.1.
+- ~~**O coordenador é ponto único de falha.**~~ **Resolvido na Etapa 7.1** para quedas de até ~2,7 dias: o nó guarda as leituras na memória RTC até o coordenador confirmar que estão gravadas ([`protocolo.md`](protocolo.md), seção 13). Continua valendo para o que só o coordenador tem: o histórico e a API.
+- ~~**O rastreador avança antes da gravação.**~~ **Corrigido na Etapa 7.1:** a borda de cada nó só avança depois do `close()` (`classificar()` → gravar → `confirmar()`).
+- **LittleFS sem montar ou gravação falhando:** o coordenador não confirma nada, e os nós acumulam até encher a fila (~2,7 dias), reenviando uma rajada por ciclo enquanto isso.
 - **Resistência da flash** (100 000 ciclos) só pela ficha do distribuidor; confirmar no datasheet do fabricante.
 - **Segmentos com registros sem hora nunca são pulados** numa consulta por período (a hora reconstruída pode cair fora do `utc` mínimo/máximo do resumo): no sintético pessimista, 24 de 56 segmentos lidos (0,6 s). Melhoria opcional: guardar no resumo o `boot`/`desde_boot` mínimo e máximo dos registros sem hora.
 - **Carga no boot de 2–3 s** com o histórico cheio, antes de ligar o rádio: pacotes enviados nesse intervalo recebem `FAIL` (o rádio ainda não está ligado).

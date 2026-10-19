@@ -32,7 +32,7 @@ Consequências para o projeto:
 
 1. o ACK prova que o **rádio** do coordenador recebeu o quadro íntegro, não que o pacote chegou ao `loop()` (fila cheia, ESP-NOW ainda não inicializado — observado na seção 6.1 —, pacote inválido ou duplicado também recebem ACK);
 2. a entrega **na aplicação** é medida no coordenador pelo par (`boot`, `seq`) ([`protocolo.md`](protocolo.md), seção 6);
-3. um ACK de aplicação (o coordenador responder por ESP-NOW) foi descartado: dobraria o tempo de rádio ligado no nó a bateria para cobrir um caso que o `seq` já mede.
+3. ~~um ACK de aplicação foi descartado~~ **(revisto na Etapa 7.1).** Na Etapa 4, a resposta do coordenador foi descartada porque dobraria o tempo de rádio só para **medir** perdas, o que o `seq` já fazia. Na Etapa 7.1 o objetivo passou a ser **não perder** leituras com o coordenador fora do ar, e isso exige que o nó saiba o que está gravado. A confirmação adotada é cumulativa e imediata: custa ~3–6 ms de rádio por ciclo, não o dobro ([`protocolo.md`](protocolo.md), seção 13).
 
 ### 1.3 Peers, canal e versões
 
@@ -77,6 +77,7 @@ A **PMK** (16 B, uma por aparelho) cifra as LMKs com AES-128; a **LMK** (16 B po
 | MAC fora da tabela de nós | aceito e rastreado como `desconhecido` | um nó novo funciona sem regravar o coordenador; a gravação desses dados é decidida na etapa 7 |
 | Taxa | **1 Mbps (padrão)** | o modo mais robusto do 802.11b e o menor tempo no ar entre as opções de longo alcance; o Long Range (seção 1.4) custa 2–4× o tempo de cada byte e exige o protocolo LR nos dois lados. Reavaliar só se o alcance medido na horta não bastar |
 | Tempo limite do callback | **100 ms** | 2× o maior `FAIL` medido (49,6 ms); como o `FAIL` sempre chegou antes, reduzir não economiza energia (seção 6.1) |
+| Confirmação de aplicação (Etapa 7.1) | **cumulativa, assinada, imediata**; o nó vira peer unicast do coordenador | o coordenador responde "gravado até (boot, seq)" a todo pacote autêntico; o nó guarda as leituras na memória RTC até a confirmação e reenvia em ordem (seção 7) |
 
 ### 2.1 Criptografia: opções avaliadas
 
@@ -241,7 +242,33 @@ O nó não trava: cada ciclo termina em ~280 ms e o próximo começa no horário
 - **Canal 6** (nó) × canal 1 (coordenador): nenhum quadro recebido, `FAIL` em todas as tentativas, `esp_now_send` sem erro (o nó está coerente com o próprio canal). Confirma que o ESP-NOW exige o mesmo canal nos dois lados.
 - **Canal 2**: funcionou, com RSSI ~3 dB menor. No 802.11b (DSSS) cada canal ocupa 22 MHz com centros espaçados de 5 MHz, e o receptor no canal 1 ainda capta o quadro transmitido no canal 2 quando o sinal é forte. **Consequência:** um erro de canal de ±1 passaria despercebido na bancada e apareceria só no campo, sem margem de sinal. Por isso o canal é uma constante única em cada `config.h` e é impresso no boot das duas placas.
 
-## 7. Pendências
+## 7. Confirmação de aplicação e reenvio (Etapa 7.1)
+
+Desde a Etapa 7.1, o diálogo no ar tem dois quadros por ciclo:
+
+```
+ NÓ                                        COORDENADOR
+ leitura nova (42 B, ~0,87 ms) ───────────► FCS ok → ACK 802.11 (hardware)
+                                            fila → loop(): validar (HMAC), classificar
+ espera até 30 ms ◄──────────────────────── confirmação "gravado até X" (25 B, ~0,74 ms)
+ libera até X                               grava a leitura nova (~60 ms), avança a borda
+ [se sobrou além da nova: reenvia até 12, em ordem]
+ desliga o rádio e dorme
+```
+
+- **No nó:** além do callback de envio, um callback de recepção (`esp_now_register_recv_cb`) copia para uma fila do FreeRTOS só os quadros vindos do MAC AP do coordenador. A validação (assinatura) fica no `setup()`, fora da tarefa do Wi-Fi. Receber sem criptografia não exige cadastrar o remetente ([IDF-NOW]).
+- **No coordenador:** o nó é cadastrado como *peer* na primeira resposta (`esp_now_add_peer`, `ifidx = WIFI_IF_AP`, canal do SoftAP), porque `esp_now_send` exige o destino na lista de peers. O limite é de 20 peers (seção 1.3), mais que os 8 nós do cadastro.
+- **Formato, regras e segurança:** [`protocolo.md`](protocolo.md), seção 13.
+
+Instrumentação nova:
+
+- `[ENVIO]` do nó: + `conf` (par confirmado ou `nada`), `resp_us` (do ACK MAC da nova à confirmação), `conf_recusadas`, `fila_antes`, `liberadas`, `reenviadas`, `reenviadas_ack`, `fila_depois`, `descartadas`;
+- `[CSV]` do coordenador: + `idade_s` e `conf` (o que foi respondido);
+- `[RESUMO]`: + `fora_de_ordem`.
+
+Os resultados de bancada estão na seção 13.7 de [`protocolo.md`](protocolo.md) e em [`energia.md`](energia.md).
+
+## 8. Pendências
 
 - **Long Range:** reavaliar com os dados de alcance da horta (RSSI/SNR por distância); a taxa fica em 1 Mbps até lá.
 - **NÓ 2:** a terceira placa ainda não foi conectada; falta o teste com 2 nós simultâneos (sem sensores, deve enviar estados `erro`).
