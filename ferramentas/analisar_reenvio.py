@@ -113,7 +113,10 @@ def analisar(prefixo):
         grupos = {"normal (com ACK, sem reenvio)": [p for p in pares if p[0]["ack"] == 1 and
                                                     (not novo_fw or p[0]["reenviadas"] == 0)],
                   "com reenvio": [p for p in pares if novo_fw and p[0]["reenviadas"] > 0],
-                  "coordenador fora (sem ACK)": [p for p in pares if p[0]["ack"] == 0]}
+                  "coordenador fora (sem ACK), 1 tentativa": [p for p in pares if p[0]["ack"] == 0 and
+                                                              p[0]["tentativas"] == 1],
+                  "coordenador fora (sem ACK), 2+ tentativas": [p for p in pares if p[0]["ack"] == 0 and
+                                                                p[0]["tentativas"] > 1]}
         for nome, g in grupos.items():
             if not g:
                 continue
