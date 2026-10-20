@@ -2,7 +2,7 @@
 # Captura das seriais (COORD e NÓ 1) com o PC na rede do coordenador, enquanto
 # ferramentas/testar_api.py gera as requisições (Etapa 8, passos 5 e 6).
 #
-# Ordem necessária, medida em 19/10/2026 (docs/comunicacao.md, seção 9):
+# Ordem necessária, medida em 19/10/2026 (docs/comunicacao.md, seção 8):
 #  1. trocar o Wi-Fi do Windows para a horta-coord e esperar 90 s. A troca de
 #     rede faz o usbip desanexar as placas do WSL cerca de 1 min depois;
 #     anexando DEPOIS disso, elas ficam;
@@ -20,7 +20,13 @@ cd "$(dirname "$0")/.."
 PREFIXO=$1; DURACAO=$2; CASA=$3; shift 3
 BUSIDS=${BUSIDS:-"1-4 2-3"}  # NÓ 1 e COORD no usbipd (conferir com usbipd.exe list)
 
-volta() { netsh.exe wlan connect name="$CASA" >/dev/null 2>&1; echo "[rede] Wi-Fi de volta para $CASA"; }
+volta() {
+  netsh.exe wlan connect name="$CASA" >/dev/null 2>&1
+  echo "[rede] Wi-Fi de volta para $CASA; reanexando as placas em 90 s (a troca de rede as desanexa)"
+  sleep 90
+  for b in $BUSIDS; do usbipd.exe attach --wsl --busid "$b" >/dev/null 2>&1; done
+  echo "[usb] $(estado)"
+}
 trap volta EXIT
 estado() { usbipd.exe list 2>/dev/null | grep CH9102 | awk '{print $1, $NF}' | tr '\n' ' '; }
 esperar_coord() { for i in $(seq 1 40); do curl -s -m 2 -o /dev/null http://192.168.4.1/ && return 0; sleep 1; done; return 1; }

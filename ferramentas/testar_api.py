@@ -13,6 +13,9 @@ Modos:
   carga F:S [...]   fases de carga, cada uma S segundos: ocioso, csv, pag200, pag50, status
   clientes K S      K clientes ao mesmo tempo pedindo páginas de 50 por S segundos
   escrita           rotas de escrita sem token, com token errado e com token certo (códigos e cabeçalhos)
+  paginas N         N páginas do histórico para cada limite (10, 50, 100, 200)
+  csv N             N exportações completas em CSV (tempo, bytes, linhas)
+  bateria           rotas 100, paginas 30, csv 3, clientes 2 120 e escrita, em sequência
 
 Uso:
   .venv/bin/python ferramentas/testar_api.py <saida.csv> [--wifi CASA] <modo> [args]
@@ -139,8 +142,9 @@ def modo_clientes(reg, k, seg):
     for t in ths:
         t.join()
     for i in range(k):
-        tempos = [float(l[7]) for l in reg.linhas if l[1] == i and l[5] == 200]
-        falhas = [l for l in reg.linhas if l[1] == i and l[5] != 200]
+        minhas = [l for l in reg.linhas if l[1] == i and l[2] == f"clientes{k}"]
+        tempos = [float(l[7]) for l in minhas if l[5] == 200]
+        falhas = [l for l in minhas if l[5] != 200]
         print(f"cliente {i}: {resumo(tempos)}; falhas {len(falhas)}")
 
 
@@ -166,6 +170,37 @@ def modo_escrita(reg):
         print(f"{nome:14s} {m:6s} {rota:40s} -> {res[0]} {extra}")
 
 
+def modo_paginas(reg, n):
+    for limite in (10, 50, 100, 200):
+        rota = f"/api/v1/leituras?limite={limite}"
+        tempos, tamanhos = [], []
+        for _ in range(n):
+            res = pedir("GET", rota)
+            reg.anotar(0, "paginas", "GET", rota, res)
+            if res[0] == 200:
+                tempos.append(res[2])
+                tamanhos.append(res[1])
+        kb = statistics.median(tamanhos) / 1024 if tamanhos else 0
+        print(f"limite={limite:3d}: {resumo(tempos)}; {kb:.1f} KB por página")
+
+
+def modo_csv(reg, n):
+    for _ in range(n):
+        req = urllib.request.Request(BASE + "/api/v1/exportar.csv")
+        t0 = time.perf_counter()
+        try:
+            with urllib.request.urlopen(req, timeout=600) as r:
+                corpo = r.read()
+                codigo = r.status
+        except Exception as e:  # noqa: BLE001
+            corpo, codigo = b"", f"falha:{type(e).__name__}"
+        s = time.perf_counter() - t0
+        reg.anotar(0, "csv", "GET", "/api/v1/exportar.csv", (codigo, len(corpo), s, {}))
+        linhas = corpo.count(b"\n") - 1  # sem o cabeçalho
+        print(f"csv: {codigo}, {linhas} linhas, {len(corpo) / 1024:.0f} KB em {s:.1f} s "
+              f"({len(corpo) / 1024 / s:.0f} KB/s)", flush=True)
+
+
 def wifi(rede):
     subprocess.run(["netsh.exe", "wlan", "connect", f"name={rede}"], capture_output=True)
 
@@ -174,7 +209,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("saida")
     ap.add_argument("--wifi", metavar="CASA", help="conectar à horta-coord e voltar para CASA no fim")
-    ap.add_argument("modo", choices=["rotas", "carga", "clientes", "escrita"])
+    ap.add_argument("modo", choices=["rotas", "carga", "clientes", "escrita", "paginas", "csv", "bateria"])
     ap.add_argument("args", nargs="*")
     a = ap.parse_args()
     reg = Registro(a.saida)
@@ -192,6 +227,16 @@ def main():
             modo_carga(reg, a.args)
         elif a.modo == "clientes":
             modo_clientes(reg, int(a.args[0]), float(a.args[1]))
+        elif a.modo == "paginas":
+            modo_paginas(reg, int(a.args[0]) if a.args else 30)
+        elif a.modo == "csv":
+            modo_csv(reg, int(a.args[0]) if a.args else 1)
+        elif a.modo == "bateria":
+            for nome, f in (("rotas 100", lambda: modo_rotas(reg, 100)), ("paginas 30", lambda: modo_paginas(reg, 30)),
+                            ("csv 3", lambda: modo_csv(reg, 3)), ("clientes 2 120", lambda: modo_clientes(reg, 2, 120)),
+                            ("escrita", lambda: modo_escrita(reg))):
+                print(f"\n## {nome}", flush=True)
+                f()
         else:
             modo_escrita(reg)
     finally:
