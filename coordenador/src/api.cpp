@@ -4,6 +4,7 @@
 #include <WebServer.h>
 #include <WiFi.h>
 #include <cstring>
+#include <esp_mac.h>
 #include <esp_timer.h>
 #include <uri/UriBraces.h>
 
@@ -323,7 +324,17 @@ void rotaStatus() {
   comecar();
   json::Escritor e(destino, nullptr);
   relogio::Instante a = relogio::agora();
+  // Identificador do coordenador = MAC base do eFuse (o STA): não muda com
+  // regravação, apagar a NVS ou formatar; trocar a placa muda o id.
+  // https://docs.espressif.com/projects/esp-idf/en/v5.5/esp32/api-reference/system/misc_system_api.html
+  static char idCoord[apijson::TAM_MAC] = "";
+  if (idCoord[0] == '\0') {
+    uint8_t m[6];
+    esp_read_mac(m, ESP_MAC_WIFI_STA);
+    apijson::mac(idCoord, m);
+  }
   e.objeto()
+      .campo("coordenador", idCoord)
       .campo("firmware", config::VERSAO_FIRMWARE)
       .campo("protocolo", int64_t(protocolo::VERSAO))
       .campo("api", int64_t(1))
@@ -334,6 +345,10 @@ void rotaStatus() {
 
   const anel::Indice& ind = historico::indice();
   e.chave("armazenamento").objeto().campo("estado", historico::nomeEstado(historico::estado()));
+  if (historico::montado())
+    e.campo("geracao", historico::geracao());
+  else
+    e.campoNulo("geracao");
   // Cache: LittleFS.usedBytes() percorre o sistema de arquivos (~30 ms medidos no passo 5).
   static uint32_t cacheMs = 0;
   static size_t totalB = 0, usadoB = 0;

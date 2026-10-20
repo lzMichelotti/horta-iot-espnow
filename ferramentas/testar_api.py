@@ -13,6 +13,7 @@ Modos:
   carga F:S [...]   fases de carga, cada uma S segundos: ocioso, csv, pag200, pag50, status
   clientes K S      K clientes ao mesmo tempo pedindo páginas de 50 por S segundos
   escrita           rotas de escrita sem token, com token errado e com token certo (códigos e cabeçalhos)
+  status            confere no /status o id do coordenador (MAC) e a geração do histórico
   paginas N         N páginas do histórico para cada limite (10, 50, 100, 200)
   csv N             N exportações completas em CSV (tempo, bytes, linhas)
   bateria           rotas 100, paginas 30, csv 3, clientes 2 120 e escrita, em sequência
@@ -172,6 +173,23 @@ def modo_escrita(reg):
         print(f"{nome:14s} {m:6s} {rota:40s} -> {res[0]} {extra}")
 
 
+def modo_status(reg):
+    """Campos do /status que o app usa como chave: coordenador (MAC) e geração do histórico."""
+    import json
+    import re
+    res = urllib.request.urlopen(BASE + "/api/v1/status", timeout=30)
+    st = json.loads(res.read())
+    reg.anotar(0, "status", "GET", "/api/v1/status", (res.status, 0, 0, {}))
+    coord = st.get("coordenador", "")
+    geracao = st.get("armazenamento", {}).get("geracao")
+    ok_coord = re.fullmatch(r"([0-9a-f]{2}:){5}[0-9a-f]{2}", coord) is not None
+    ok_ger = geracao is None or re.fullmatch(r"[0-9a-f]{8}", geracao) is not None
+    print(f"firmware {st.get('firmware')}; coordenador {coord} ({'ok' if ok_coord else 'FORMATO ERRADO'}); "
+          f"geracao {geracao} ({'ok' if ok_ger else 'FORMATO ERRADO'})")
+    if not (ok_coord and ok_ger):
+        sys.exit(1)
+
+
 def modo_paginas(reg, n):
     for limite in (10, 50, 100, 200):
         rota = f"/api/v1/leituras?limite={limite}"
@@ -249,7 +267,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("saida")
     ap.add_argument("--wifi", metavar="CASA", help="conectar à horta-coord e voltar para CASA no fim")
-    ap.add_argument("modo", choices=["rotas", "carga", "clientes", "escrita", "paginas", "csv", "bateria", "heap"])
+    ap.add_argument("modo", choices=["rotas", "carga", "clientes", "escrita", "paginas", "csv", "bateria", "heap", "status"])
     ap.add_argument("args", nargs="*")
     a = ap.parse_args()
     reg = Registro(a.saida)
@@ -273,6 +291,8 @@ def main():
             modo_heap(reg, float(a.args[0]) if a.args else 3600, a.saida.replace(".csv", "_heap.csv"))
         elif a.modo == "csv":
             modo_csv(reg, int(a.args[0]) if a.args else 1)
+        elif a.modo == "status":
+            modo_status(reg)
         elif a.modo == "bateria":
             for nome, f in (("rotas 100", lambda: modo_rotas(reg, 100)), ("paginas 30", lambda: modo_paginas(reg, 30)),
                             ("csv 3", lambda: modo_csv(reg, 3)), ("clientes 2 120", lambda: modo_clientes(reg, 2, 120)),

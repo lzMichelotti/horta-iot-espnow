@@ -1,6 +1,7 @@
 # API HTTP do coordenador (v1)
 
 > **Situação: especificação aprovada (Etapa 8, passos 2 e 3); implementação em andamento.**
+> **Revisão 1.1 (20/10/2026, firmware `coordenador 8.1`):** `/status` ganha `coordenador` e `armazenamento.geracao` (seção 2.4.1), campos novos que não quebram a API v1.
 
 API para o app (e para um notebook) consultar o sistema pela rede Wi-Fi do próprio coordenador, sem Internet.
 
@@ -75,6 +76,20 @@ O histórico pode ter ~26 mil registros: nunca vem inteiro. Cada página traz um
 - `cursor_rotacionado: true`: o cursor apontava para registros que já foram apagados pela rotação do histórico; a página começa no mais antigo que ainda existe.
 - O cursor é um número inteiro (id global do registro, sempre < 2⁵³, então seguro em JSON).
 
+#### 2.4.1 Coordenador, geração e chave de cada leitura
+
+O id global (número do segmento × 470 + posição, [`persistencia.md`](persistencia.md), seção 5) **recomeça quando o histórico é formatado**, e o par (`no_boot`, `no_seq`) de um nó **se repete** depois de a NVS do nó ser apagada e de um `no esquecer` ([`protocolo.md`](protocolo.md), seção 6). Por isso o `/status` traz:
+
+| Campo | Valor | Muda quando |
+|---|---|---|
+| `coordenador` | MAC STA do coordenador (MAC base do eFuse), no formato dos nós | só ao trocar a placa |
+| `armazenamento.geracao` | 8 dígitos hexadecimais aleatórios, criados junto com o histórico (`null` se não montado) | o histórico é formatado (à mão ou na montagem de uma partição nova) |
+
+- **Chave única de uma leitura fora do coordenador:** (`coordenador`, `geracao`, `id`).
+- **Sincronização:** o cursor guardado pelo app só vale na mesma geração. Se a `geracao` mudou, o app descarta o cursor e recomeça do início (`ordem=asc` sem `cursor`); sem isso, um cursor antigo maior que todos os ids novos deixaria o app sem leituras novas.
+- **Troca da placa:** o `coordenador` muda. Associar o coordenador à horta é papel do backend do app (o administrador refaz a associação).
+- A geração fica num arquivo do próprio LittleFS (`/geracao`), e não na NVS: some exatamente quando o histórico some. É gerada pelo RNG de hardware com a fonte de entropia interna ligada, porque nasce antes do Wi-Fi ([Random Number Generation, ESP-IDF v5.5](https://docs.espressif.com/projects/esp-idf/en/v5.5/esp32/api-reference/system/random.html)).
+
 ### 2.5 Erros
 
 Sempre JSON, com o código HTTP correspondente:
@@ -133,11 +148,12 @@ Authorization: Bearer <token>
 
 ```json
 {
-  "firmware": "coordenador 8.0", "protocolo": 3, "api": 1,
+  "coordenador": "88:57:21:70:91:fc",
+  "firmware": "coordenador 8.1", "protocolo": 3, "api": 1,
   "boot": 112, "uptime_s": 86400,
   "hora": { "utc": "2026-10-19T14:30:00Z", "valida": true, "fonte": "manual" },
   "armazenamento": {
-    "estado": "ok", "total_kb": 1920, "usado_kb": 612,
+    "estado": "ok", "geracao": "3fa91c07", "total_kb": 1920, "usado_kb": 612,
     "registros": 11984, "segmentos": 26, "registros_por_segmento": 470, "max_segmentos": 56,
     "mais_antigo_utc": "2026-08-01T10:00:00Z"
   },
@@ -147,6 +163,7 @@ Authorization: Bearer <token>
 }
 ```
 
+- `coordenador` e `armazenamento.geracao`: identificação e chave das leituras (seção 2.4.1).
 - `hora.fonte`: `nenhuma` (relógio não acertado desde o último corte de energia), `manual` (acertado neste boot) ou `herdada` (acertado antes de um reset por software).
 - `armazenamento.mais_antigo_utc`: hora da leitura mais antiga com hora válida ainda no histórico (`null` se não houver).
 - `escrita_habilitada`: `false` enquanto o token não for configurado na COORD (toda escrita responde `401`).
@@ -311,7 +328,7 @@ Medido em 20/10/2026 na bancada: PC conectado à `horta-coord` a ~1 m, históric
 
 No navegador deste aparelho, o endereço da rede local foi alcançado pelo Wi-Fi mesmo com os dados móveis ligados: a rede `192.168.4.0/24` é a do Wi-Fi conectado. **Isso não garante o mesmo comportamento em todo app e aparelho.** Um app nativo deve continuar pedindo a rede Wi-Fi explicitamente (seção 1), e a Etapa 10 testa isso no app.
 
-Observações do teste: a COORD tinha reiniciado e estava **sem hora** (`"valida": false`), então as leituras do NÓ 1 apareceram como `sem_hora`. É o caso que o app resolve enviando a hora do celular ao conectar (`PUT /api/v1/hora`, seção 4.6). As leituras dos nós `02:00:00:00:00:01` e `:02` são os registros sintéticos criados para o teste de exportação completa.
+Observações do teste: a COORD tinha reiniciado e estava **sem hora** (`"valida": false`), então as leituras do NÓ 1 apareceram como `sem_hora`. É o caso que o app resolve enviando a hora do celular ao conectar (`PUT /api/v1/hora`, seção 4.6). As leituras dos nós `02:00:00:00:00:01` e `:02` são os registros sintéticos criados para o teste de exportação completa. Em 20/10/2026 o histórico foi exportado (26 217 linhas, 84 % sintéticas; as 4 073 do NÓ 1 em [`dados/etapa10/brutos`](../dados/etapa10/brutos/)) e formatado, e esses nós saíram do `/nos`.
 
 ## 6. Decisões (passo 2)
 
@@ -322,3 +339,5 @@ Observações do teste: a COORD tinha reiniciado e estava **sem hora** (`"valida
 | CSV | sem token | só leitura, e o resto da API já é legível na rede WPA2 |
 | Acerto da hora | sempre aceita, com token e faixa plausível; salto registrado | o relógio do ESP32 sem DS3231 deriva; é a mesma política da serial |
 | CORS | desligado | depende da tecnologia do app (não confirmada); liga com `enableCORS` se for uma página web servida de outro endereço |
+| Id do coordenador (rev. 1.1) | MAC base do eFuse (STA) | não some com `erase_flash`, NVS apagada ou formatação; um id na NVS sumiria numa regravação completa. Trocar a placa muda o id, e o backend refaz a associação com a horta |
+| Chave das leituras (rev. 1.1) | (`coordenador`, `geracao`, `id`) | (`coordenador`, MAC, `no_boot`, `no_seq`) se repete depois de `no esquecer`; o id global recomeça ao formatar. A geração no LittleFS acompanha o histórico e não depende da NVS |

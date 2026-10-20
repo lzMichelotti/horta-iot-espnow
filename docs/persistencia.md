@@ -88,6 +88,7 @@ Lógica pura em [`lib/anel`](../coordenador/lib/anel/src/anel.h) (testada no PC)
 - Cada segmento é um arquivo `/littlefs/h/NNNNNNNN.seg` (8 dígitos) com até **K = 470** registros (24 440 B, que cabem em 6 blocos de 4 KB contando os ponteiros da lista CTZ do LittleFS [LFS]). Com o registro v1 eram 500 × 48 = 24 000 B; com 52 B, 500 registros ocupariam 7 blocos.
 - Cheio, abre o número seguinte; acima de **56 segmentos**, apaga o mais antigo antes de gravar.
 - **Id global** de um registro = número do segmento × K + posição. Cresce com o tempo, é estável enquanto K não mudar e serve de cursor de paginação.
+- **Geração do histórico** (revisão 1.1 da API): o arquivo `/geracao` (8 dígitos hexadecimais aleatórios) é criado na montagem quando não existe, ou seja, numa partição nova ou recém-formatada. Como o id global recomeça depois de formatar, ids e cursores só valem dentro da mesma geração ([`api.md`](api.md), seção 2.4.1).
 - No boot, o coordenador lista `/h`, ordena os números e lê todos os segmentos, montando um **resumo por segmento** em RAM: posições, válidos, sem hora, `utc` mínimo e máximo, primeiro e último `boot_coord`, e se está *fechado* (arquivo com tamanho não múltiplo de 48, ex.: escrita parcial; não recebe mais registros para não desalinhar os seguintes).
 
 **Capacidade e retenção:**

@@ -1,9 +1,12 @@
 #include "historico.h"
 
 #include <LittleFS.h>
+#include <WiFi.h>
 #include <algorithm>
+#include <bootloader_random.h>
 #include <cstring>
 #include <esp_partition.h>
+#include <esp_random.h>
 
 #include "config.h"
 #include "relogio.h"
@@ -257,7 +260,37 @@ void encher(uint32_t n, uint32_t m) {
 }
 #endif
 
+char geracaoAtual[9] = "";
+
+void carregarGeracao() {
+  geracaoAtual[0] = '\0';
+  File f = LittleFS.open(config::HIST_GERACAO, FILE_READ);
+  if (f) {
+    size_t n = f.readBytes(geracaoAtual, 8);
+    f.close();
+    geracaoAtual[n] = '\0';
+    if (n == 8) {
+      Serial.printf("[FS] geracao do historico: %s\n", geracaoAtual);
+      return;
+    }
+  }
+  // Antes do Wi-Fi o RNG é só pseudoaleatório; a doc manda ligar a fonte de
+  // entropia interna enquanto gera e desligar antes de usar o rádio:
+  // https://docs.espressif.com/projects/esp-idf/en/v5.5/esp32/api-reference/system/random.html
+  bool semRadio = WiFi.getMode() == WIFI_MODE_NULL;
+  if (semRadio) bootloader_random_enable();
+  uint32_t v = esp_random();
+  if (semRadio) bootloader_random_disable();
+  snprintf(geracaoAtual, sizeof(geracaoAtual), "%08lx", (unsigned long)v);
+  File g = LittleFS.open(config::HIST_GERACAO, FILE_WRITE);
+  bool ok = g && g.print(geracaoAtual) == 8;
+  if (g) g.close();
+  Serial.printf("[FS] geracao do historico: %s (nova%s)\n", geracaoAtual, ok ? "" : ", ERRO ao gravar");
+}
+
 }  // namespace
+
+const char* geracao() { return fsMontado ? geracaoAtual : ""; }
 
 void caminhoSegmento(uint32_t numero, char (&saida)[TAM_CAMINHO]) {
   char nome[anel::TAM_NOME];
@@ -296,6 +329,7 @@ bool iniciar(Observador obs) {
   }
   Serial.printf("[FS] LittleFS montado: %u KB usados de %u KB\n", (unsigned)(LittleFS.usedBytes() / 1024),
                 (unsigned)(LittleFS.totalBytes() / 1024));
+  carregarGeracao();
   carregar();
   imprimirLinhaEstado();
   return true;

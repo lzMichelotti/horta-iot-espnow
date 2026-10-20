@@ -34,6 +34,8 @@ constexpr int64_t HORA_MAXIMA_UTC = 4102444800;  // 2100-01-01T00:00:00Z
 constexpr const char* FS_ROTULO = "littlefs";  // rótulo da partição em particoes.csv
 constexpr const char* FS_PONTO = "/littlefs";  // ponto de montagem no VFS
 constexpr const char* HIST_DIR = "/h";
+// Geração do histórico (8 hex): nasce com o LittleFS e some quando ele é formatado.
+constexpr const char* HIST_GERACAO = "/geracao";
 // 470 registros × 52 B = 24 440 B: cabem em 6 blocos de 4 KB com os ponteiros
 // da lista CTZ do LittleFS (32 B). 56 segmentos ≈ 75 % da partição de 1920 KB;
 // o resto é folga do LittleFS. Com 2 nós a cada 15 min: ~137 dias de histórico.
@@ -67,7 +69,7 @@ constexpr uint8_t TESTE_CONFIRMACAO_MODO = 0;
 #endif
 
 // ---------------------------------------------------------------- API HTTP (Etapa 8, docs/api.md)
-constexpr const char* VERSAO_FIRMWARE = "coordenador 8.0";
+constexpr const char* VERSAO_FIRMWARE = "coordenador 8.1";
 constexpr uint16_t API_PAGINA_PADRAO = 50;   // leituras por página sem "limite"
 constexpr uint16_t API_PAGINA_MAXIMA = 200;  // ~80 KB de JSON (provisório: confirmar com a medição)
 // Convivência com o ESP-NOW (passo 5): a COORD monta cada resposta em blocos e

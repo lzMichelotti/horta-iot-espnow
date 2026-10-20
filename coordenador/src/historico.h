@@ -28,6 +28,11 @@ bool iniciar(Observador observador);
 
 bool montado();
 
+// Geração do histórico: 8 dígitos hexadecimais aleatórios, criados quando o
+// LittleFS não tem o arquivo (partição nova ou formatada). Ids globais e
+// cursores só valem dentro da mesma geração (docs/api.md). "" se não montado.
+const char* geracao();
+
 // Estado do armazenamento (base para o alerta no app, etapa 8), do mais leve
 // ao mais grave; estado() devolve o mais grave em vigor.
 enum class Estado : uint8_t {
