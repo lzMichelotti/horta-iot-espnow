@@ -16,6 +16,8 @@ Modos:
   paginas N         N páginas do histórico para cada limite (10, 50, 100, 200)
   csv N             N exportações completas em CSV (tempo, bytes, linhas)
   bateria           rotas 100, paginas 30, csv 3, clientes 2 120 e escrita, em sequência
+  heap S            S segundos de requisições contínuas e variadas (CSV completo a cada 10 min),
+                    com o heap lido no /status a cada 60 s (<saida>_heap.csv)
 
 Uso:
   .venv/bin/python ferramentas/testar_api.py <saida.csv> [--wifi CASA] <modo> [args]
@@ -201,6 +203,44 @@ def modo_csv(reg, n):
               f"({len(corpo) / 1024 / s:.0f} KB/s)", flush=True)
 
 
+def modo_heap(reg, segundos, arquivo):
+    import json
+    rotas = ["/api/v1/status", "/api/v1/nos", "/api/v1/leituras/atuais", "/api/v1/leituras?limite=50",
+             "/api/v1/leituras?limite=200", f"/api/v1/nos/{NO}", "/api/v1/alertas"]
+    inicio = time.time()
+    proxima_amostra = inicio
+    proximo_csv = inicio + 600
+    amostras = open(arquivo, "w", newline="", encoding="utf-8")
+    w = csv.writer(amostras)
+    w.writerow(["t_pc", "min", "heap_livre", "heap_minimo", "uptime_s", "requisicoes", "falhas"])
+    n = falhas = i = 0
+    while time.time() - inicio < segundos:
+        agora = time.time()
+        if agora >= proxima_amostra:
+            proxima_amostra += 60
+            res_status = urllib.request.urlopen(BASE + "/api/v1/status", timeout=30)
+            st = json.loads(res_status.read())
+            m = st["memoria"]
+            w.writerow([f"{agora:.0f}", f"{(agora - inicio) / 60:.1f}", m["heap_livre"], m["heap_minimo"], st["uptime_s"], n,
+                        falhas])
+            amostras.flush()
+            print(f"[{(agora - inicio) / 60:5.1f} min] heap livre {m['heap_livre']} B, mínimo {m['heap_minimo']} B, "
+                  f"{n} requisições, {falhas} falhas", flush=True)
+            continue
+        if agora >= proximo_csv:
+            proximo_csv += 600
+            modo_csv(reg, 1)
+            continue
+        rota = rotas[i % len(rotas)]
+        i += 1
+        res = pedir("GET", rota)
+        reg.anotar(0, "heap", "GET", rota, res)
+        n += 1
+        if res[0] != 200:
+            falhas += 1
+    amostras.close()
+
+
 def wifi(rede):
     subprocess.run(["netsh.exe", "wlan", "connect", f"name={rede}"], capture_output=True)
 
@@ -209,7 +249,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("saida")
     ap.add_argument("--wifi", metavar="CASA", help="conectar à horta-coord e voltar para CASA no fim")
-    ap.add_argument("modo", choices=["rotas", "carga", "clientes", "escrita", "paginas", "csv", "bateria"])
+    ap.add_argument("modo", choices=["rotas", "carga", "clientes", "escrita", "paginas", "csv", "bateria", "heap"])
     ap.add_argument("args", nargs="*")
     a = ap.parse_args()
     reg = Registro(a.saida)
@@ -229,6 +269,8 @@ def main():
             modo_clientes(reg, int(a.args[0]), float(a.args[1]))
         elif a.modo == "paginas":
             modo_paginas(reg, int(a.args[0]) if a.args else 30)
+        elif a.modo == "heap":
+            modo_heap(reg, float(a.args[0]) if a.args else 3600, a.saida.replace(".csv", "_heap.csv"))
         elif a.modo == "csv":
             modo_csv(reg, int(a.args[0]) if a.args else 1)
         elif a.modo == "bateria":

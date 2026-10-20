@@ -290,7 +290,16 @@ Medido em 20/10/2026 na bancada: PC conectado à `horta-coord` a ~1 m, históric
 
 **Convivência com o ESP-NOW** durante toda a bateria: 91/91 leituras do NÓ 1 gravadas, 0 duplicatas, 0 descartes na fila de recepção, confirmação recebida em 74/91 ciclos (mediana de 5,7 ms). Detalhes em [`comunicacao.md`](comunicacao.md), seção 8.
 
-**Pendentes:** heap estável em 2 h de requisições contínuas; teste num celular real (aviso "sem Internet" e navegador).
+**Heap em 1 h de requisições contínuas** (20/10/2026; `testar_api.py heap 3600`; dados em [`dados/etapa8/brutos/p6_heap_*`](../dados/etapa8/brutos/)): 16 630 requisições variadas (status, nós, leituras atuais, páginas de 50 e 200) e um CSV completo a cada 10 min (5 × ~3,6 MB, 48–56 s cada), com o heap lido no `/status` a cada minuto.
+
+| Grandeza | Resultado |
+|---|---|
+| Heap livre do minuto 3 ao 59 | **200 848–200 880 B** (constante, ±20 B): **sem vazamento** |
+| Menor heap livre registrado pelo ESP-IDF (`heap_minimo`) | 151 888 B (durante as respostas grandes) |
+| Reinícios da COORD | 0 (`uptime` contínuo) |
+| Falhas | **2 de 16 630 (0,012 %)**: uma página de 200 que chegou incompleta (aos 2,7 min) e uma conexão que não respondeu em 120 s (aos 9,6 min). A COORD continuou no ar nos dois casos; provavelmente uma queda curta do Wi-Fi do PC (sem a serial da COORD neste teste para confirmar) |
+
+**Pendente:** teste num celular real (aviso "sem Internet" e navegador).
 
 ## 6. Decisões (passo 2)
 
