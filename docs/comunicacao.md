@@ -268,7 +268,36 @@ Instrumentação nova:
 
 Os resultados de bancada estão na seção 13.7 de [`protocolo.md`](protocolo.md) e em [`energia.md`](energia.md).
 
-## 8. Pendências
+## 8. Convivência ESP-NOW × HTTP no coordenador (Etapa 8)
+
+O coordenador usa o **mesmo rádio e o mesmo canal** para o ESP-NOW dos nós e para o Wi-Fi do app (SoftAP + IP/TCP/HTTP). O servidor HTTP é o `WebServer` do núcleo, atendido no `loop()`, o mesmo que esvazia a fila do ESP-NOW, valida, responde ao nó (confirmação da Etapa 7.1) e grava ([`api.md`](api.md)).
+
+**Problema medido** (`dados/etapa8/brutos/p5_convivencia_*`; NÓ 1 a cada 10 s e o PC pedindo sem parar): com a resposta HTTP montada de uma vez, o `loop()` ficava parado durante a página inteira (~0,5 s numa página de 200). O pacote do nó esperava na fila e a confirmação saía depois que o nó já tinha desistido (ele espera 30 ms). Nenhuma leitura se perdeu (85/85 gravadas: a fila do nó guardou tudo), mas:
+
+| Carga | Ciclos com confirmação | Fila máx. no nó |
+|---|---|---|
+| sem HTTP | 20/20 | 1 |
+| CSV em sequência | 4/18 | 6 |
+| páginas de 200 | 1/18 | 16 |
+| páginas de 50 | 6/15 | 17 |
+
+**Solução adotada:** a resposta é montada em **blocos** (10 leituras em JSON; 20 linhas no CSV), cada um uma consulta retomada pelo cursor, e **entre um bloco e outro** a fila do ESP-NOW é esvaziada. Nunca dentro de um bloco, porque a gravação mexe no índice dos segmentos que a consulta está percorrendo. O espaço usado do LittleFS no `/status` ficou em cache de 30 s (`usedBytes()` percorre o sistema de arquivos: 47 → 5,6 ms).
+
+| Carga (`p5b_blocos_*`) | Ciclos com confirmação | Fila máx. no nó |
+|---|---|---|
+| sem HTTP | 20/20 | 1 |
+| CSV em sequência | **11/18** | 4 |
+| páginas de 200 | **14/18** | 3 |
+| páginas de 50 | **14/15** | 2 |
+| `/status` em sequência | **12/12** | 1 |
+
+Custo: respostas grandes ~30–40 % mais lentas (CSV de 2,8 mil linhas: 3,4 → 4,8 s). Os ciclos que ainda perdem a confirmação (quase só com o CSV contínuo) gastam os 30 ms de espera (~+2,5 mC) e têm a leitura confirmada um ciclo depois. **Aceito e documentado** (decisão da Etapa 8): o CSV é o download eventual dos dados de campo. Alternativas avaliadas: uma tarefa do FreeRTOS só para receber e confirmar (mais robusta, mas com *mutex* no rastreador e na tabela de nós) e uma janela de espera maior no nó (custa energia).
+
+Na bateria completa de testes da API (`p6_bateria_*`, histórico cheio, ~15 min de requisições): **91/91 gravadas, 0 duplicatas, 0 descartes** na fila de recepção, confirmação em 74/91 ciclos (mediana de 5,7 ms).
+
+**Ambiente de teste (PC no SoftAP):** com o WSL2, a troca de rede do Wi-Fi do Windows faz o usbip desanexar as placas cerca de 1 min depois. [`ferramentas/medir_com_wifi.sh`](../ferramentas/medir_com_wifi.sh) segue a ordem que funciona: troca a rede, espera 90 s, anexa, captura, reconecta depois do reinício da COORD e sempre volta para a rede de casa (a Internet do PC vem da ancoragem USB do celular).
+
+## 9. Pendências
 
 - **Long Range:** reavaliar com os dados de alcance da horta (RSSI/SNR por distância); a taxa fica em 1 Mbps até lá.
 - **NÓ 2:** a terceira placa ainda não foi conectada; falta o teste com 2 nós simultâneos (sem sensores, deve enviar estados `erro`).

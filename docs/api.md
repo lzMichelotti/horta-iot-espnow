@@ -261,7 +261,36 @@ Formato previsto de cada alerta: `{ "tipo": "bateria_baixa", "mac": "...", "desd
 
 ## 5. Desempenho e limites
 
-**[a medir no passo 6]**: tempo de resposta por rota (mediana e p95, medido no cliente), página de histórico por tamanho, exportação completa, dois clientes ao mesmo tempo, efeito sobre o ESP-NOW.
+Medido em 20/10/2026 na bancada: PC conectado à `horta-coord` a ~1 m, histórico cheio (25,9 mil registros, 56 segmentos), NÓ 1 enviando a cada 10 s durante todo o teste ([`ferramentas/testar_api.py`](../ferramentas/testar_api.py) `bateria`; dados em [`dados/etapa8/brutos/p6_bateria_*`](../dados/etapa8/brutos/)).
+
+**Tempo de resposta por rota** (100 requisições cada; no cliente = conexão TCP + resposta inteira; na COORD = atendimento, do início da rota ao fim da resposta):
+
+| Rota | No cliente: mediana / p95 | Na COORD: mediana / p95 | Tamanho |
+|---|---|---|---|
+| `GET /api/v1/status` | 28,6 / 43,0 ms | 6,8 / 9,9 ms | 0,45 KB |
+| `GET /api/v1/nos` | 41,5 / 61,6 ms | 16,3 / 19,7 ms | 0,75 KB (1 nó) |
+| `GET /api/v1/nos/{mac}` | 28,6 / 39,4 ms | 5,4 / 5,6 ms | 0,74 KB |
+| `GET /api/v1/leituras/atuais` | 27,4 / 57,1 ms | 5,5 / 6,0 ms | 0,35 KB |
+| `GET /api/v1/alertas` | 23,4 / 35,3 ms | 3,7 / 3,8 ms | 43 B |
+| `GET /api/v1/leituras?limite=10` | 68,6 / 105,7 ms | 44,7 / 57,8 ms | 3,4 KB |
+| `GET /api/v1/leituras?limite=50` | 246 / 314 ms | 186 / 252 ms | 17 KB |
+| `GET /api/v1/leituras?limite=100` | 415 / 476 ms | 390 / 455 ms | 35 KB |
+| `GET /api/v1/leituras?limite=200` | 738–839 / 1234–1318 ms | 808 / 1203 ms | 71 KB |
+| `GET /api/v1/exportar.csv` (25,97 mil linhas) | **~50 s** (71 KB/s) | ~50 s | 3,55 MB |
+| `PUT`, `PATCH`, `POST` (com e sem token) | — | 4–8 ms | — |
+
+- As rotas leves levam ~5 ms na COORD; o resto do tempo no cliente (~20–25 ms) é a conexão TCP nova a cada requisição (o servidor fecha a conexão depois de cada resposta).
+- Picos de ~1 s nas rotas leves (máximo de 1,02–1,05 s em 100 requisições) coincidem com respostas longas ou gravações em andamento: a conexão nova espera o atendimento anterior terminar.
+- O histórico custa ~4 ms por leitura em JSON na COORD (montagem em blocos de 10, com o ESP-NOW atendido entre os blocos). Para sincronizar, páginas de 50 a 100 são o melhor equilíbrio.
+- O CSV completo saiu em ~50 s (contra 337 s pela serial na Etapa 7), três vezes, com as linhas conferidas.
+
+**Dois clientes ao mesmo tempo** (120 s, um pedindo páginas de 50 e o outro `/status`): 524 e 651 respostas, **0 falhas**, mediana de 216 e 212 ms. O servidor atende uma requisição por vez; o outro cliente espera na fila do TCP.
+
+**Rotas de escrita:** sem token e com token errado, `401` com `WWW-Authenticate: Bearer realm="horta"`; com o token certo, `200`; método errado, `405` com `Allow: GET`.
+
+**Convivência com o ESP-NOW** durante toda a bateria: 91/91 leituras do NÓ 1 gravadas, 0 duplicatas, 0 descartes na fila de recepção, confirmação recebida em 74/91 ciclos (mediana de 5,7 ms). Detalhes em [`comunicacao.md`](comunicacao.md), seção 8.
+
+**Pendentes:** heap estável em 2 h de requisições contínuas; teste num celular real (aviso "sem Internet" e navegador).
 
 ## 6. Decisões (passo 2)
 
