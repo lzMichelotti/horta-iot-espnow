@@ -1,0 +1,110 @@
+1792537984.064 # abrir
+1792537984.077 < ets Jul 29 2019 12:21:46
+1792537984.077 < 
+1792537984.077 < rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+1792537984.077 < configsip: 0, SPIWP:0xee
+1792537984.087 < clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+1792537984.087 < mode:DIO, clock div:2
+1792537984.087 < load:0x3fff0030,len:4640
+1792537984.091 < load:0x40078000,len:15632
+1792537984.091 < load:0x40080400,len:3164
+1792537984.091 < entry 0x4008059c
+1792537984.646 < 
+1792537984.649 < [BOOT] coordenador 8.1 - etapa 8
+1792537984.661 < [RELOGIO] boot 145, motivo do reset 1
+1792537984.661 < [RELOGIO] utc=invalida epoch=0 valida=0 fonte=nenhuma boot=145 desde_boot_ms=223
+1792537984.671 < [PART] nome,tipo,subtipo,endereco,tamanho_kb
+1792537984.671 < [PART] nvs,1,0x02,0x009000,20
+1792537984.671 < [PART] otadata,1,0x00,0x00e000,8
+1792537984.681 < [PART] app0,0,0x00,0x010000,2048
+1792537984.681 < [PART] littlefs,1,0x83,0x210000,1920
+1792537984.681 < [PART] coredump,1,0x03,0x3f0000,64
+1792537984.681 < [MAC] STA 88:57:21:70:91:fc
+1792537984.691 < [MAC] AP  88:57:21:70:91:fd
+1792537984.691 < [BOOT] protocolo v3 (42 bytes, assinatura HMAC-SHA256 de 16)
+1792537984.691 < [CFG] cadastro lido da NVS: 1 nos
+1792537984.692 < [HTTP] token das rotas de escrita: configurado
+1792537984.870 < [FS] LittleFS montado: 1372 KB usados de 1920 KB
+1792537984.871 < [FS] geracao do historico: 8903cd30
+1792537986.847 < [FS] carga: 56 segmentos, 26237 registros validos, 0 invalidos, em 2190 ms
+1792537986.848 < [FS] estado: ok (rotacoes de emergencia 0, falhas seguidas 0)
+1792537986.848 > fs formatar
+1792537986.943 < [WIFI] varrendo canais...
+1792537990.406 < [WIFI] varredura: 23 redes em 3805 ms
+1792537990.456 < [WIFI] canal  1: 1 no canal, 9 sobrepostas, mais forte -62 dBm
+1792537990.456 < [WIFI] canal  6: 2 no canal, 14 sobrepostas, mais forte -62 dBm
+1792537990.458 < [WIFI] canal 11: 6 no canal, 5 sobrepostas, mais forte -18 dBm
+1792537990.651 < [WIFI] SoftAP "horta-coord" canal 1, MAC AP 88:57:21:70:91:FD, IP 192.168.4.1
+1792537990.660 < [ESPNOW] pronto: versao 2, fila de 16 itens (272 bytes cada)
+1792537990.661 < [HTTP] servidor na porta 80: http://192.168.4.1/api/v1/status
+1792537990.661 < [HTTP] metodo,uri,codigo,bytes,us
+1792537990.681 < [CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags,idade_s,conf
+1792537990.688 < [RESUMO] t_ms,mac,nome,recebidos,rejeitados,aceitos,perdidos,descartados,reinicios,sem_ack,entrega_pct,rssi_medio,rssi_min,rssi_max,fora_de_ordem
+1792537990.689 < [FS] formatando a particao (apaga todo o historico)...
+1792537990.761 < [FS] format: ok em 84 ms
+1792537990.761 < [FS] LittleFS montado: 8 KB usados de 1920 KB
+1792537990.767 < [FS] geracao do historico: 25e03a65 (nova)
+1792537990.814 < [FS] carga: 0 segmentos, 0 registros validos, 0 invalidos, em 44 ms
+1792537990.814 < [FS] estado: ok (rotacoes de emergencia 0, falhas seguidas 0)
+1792537998.244 < [CSV] 14971,88:57:21:70:93:70,no1,-37,-96,42,nenhuma,fora_de_ordem,0,86,2036,0,0,0,2883,21,8,360,1,2,0,86:2031
+1792537998.252 < [CSV] 14980,88:57:21:70:93:70,no1,-36,-96,42,nenhuma,novo,0,86,2032,0,0,0,2885,21,8,202,1,8,41,86:2031
+1792537998.268 < [FS] gravado,1,0,13968
+1792537998.269 < [CSV] 14997,88:57:21:70:93:70,no1,-37,-96,42,nenhuma,novo,0,86,2033,0,0,0,2886,21,8,685,3,2,31,86:2032
+1792537998.280 < [FS] gravado,1,1,9577
+1792537998.280 < [CSV] 15009,88:57:21:70:93:70,no1,-37,-96,42,nenhuma,novo,0,86,2034,0,0,0,2886,21,8,390,1,2,21,86:2033
+1792537998.294 < [FS] gravado,1,2,11247
+1792537998.294 < [CSV] 15023,88:57:21:70:93:70,no1,-36,-96,42,nenhuma,novo,0,86,2035,0,0,0,2885,21,8,360,1,2,11,86:2034
+1792537998.309 < [FS] gravado,1,3,13618
+1792537998.310 < [CSV] 15039,88:57:21:70:93:70,no1,-37,-96,42,nenhuma,novo,0,86,2036,0,0,0,2883,21,8,360,1,2,0,86:2035
+1792537998.318 < [FS] gravado,1,4,15033
+1792538001.924 # fechar
+1792538001.935 # abrir
+1792538001.949 < ets Jul 29 2019 12:21:46
+1792538001.949 < 
+1792538001.950 < rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+1792538001.950 < configsip: 0, SPIWP:0xee
+1792538001.960 < clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+1792538001.960 < mode:DIO, clock div:2
+1792538001.960 < load:0x3fff0030,len:4640
+1792538001.964 < load:0x40078000,len:15632
+1792538001.965 < load:0x40080400,len:3164
+1792538001.965 < entry 0x4008059c
+1792538002.562 < 
+1792538002.565 < [BOOT] coordenador 8.1 - etapa 8
+1792538002.578 < [RELOGIO] boot 146, motivo do reset 1
+1792538002.578 < [RELOGIO] utc=invalida epoch=0 valida=0 fonte=nenhuma boot=146 desde_boot_ms=223
+1792538002.588 < [PART] nome,tipo,subtipo,endereco,tamanho_kb
+1792538002.589 < [PART] nvs,1,0x02,0x009000,20
+1792538002.589 < [PART] otadata,1,0x00,0x00e000,8
+1792538002.599 < [PART] app0,0,0x00,0x010000,2048
+1792538002.599 < [PART] littlefs,1,0x83,0x210000,1920
+1792538002.599 < [PART] coredump,1,0x03,0x3f0000,64
+1792538002.599 < [MAC] STA 88:57:21:70:91:fc
+1792538002.610 < [MAC] AP  88:57:21:70:91:fd
+1792538002.610 < [BOOT] protocolo v3 (42 bytes, assinatura HMAC-SHA256 de 16)
+1792538002.610 < [CFG] cadastro lido da NVS: 1 nos
+1792538002.611 < [HTTP] token das rotas de escrita: configurado
+1792538002.624 < [FS] LittleFS montado: 16 KB usados de 1920 KB
+1792538002.625 < [FS] geracao do historico: 25e03a65
+1792538002.656 < [FS] carga: 1 segmentos, 5 registros validos, 0 invalidos, em 25 ms
+1792538002.656 < [FS] estado: ok (rotacoes de emergencia 0, falhas seguidas 0)
+1792538002.656 > hora 1792538002
+1792538002.790 < [WIFI] varrendo canais...
+1792538004.794 > fs
+1792538006.618 < [WIFI] varredura: 23 redes em 3805 ms
+1792538006.675 < [WIFI] canal  1: 1 no canal, 8 sobrepostas, mais forte -58 dBm
+1792538006.681 < [WIFI] canal  6: 3 no canal, 12 sobrepostas, mais forte -58 dBm
+1792538006.682 < [WIFI] canal 11: 7 no canal, 4 sobrepostas, mais forte -18 dBm
+1792538006.895 < [WIFI] SoftAP "horta-coord" canal 1, MAC AP 88:57:21:70:91:FD, IP 192.168.4.1
+1792538006.906 < [ESPNOW] pronto: versao 2, fila de 16 itens (272 bytes cada)
+1792538006.906 < [HTTP] servidor na porta 80: http://192.168.4.1/api/v1/status
+1792538006.906 < [HTTP] metodo,uri,codigo,bytes,us
+1792538006.928 < [CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags,idade_s,conf
+1792538006.940 < [RESUMO] t_ms,mac,nome,recebidos,rejeitados,aceitos,perdidos,descartados,reinicios,sem_ack,entrega_pct,rssi_medio,rssi_min,rssi_max,fora_de_ordem
+1792538006.940 < [RELOGIO] acertada (antes: invalida)
+1792538006.945 < [RELOGIO] utc=2026-10-20T23:13:22Z epoch=1792538002 valida=1 fonte=manual boot=146 desde_boot_ms=4568
+1792538006.965 < [FS] 16 KB usados de 1920 KB; politica: 470 registros/segmento, max 56 segmentos
+1792538006.976 < [FS] segmentos: 1 (1 a 1), registros validos: 5
+1792538006.976 < [FS] gravacoes neste boot: 0 ok, 0 falhas; tempo (us): ultima 0, media 0, max 0
+1792538006.977 < [FS] estado: ok (rotacoes de emergencia 0, falhas seguidas 0)
+1792538007.982 # fechar
