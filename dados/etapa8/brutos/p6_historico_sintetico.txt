@@ -1,0 +1,110 @@
+1792497031.912 # abrir
+1792497031.928 < ets Jul 29 2019 12:21:46
+1792497031.928 < 
+1792497031.928 < rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+1792497031.928 < configsip: 0, SPIWP:0xee
+1792497031.939 < clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+1792497031.939 < mode:DIO, clock div:2
+1792497031.939 < load:0x3fff0030,len:4640
+1792497031.943 < load:0x40078000,len:15632
+1792497031.943 < load:0x40080400,len:3164
+1792497031.944 < entry 0x4008059c
+1792497032.561 < 
+1792497032.564 < [BOOT] coordenador 8.0 - etapa 8
+1792497032.577 < [RELOGIO] boot 136, motivo do reset 1
+1792497032.578 < [RELOGIO] utc=invalida epoch=0 valida=0 fonte=nenhuma boot=136 desde_boot_ms=223
+1792497032.588 < [PART] nome,tipo,subtipo,endereco,tamanho_kb
+1792497032.589 < [PART] nvs,1,0x02,0x009000,20
+1792497032.589 < [PART] otadata,1,0x00,0x00e000,8
+1792497032.599 < [PART] app0,0,0x00,0x010000,2048
+1792497032.599 < [PART] littlefs,1,0x83,0x210000,1920
+1792497032.600 < [PART] coredump,1,0x03,0x3f0000,64
+1792497032.600 < [MAC] STA 88:57:21:70:91:fc
+1792497032.610 < [MAC] AP  88:57:21:70:91:fd
+1792497032.611 < [BOOT] protocolo v3 (42 bytes, assinatura HMAC-SHA256 de 16)
+1792497032.611 < [CFG] cadastro lido da NVS: 1 nos
+1792497032.612 < [HTTP] token das rotas de escrita: configurado
+1792497032.723 < [FS] LittleFS montado: 404 KB usados de 1920 KB
+1792497033.443 < [FS] carga: 17 segmentos, 7574 registros validos, 0 invalidos, em 714 ms
+1792497033.443 < [FS] estado: ok (rotacoes de emergencia 0, falhas seguidas 0)
+1792497033.535 < [WIFI] varrendo canais...
+1792497037.348 < [WIFI] varredura: 26 redes em 3804 ms
+1792497037.404 < [WIFI] canal  1: 5 no canal, 12 sobrepostas, mais forte -29 dBm
+1792497037.414 < [WIFI] canal  6: 1 no canal, 14 sobrepostas, mais forte -29 dBm
+1792497037.415 < [WIFI] canal 11: 6 no canal, 2 sobrepostas, mais forte -65 dBm
+1792497037.618 < [WIFI] SoftAP "horta-coord" canal 1, MAC AP 88:57:21:70:91:FD, IP 192.168.4.1
+1792497037.629 < [ESPNOW] pronto: versao 2, fila de 16 itens (272 bytes cada)
+1792497037.629 < [HTTP] servidor na porta 80: http://192.168.4.1/api/v1/status
+1792497037.629 < [HTTP] metodo,uri,codigo,bytes,us
+1792497037.630 > hora 1792497037
+1792497037.651 < [CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags,idade_s,conf
+1792497037.662 < [RESUMO] t_ms,mac,nome,recebidos,rejeitados,aceitos,perdidos,descartados,reinicios,sem_ack,entrega_pct,rssi_medio,rssi_min,rssi_max,fora_de_ordem
+1792497037.663 < [RELOGIO] acertada (antes: invalida)
+1792497037.667 < [RELOGIO] utc=2026-10-20T11:50:37Z epoch=1792497037 valida=1 fonte=manual boot=136 desde_boot_ms=5307
+1792497038.669 > fs
+1792497038.794 < [FS] 404 KB usados de 1920 KB; politica: 470 registros/segmento, max 56 segmentos
+1792497038.804 < [FS] segmentos: 17 (1 a 17), registros validos: 7574
+1792497038.805 < [FS] gravacoes neste boot: 0 ok, 0 falhas; tempo (us): ultima 0, media 0, max 0
+1792497038.806 < [FS] estado: ok (rotacoes de emergencia 0, falhas seguidas 0)
+1792497041.813 > fs encher 23500 2
+1792497060.264 < [FS] rotacao: /h/00000001.seg apagado
+1792497060.622 < [FS] rotacao: /h/00000002.seg apagado
+1792497060.992 < [FS] rotacao: /h/00000003.seg apagado
+1792497061.374 < [FS] rotacao: /h/00000004.seg apagado
+1792497061.728 < [FS] rotacao: /h/00000005.seg apagado
+1792497062.109 < [FS] rotacao: /h/00000006.seg apagado
+1792497062.501 < [FS] rotacao: /h/00000007.seg apagado
+1792497062.864 < [FS] rotacao: /h/00000008.seg apagado
+1792497063.676 < [FS] rotacao: /h/00000009.seg apagado
+1792497064.058 < [FS] rotacao: /h/00000010.seg apagado
+1792497064.435 < [FS] rotacao: /h/00000011.seg apagado
+1792497064.507 < [FS] enchimento: 23500 registros de 2 nos em 22684 ms
+1792497064.797 < [FS] 1348 KB usados de 1920 KB; politica: 470 registros/segmento, max 56 segmentos
+1792497064.808 < [FS] segmentos: 56 (12 a 67), registros validos: 25904
+1792497064.809 < [FS] gravacoes neste boot: 0 ok, 0 falhas; tempo (us): ultima 0, media 0, max 0
+1792497064.819 < [FS] estado: ok (rotacoes de emergencia 0, falhas seguidas 0)
+1792497064.830 < [CSV] 32467,88:57:21:70:93:70,no1,-25,-96,42,nenhuma,fora_de_ordem,0,81,4553,0,0,670,3361,5,8,275,1,0,0,81:4549
+1792497064.830 < [CSV] 32469,88:57:21:70:93:70,no1,-31,-96,42,nenhuma,fora_de_ordem,0,81,4554,0,0,667,3365,5,8,214,1,0,0,81:4549
+1792497067.290 < [CSV] 34937,88:57:21:70:93:70,no1,-30,-96,42,nenhuma,fora_de_ordem,0,81,4555,0,0,673,3361,5,8,240,1,0,0,81:4549
+1792497067.299 < [CSV] 34947,88:57:21:70:93:70,no1,-25,-96,42,nenhuma,novo,0,81,4550,0,0,669,3361,5,8,188,1,8,50,81:4549
+1792497067.380 < [FS] gravado,67,54,77696
+1792497067.381 < [CSV] 35027,88:57:21:70:93:70,no1,-31,-96,42,nenhuma,novo,0,81,4551,0,0,671,3360,5,8,412,3,2,40,81:4550
+1792497067.463 < [FS] gravado,67,55,79342
+1792497067.463 < [CSV] 35109,88:57:21:70:93:70,no1,-32,-96,42,nenhuma,novo,0,81,4552,0,0,666,3365,5,8,204,1,2,30,81:4551
+1792497067.545 < [FS] gravado,67,56,79611
+1792497067.545 < [CSV] 35192,88:57:21:70:93:70,no1,-31,-96,42,nenhuma,novo,0,81,4553,0,0,670,3361,5,8,275,1,0,20,81:4552
+1792497067.630 < [FS] gravado,67,57,82518
+1792497067.631 < [CSV] 35277,88:57:21:70:93:70,no1,-31,-96,42,nenhuma,novo,0,81,4554,0,0,667,3365,5,8,214,1,0,10,81:4553
+1792497067.714 < [FS] gravado,67,58,81468
+1792497067.715 < [CSV] 35361,88:57:21:70:93:70,no1,-25,-96,42,nenhuma,novo,0,81,4555,0,0,673,3361,5,8,240,1,0,0,81:4554
+1792497068.275 < [FS] gravado,67,59,566619
+1792497077.228 < [CSV] 44876,88:57:21:70:93:70,no1,-31,-96,42,nenhuma,novo,0,81,4556,0,0,669,3360,5,8,237,1,0,0,81:4555
+1792497077.302 < [FS] gravado,67,60,79354
+1792497087.228 < [CSV] 54876,88:57:21:70:93:70,no1,-31,-96,42,nenhuma,novo,0,81,4557,0,0,668,3360,5,8,187,1,0,0,81:4556
+1792497087.301 < [FS] gravado,67,61,78609
+1792497092.355 < [RESUMO] 60001,88:57:21:70:93:70,no1,11,0,8,0,0,0,2,100.00,-29.4,-32,-25,3
+1792497092.364 < [RESUMO] 60002,02:00:00:00:00:01,desconhecido,0,0,0,0,0,0,0,0.00,0.0,0,0,0
+1792497092.364 < [RESUMO] 60013,02:00:00:00:00:02,desconhecido,0,0,0,0,0,0,0,0.00,0.0,0,0,0
+1792497097.206 < [CSV] 64854,88:57:21:70:93:70,no1,-32,-96,42,nenhuma,novo,0,81,4558,0,0,668,3361,5,8,215,1,0,0,81:4557
+1792497097.270 < [FS] gravado,67,62,69498
+1792497107.155 < [CSV] 74804,88:57:21:70:93:70,no1,-31,-96,42,nenhuma,novo,0,81,4559,0,0,665,3358,5,8,217,1,0,0,81:4558
+1792497107.234 < [FS] gravado,67,63,83970
+1792497117.159 < [CSV] 84807,88:57:21:70:93:70,no1,-32,-96,42,nenhuma,novo,0,81,4560,0,0,671,3363,5,8,190,1,0,0,81:4559
+1792497117.238 < [FS] gravado,67,64,84510
+1792497127.097 < [CSV] 94746,88:57:21:70:93:70,no1,-31,-96,42,nenhuma,novo,0,81,4561,0,0,675,3360,5,8,220,1,0,0,81:4560
+1792497127.175 < [FS] gravado,67,65,83407
+1792497137.109 < [CSV] 104758,88:57:21:70:93:70,no1,-32,-96,42,nenhuma,novo,0,81,4562,0,0,668,3360,5,8,188,1,0,0,81:4561
+1792497137.188 < [FS] gravado,67,66,84972
+1792497147.078 < [CSV] 114727,88:57:21:70:93:70,no1,-32,-96,42,nenhuma,novo,0,81,4563,0,0,668,3362,5,8,226,1,0,0,81:4562
+1792497147.157 < [FS] gravado,67,67,84654
+1792497152.353 < [RESUMO] 120000,88:57:21:70:93:70,no1,17,0,14,0,0,0,2,100.00,-30.2,-32,-25,3
+1792497152.362 < [RESUMO] 120001,02:00:00:00:00:01,desconhecido,0,0,0,0,0,0,0,0.00,0.0,0,0,0
+1792497152.362 < [RESUMO] 120012,02:00:00:00:00:02,desconhecido,0,0,0,0,0,0,0,0.00,0.0,0,0,0
+1792497157.050 < [CSV] 124699,88:57:21:70:93:70,no1,-31,-96,42,nenhuma,novo,0,81,4564,0,0,667,3366,5,8,217,1,0,0,81:4563
+1792497157.132 < [FS] gravado,67,68,86721
+1792497161.942 > fs
+1792497162.349 < [FS] 1348 KB usados de 1920 KB; politica: 470 registros/segmento, max 56 segmentos
+1792497162.360 < [FS] segmentos: 56 (12 a 67), registros validos: 25919
+1792497162.360 < [FS] gravacoes neste boot: 15 ok, 0 falhas; tempo (us): ultima 86721, media 113529, max 566619
+1792497162.363 < [FS] estado: ok (rotacoes de emergencia 0, falhas seguidas 0)
+1792497166.974 # fechar
