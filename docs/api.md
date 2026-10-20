@@ -299,7 +299,19 @@ Medido em 20/10/2026 na bancada: PC conectado à `horta-coord` a ~1 m, históric
 | Reinícios da COORD | 0 (`uptime` contínuo) |
 | Falhas | **2 de 16 630 (0,012 %)**: uma página de 200 que chegou incompleta (aos 2,7 min) e uma conexão que não respondeu em 120 s (aos 9,6 min). A COORD continuou no ar nos dois casos; provavelmente uma queda curta do Wi-Fi do PC (sem a serial da COORD neste teste para confirmar) |
 
-**Pendente:** teste num celular real (aviso "sem Internet" e navegador).
+**Celular real** (20/10/2026, Samsung Galaxy A05s, Android, navegador Chrome):
+
+| Situação | Resultado |
+|---|---|
+| Conectar à `horta-coord` | o sistema mostrou **"Conectado, sem Internet"** e manteve a conexão |
+| `http://192.168.4.1/api/v1/status` com os **dados móveis ligados** | **abriu** (JSON completo) |
+| O mesmo com os dados móveis desligados | abriu |
+| `/api/v1/leituras/atuais` e `/api/v1/leituras?limite=10` | abriram; o Chrome oferece "Estilos de formatação" para ler o JSON indentado |
+| Barra de endereço | aviso de site não seguro (HTTP sem TLS, decisão do passo 3) |
+
+No navegador deste aparelho, o endereço da rede local foi alcançado pelo Wi-Fi mesmo com os dados móveis ligados: a rede `192.168.4.0/24` é a do Wi-Fi conectado. **Isso não garante o mesmo comportamento em todo app e aparelho.** Um app nativo deve continuar pedindo a rede Wi-Fi explicitamente (seção 1), e a Etapa 10 testa isso no app.
+
+Observações do teste: a COORD tinha reiniciado e estava **sem hora** (`"valida": false`), então as leituras do NÓ 1 apareceram como `sem_hora`. É o caso que o app resolve enviando a hora do celular ao conectar (`PUT /api/v1/hora`, seção 4.6). As leituras dos nós `02:00:00:00:00:01` e `:02` são os registros sintéticos criados para o teste de exportação completa.
 
 ## 6. Decisões (passo 2)
 
