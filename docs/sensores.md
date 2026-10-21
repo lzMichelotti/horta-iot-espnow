@@ -108,19 +108,24 @@ Durante os testes, o AHT20 entrou num estado em que **a primeira leitura após o
 1. No driver, a consulta ao byte de estado repete as leituras que falham no I²C, dentro do limite de 200 ms. O campo `tentativasExtras` conta as repetições (0 em operação normal). Validado em estado normal; no teste de estabilidade, uma leitura em 303 precisou de 2 tentativas extras (151 ms em vez de 97 ms) e terminou `ok`, o primeiro registro do caminho de recuperação funcionando em execução real.
 2. Na etapa 5, alimentar o AHT20 por um GPIO e ligá-lo a cada ciclo, como prevê o datasheet (seção 4.5, item 5). Isso elimina o estado na origem e zera o consumo de repouso do sensor.
 
-### Falha permanente no NÓ 1 (diagnóstico de 21/10/2026)
+### Falha no NÓ 1: mau contato no SCL (resolvida em 21/10/2026)
 
-Diferente do estado anômalo acima: **toda** leitura falha, inclusive a inicialização (`[SENS] AHT20 nao iniciou: sem_resposta`, com `i2c_master_receive failed: ESP_ERR_INVALID_STATE` em cada ciclo; log em `dados/etapa10/rascunho/serial_no1.txt`), e a falha **sobrevive a um ciclo de alimentação completo** (PC desligado durante a noite).
+Desde a Etapa 7 o AHT20 do NÓ 1 respondia `sem_resposta` em todo ciclo (`i2c_master_receive failed: ESP_ERR_INVALID_STATE`), mesmo depois de um ciclo de alimentação: não era o estado anômalo acima.
 
-| Data | Alimentação do NÓ 1 | `alimentacao_mv` | Solo | AHT20 |
-|---|---|---|---|---|
-| 30/09 (calibração) | 3V3 da placa | ~3390 | ok | ok |
-| 20/10 | fonte/cabo da bancada | 2762–2887 | `erro` | `sem_resposta` |
-| 21/10 | porta USB do PC | 3271 | **ok** | `sem_resposta` |
+Diagnóstico com o scanner de [`experimentos/i2c`](../experimentos/i2c/), que mede o nível de repouso de SDA e SCL com o pull-down interno ligado (os pull-ups ficam na plaquinha do AHT20 e só puxam a linha para 1 com o módulo alimentado), varre o barramento nas duas ordens de pinos e pede uma medição completa:
 
-- **Solo:** voltou com a troca da fonte. A causa era a alimentação abaixo de ~3,4 V, onde o regulador da placa do sensor sai de regulação (seção 4.5).
-- **AHT20:** não voltou com a tensão correta nem com o ciclo de alimentação. A causa provável é a **ligação física** (SDA no D21, SCL no D22, VCC no 3V3, GND) ou o próprio sensor. Pendente: conferir as ligações e, se continuar, trocar o módulo.
-- **3271 mV ainda abaixo dos ~3390 mV** de setembro: falta medir VIN e 3V3 com multímetro para separar queda real de erro do divisor (seção 5.2).
+| Montagem | SDA / SCL em repouso | Resultado |
+|---|---|---|
+| Original (20/10) | 0 / 0 | módulo sem alimentação |
+| Fios de energia do AHT20 refeitos | 1 / 1 | responde em 0x38 |
+| Depois de mexer em fios vizinhos (3 vezes) | **1 / 0** | o fio do SCL perde o contato |
+| Encaixe do fio no pino D22 firmado | 1 / 1 | medição completa: estado 0x18, 22,5 °C |
+
+**Causa:** mau contato no fio do SCL, no encaixe fêmea sobre o pino D22 (o ESP32 fica fora da protoboard, com os fios direto nos pinos), somado aos fios de energia do módulo fora das trilhas na montagem anterior. O firmware do nó voltou a ler normalmente (20,6 °C, 75 %, `estados 0`).
+
+**Solo:** voltou com a alimentação pela porta USB do PC (3271 mV); abaixo de ~3,4 V o regulador da placa do sensor sai de regulação (seção 4.5). O fio AOUT agora vai direto ao pino D34.
+
+**Pendências:** o divisor da tensão (seção 5) está desmontado (resistores fora da protoboard): `alimentacao_mv` não vale até ele ser religado. Falta medir VIN e 3V3 com multímetro.
 
 ## 3. ADC do ESP32
 
