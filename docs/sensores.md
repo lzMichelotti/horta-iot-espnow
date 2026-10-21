@@ -108,6 +108,20 @@ Durante os testes, o AHT20 entrou num estado em que **a primeira leitura após o
 1. No driver, a consulta ao byte de estado repete as leituras que falham no I²C, dentro do limite de 200 ms. O campo `tentativasExtras` conta as repetições (0 em operação normal). Validado em estado normal; no teste de estabilidade, uma leitura em 303 precisou de 2 tentativas extras (151 ms em vez de 97 ms) e terminou `ok`, o primeiro registro do caminho de recuperação funcionando em execução real.
 2. Na etapa 5, alimentar o AHT20 por um GPIO e ligá-lo a cada ciclo, como prevê o datasheet (seção 4.5, item 5). Isso elimina o estado na origem e zera o consumo de repouso do sensor.
 
+### Falha permanente no NÓ 1 (diagnóstico de 21/10/2026)
+
+Diferente do estado anômalo acima: **toda** leitura falha, inclusive a inicialização (`[SENS] AHT20 nao iniciou: sem_resposta`, com `i2c_master_receive failed: ESP_ERR_INVALID_STATE` em cada ciclo; log em `dados/etapa10/rascunho/serial_no1.txt`), e a falha **sobrevive a um ciclo de alimentação completo** (PC desligado durante a noite).
+
+| Data | Alimentação do NÓ 1 | `alimentacao_mv` | Solo | AHT20 |
+|---|---|---|---|---|
+| 30/09 (calibração) | 3V3 da placa | ~3390 | ok | ok |
+| 20/10 | fonte/cabo da bancada | 2762–2887 | `erro` | `sem_resposta` |
+| 21/10 | porta USB do PC | 3271 | **ok** | `sem_resposta` |
+
+- **Solo:** voltou com a troca da fonte. A causa era a alimentação abaixo de ~3,4 V, onde o regulador da placa do sensor sai de regulação (seção 4.5).
+- **AHT20:** não voltou com a tensão correta nem com o ciclo de alimentação. A causa provável é a **ligação física** (SDA no D21, SCL no D22, VCC no 3V3, GND) ou o próprio sensor. Pendente: conferir as ligações e, se continuar, trocar o módulo.
+- **3271 mV ainda abaixo dos ~3390 mV** de setembro: falta medir VIN e 3V3 com multímetro para separar queda real de erro do divisor (seção 5.2).
+
 ## 3. ADC do ESP32
 
 Fontes:
