@@ -21,6 +21,7 @@
 #include "historico.h"
 #include "nos.h"
 #include "radio.h"
+#include "regras.h"
 #include "relogio.h"
 
 namespace api {
@@ -209,6 +210,15 @@ void noJson(json::Escritor& e, const uint8_t mac[6]) {
   } else {
     e.nulo();
   }
+  // Etapa 9 (campos novos): modo da bateria enviado pelo nó, classe do solo
+  // pela calibração do nó e quantos alertas ativos ele tem.
+  const alertas::No* a = regras::tabela().encontrar(mac);
+  e.campo("bateria_modo", protocolo::nomeModoBateria(a ? a->modo : protocolo::ModoBateria::DESCONHECIDO));
+  const char* classe = a ? alertas::nomeClasseSolo(a->classe) : nullptr;
+  e.chave("solo_classe");
+  if (classe != nullptr) e.texto(classe);
+  else e.nulo();
+  e.campoNatural("alertas_ativos", a ? alertas::Tabela::ativos(*a) : 0);
   e.chave("ultima_leitura");
   if (u != nullptr) leituraDoRegistro(e, -1, *u);
   else e.nulo();
@@ -508,10 +518,86 @@ void rotaCsv() {
   terminar(200);
 }
 
+// Valor de um alerta na unidade do JSON (pct com 1 casa, °C com 2, mV e s inteiros).
+void valorAlerta(json::Escritor& e, alertas::Tipo t, int32_t v) {
+  switch (alertas::unidade(t)) {
+    case alertas::Unidade::PCT_DECIMOS:  e.decimal(v, 1); break;
+    case alertas::Unidade::C_CENTESIMOS: e.decimal(v, 2); break;
+    default:                             e.inteiro(v); break;
+  }
+}
+
+// Limiar de cada regra; null quando quem decide é o nó (bateria) ou não há número (erro).
+bool limiarAlerta(alertas::Tipo t, const alertas::No& n, int32_t& v) {
+  const alertas::Limiares l = regras::limiares();
+  switch (t) {
+    case alertas::Tipo::SOLO_SECO:         v = l.soloSecoDecimos; return true;
+    case alertas::Tipo::SOLO_ENCHARCADO:   v = l.soloEncharcadoDecimos; return true;
+    case alertas::Tipo::TEMPERATURA_ALTA:  v = l.temperaturaAltaC100; return true;
+    case alertas::Tipo::TEMPERATURA_BAIXA: v = l.temperaturaBaixaC100; return true;
+    case alertas::Tipo::SEM_COMUNICAR:     v = static_cast<int32_t>(regras::limiteSemComunicar(n.modo)); return true;
+    default:                               return false;
+  }
+}
+
+void horaAlerta(json::Escritor& e, const alertas::Ref& ref) {
+  uint32_t utc = 0;
+  filtro::Hora h = regras::hora(ref, utc);
+  apijson::hora(e, h, utc);
+}
+
+// Um alerta (docs/api.md, 4.9). Os campos tipo, mac, desde, valor e limiar são
+// os do formato previsto na Etapa 8; os demais são novos (API v1 compatível).
+void alertaJson(json::Escritor& e, const alertas::No& n, alertas::Tipo t) {
+  const alertas::EstadoAlerta& s = n.estado[static_cast<size_t>(t)];
+  char txtMac[apijson::TAM_MAC];
+  apijson::mac(txtMac, n.mac);
+  e.objeto().campo("tipo", alertas::nomeTipo(t)).campo("mac", txtMac).campo("nome", nomeDoNo(n.mac));
+  e.campo("estado", s.ativo ? "ativo" : "resolvido");
+  e.chave("desde");
+  horaAlerta(e, s.inicio);
+  uint32_t ha = 0;
+  e.chave("ha_s");
+  if (regras::haQuanto(s.inicio, ha)) e.natural(ha);
+  else e.nulo();
+  e.chave("fim");
+  if (s.ativo) e.nulo();
+  else horaAlerta(e, s.fim);
+  e.chave("valor");
+  if (s.temValor) valorAlerta(e, t, s.valor);
+  else e.nulo();
+  int32_t lim = 0;
+  e.chave("limiar");
+  if (limiarAlerta(t, n, lim)) valorAlerta(e, t, lim);
+  else e.nulo();
+  const char* u = alertas::nomeUnidade(alertas::unidade(t));
+  e.chave("unidade");
+  if (u != nullptr) e.texto(u);
+  else e.nulo();
+  e.fimObjeto();
+}
+
+// GET /alertas: só os ativos (o formato que o app já consome); com
+// ?incluir=resolvidos, também os resolvidos que a RAM ainda guarda.
 void rotaAlertas() {
+  bool resolvidos = servidor.hasArg("incluir") && servidor.arg("incluir") == "resolvidos";
+  if (servidor.hasArg("incluir") && !resolvidos) {
+    erro400("incluir", "incluir aceita so 'resolvidos'");
+    return;
+  }
   comecar();
   json::Escritor e(destino, nullptr);
-  e.objeto().chave("alertas").lista().fimLista().campo("regras", "nao_implementadas").fimObjeto();
+  e.objeto().chave("alertas").lista();
+  const alertas::Tabela& t = regras::tabela();
+  for (size_t i = 0; i < alertas::MAX_NOS; i++) {
+    const alertas::No& n = t.posicao(i);
+    if (!n.usado) continue;
+    for (size_t k = 0; k < alertas::NUM_TIPOS; k++) {
+      const alertas::EstadoAlerta& s = n.estado[k];
+      if (s.ativo || (resolvidos && s.resolvido)) alertaJson(e, n, static_cast<alertas::Tipo>(k));
+    }
+  }
+  e.fimLista().campo("regras", "v1").campoNatural("ativos", t.ativos()).fimObjeto();
   terminar(200);
 }
 
