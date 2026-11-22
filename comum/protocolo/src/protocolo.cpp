@@ -188,6 +188,15 @@ int compararPar(uint16_t bootA, uint32_t seqA, uint16_t bootB, uint32_t seqB) {
 }
 
 // ---------------------------------------------------------------- Sequência
+const char* nomeModoBateria(ModoBateria m) {
+  switch (m) {
+    case ModoBateria::NORMAL:   return "normal";
+    case ModoBateria::ECONOMIA: return "economia";
+    case ModoBateria::CRITICO:  return "critico";
+    default:                    return "desconhecido";
+  }
+}
+
 const char* nomeClasse(Classe c) {
   switch (c) {
     case Classe::PRIMEIRO:      return "primeiro";

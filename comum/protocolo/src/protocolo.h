@@ -55,8 +55,32 @@ constexpr uint8_t CICLO_ANTERIOR_ABORTADO = 1u << 2;  // o prazo máximo acordad
 // v3: o nó não tem nenhuma leitura pendente anterior a esta (é a mais antiga da
 // fila). Calculado no envio. Só com ele o coordenador aceita um buraco de seq.
 constexpr uint8_t SEM_ANTERIORES = 1u << 3;
-// bits 4–7: reservados (o receptor ignora; o nó envia 0)
+// Etapa 9 (v3, sem mudar a VERSAO: usa bits antes reservados, que receptores
+// antigos ignoram): bits 4–5 = modo da bateria do nó no momento da leitura
+// (ModoBateria). 0 = desconhecido, que é o que todo pacote anterior traz.
+constexpr uint8_t MODO_DESLOCAMENTO = 4;
+constexpr uint8_t MODO_MASCARA = 0x3u << MODO_DESLOCAMENTO;
+// bits 6–7: reservados (o receptor ignora; o nó envia 0)
 }  // namespace flag
+
+// Modo de proteção da bateria do nó (no_sensor/src/protecao.h), nos bits 4–5 de flags.
+enum class ModoBateria : uint8_t {
+  DESCONHECIDO = 0,  // pacote de firmware anterior à Etapa 9
+  NORMAL = 1,
+  ECONOMIA = 2,      // tensão abaixo de V_TX: o nó espaça os envios
+  CRITICO = 3,       // tensão abaixo de V_CRIT: último pacote antes de o nó silenciar
+};
+
+constexpr ModoBateria lerModoBateria(uint8_t flags) {
+  return static_cast<ModoBateria>((flags & flag::MODO_MASCARA) >> flag::MODO_DESLOCAMENTO);
+}
+
+constexpr uint8_t gravarModoBateria(uint8_t flags, ModoBateria m) {
+  return static_cast<uint8_t>((flags & ~flag::MODO_MASCARA) |
+                              ((static_cast<uint8_t>(m) << flag::MODO_DESLOCAMENTO) & flag::MODO_MASCARA));
+}
+
+const char* nomeModoBateria(ModoBateria m);
 
 // ---------------------------------------------------------------- Pacote
 // Todos os campos multibyte são little-endian (ordem nativa do ESP32 e do PC).

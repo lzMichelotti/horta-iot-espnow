@@ -46,7 +46,7 @@ Formato dos bytes trocados entre o nó sensor e o coordenador pelo ESP-NOW (Etap
 | 17 | `motivo_boot` | uint8 | 1 | `esp_reset_reason()` | 0–15 no ESP-IDF 5.5 (outros aceitos) |
 | 18 | `acordado_ant_ms` | uint16 | 2 | ms acordado no ciclo anterior | 0 = desconhecido |
 | 20 | `tentativas_ant` | uint8 | 1 | envios (`esp_now_send`) do pacote anterior | 0 = desconhecido |
-| 21 | `flags` | uint8 | 1 | bit 0: o AHT20 precisou de nova tentativa; bit 1: o pacote anterior esgotou as tentativas sem ACK (`ANTERIOR_SEM_ACK`, Etapa 4); bit 2: o prazo máximo acordado interrompeu o ciclo anterior (`CICLO_ANTERIOR_ABORTADO`, Etapa 5); bit 3: o nó não tem leitura pendente anterior a esta (`SEM_ANTERIORES`, v3, seção 13); bits 4–7 reservados (enviados como 0, ignorados) | — |
+| 21 | `flags` | uint8 | 1 | bit 0: o AHT20 precisou de nova tentativa; bit 1: o pacote anterior esgotou as tentativas sem ACK (`ANTERIOR_SEM_ACK`, Etapa 4); bit 2: o prazo máximo acordado interrompeu o ciclo anterior (`CICLO_ANTERIOR_ABORTADO`, Etapa 5); bit 3: o nó não tem leitura pendente anterior a esta (`SEM_ANTERIORES`, v3, seção 13); bits 4–5: modo da bateria no momento da leitura (`ModoBateria`: 0 desconhecido, 1 normal, 2 economia, 3 crítico; Etapa 9, seção 14); bits 6–7 reservados (enviados como 0, ignorados) | — |
 | 22 | `idade_s` | uint32 | 4 | s entre a leitura e o envio (v3); 0 = enviada no ciclo em que foi lida. Fora do alinhamento natural: ler só por cópia | — |
 | | **total** | | **26** | | |
 
@@ -208,7 +208,7 @@ Na placa: `cd no_sensor && pio test -e esp32doit-devkit-v1 -f test_hmac_esp32` (
 
 ## 11. Evolução
 
-Qualquer mudança de campo, tamanho ou significado exige **incrementar `VERSAO`** e atualizar este documento, os `static_assert` e os testes. Um coordenador antigo descarta pacotes de versão nova com o motivo `versao_desconhecida`, em vez de interpretar bytes errados. Tipos novos de mensagem (ex.: "nó iniciou") usam o campo `tipo`, com structs próprias que começam pelos mesmos dois bytes (`versao`, `tipo`).
+Qualquer mudança de campo, tamanho ou significado exige **incrementar `VERSAO`** e atualizar este documento, os `static_assert` e os testes. Exceção já usada duas vezes (`ANTERIOR_SEM_ACK` na Etapa 4 e o modo da bateria na Etapa 9): dar significado a **bits reservados**, que receptores antigos ignoram por especificação (seção 5) e cujo valor 0 continua válido ("não informado"). Um coordenador antigo descarta pacotes de versão nova com o motivo `versao_desconhecida`, em vez de interpretar bytes errados. Tipos novos de mensagem (ex.: "nó iniciou") usam o campo `tipo`, com structs próprias que começam pelos mesmos dois bytes (`versao`, `tipo`).
 
 ## 12. Autenticação (v2; v3 igual, com 26 + 16 B)
 
@@ -379,3 +379,25 @@ O sinal negativo significa que o relógio RC do nó adianta: a idade medida fica
 **Contagem de descartes (T4):** o nó contou 14 descartes e o coordenador, 12 perdidas. Os 2 a mais eram leituras **já gravadas e ainda não confirmadas** (a confirmação chega um ciclo depois, opção b): descartá-las não perdeu nada. Para a taxa de entrega, vale o `perdidos` do coordenador.
 
 **Energia:** [`energia.md`](energia.md), seções 3 a 5 (+5,3 ms de rádio por ciclo normal; 0,25–0,35 mC por leitura reenviada).
+
+## 14. Modo da bateria (Etapa 9)
+
+O nó já decidia o modo de proteção pela tensão de alimentação desde a Etapa 5 ([`no_sensor/src/protecao.cpp`](../no_sensor/src/protecao.cpp): normal; economia abaixo de `V_TX_MV`, com o período ×`FATOR_PERIODO_ECONOMIA`; crítico abaixo de `V_CRIT_MV`, sem rádio; histerese de `HISTERESE_MV`), mas não o enviava. Na Etapa 9 ele passa a ir nos **bits 4–5 de `flags`**:
+
+| Valor | `ModoBateria` | Quando |
+|---|---|---|
+| 0 | `desconhecido` | pacote de firmware anterior à Etapa 9 (todo o histórico já gravado) |
+| 1 | `normal` | |
+| 2 | `economia` | |
+| 3 | `critico` | **só no ciclo em que o nó entra no modo crítico**: é o último pacote antes de silenciar; nos ciclos seguintes, enquanto continuar crítico, o nó não liga o rádio |
+
+| Aspecto | Impacto |
+|---|---|
+| Tamanho | nenhum: pacote de 26 B (42 B assinado), fila RTC de 26 B por leitura e registro de 52 B iguais |
+| `VERSAO` | continua 3: bits reservados, que receptores antigos ignoram (seção 5); 0 continua válido |
+| HMAC | nenhum: `flags` já está nos 26 B assinados; trocar o modo depois de assinar invalida a assinatura (teste `test_modo_da_bateria_vai_assinado_e_validado`) |
+| Fila do nó | o modo é o do momento da **leitura** (vai nos 22 B guardados), não o do reenvio |
+| Histórico | o registro guarda o pacote inteiro: o modo fica gravado sem mudança no formato; registros antigos leem `desconhecido` |
+| Energia | um envio a mais, uma vez por entrada no modo crítico |
+
+Uso no coordenador: alertas `bateria_baixa` e `bateria_critica` e o campo `bateria_modo` de `/nos` ([`alertas.md`](alertas.md), [`api.md`](api.md)). Os limiares continuam desligados (`V_TX_MV = 0`) até a bateria ser escolhida (Etapa 5, passo 10); o env `teste_tensao` simula a rampa.

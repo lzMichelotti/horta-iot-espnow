@@ -684,6 +684,43 @@ void test_estouro_do_numero_de_sequencia() {
   TEST_ASSERT_EQUAL(Classe::ANTIGO, registrar(r, 1, 0xFFFFFFFFu, false));  // ficou para trás
 }
 
+// ---------------------------------------------------------------- Modo da bateria (Etapa 9)
+void test_modo_da_bateria_nos_bits_4_e_5() {
+  // Pacote antigo (bits 4–7 em 0): desconhecido.
+  TEST_ASSERT_EQUAL(ModoBateria::DESCONHECIDO, lerModoBateria(flag::SEM_ANTERIORES | flag::ANTERIOR_SEM_ACK));
+  // Gravar não mexe nos outros bits, e ler devolve o que foi gravado.
+  const uint8_t outros = flag::AHT20_NOVA_TENTATIVA | flag::SEM_ANTERIORES | 0xC0;
+  for (uint8_t m = 0; m <= 3; m++) {
+    uint8_t f = gravarModoBateria(outros, static_cast<ModoBateria>(m));
+    TEST_ASSERT_EQUAL_UINT8(outros, f & ~flag::MODO_MASCARA);
+    TEST_ASSERT_EQUAL(static_cast<ModoBateria>(m), lerModoBateria(f));
+  }
+  // Regravar troca o modo (não acumula bits).
+  uint8_t f = gravarModoBateria(0, ModoBateria::CRITICO);
+  TEST_ASSERT_EQUAL(ModoBateria::NORMAL, lerModoBateria(gravarModoBateria(f, ModoBateria::NORMAL)));
+  TEST_ASSERT_EQUAL_STRING("critico", nomeModoBateria(ModoBateria::CRITICO));
+  TEST_ASSERT_EQUAL_STRING("desconhecido", nomeModoBateria(ModoBateria::DESCONHECIDO));
+}
+
+void test_modo_da_bateria_vai_assinado_e_validado() {
+  // O modo está dentro dos 26 bytes assinados: o pacote passa na validação e
+  // trocar o modo depois de assinar invalida a assinatura.
+  DadosLeitura d = dadosValidos();
+  d.flags = gravarModoBateria(d.flags, ModoBateria::ECONOMIA);
+  PacoteLeitura p = montarLeitura(d);
+  uint8_t chave[TAMANHO_CHAVE];
+  std::memset(chave, 0x5A, sizeof(chave));
+  PacoteAssinado a;
+  TEST_ASSERT_TRUE(assinar(p, chave, hmacDeTeste, a));
+  uint8_t b[sizeof(a)];
+  std::memcpy(b, &a, sizeof(b));
+  PacoteLeitura saida{};
+  TEST_ASSERT_EQUAL(Rejeicao::NENHUMA, validar(b, sizeof(b), chave, hmacDeTeste, saida));
+  TEST_ASSERT_EQUAL(ModoBateria::ECONOMIA, lerModoBateria(saida.flags));
+  b[offsetof(PacoteLeitura, flags)] = gravarModoBateria(b[offsetof(PacoteLeitura, flags)], ModoBateria::NORMAL);
+  TEST_ASSERT_EQUAL(Rejeicao::ASSINATURA_INVALIDA, validar(b, sizeof(b), chave, hmacDeTeste, saida));
+}
+
 int runUnityTests() {
   UNITY_BEGIN();
   RUN_TEST(test_tamanho_do_pacote);
@@ -735,6 +772,8 @@ int runUnityTests() {
   RUN_TEST(test_restaurar_retoma_a_borda_do_historico);
   RUN_TEST(test_esquecer_libera_no_com_nvs_apagada);
   RUN_TEST(test_estouro_do_numero_de_sequencia);
+  RUN_TEST(test_modo_da_bateria_nos_bits_4_e_5);
+  RUN_TEST(test_modo_da_bateria_vai_assinado_e_validado);
   return UNITY_END();
 }
 
