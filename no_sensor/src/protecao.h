@@ -6,6 +6,8 @@
 
 #include <Arduino.h>
 
+#include <protocolo.h>
+
 #include "sensores.h"
 
 namespace protecao {
@@ -30,6 +32,13 @@ const char* nomeModo(Modo m);
 // Atualiza o modo pela tensão de alimentação lida, com histerese; leitura com
 // erro mantém o modo atual. Limiares 0 = proteção desativada (bateria ainda não definida).
 Modo avaliarTensao(sensores::Medida& alimentacao);
+
+// true se a última avaliarTensao() fez o nó ENTRAR no modo crítico agora (vinha
+// de outro modo): o ciclo manda um último pacote antes de silenciar (Etapa 9).
+bool entrouNoCritico();
+
+// Modo no formato do pacote (bits 4–5 de flags, protocolo::ModoBateria).
+protocolo::ModoBateria paraPacote(Modo m);
 
 // Período até o próximo despertar no modo atual.
 uint32_t periodoMs(Modo m);

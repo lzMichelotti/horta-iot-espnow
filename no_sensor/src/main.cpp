@@ -30,7 +30,7 @@ protocolo::Estado converter(sensores::Estado e) {
   return protocolo::Estado::ERRO;
 }
 
-protocolo::PacoteLeitura montar(const sensores::Leituras& r) {
+protocolo::PacoteLeitura montar(const sensores::Leituras& r, protecao::Modo modo) {
   protocolo::DadosLeitura d{};
   d.boot = contadores::boot();
   d.seq = contadores::proximoSeq();
@@ -48,6 +48,8 @@ protocolo::PacoteLeitura montar(const sensores::Leituras& r) {
   d.flags = (r.aht20Extras > 0 ? protocolo::flag::AHT20_NOVA_TENTATIVA : 0) |
             (contadores::anteriorSemAck() ? protocolo::flag::ANTERIOR_SEM_ACK : 0) |
             (protecao::cicloAnteriorAbortado() ? protocolo::flag::CICLO_ANTERIOR_ABORTADO : 0);
+  // Etapa 9: modo da bateria no momento da leitura (bits 4–5; fica na fila com a leitura).
+  d.flags = protocolo::gravarModoBateria(d.flags, protecao::paraPacote(modo));
   return protocolo::montarLeitura(d);
 }
 
@@ -185,8 +187,10 @@ void setup() {
   sensores::Leituras leituras = sensores::lerTodas();
   protecao::Modo modo = protecao::avaliarTensao(leituras.alimentacaoMv);
   modoCiclo = static_cast<uint8_t>(modo);
-  if (modo == protecao::Modo::CRITICO) {
+  if (modo == protecao::Modo::CRITICO && !protecao::entrouNoCritico()) {
     // Bateria crítica: não liga o rádio nem consome um seq (não seria perda).
+    // Só no ciclo em que ENTROU no crítico o nó ainda envia, com o modo no
+    // pacote: o último aviso ao coordenador antes de silenciar (Etapa 9).
     energia::desligarSensores();
     if (config::LOGS)
       Serial.printf("[PROTECAO] modo critico: alim=%.0f mV, sem transmitir, dorme %lu ms\n",
@@ -194,7 +198,10 @@ void setup() {
     contadores::registrarAcordado((static_cast<uint32_t>(esp_timer_get_time()) + 500) / 1000);
     dormir(static_cast<uint32_t>(esp_timer_get_time()), protecao::periodoMs(modo));
   }
-  protocolo::PacoteLeitura p = montar(leituras);
+  if (modo == protecao::Modo::CRITICO && config::LOGS)
+    Serial.printf("[PROTECAO] entrou no modo critico: alim=%.0f mV, ultimo envio antes de silenciar\n",
+                  leituras.alimentacaoMv.valor);
+  protocolo::PacoteLeitura p = montar(leituras, modo);
   // Guardada antes de tudo o que pode falhar (rádio, prazo de 3 s): o seq
   // consumido sempre tem a leitura na fila.
   bool descartou = reenvio::guardar(p);

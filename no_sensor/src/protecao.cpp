@@ -16,6 +16,7 @@ RTC_DATA_ATTR bool abortadoRtc = false;
 RTC_DATA_ATTR Modo modoRtc = Modo::NORMAL;
 RTC_DATA_ATTR uint16_t rampaIndice = 0;  // só no teste de tensão simulada
 bool anteriorAbortado = false;
+bool entrouCritico = false;
 esp_timer_handle_t prazo = nullptr;
 
 // Callback do prazo: roda na tarefa do esp_timer (CPU 0), mesmo com o setup()
@@ -76,8 +77,10 @@ Modo avaliarTensao(sensores::Medida& alimentacao) {
 #ifdef TESTE_RAMPA_ALIM
   alimentacao = {tensaoSimulada(), sensores::Estado::OK};
 #endif
+  entrouCritico = false;
   if (config::V_TX_MV == 0 || alimentacao.estado == sensores::Estado::ERRO) return modoRtc;
   float v = alimentacao.valor;
+  Modo antes = modoRtc;
   // Histerese: só sai de um modo de proteção com a tensão HISTERESE_MV acima do limiar.
   switch (modoRtc) {
     case Modo::NORMAL:
@@ -93,7 +96,18 @@ Modo avaliarTensao(sensores::Medida& alimentacao) {
       else if (v >= config::V_CRIT_MV + config::HISTERESE_MV) modoRtc = Modo::ECONOMIA;
       break;
   }
+  entrouCritico = (modoRtc == Modo::CRITICO && antes != Modo::CRITICO);
   return modoRtc;
+}
+
+bool entrouNoCritico() { return entrouCritico; }
+
+protocolo::ModoBateria paraPacote(Modo m) {
+  switch (m) {
+    case Modo::ECONOMIA: return protocolo::ModoBateria::ECONOMIA;
+    case Modo::CRITICO:  return protocolo::ModoBateria::CRITICO;
+    default:             return protocolo::ModoBateria::NORMAL;
+  }
 }
 
 uint32_t periodoMs(Modo m) {
