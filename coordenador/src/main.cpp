@@ -22,10 +22,19 @@
 #include "historico.h"
 #include "nos.h"
 #include "radio.h"
+#include "regras.h"
 #include "relogio.h"
 #include "teste_gravacao.h"
 
 namespace {
+
+// Observador do histórico: cada registro gravado (e, na carga do boot, cada
+// registro lido) atualiza as âncoras de hora e a última leitura (consulta) e
+// as regras de alerta (Etapa 9). Roda no loop(), nunca no callback do ESP-NOW.
+void observarRegistro(const registro::Registro& r) {
+  consulta::observar(r);
+  regras::observar(r);
+}
 
 // ---------------------------------------------------------------- Console
 // Uma linha por comando ("\n"; o "\r" do CRLF é ignorado): "comando [argumento]".
@@ -51,6 +60,8 @@ void executar(char* linha) {
     consulta::comando(argumento);
   } else if (strcmp(linha, "token") == 0) {
     autorizacao::comando(argumento);
+  } else if (strcmp(linha, "alertas") == 0) {
+    regras::comando(argumento);
 #ifdef TESTE_GRAVACAO
   } else if (strcmp(linha, "bench") == 0) {
     teste_gravacao::comando(argumento);
@@ -80,6 +91,7 @@ void executar(char* linha) {
     Serial.println("[CONSOLE]   exportar [de=T] [ate=T] [no=MAC] [cursor=N]   historico em CSV (linhas [EXP])");
     Serial.println("[CONSOLE]   exportar parar               interrompe a exportacao");
     Serial.println("[CONSOLE]   token | token gerar | token apagar   token das rotas de escrita da API HTTP");
+    Serial.println("[CONSOLE]   alertas                      estado das regras de cada no (Etapa 9)");
     Serial.println("[CONSOLE]   reiniciar                    reset por software (esp_restart)");
   } else {
     Serial.printf("[CONSOLE] comando desconhecido: \"%s\" (digite ajuda)\n", linha);
@@ -158,7 +170,7 @@ bool gravarHistorico(const radio::Recebido& r, const protocolo::PacoteLeitura& p
                   (unsigned long)historico::ultimaGravacaoUs());
     return true;
   }
-  consulta::observar(reg);  // gravar() chama o observador só quando grava
+  observarRegistro(reg);  // gravar() chama o observador só quando grava
   return false;
 }
 
@@ -263,7 +275,11 @@ void setup() {
     Serial.println("[BOOT] ERRO: CHAVE_MESTRA nao gerada (ferramentas/chaves.py mestra); todo pacote sera recusado");
   configuracao::iniciar();  // antes do histórico: os nós da carga já recebem o nome do cadastro
   autorizacao::iniciar();
-  historico::iniciar(consulta::observar);  // antes do rádio: a leitura dos segmentos não disputa com a fila do ESP-NOW
+  // Antes do rádio: a leitura dos segmentos não disputa com a fila do ESP-NOW.
+  // Os alertas se reconstroem nessa mesma leitura (Etapa 9, sem escrita na flash).
+  regras::iniciarCarga();
+  historico::iniciar(observarRegistro);
+  regras::terminarCarga();
   if (!radio::iniciar()) Serial.println("[BOOT] ERRO: radio nao iniciou");
   api::iniciar(atenderEspNow);  // depois do SoftAP
   // conf = confirmação enviada ao nó ("boot:seq" gravado até, "nada" ou "erro"); ver docs/protocolo.md, seção 13.
@@ -282,6 +298,7 @@ void loop() {
   api::atender();
   lerConsole();
   exportar::passo();  // uma página por volta: a fila do ESP-NOW continua sendo atendida
+  regras::verificar();  // sem_comunicar, a cada ALERTA_VERIFICACAO_MS
 
   static uint32_t descartadosAntes = 0;
   uint32_t d = radio::descartadosFilaCheia();

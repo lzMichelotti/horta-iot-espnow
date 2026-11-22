@@ -99,6 +99,12 @@ ClasseSolo classificarSolo(bool temPct, int32_t decimos, const Limiares& l) {
   return ClasseSolo::ENCHARCADO;
 }
 
+const No* Tabela::encontrar(const uint8_t mac[6]) const {
+  for (const auto& n : nos_)
+    if (n.usado && memcmp(n.mac, mac, 6) == 0) return &n;
+  return nullptr;
+}
+
 No* Tabela::buscar(const uint8_t mac[6], bool criar) {
   for (auto& n : nos_)
     if (n.usado && memcmp(n.mac, mac, 6) == 0) return &n;

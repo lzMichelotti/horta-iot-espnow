@@ -109,4 +109,48 @@ constexpr size_t MAX_NOS = 8;                  // tabela fixa, sem alocação di
 static_assert(MAX_NOS == 8, "o cadastro (lib/cadastro) guarda até 8 nós");
 constexpr uint32_t INTERVALO_RESUMO_MS = 60000;  // linha [RESUMO] por nó
 
+// ---------------------------------------------------------------- Alertas (Etapa 9, docs/alertas.md)
+// TODO(Etapa 9): TODOS os limiares abaixo são PROVISÓRIOS. Os de agronomia
+// (solo, temperatura) ficam a definir com o pessoal do projeto de AUP.
+//
+// Solo: % pela calibração de CADA nó (cadastro): 0 % = solo seco ao toque
+// ("hora de regar"), 100 % = ~1 h após a rega (docs/sensores.md, 4.3). Os
+// limiares valem para todos os nós; a calibração é que é por nó.
+constexpr int32_t ALERTA_SOLO_SECO_DECIMOS = 200;        // TODO: abaixo de 20 % = seco. Sem fonte: a definir com AUP
+constexpr int32_t ALERTA_SOLO_UMIDO_DECIMOS = 800;       // TODO: a partir de 80 % = classe "umido". Sem fonte: a definir com AUP
+constexpr int32_t ALERTA_SOLO_ENCHARCADO_DECIMOS = 1050; // TODO: acima de 105 % = encharcado. Logo após a rega a leitura
+                                                         // chegou a ~110 % (584 mV) e voltou a ~100 % em 1 h (sensores.md 4.3–4.4)
+constexpr int32_t ALERTA_SOLO_BANDA_DECIMOS = 50;        // TODO: histerese de 5 %. ~12× o ruído da média de 64 leituras
+                                                         // (3,2 mV ≈ 0,4 % com a calibração 1400/655; teste 3 de 22/11)
+// Temperatura do ar (AHT20).
+constexpr int32_t ALERTA_TEMP_ALTA_C100 = 3500;   // TODO: acima de 35 °C. Sem fonte: a definir com AUP
+constexpr int32_t ALERTA_TEMP_BAIXA_C100 = 500;   // TODO: abaixo de 5 °C. Sem fonte: a definir com AUP
+constexpr int32_t ALERTA_TEMP_BANDA_C100 = 100;   // TODO: histerese de 1 °C, > 3× a precisão do AHT20 (±0,3 °C, datasheet tab. 1)
+// Quantas leituras seguidas para ativar (o ciclo do nó é de 15 min).
+constexpr uint8_t ALERTA_LEITURAS_PARA_ATIVAR = 2;  // TODO: 2 (30 min), contra uma leitura espúria isolada
+constexpr uint8_t ALERTA_LEITURAS_ENCHARCADO = 4;   // TODO: 4 (1 h): a rega deixa o solo acima de 100 % por ~1 h (sensores.md 4.4)
+constexpr uint8_t ALERTA_ERROS_PARA_ATIVAR = 2;     // TODO: 2 leituras seguidas com o sensor em erro ou fora de faixa
+// TODO(Etapa 5, passo 10): ligar quando o divisor for montado; sem ele, a
+// alimentação chega sempre fora_de_faixa e o alerta ficaria ativo o tempo todo.
+constexpr bool ALERTA_ERRO_ALIMENTACAO = false;
+// Bateria: sem limiar aqui. O modo (normal/economia/crítico) é decidido no nó,
+// com a histerese dele (no_sensor/src/config.h: V_TX_MV, V_CRIT_MV), e vem no
+// pacote (docs/protocolo.md, seção 14).
+
+// Nó sem comunicar: limite = ALERTA_SEM_COMUNICAR_CICLOS × o período do nó no
+// modo de bateria em que ele estava. Os períodos repetem no_sensor/src/config.h
+// (PERIODO_CICLO_MS, FATOR_PERIODO_ECONOMIA, PERIODO_CRITICO_MS): mudar lá = mudar aqui.
+#ifdef TESTE_ALERTAS  // env teste_alertas: nó nos envs bancada/teste_tensao (10 s; economia ×2; crítico 30 s)
+constexpr uint32_t ALERTA_PERIODO_NO_S = 10;
+constexpr uint32_t ALERTA_FATOR_ECONOMIA = 2;
+constexpr uint32_t ALERTA_PERIODO_CRITICO_S = 30;
+#else
+constexpr uint32_t ALERTA_PERIODO_NO_S = 15 * 60;
+constexpr uint32_t ALERTA_FATOR_ECONOMIA = 4;
+constexpr uint32_t ALERTA_PERIODO_CRITICO_S = 3600;
+#endif
+constexpr uint32_t ALERTA_SEM_COMUNICAR_CICLOS = 3;  // TODO: 3 períodos (45 min): tolera 2 ciclos sem ACK; a fila do
+                                                     // nó guarda as leituras e as reenvia quando ele volta (protocolo.md 13)
+constexpr uint32_t ALERTA_VERIFICACAO_MS = 5000;     // de quanto em quanto tempo o loop() confere o sem_comunicar
+
 }  // namespace config

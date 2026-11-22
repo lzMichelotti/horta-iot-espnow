@@ -113,6 +113,7 @@ class Tabela {
  public:
   // Nó pelo MAC; com criar, ocupa uma posição livre. nullptr se não achar (ou tabela cheia).
   No* buscar(const uint8_t mac[6], bool criar);
+  const No* encontrar(const uint8_t mac[6]) const;
   const No& posicao(size_t i) const { return nos_[i]; }
 
   // Aplica as regras de leitura (todas menos sem_comunicar, que esta leitura resolve).
