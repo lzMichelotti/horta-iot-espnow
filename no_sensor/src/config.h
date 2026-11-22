@@ -65,8 +65,10 @@ constexpr uint8_t CANAL_WIFI = TESTE_CANAL_WIFI;
 #else
 constexpr uint8_t CANAL_WIFI = 1;
 #endif
-// Destino: MAC da interface AP do coordenador (docs/placas.md, placa COORD).
-constexpr uint8_t MAC_COORDENADOR[6] = {0x88, 0x57, 0x21, 0x70, 0x91, 0xFD};
+// Destino: MAC da interface AP do coordenador. Desde 22/11/2026 o coordenador
+// é a placa 5AC9001351 (ex-NÓ 1; a 5AC9002039 não está disponível). MAC AP
+// lido no boot do coordenador ([MAC] AP). Antes: 88:57:21:70:91:FD (placa 2039).
+constexpr uint8_t MAC_COORDENADOR[6] = {0x88, 0x57, 0x21, 0x70, 0x93, 0x71};
 
 // Retransmissão na aplicação (docs/comunicacao.md). A camada MAC já repete o
 // quadro antes de reportar FAIL; estas tentativas cobrem falhas mais longas.
