@@ -45,6 +45,10 @@ bool temCalibracao(const No& n);
 // (docs/protocolo.md, seção 7), limitada a 0–100 %. false sem calibração.
 bool umidadeSoloDecimos(const No& n, uint16_t mv, int16_t& decimos);
 
+// A mesma conta sem limitar a 0–100 % (Etapa 9: a classificação do solo e os
+// alertas precisam de "mais seco que o ponto seco" e "mais úmido que o úmido").
+bool umidadeSoloDecimosSemLimite(const No& n, uint16_t mv, int32_t& decimos);
+
 class Tabela {
  public:
   void limpar() { n_ = 0; }

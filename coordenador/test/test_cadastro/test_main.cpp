@@ -70,6 +70,18 @@ void test_umidade_solo() {
   TEST_ASSERT_EQUAL_INT16(1000, d);
 }
 
+void test_umidade_solo_sem_limite() {
+  No n = calibrado(1400, 655);
+  int32_t d = 0;
+  TEST_ASSERT_TRUE(umidadeSoloDecimosSemLimite(n, 1066, d));  // dentro da faixa: igual à limitada
+  TEST_ASSERT_EQUAL_INT32(448, d);
+  TEST_ASSERT_TRUE(umidadeSoloDecimosSemLimite(n, 2168, d));  // ar (22/11): (1400 − 2168) / 745 = −103,1 %
+  TEST_ASSERT_EQUAL_INT32(-1031, d);
+  TEST_ASSERT_TRUE(umidadeSoloDecimosSemLimite(n, 584, d));   // logo após a rega: 816 / 745 = 109,5 %
+  TEST_ASSERT_EQUAL_INT32(1095, d);
+  TEST_ASSERT_FALSE(umidadeSoloDecimosSemLimite(calibrado(0, 655), 1000, d));
+}
+
 void test_sem_calibracao() {
   int16_t d = 7;
   TEST_ASSERT_FALSE(umidadeSoloDecimos(calibrado(0, 0), 1000, d));
@@ -226,6 +238,7 @@ int main(int, char**) {
   RUN_TEST(test_nome_valido);
   RUN_TEST(test_interpretar_mac);
   RUN_TEST(test_umidade_solo);
+  RUN_TEST(test_umidade_solo_sem_limite);
   RUN_TEST(test_sem_calibracao);
   RUN_TEST(test_definir_nome_cadastra_e_renomeia);
   RUN_TEST(test_tabela_cheia);

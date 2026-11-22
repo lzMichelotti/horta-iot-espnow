@@ -64,12 +64,18 @@ bool interpretarMac(const char* texto, uint8_t mac[6]) {
 
 bool temCalibracao(const No& n) { return n.mvSeco != 0 && n.mvUmido != 0 && n.mvSeco > n.mvUmido; }
 
-bool umidadeSoloDecimos(const No& n, uint16_t mv, int16_t& decimos) {
+bool umidadeSoloDecimosSemLimite(const No& n, uint16_t mv, int32_t& decimos) {
   if (!temCalibracao(n)) return false;
   // % = (seco − mv) / (seco − úmido) × 100, em décimos e arredondado.
   int32_t num = (static_cast<int32_t>(n.mvSeco) - mv) * 1000;
   int32_t den = static_cast<int32_t>(n.mvSeco) - n.mvUmido;
-  int32_t v = (num >= 0 ? num + den / 2 : num - den / 2) / den;
+  decimos = (num >= 0 ? num + den / 2 : num - den / 2) / den;
+  return true;
+}
+
+bool umidadeSoloDecimos(const No& n, uint16_t mv, int16_t& decimos) {
+  int32_t v = 0;
+  if (!umidadeSoloDecimosSemLimite(n, mv, v)) return false;
   if (v < 0) v = 0;
   if (v > 1000) v = 1000;
   decimos = static_cast<int16_t>(v);
