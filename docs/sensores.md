@@ -261,6 +261,15 @@ Conclusões:
 
 Limitação: o resistor tira 0,44 V da alimentação, e o sensor mediu com ~2,86 V, abaixo dos ~2,9 V em que ele perde o sinal (tabela acima; a saída ficou igual ao GND do sensor). Em 3,3 V a corrente pode ser um pouco diferente; a ordem de grandeza vale. Consequência: ligado o tempo todo, o sensor gasta ~105 mAh por dia; chaveado (0,5 s a cada 15 min), ~0,06 mAh por dia. Por isso o chaveamento por MOSFET entra na Etapa 5 ([`compras.md`](compras.md)).
 
+**Alimentação pelo GPIO × 3V3, ar e água** (26/11/2026, mesma placa e mesmo sensor, minutos de diferença; GPIO25 em nível alto com *drive* 3 pelo comando `g` do `diag_solo`; média de 64 leituras por segundo durante 60 s; dados em [`dados/etapa5/brutos/`](../dados/etapa5/brutos/), `gpio_vs_3v3_*`):
+
+| Alimentação | Ar | Água | Faixa (ar − água) |
+|---|---|---|---|
+| 3V3 da placa | 2173,6 mV (desvio 2,6) | 692,9 mV (desvio 3,8) | 1480,7 mV |
+| GPIO25, drive 3 | 2065,8 mV (desvio 1,9) | 557,3 mV (desvio 3,0) | 1508,5 mV |
+
+Pelo GPIO, a leitura desce ~110–135 mV, mas a faixa entre ar e água se mantém (+1,9 %) e o ruído não aumenta. O deslocamento é absorvido pela calibração feita com a mesma alimentação. Não medido: deriva com a temperatura ao longo de horas. O 3V3 desta bancada é o regulador da placa alimentado pelo USB (~3,39 V); com o regulador de campo (3,3 V), o pino entrega menos, e o sensor fica mais perto dos ~2,9 V em que perde o sinal: repetir este teste na montagem final.
+
 Montagem do teste, para repetir: o GND da extensão do sensor desta bancada é o fio **cinza** e o VCC é o **preto** (o AOUT é o branco); a troca do GND da placa pelo 3V3 vizinho (pinos lado a lado na DOIT) deu leituras sem sentido até ser corrigida.
 
 ### 4.6 Procedimento de calibração em campo
