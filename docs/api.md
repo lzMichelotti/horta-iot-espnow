@@ -3,6 +3,7 @@
 > **Situação: implementada e medida (Etapa 8); alertas na Etapa 9.**
 > **Revisão 1.1 (20/10/2026, firmware `coordenador 8.1`):** `/status` ganha `coordenador` e `armazenamento.geracao` (seção 2.4.1), campos novos que não quebram a API v1.
 > **Revisão 1.2 (26/11/2026, Etapa 9):** `/alertas` preenchida (seção 4.9); `/nos` com `modo_energia` e `alertas_ativos` (seção 4.2); cada leitura com `solo_classe` (seção 4.4). Só campos novos, API v1 compatível; o único valor que muda é `"regras"`, de `"nao_implementadas"` para `"v1"`. Os nomes e valores de `modo_energia` e `solo_classe` são os que o app já esperava (repositório do app, `tipos.ts`).
+> **Revisão 1.3 (26/11/2026):** `/alertas` ganha o `tipo` **`no_sem_bateria`** (seção 4.9): o nó desligou por bateria fraca (calado depois do último pacote em modo `critico`), no lugar do `sem_comunicar` nesse caso. Só um valor novo de `tipo`, API v1 compatível; um cliente que não conhece o tipo o mostra como aviso genérico. O `limiar` do `sem_comunicar` continua seguindo o modo da bateria do nó, agora com os períodos de uma fonte única compartilhada com o nó.
 
 API para o app (e para um notebook) consultar o sistema pela rede Wi-Fi do próprio coordenador, sem Internet.
 
@@ -296,19 +297,33 @@ Alertas gerados no coordenador a partir das leituras (Etapa 9; regras, limiares 
 | Campo | Significado |
 |---|---|
 | `tipo`, `mac`, `desde`, `valor`, `limiar` | os do formato previsto na Etapa 8 |
-| `tipo` | `solo_seco`, `solo_encharcado`, `temperatura_alta`, `temperatura_baixa`, `bateria_baixa`, `bateria_critica`, `sem_comunicar`, `erro_sensor_ar`, `erro_sensor_solo`, `erro_sensor_alimentacao` |
+| `tipo` | `solo_seco`, `solo_encharcado`, `temperatura_alta`, `temperatura_baixa`, `bateria_baixa`, `bateria_critica`, `sem_comunicar`, `erro_sensor_ar`, `erro_sensor_solo`, `erro_sensor_alimentacao`, `no_sem_bateria` (revisão 1.3). O cliente deve aceitar tipos que não conhece (texto genérico) |
+| `no_sem_bateria` (revisão 1.3) | **nó desligado por bateria fraca**: a última leitura veio em modo `critico` (o último pacote antes de o nó silenciar) e ele está calado há mais que o limite. Fica **no lugar** do `sem_comunicar` (os dois nunca ficam ativos juntos), com o `bateria_critica` ativo ao lado. Resolve sozinho com qualquer leitura nova (bateria recarregada). `valor` e `limiar` em s, como no `sem_comunicar`. Se o pacote do crítico se perdeu, o silêncio continua como `sem_comunicar` (causa desconhecida) |
 | `nome` | nome do nó no cadastro atual |
 | `estado` | `ativo` ou `resolvido` |
-| `desde` | hora da **leitura** que começou o alerta, no mesmo formato de `/leituras` (seção 2.2): `valida`, `reconstruida` ou `sem_hora` (`utc: null`). No `sem_comunicar`, é a última leitura recebida antes do silêncio |
+| `desde` | hora da **leitura** que começou o alerta, no mesmo formato de `/leituras` (seção 2.2): `valida`, `reconstruida` ou `sem_hora` (`utc: null`). No `sem_comunicar` e no `no_sem_bateria`, é a última leitura recebida antes do silêncio |
 | `ha_s` | segundos desde essa leitura, pelo relógio interno (vale sem hora válida, no mesmo boot do coordenador); `null` se não dá para saber |
 | `fim` | hora da leitura que resolveu (`null` se ativo) |
-| `valor` | **último** valor medido (o atual, não o do início): solo em % com 1 casa (sem o limite de 0–100 %), temperatura em °C com 2 casas, bateria em mV, `sem_comunicar` em s; `null` nos erros de sensor |
-| `limiar` | limiar de ativação, na mesma unidade; `null` na bateria (o modo é decidido no nó) e nos erros de sensor. No `sem_comunicar`, depende do modo da bateria do nó |
+| `valor` | **último** valor medido (o atual, não o do início): solo em % com 1 casa (sem o limite de 0–100 %), temperatura em °C com 2 casas, bateria em mV, `sem_comunicar` e `no_sem_bateria` em s (tempo calado); `null` nos erros de sensor |
+| `limiar` | limiar de ativação, na mesma unidade; `null` na bateria (o modo é decidido no nó) e nos erros de sensor. No `sem_comunicar` e no `no_sem_bateria`: 3 períodos do nó no modo da última leitura (produção: 45 min no normal, 3 h na economia e no crítico; [`alertas.md`](alertas.md), 4) |
 | `unidade` | `pct`, `c`, `mv`, `s` ou `null` |
 | `regras` | versão das regras (`"v1"`); era `"nao_implementadas"` antes da Etapa 9 |
 | `ativos` | total de alertas ativos |
 
-Os alertas vivem na RAM do coordenador e são **reconstruídos do histórico** a cada boot (com o início correto); o `sem_comunicar` só é reconstruído depois da primeira verificação, e a hora dos alertas que começaram num boot sem hora acertada fica `sem_hora`.
+Exemplo real do `no_sem_bateria` (26/11/2026, bancada: env `teste_alertas` da COORD, limite de 90 s; [`dados/etapa9/brutos/no_sem_bateria/`](../dados/etapa9/brutos/no_sem_bateria/)):
+
+```json
+{
+  "tipo": "no_sem_bateria", "mac": "88:57:21:70:a6:ec", "nome": "horta1",
+  "estado": "ativo",
+  "desde": { "utc": null, "origem": "sem_hora" },
+  "ha_s": 124,
+  "fim": null,
+  "valor": 120, "limiar": 90, "unidade": "s"
+}
+```
+
+Os alertas vivem na RAM do coordenador e são **reconstruídos do histórico** a cada boot (com o início correto); o `sem_comunicar` e o `no_sem_bateria` só são reconstruídos depois da primeira verificação, e a hora dos alertas que começaram num boot sem hora acertada fica `sem_hora`.
 
 ## 5. Desempenho e limites
 

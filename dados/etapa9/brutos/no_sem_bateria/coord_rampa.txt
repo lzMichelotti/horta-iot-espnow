@@ -1,0 +1,111 @@
+   0.401 ets Jul 29 2019 12:21:46
+   0.401 
+   0.401 rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   0.401 configsip: 0, SPIWP:0xee
+   0.401 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   0.401 mode:DIO, clock div:2
+   0.401 load:0x3fff0030,len:4640
+   0.401 load:0x40078000,len:15632
+   0.401 load:0x40080400,len:3164
+   0.401 entry 0x4008059c
+   0.701 
+   0.701 [BOOT] coordenador 8.1 - etapa 8
+   0.701 [RELOGIO] boot 36, motivo do reset 1
+   0.701 [RELOGIO] utc=invalida epoch=0 valida=0 fonte=nenhuma boot=36 desde_boot_ms=224
+   0.701 [PART] nome,tipo,subtipo,endereco,tamanho_kb
+   0.701 [PART] nvs,1,0x02,0x009000,20
+   0.701 [PART] otadata,1,0x00,0x00e000,8
+   0.701 [PART] app0,0,0x00,0x010000,2048
+   0.701 [PART] littlefs,1,0x83,0x210000,1920
+   0.701 [PART] coredump,1,0x03,0x3f0000,64
+   0.701 [MAC] STA 88:57:21:70:93:70
+   0.701 [MAC] AP  88:57:21:70:93:71
+   0.701 [BOOT] protocolo v3 (42 bytes, assinatura HMAC-SHA256 de 16)
+   0.701 [CFG] cadastro lido da NVS: 2 nos
+   0.802 [HTTP] token das rotas de escrita: NAO configurado (escritas recusadas; 'token gerar')
+   0.802 [FS] LittleFS montado: 220 KB usados de 1920 KB
+   0.802 [FS] geracao do historico: f7bd392b
+   1.302 [FS] carga: 9 segmentos, 3992 registros validos, 0 invalidos, em 434 ms
+   1.303 [FS] estado: ok (rotacoes de emergencia 0, falhas seguidas 0)
+   1.303 [ALERTA] reconstruidos do historico: 1 ativos (73 transicoes na carga); tabela de 5152 bytes
+   1.303 [ALERTA] reconstrucao: 3992 registros, 27 ms nas regras (media 6 us por registro)
+   1.303 [ALERTA] ativo,solo_seco,88:57:21:70:a6:ec,horta1
+   1.403 [WIFI] varrendo canais...
+   5.612 [WIFI] varredura: 36 redes em 4206 ms
+   5.713 [WIFI] canal  1: 8 no canal, 11 sobrepostas, mais forte -63 dBm
+   5.713 [WIFI] canal  6: 3 no canal, 17 sobrepostas, mais forte -63 dBm
+   5.713 [WIFI] canal 11: 8 no canal, 6 sobrepostas, mais forte -16 dBm
+   5.913 [WIFI] SoftAP "horta-coord" canal 1, MAC AP 88:57:21:70:93:71, IP 192.168.4.1
+   5.913 [ESPNOW] pronto: versao 2, fila de 16 itens (272 bytes cada)
+   5.913 [HTTP] servidor na porta 80: http://192.168.4.1/api/v1/status
+   5.913 [HTTP] metodo,uri,codigo,bytes,us
+   5.913 [BOOT] carga+alertas 536 ms; radio pronto em 5398 ms; HTTP pronto em 5414 ms (millis desde o boot)
+   5.913 [CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags,idade_s,conf
+   5.913 [RESUMO] t_ms,mac,nome,recebidos,rejeitados,aceitos,perdidos,descartados,reinicios,sem_ack,entrega_pct,rssi_medio,rssi_min,rssi_max,fora_de_ordem
+  10.422 [CSV] 9933,88:57:21:70:a6:ec,horta1,-50,-96,42,nenhuma,fora_de_ordem,0,20,2,2726,4625,2062,3600,0,8,739,3,18,0,20:0
+  10.422 [CSV] 9940,88:57:21:70:a6:ec,horta1,-50,-96,42,nenhuma,novo,0,20,1,2728,4649,2069,3650,0,8,646,1,24,10,20:0
+  10.522 [FS] gravado,9,232,91539
+  10.522 [CSV] 10046,88:57:21:70:a6:ec,horta1,-50,-96,42,nenhuma,novo,0,20,2,2726,4625,2062,3600,0,8,739,3,18,0,20:1
+  10.623 [FS] gravado,9,233,69970
+  20.443 [CSV] 19921,88:57:21:70:a6:ec,horta1,-50,-96,42,nenhuma,novo,0,20,3,2727,4614,2064,3550,0,8,587,1,16,0,20:2
+  20.443 [FS] gravado,9,234,71470
+  30.362 [CSV] 29907,88:57:21:70:a6:ec,horta1,-50,-96,42,nenhuma,novo,0,20,4,2726,4597,2062,3500,0,8,584,1,16,0,20:3
+  30.663 [FS] gravado,9,235,232175
+  40.382 [CSV] 39887,88:57:21:70:a6:ec,horta1,-50,-96,42,nenhuma,novo,0,20,5,2725,4563,2061,3450,0,8,583,1,32,0,20:4
+  40.482 [ALERTA] ativou,bateria_baixa,88:57:21:70:a6:ec,horta1,3450mV
+  40.483 [FS] gravado,9,236,99442
+  60.323 [CSV] 59794,88:57:21:70:a6:ec,horta1,-49,-96,42,nenhuma,novo,0,20,6,2726,4531,2061,3400,0,8,582,1,32,0,20:5
+  60.324 [FS] gravado,9,237,46630
+  60.524 [RESUMO] 60001,88:57:21:70:a6:ec,horta1,7,0,6,0,0,0,2,100.00,-49.9,-50,-49,1
+  80.164 [CSV] 79713,88:57:21:70:a6:ec,horta1,-50,-96,42,nenhuma,novo,0,20,7,2726,4492,2063,3350,0,8,582,1,32,0,20:6
+  80.264 [FS] gravado,9,238,48704
+ 100.104 [CSV] 99633,88:57:21:70:a6:ec,horta1,-50,-96,42,nenhuma,novo,0,20,8,2727,4478,2065,3300,0,8,581,1,32,0,20:7
+ 100.204 [FS] gravado,9,239,44168
+ 120.046 [CSV] 119550,88:57:21:70:a6:ec,horta1,-49,-96,42,nenhuma,novo,0,20,9,2729,4468,2064,3250,0,8,581,1,48,1,20:8
+ 120.046 [ALERTA] ativou,bateria_critica,88:57:21:70:a6:ec,horta1,3250mV
+ 120.046 [FS] gravado,9,240,42180
+ 120.447 [RESUMO] 120002,88:57:21:70:a6:ec,horta1,10,0,9,0,0,0,2,100.00,-49.8,-50,-49,1
+ 180.472 [RESUMO] 180000,88:57:21:70:a6:ec,horta1,10,0,9,0,0,0,2,100.00,-49.8,-50,-49,1
+ 210.937 [ALERTA] ativou,no_sem_bateria,88:57:21:70:a6:ec,horta1,91s
+ 240.500 [RESUMO] 240001,88:57:21:70:a6:ec,horta1,10,0,9,0,0,0,2,100.00,-49.8,-50,-49,1
+ 300.527 [RESUMO] 300002,88:57:21:70:a6:ec,horta1,10,0,9,0,0,0,2,100.00,-49.8,-50,-49,1
+ 359.250 [CSV] 358795,88:57:21:70:a6:ec,horta1,-51,-96,42,nenhuma,novo,0,20,10,2735,4465,2064,3350,0,8,533,1,32,0,20:9
+ 359.351 [ALERTA] resolveu,bateria_critica,88:57:21:70:a6:ec,horta1,3350mV
+ 359.351 [ALERTA] resolveu,no_sem_bateria,88:57:21:70:a6:ec,horta1,236s
+ 359.351 [FS] gravado,9,241,45439
+ 360.453 [RESUMO] 360000,88:57:21:70:a6:ec,horta1,11,0,10,0,0,0,2,100.00,-49.9,-51,-49,1
+ 379.192 [CSV] 378731,88:57:21:70:a6:ec,horta1,-51,-96,42,nenhuma,novo,0,20,11,2730,4459,2063,3400,0,8,582,1,32,0,20:10
+ 379.293 [FS] gravado,9,242,52333
+ 399.135 [CSV] 398645,88:57:21:70:a6:ec,horta1,-51,-96,42,nenhuma,novo,0,20,12,2729,4472,2065,3450,0,8,581,1,32,0,20:11
+ 399.135 [FS] gravado,9,243,44938
+ 419.077 [CSV] 418573,88:57:21:70:a6:ec,horta1,-52,-96,42,nenhuma,novo,0,20,13,2727,4491,2064,3500,0,8,582,1,32,0,20:12
+ 419.077 [FS] gravado,9,244,49274
+ 420.480 [RESUMO] 420000,88:57:21:70:a6:ec,horta1,14,0,13,0,0,0,2,100.00,-50.2,-52,-49,1
+ 438.920 [CSV] 438486,88:57:21:70:a6:ec,horta1,-51,-96,42,nenhuma,novo,0,20,14,2731,4473,2063,3550,0,8,582,1,16,0,20:13
+ 439.020 [ALERTA] resolveu,bateria_baixa,88:57:21:70:a6:ec,horta1,3550mV
+ 439.020 [FS] gravado,9,245,46247
+ 448.942 [CSV] 448477,88:57:21:70:a6:ec,horta1,-51,-96,42,nenhuma,novo,0,20,15,2731,4496,2064,3600,0,8,581,1,16,0,20:14
+ 449.042 [FS] gravado,9,246,49441
+ 458.963 [CSV] 458468,88:57:21:70:a6:ec,horta1,-52,-96,42,nenhuma,novo,0,20,16,2731,4499,2066,3650,0,8,581,1,16,0,20:15
+ 458.963 [FS] gravado,9,247,54144
+ 468.984 [CSV] 468458,88:57:21:70:a6:ec,horta1,-51,-96,42,nenhuma,novo,0,20,17,2729,4508,2060,3700,0,8,581,1,16,0,20:16
+ 468.984 [FS] gravado,9,248,55704
+ 478.905 [CSV] 478452,88:57:21:70:a6:ec,horta1,-52,-96,42,nenhuma,novo,0,20,18,2727,4489,2062,3650,0,8,581,1,16,0,20:17
+ 479.006 [FS] gravado,9,249,49053
+ 480.509 [RESUMO] 480000,88:57:21:70:a6:ec,horta1,19,0,18,0,0,0,2,100.00,-50.5,-52,-49,1
+ 488.927 [CSV] 488438,88:57:21:70:a6:ec,horta1,-52,-96,42,nenhuma,novo,0,20,19,2726,4493,2058,3600,0,8,581,1,16,0,20:18
+ 489.127 [FS] gravado,9,250,220950
+ 498.948 [CSV] 498428,88:57:21:70:a6:ec,horta1,-51,-96,42,nenhuma,novo,0,20,20,2726,4504,2063,3550,0,8,581,1,16,0,20:19
+ 498.948 [FS] gravado,9,251,48437
+ 508.868 [CSV] 508413,88:57:21:70:a6:ec,horta1,-50,-96,42,nenhuma,novo,0,20,21,2729,4518,2067,3500,0,8,583,1,16,0,20:20
+ 508.968 [FS] gravado,9,252,52628
+ 518.890 [CSV] 518394,88:57:21:70:a6:ec,horta1,-50,-96,42,nenhuma,novo,0,20,22,2731,4524,2063,3450,0,8,581,1,32,1,20:21
+ 518.890 [ALERTA] ativou,bateria_baixa,88:57:21:70:a6:ec,horta1,3450mV
+ 518.890 [FS] gravado,9,253,51000
+ 538.834 [CSV] 538320,88:57:21:70:a6:ec,horta1,-49,-96,42,nenhuma,novo,0,20,23,2731,4493,2066,3400,0,8,581,1,32,0,20:22
+ 538.834 [FS] gravado,9,254,47573
+ 540.437 [RESUMO] 540001,88:57:21:70:a6:ec,horta1,24,0,23,0,0,0,2,100.00,-50.5,-52,-49,1
+ 558.674 [CSV] 558238,88:57:21:70:a6:ec,horta1,-49,-96,42,nenhuma,novo,0,20,24,2731,4457,2061,3350,0,8,581,1,32,0,20:23
+ 558.775 [FS] gravado,9,255,46400
+ 578.616 [CSV] 578171,88:57:21:70:a6:ec,horta1,-50,-96,42,nenhuma,novo,0,20,25,2734,4452,2063,3300,0,8,581,1,32,0,20:24
+ 578.716 [FS] gravado,9,256,49975

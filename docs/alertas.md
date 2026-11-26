@@ -10,6 +10,7 @@ O coordenador gera alertas simples a partir das leituras e os expõe em `GET /ap
 | Contra oscilação | **banda de valor + N leituras seguidas** | a banda evita ativar e resolver em sequência perto do limiar; as N leituras evitam ativar por uma leitura espúria. Com um ciclo de 15 min, "tempo mínimo" é contado em leituras |
 | Modo da bateria | **decidido no nó** (histerese dele, Etapa 5) e enviado nos **bits 4–5 de `flags`** | sem mudar o tamanho do pacote, da fila nem do registro; `VERSAO` continua 3 ([`protocolo.md`](protocolo.md), seção 14). O coordenador não repete os limiares de tensão |
 | Último aviso | ao **entrar** no modo crítico, o nó envia um último pacote (modo crítico) antes de silenciar | o coordenador distingue "bateria crítica, vai silenciar" de "nó sem comunicar" |
+| Silêncio no crítico (26/11/2026) | **tipo próprio `no_sem_bateria`** no lugar do `sem_comunicar` (não suprimir) | o alerta diz a causa ("desligou por bateria fraca"); o app já tem títulos por `tipo` (basta uma linha); um campo `causa` no `sem_comunicar` exigiria lógica nova no app. Custo: +448 B de RAM |
 | Hora do alerta | a da **leitura** que o começou, no mesmo modelo de `/leituras` (`valida`, `reconstruida`, `sem_hora`), mais `ha_s` pelo relógio interno | sem o DS3231 (Etapa 6), a hora pode não estar acertada; um alerta de um boot sem hora passa a `reconstruida` quando a hora é acertada no mesmo boot |
 | API | só campos novos (v1 compatível); `/alertas` lista **só os ativos** por padrão | um app que não conhece o campo `estado` não mostra resolvidos como atuais |
 | Nomes na API | `modo_energia` no nó e `solo_classe` em **cada leitura**, com `seco`, `umido` e `muito_umido` | são os que o app já esperava (repositório do app, `frontend/src/features/coordenador/tipos.ts`, branch `feat/coordenador`): o app passa a usá-los sem mudança |
@@ -25,7 +26,8 @@ O coordenador gera alertas simples a partir das leituras e os expõe em `GET /ap
 | `temperatura_baixa` | T < `ALERTA_TEMP_BAIXA` por N leituras | T ≥ baixa + banda | °C |
 | `bateria_baixa` | o nó informa modo `economia` ou `critico` (1 leitura: a histerese é do nó) | modo `normal` | mV |
 | `bateria_critica` | o nó informa modo `critico` (o último pacote antes de silenciar) | modo diferente de `critico` | mV |
-| `sem_comunicar` | nenhuma leitura há mais que `ALERTA_SEM_COMUNICAR_CICLOS` × o período do nó **no modo de bateria dele** | qualquer leitura nova, inclusive atrasada da fila do nó | s calado |
+| `sem_comunicar` | nenhuma leitura há mais que `ALERTA_SEM_COMUNICAR_CICLOS` × o período do nó **no modo de bateria dele**, com a última leitura **fora** do modo crítico | qualquer leitura nova, inclusive atrasada da fila do nó | s calado |
+| `no_sem_bateria` | idem, com a última leitura **em modo crítico**: o nó desligou por bateria fraca (silêncio de propósito, [`protocolo.md`](protocolo.md), 14). No lugar do `sem_comunicar`; o `bateria_critica` continua ativo ao lado | qualquer leitura nova (bateria recarregada: o nó volta em economia ou normal) | s calado |
 | `erro_sensor_ar` | temperatura ou umidade do ar em `erro`/`fora_de_faixa` por `ALERTA_ERROS_PARA_ATIVAR` leituras | 1 leitura com as duas `ok` | — |
 | `erro_sensor_solo` | solo em `erro`/`fora_de_faixa` por N leituras | 1 leitura `ok` | — |
 | `erro_sensor_alimentacao` | idem, só com `ALERTA_ERRO_ALIMENTACAO` ligado | 1 leitura `ok` | — |
@@ -75,7 +77,7 @@ Limite do `sem_comunicar` em produção (3 períodos do modo da última leitura)
 
 | Grandeza | Valor |
 |---|---|
-| RAM estática | **+4728 B** (56 064 → 60 792 B; a tabela de alertas tem 4704 B: 8 nós × 10 regras) |
+| RAM estática | **+4728 B** (56 064 → 60 792 B; a tabela de alertas tinha 4704 B: 8 nós × 10 regras); com o `no_sem_bateria` (11 regras), tabela de 5152 B (+448 B) |
 | Flash | +5,8 KB (1 065 944 → 1 071 724 B) |
 | Avaliação por leitura | ~0,2 ms (218 µs medidos na placa) |
 | Reconstrução no boot | **6 µs por registro** (25–26 ms com 3903–3920 registros); ~0,16 s estimados com o histórico cheio (seção 5.1) |
@@ -99,7 +101,7 @@ Medido em 26/11/2026 na COORD `5AC9001351` (env padrão, histórico real de 9 se
 
 ## 6. Testes
 
-**No PC** (`cd coordenador && pio test -e native`): 14 testes em `test_alertas` (classificação, N leituras e início, leitura isolada, banda sem oscilar, solo sem calibração ou em erro, encharcado, temperaturas, bateria pelo modo, modo desconhecido, sem_comunicar com leitura atrasada, erros de sensor, erro da alimentação desligado, tabela) e 1 novo em `test_cadastro` (% sem limite). No nó, 2 testes novos em `test_protocolo` (bits do modo e assinatura).
+**No PC** (`cd coordenador && pio test -e native`): 17 testes em `test_alertas` (os 14 da Etapa 9 e, em 26/11/2026, o limite pelo modo, o `no_sem_bateria` depois do crítico e o `sem_comunicar` quando o pacote do crítico não chegou). Os 14 originais: (classificação, N leituras e início, leitura isolada, banda sem oscilar, solo sem calibração ou em erro, encharcado, temperaturas, bateria pelo modo, modo desconhecido, sem_comunicar com leitura atrasada, erros de sensor, erro da alimentação desligado, tabela) e 1 novo em `test_cadastro` (% sem limite). No nó, 2 testes novos em `test_protocolo` (bits do modo e assinatura).
 
 **Na placa** (22/11/2026; COORD `5AC9001351` no env `teste_alertas`, nó `horta1` `5AC9009194`; dados em [`dados/etapa9/brutos/`](../dados/etapa9/brutos/)): ver seção 7.
 
@@ -115,6 +117,7 @@ COORD no env `teste_alertas` (sem_comunicar com os períodos da bancada: 30 s no
 | C2. Nó fora de alcance (fila) | `alertas surdo 60`: a COORD ignora os pacotes por 60 s | `sem_comunicar` ativou com 32 s; a leitura nova foi recusada (`fora_de_ordem`) e o nó reenviou a fila em ordem (seq 15–20, idade 61 → 10 s); a **1ª atrasada resolveu** o alerta; 0 perdidas, 0 duplicadas |
 | D. Sensor em erro | fio SDA do AHT20 solto por ~30 s | `erro_sensor_ar` ativou com 2 leituras em erro (`estados` = 133); resolveu na 1ª `ok` |
 | D2. Solo em erro (26/11, COORD no env padrão) | fio preto (VCC do sensor de solo) solto do D25 por ~5 min | `solo_mv` = 0 (< `ADC_MIN_MV`, 150 mV) → solo `erro` (`estados` = 144); `erro_sensor_solo` **ativou na 2ª leitura** (10 s depois da 1ª); na API (ponte HTTP): `/alertas` com `estado` = `ativo`, `/leituras/atuais` com `solo: "erro"`, `solo_mv`, `solo_pct` e `solo_classe` = `null`. Fio religado: **resolveu na 1ª leitura `ok`** (2062 mV), 0,1 s depois da gravação; `/alertas?incluir=resolvidos` com `estado` = `resolvido` e `/alertas` sem ele. Dados em [`dados/etapa9/brutos/erro_solo/`](../dados/etapa9/brutos/erro_solo/) |
+| B2. Nó sem bateria (26/11, `no_sem_bateria`) | igual ao B (nó em `teste_tensao`, COORD em `teste_alertas`; limite de 3 × 30 s no crítico) | `bateria_baixa` em 3450 mV; `bateria_critica` em 3250 mV (último pacote, seq 9); **`no_sem_bateria` ativou com 91 s calado e nenhum `sem_comunicar`**; na API, `ativo` com `valor` 120 s e `limiar` 90 s, ao lado do `bateria_critica`; a 3350 mV o nó voltou em economia (seq 10, sem buraco) e os dois resolveram (236 s calado). Dados em [`dados/etapa9/brutos/no_sem_bateria/`](../dados/etapa9/brutos/no_sem_bateria/) |
 | E. Reinício com alertas ativos | COORD sem energia por ~145 s (power-on) com `solo_seco` ativo | no boot, `reconstruidos do historico: 1 ativos (61 transições na carga)`; a fila do nó (seq 46–61) chegou em seguida e resolveu o alerta; 0 perdidas |
 | Leituras perdidas | toda a sessão de 22/11 (~3 h 20 min) e a de 26/11 | 492/492 e 10/10 gravadas; 0 perdidas, 0 duplicadas, 0 descartes na fila do ESP-NOW |
 
@@ -149,6 +152,7 @@ As rotas leves continuam em ~5–7 ms na COORD, como na Etapa 8 ([`api.md`](api.
 
 - **Limiares provisórios** (seção 4): os de agronomia ficam a definir com o pessoal do projeto de AUP.
 - `sem_comunicar` não é reconstruído entre boots quando a última leitura não tem hora válida (sem o DS3231, Etapa 6): depois de um power-on sem acerto de hora, só volta a ser avaliado com uma leitura nova.
-- No modo crítico o nó fica calado por projeto, e o `sem_comunicar` também ativa (na produção, depois de 3 h). Dá para suprimi-lo quando o último modo foi crítico (a decidir).
+- Resolvido em 26/11/2026: o silêncio depois do modo crítico vira `no_sem_bateria` (na produção, depois de 3 h), não `sem_comunicar`. Se o último pacote (o do crítico) se perder, o coordenador não sabe a causa e o silêncio continua como `sem_comunicar`.
+- A tela de avisos do app mostra o `no_sem_bateria` como "Atenção nos sensores" até ganhar um título próprio (por exemplo, "Nó desligou: bateria fraca", uma linha em `avisos-sensores.tsx`).
 - `erro_sensor_alimentacao` desligado até o divisor ser montado (Etapa 5, passo 10).
 - Títulos próprios na tela de avisos do app para os outros tipos (mudança no app, opcional).

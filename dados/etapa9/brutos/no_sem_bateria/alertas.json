@@ -1,0 +1,66 @@
+{
+  "alertas": [
+    {
+      "tipo": "solo_seco",
+      "mac": "88:57:21:70:a6:ec",
+      "nome": "horta1",
+      "estado": "ativo",
+      "desde": {
+        "utc": "2026-11-22T22:50:29Z",
+        "origem": "valida"
+      },
+      "ha_s": null,
+      "fim": null,
+      "valor": -89.4,
+      "limiar": 25.0,
+      "unidade": "pct"
+    },
+    {
+      "tipo": "bateria_baixa",
+      "mac": "88:57:21:70:a6:ec",
+      "nome": "horta1",
+      "estado": "ativo",
+      "desde": {
+        "utc": null,
+        "origem": "sem_hora"
+      },
+      "ha_s": 203,
+      "fim": null,
+      "valor": 3250,
+      "limiar": null,
+      "unidade": "mv"
+    },
+    {
+      "tipo": "bateria_critica",
+      "mac": "88:57:21:70:a6:ec",
+      "nome": "horta1",
+      "estado": "ativo",
+      "desde": {
+        "utc": null,
+        "origem": "sem_hora"
+      },
+      "ha_s": 124,
+      "fim": null,
+      "valor": 3250,
+      "limiar": null,
+      "unidade": "mv"
+    },
+    {
+      "tipo": "no_sem_bateria",
+      "mac": "88:57:21:70:a6:ec",
+      "nome": "horta1",
+      "estado": "ativo",
+      "desde": {
+        "utc": null,
+        "origem": "sem_hora"
+      },
+      "ha_s": 124,
+      "fim": null,
+      "valor": 120,
+      "limiar": 90,
+      "unidade": "s"
+    }
+  ],
+  "regras": "v1",
+  "ativos": 4
+}

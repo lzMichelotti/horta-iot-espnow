@@ -1,0 +1,75 @@
+{
+  "nos": [
+    {
+      "mac": "88:57:21:70:93:70",
+      "nome": "no1",
+      "cadastrado": true,
+      "calibracao": {
+        "solo_mv_seco": 1400,
+        "solo_mv_umido": 655
+      },
+      "visto": null,
+      "bateria_mv": null,
+      "modo_energia": null,
+      "alertas_ativos": 0,
+      "ultima_leitura": null,
+      "estatisticas": null
+    },
+    {
+      "mac": "88:57:21:70:a6:ec",
+      "nome": "horta1",
+      "cadastrado": true,
+      "calibracao": {
+        "solo_mv_seco": 1400,
+        "solo_mv_umido": 655
+      },
+      "visto": {
+        "ha_s": 123
+      },
+      "bateria_mv": 3250,
+      "modo_energia": "critico",
+      "alertas_ativos": 4,
+      "ultima_leitura": {
+        "mac": "88:57:21:70:a6:ec",
+        "nome": "horta1",
+        "hora": {
+          "utc": null,
+          "origem": "sem_hora"
+        },
+        "idade_s": 1,
+        "temperatura_c": 27.41,
+        "umidade_ar_pct": 44.03,
+        "solo_mv": 2066,
+        "solo_pct": 0.0,
+        "solo_classe": "seco",
+        "alimentacao_mv": 3250,
+        "estados": {
+          "temperatura": "ok",
+          "umidade_ar": "ok",
+          "solo": "ok",
+          "alimentacao": "ok"
+        },
+        "rssi_dbm": -50,
+        "no_boot": 21,
+        "no_seq": 9,
+        "perdidos_antes": 0
+      },
+      "estatisticas": {
+        "desde_boot_do_coordenador": true,
+        "recebidos": 37,
+        "rejeitados": 0,
+        "aceitos": 36,
+        "perdidos": 0,
+        "entrega_pct": 100.0,
+        "duplicados_ou_antigos": 0,
+        "fora_de_ordem": 1,
+        "sem_ack_no_no": 2,
+        "rssi_dbm": {
+          "medio": -50.2,
+          "min": -52,
+          "max": -49
+        }
+      }
+    }
+  ]
+}
