@@ -34,7 +34,7 @@ Justificativa em [`energia.md`](energia.md). Quantidades para **2 nós** (+ rese
 
 | # | Item | Especificação mínima | Qtd. | Para quê | Etapa | Preço |
 |---|---|---|---|---|---|---|
-| 11 | Caixa de proteção | **IP65 no mínimo**: 6 = vedada contra poeira; 5 = protegida contra jatos d'água de qualquer direção (chuva com vento, mangueira de rega). IP67 (imersão) não é necessário. Graus da norma IEC 60529. Cor clara, para esquentar menos ao sol | 3 (2 nós + coordenador) | Proteger placa, bateria e módulos | 12 | |
+| 11 | Caixa de proteção | **IP65 no mínimo**: 6 = vedada contra poeira; 5 = protegida contra jatos d'água de qualquer direção (chuva com vento, mangueira de rega). IP67 (imersão) não é necessário. Graus da norma IEC 60529. Cor clara, para esquentar menos ao sol | 2 (nós; o coordenador fica dentro de casa) | Proteger placa, bateria e módulos | 12 | |
 | 12 | Prensa-cabo | Compatível com o diâmetro do cabo dos sensores e com a parede da caixa | 6 (2 por caixa) | Passar os cabos do solo e do AHT20 sem perder a vedação | 12 | |
 | 13 | Sachês de sílica gel | Pequenos | 6 | Reduzir a condensação dentro da caixa | 12 | |
 | 14 | Fios e conectores travados | Cabo de 3 vias para o solo, 4 vias para o AHT20 (I²C) | conforme montagem | Ligações de campo (fio solto já deixou o AHT20 em erro) | 12 | |
@@ -43,7 +43,7 @@ Justificativa em [`energia.md`](energia.md). Quantidades para **2 nós** (+ rese
 
 | # | Item | Especificação mínima | Qtd. | Para quê | Etapa | Preço |
 |---|---|---|---|---|---|---|
-| 15 | Alimentação do coordenador | TODO: depende de haver tomada na horta. Sem tomada: power bank (serve aqui, porque o coordenador puxa corrente alta e constante e a tensão da bateria dele não é medida), com troca/recarga periódica | TODO | Manter o coordenador ligado 24 h no campo | 12 | |
+| 15 | Alimentação do coordenador | Carregador de celular USB comum, na tomada. O coordenador fica numa casa/cabana perto da horta (decisão de 26/11/2026): ele não dorme (rádio ligado 24 h, ~95–100 mA em recepção, ESP32 Datasheet v5.3, tab. 5-4), o que esgotaria uma 18650 em ~1 dia. Junto a uma janela virada para a horta; alcance a testar antes da instalação | 1 | Manter o coordenador ligado 24 h | 12 | já tem? |
 
 ## Fora da lista (decisão de 26/11/2026)
 
