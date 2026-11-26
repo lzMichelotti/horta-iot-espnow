@@ -19,6 +19,8 @@ namespace {
 alertas::Tabela tabelaAlertas;
 bool carregando = false;
 uint32_t transicoesNaCarga = 0;
+uint32_t registrosNaCarga = 0;
+uint64_t usNaCarga = 0;  // tempo das regras durante a carga (sem a leitura da flash)
 uint32_t ultimaUs = 0;
 uint32_t maiorUs = 0;
 
@@ -108,6 +110,8 @@ uint32_t limiteSemComunicar(protocolo::ModoBateria m) {
 void iniciarCarga() {
   carregando = true;
   transicoesNaCarga = 0;
+  registrosNaCarga = 0;
+  usNaCarga = 0;
   tabelaAlertas.limpar();
 }
 
@@ -115,6 +119,10 @@ void terminarCarga() {
   carregando = false;
   Serial.printf("[ALERTA] reconstruidos do historico: %u ativos (%lu transicoes na carga); tabela de %u bytes\n",
                 (unsigned)tabelaAlertas.ativos(), (unsigned long)transicoesNaCarga, (unsigned)sizeof(tabelaAlertas));
+  // Custo da reconstrução: só as regras (a leitura dos segmentos está no [FS] carga).
+  Serial.printf("[ALERTA] reconstrucao: %lu registros, %lu ms nas regras (media %lu us por registro)\n",
+                (unsigned long)registrosNaCarga, (unsigned long)(usNaCarga / 1000),
+                (unsigned long)(registrosNaCarga ? usNaCarga / registrosNaCarga : 0));
   for (size_t i = 0; i < alertas::MAX_NOS; i++) {
     const alertas::No& n = tabelaAlertas.posicao(i);
     if (!n.usado) continue;
@@ -144,7 +152,12 @@ void observar(const registro::Registro& r) {
 
   tabelaAlertas.avaliar(*n, l, limiares(), avisar, nullptr);
   ultimaUs = micros() - t0;
-  if (!carregando && ultimaUs > maiorUs) maiorUs = ultimaUs;
+  if (carregando) {
+    registrosNaCarga++;
+    usNaCarga += ultimaUs;
+  } else if (ultimaUs > maiorUs) {
+    maiorUs = ultimaUs;
+  }
 }
 
 void verificar() {

@@ -278,11 +278,19 @@ void setup() {
   autorizacao::iniciar();
   // Antes do rádio: a leitura dos segmentos não disputa com a fila do ESP-NOW.
   // Os alertas se reconstroem nessa mesma leitura (Etapa 9, sem escrita na flash).
+  // Até o rádio iniciar, o ESP-NOW não recebe (o nó fica sem ACK e guarda a
+  // leitura para o reenvio) e o HTTP não responde (o SoftAP ainda não existe).
+  uint32_t t0Carga = millis();
   regras::iniciarCarga();
   historico::iniciar(observarRegistro);
   regras::terminarCarga();
+  uint32_t tCarga = millis() - t0Carga;
   if (!radio::iniciar()) Serial.println("[BOOT] ERRO: radio nao iniciou");
+  uint32_t tRadio = millis();
   api::iniciar(atenderEspNow);  // depois do SoftAP
+  // millis() conta desde o início da aplicação (sem o bootloader).
+  Serial.printf("[BOOT] carga+alertas %lu ms; radio pronto em %lu ms; HTTP pronto em %lu ms (millis desde o boot)\n",
+                (unsigned long)tCarga, (unsigned long)tRadio, (unsigned long)millis());
   // conf = confirmação enviada ao nó ("boot:seq" gravado até, "nada" ou "erro"); ver docs/protocolo.md, seção 13.
   Serial.println("[CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,"
                  "solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags,idade_s,conf");
