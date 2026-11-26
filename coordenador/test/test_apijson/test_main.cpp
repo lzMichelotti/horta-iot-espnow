@@ -43,10 +43,11 @@ registro::Registro registroExemplo(uint8_t estados = 0, int16_t temp = 2166, uin
   return registro::montar(m, p);
 }
 
-std::string formatar(const registro::Registro& r, filtro::Hora h, uint32_t utc, bool temPct, int16_t pct) {
+std::string formatar(const registro::Registro& r, filtro::Hora h, uint32_t utc, bool temPct, int16_t pct,
+                     const char* classe = nullptr) {
   std::string s;
   json::Escritor e(paraString, &s);
-  apijson::leitura(e, 26104, r, "no1", h, utc, temPct, pct);
+  apijson::leitura(e, 26104, r, "no1", h, utc, temPct, pct, classe);
   TEST_ASSERT_TRUE(e.ok());
   return s;
 }
@@ -54,11 +55,12 @@ std::string formatar(const registro::Registro& r, filtro::Hora h, uint32_t utc, 
 }  // namespace
 
 void test_leitura_referencia() {
-  std::string s = formatar(registroExemplo(), filtro::Hora::VALIDA, 1791297000, true, 448);
+  std::string s = formatar(registroExemplo(), filtro::Hora::VALIDA, 1791297000, true, 448, "umido");
   TEST_ASSERT_EQUAL_STRING(
       "{\"id\":26104,\"mac\":\"88:57:21:70:93:70\",\"nome\":\"no1\","
       "\"hora\":{\"utc\":\"2026-10-06T14:30:00Z\",\"origem\":\"valida\"},\"idade_s\":0,"
-      "\"temperatura_c\":21.66,\"umidade_ar_pct\":75.14,\"solo_mv\":1066,\"solo_pct\":44.8,\"alimentacao_mv\":3386,"
+      "\"temperatura_c\":21.66,\"umidade_ar_pct\":75.14,\"solo_mv\":1066,\"solo_pct\":44.8,\"solo_classe\":\"umido\","
+      "\"alimentacao_mv\":3386,"
       "\"estados\":{\"temperatura\":\"ok\",\"umidade_ar\":\"ok\",\"solo\":\"ok\",\"alimentacao\":\"ok\"},"
       "\"rssi_dbm\":-22,\"no_boot\":38,\"no_seq\":3,\"perdidos_antes\":2}",
       s.c_str());
@@ -69,7 +71,7 @@ void test_erro_vira_null_e_sem_hora() {
   std::string s = formatar(registroExemplo(0x05), filtro::Hora::SEM_HORA, 0, false, 0);
   TEST_ASSERT_NOT_NULL(strstr(s.c_str(), "\"hora\":{\"utc\":null,\"origem\":\"sem_hora\"}"));
   TEST_ASSERT_NOT_NULL(strstr(s.c_str(), "\"temperatura_c\":null,\"umidade_ar_pct\":null,\"solo_mv\":1066,"
-                                         "\"solo_pct\":null"));
+                                         "\"solo_pct\":null,\"solo_classe\":null"));
   TEST_ASSERT_NOT_NULL(strstr(s.c_str(), "\"temperatura\":\"erro\",\"umidade_ar\":\"erro\""));
 }
 

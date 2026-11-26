@@ -43,7 +43,12 @@ bool haQuanto(const alertas::Ref& ref, uint32_t& segundos);
 uint32_t ultimaAvaliacaoUs();
 uint32_t maiorAvaliacaoUs();
 
-// Comando "alertas" da serial: estado de cada regra de cada nó.
+// Comando "alertas" da serial: estado de cada regra de cada nó. No env
+// teste_alertas, "alertas surdo N" faz o coordenador ignorar os pacotes
+// recebidos por N s (nó "fora de alcance": a fila do nó cresce e chega atrasada).
 void comando(const char* argumento);
+
+// true enquanto durar o "alertas surdo N" (sempre false fora do env teste_alertas).
+bool surdo();
 
 }  // namespace regras

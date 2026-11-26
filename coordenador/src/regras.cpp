@@ -88,7 +88,7 @@ bool haRecepcao(const alertas::Ref& ref, uint32_t& segundos) {
 alertas::Limiares limiares() {
   alertas::Limiares l{};
   l.soloSecoDecimos = config::ALERTA_SOLO_SECO_DECIMOS;
-  l.soloUmidoDecimos = config::ALERTA_SOLO_UMIDO_DECIMOS;
+  l.soloMuitoUmidoDecimos = config::ALERTA_SOLO_MUITO_UMIDO_DECIMOS;
   l.soloEncharcadoDecimos = config::ALERTA_SOLO_ENCHARCADO_DECIMOS;
   l.soloBandaDecimos = config::ALERTA_SOLO_BANDA_DECIMOS;
   l.temperaturaAltaC100 = config::ALERTA_TEMP_ALTA_C100;
@@ -187,10 +187,30 @@ bool haQuanto(const alertas::Ref& ref, uint32_t& segundos) {
 uint32_t ultimaAvaliacaoUs() { return ultimaUs; }
 uint32_t maiorAvaliacaoUs() { return maiorUs; }
 
-void comando(const char*) {
-  Serial.printf("[ALERTA] %u ativos; avaliacao: ultima %lu us, maior %lu us; tabela de %u bytes\n",
+#ifdef TESTE_ALERTAS
+uint32_t surdoAte = 0;
+bool surdo() { return surdoAte != 0 && (int32_t)(millis() - surdoAte) < 0; }
+#else
+bool surdo() { return false; }
+#endif
+
+void comando(const char* argumento) {
+#ifdef TESTE_ALERTAS
+  if (argumento != nullptr && strncmp(argumento, "surdo ", 6) == 0) {
+    uint32_t s = strtoul(argumento + 6, nullptr, 10);
+    surdoAte = millis() + s * 1000;
+    if (surdoAte == 0) surdoAte = 1;
+    Serial.printf("[ALERTA] TESTE: ignorando os pacotes recebidos por %lu s\n", (unsigned long)s);
+    return;
+  }
+#endif
+  (void)argumento;
+  // Heap: Arduino-ESP32 (Esp.h) sobre heap_caps do ESP-IDF v5.5 (Heap Memory Allocation).
+  Serial.printf("[ALERTA] %u ativos; avaliacao: ultima %lu us, maior %lu us; tabela de %u bytes; "
+                "heap livre %lu, minimo %lu\n",
                 (unsigned)tabelaAlertas.ativos(), (unsigned long)ultimaUs, (unsigned long)maiorUs,
-                (unsigned)sizeof(tabelaAlertas));
+                (unsigned)sizeof(tabelaAlertas), (unsigned long)ESP.getFreeHeap(),
+                (unsigned long)ESP.getMinFreeHeap());
   Serial.println("[ALERTA] mac,nome,tipo,estado,seguidas,valor,ha_s");
   for (size_t i = 0; i < alertas::MAX_NOS; i++) {
     const alertas::No& n = tabelaAlertas.posicao(i);

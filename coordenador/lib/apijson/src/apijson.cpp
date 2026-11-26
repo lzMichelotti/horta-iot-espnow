@@ -39,7 +39,7 @@ bool temValor(protocolo::Estado s) { return s == protocolo::Estado::OK || s == p
 }  // namespace
 
 void leitura(json::Escritor& e, int64_t id, const registro::Registro& r, const char* nome, filtro::Hora h,
-             uint32_t utcLeitura, bool temPct, int16_t pctDecimos) {
+             uint32_t utcLeitura, bool temPct, int16_t pctDecimos, const char* soloClasse) {
   protocolo::PacoteLeitura p = r.pacote;  // cópia: não ler campos packed por referência
   using protocolo::Grandeza;
   protocolo::Estado eT = protocolo::lerEstado(p.estados, Grandeza::TEMPERATURA);
@@ -68,6 +68,9 @@ void leitura(json::Escritor& e, int64_t id, const registro::Registro& r, const c
   else e.nulo();
   e.chave("solo_pct");
   if (temPct) e.decimal(pctDecimos, 1);
+  else e.nulo();
+  e.chave("solo_classe");  // revisão 1.2 (Etapa 9)
+  if (soloClasse != nullptr) e.texto(soloClasse);
   else e.nulo();
   e.chave("alimentacao_mv");
   if (temValor(eA)) e.natural(p.alimentacao_mv);

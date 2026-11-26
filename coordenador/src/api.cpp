@@ -163,7 +163,10 @@ void leituraDoRegistro(json::Escritor& e, int64_t id, const registro::Registro& 
   filtro::Hora h = filtro::horaEfetiva(r, consulta::ancoras(), utc);
   int16_t pct = 0;
   bool temPct = configuracao::umidadeSolo(r, pct);
-  apijson::leitura(e, id, r, nomeDoNo(mac), h, utc, temPct, pct);
+  // Classe pelos limites do coordenador (Etapa 9); o % limitado a 0–100 basta,
+  // porque os dois limites (seco e muito úmido) ficam dentro dessa faixa.
+  const char* classe = alertas::nomeClasseSolo(alertas::classificarSolo(temPct, pct, regras::limiares()));
+  apijson::leitura(e, id, r, nomeDoNo(mac), h, utc, temPct, pct, classe);
 }
 
 // Segundos desde a recepção do registro, pelo relógio interno (vale sem hora
@@ -210,13 +213,13 @@ void noJson(json::Escritor& e, const uint8_t mac[6]) {
   } else {
     e.nulo();
   }
-  // Etapa 9 (campos novos): modo da bateria enviado pelo nó, classe do solo
-  // pela calibração do nó e quantos alertas ativos ele tem.
+  // Etapa 9 (campos novos): modo da bateria enviado pelo nó (o nome que o app
+  // já espera, tipos.ts: modo_energia; null se desconhecido) e quantos alertas
+  // ativos o nó tem. A classe do solo vai em cada leitura (solo_classe).
   const alertas::No* a = regras::tabela().encontrar(mac);
-  e.campo("bateria_modo", protocolo::nomeModoBateria(a ? a->modo : protocolo::ModoBateria::DESCONHECIDO));
-  const char* classe = a ? alertas::nomeClasseSolo(a->classe) : nullptr;
-  e.chave("solo_classe");
-  if (classe != nullptr) e.texto(classe);
+  protocolo::ModoBateria modo = a ? a->modo : protocolo::ModoBateria::DESCONHECIDO;
+  e.chave("modo_energia");
+  if (modo != protocolo::ModoBateria::DESCONHECIDO) e.texto(protocolo::nomeModoBateria(modo));
   else e.nulo();
   e.campoNatural("alertas_ativos", a ? alertas::Tabela::ativos(*a) : 0);
   e.chave("ultima_leitura");

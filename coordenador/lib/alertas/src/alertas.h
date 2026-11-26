@@ -40,15 +40,16 @@ const char* nomeUnidade(Unidade u);  // "pct", "c", "mv", "s" ou nullptr
 
 // ---------------------------------------------------------------- Solo
 // Classe a partir do % SEM limite (cadastro::umidadeSoloDecimosSemLimite), com a
-// calibração do próprio nó: abaixo de seco → SECO; até úmido → ADEQUADO; até
-// encharcado → UMIDO; acima → ENCHARCADO.
-enum class ClasseSolo : uint8_t { DESCONHECIDA, SECO, ADEQUADO, UMIDO, ENCHARCADO };
+// calibração do próprio nó: abaixo de seco → SECO; acima de muito úmido →
+// MUITO_UMIDO; entre os dois → UMIDO. São as 3 classes que o app já exibe
+// (repositório Hortas_Urbanas, frontend/src/features/coordenador/tipos.ts).
+enum class ClasseSolo : uint8_t { DESCONHECIDA, SECO, UMIDO, MUITO_UMIDO };
 const char* nomeClasseSolo(ClasseSolo c);  // nullptr para DESCONHECIDA
 
 struct Limiares {
   int32_t soloSecoDecimos;        // abaixo: classe seco; alerta solo_seco
-  int32_t soloUmidoDecimos;       // a partir: classe umido
-  int32_t soloEncharcadoDecimos;  // acima: classe encharcado; alerta solo_encharcado
+  int32_t soloMuitoUmidoDecimos;  // acima: classe muito_umido
+  int32_t soloEncharcadoDecimos;  // acima: alerta solo_encharcado
   int32_t soloBandaDecimos;       // histerese dos alertas do solo
   int32_t temperaturaAltaC100;
   int32_t temperaturaBaixaC100;

@@ -23,7 +23,8 @@ void hora(json::Escritor& e, filtro::Hora h, uint32_t utc);
 // Uma leitura do histórico (objeto). `utcLeitura` é a hora efetiva (já sem a
 // idade); `pctDecimos` vale só com temPct. O nome vem do cadastro atual.
 // id < 0: sem o campo "id" (última leitura em RAM, que não tem id global).
+// soloClasse (revisão 1.2): "seco", "umido", "muito_umido" ou nullptr (null).
 void leitura(json::Escritor& e, int64_t id, const registro::Registro& r, const char* nome, filtro::Hora h,
-             uint32_t utcLeitura, bool temPct, int16_t pctDecimos);
+             uint32_t utcLeitura, bool temPct, int16_t pctDecimos, const char* soloClasse = nullptr);
 
 }  // namespace apijson

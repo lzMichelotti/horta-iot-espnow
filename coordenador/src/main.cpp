@@ -212,6 +212,7 @@ void responder(nos::No& n, const uint8_t mac[6], char (&texto)[24]) {
 }
 
 void processar(const radio::Recebido& r) {
+  if (regras::surdo()) return;  // só no env teste_alertas: simula o nó fora de alcance
   nos::No* n = nos::buscar(r.mac);
   if (n == nullptr) {
     Serial.printf("[ESPNOW] tabela de nos cheia, pacote de " MACSTR " ignorado\n", MAC2STR(r.mac));

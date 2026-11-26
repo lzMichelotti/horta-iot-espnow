@@ -23,7 +23,7 @@ const uint8_t MAC2[6] = {0x02, 0, 0, 0, 0, 0x02};
 Limiares lim() {
   Limiares l{};
   l.soloSecoDecimos = 200;        // 20 %
-  l.soloUmidoDecimos = 800;       // 80 %
+  l.soloMuitoUmidoDecimos = 900;  // 90 %
   l.soloEncharcadoDecimos = 1050; // 105 %
   l.soloBandaDecimos = 50;        // 5 %
   l.temperaturaAltaC100 = 3500;
@@ -70,11 +70,11 @@ void test_classificacao_do_solo() {
   TEST_ASSERT_EQUAL(ClasseSolo::DESCONHECIDA, classificarSolo(false, 500, l));
   TEST_ASSERT_EQUAL(ClasseSolo::SECO, classificarSolo(true, -1031, l));  // ar (22/11)
   TEST_ASSERT_EQUAL(ClasseSolo::SECO, classificarSolo(true, 199, l));
-  TEST_ASSERT_EQUAL(ClasseSolo::ADEQUADO, classificarSolo(true, 200, l));
-  TEST_ASSERT_EQUAL(ClasseSolo::ADEQUADO, classificarSolo(true, 799, l));
-  TEST_ASSERT_EQUAL(ClasseSolo::UMIDO, classificarSolo(true, 800, l));
-  TEST_ASSERT_EQUAL(ClasseSolo::UMIDO, classificarSolo(true, 1050, l));
-  TEST_ASSERT_EQUAL(ClasseSolo::ENCHARCADO, classificarSolo(true, 1051, l));
+  TEST_ASSERT_EQUAL(ClasseSolo::UMIDO, classificarSolo(true, 200, l));
+  TEST_ASSERT_EQUAL(ClasseSolo::UMIDO, classificarSolo(true, 900, l));
+  TEST_ASSERT_EQUAL(ClasseSolo::MUITO_UMIDO, classificarSolo(true, 901, l));
+  TEST_ASSERT_EQUAL(ClasseSolo::MUITO_UMIDO, classificarSolo(true, 1095, l));  // logo após a rega
+  TEST_ASSERT_EQUAL_STRING("muito_umido", nomeClasseSolo(ClasseSolo::MUITO_UMIDO));
   TEST_ASSERT_EQUAL_STRING("seco", nomeClasseSolo(ClasseSolo::SECO));
   TEST_ASSERT_NULL(nomeClasseSolo(ClasseSolo::DESCONHECIDA));
 }

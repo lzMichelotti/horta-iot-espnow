@@ -116,8 +116,11 @@ constexpr uint32_t INTERVALO_RESUMO_MS = 60000;  // linha [RESUMO] por nó
 // Solo: % pela calibração de CADA nó (cadastro): 0 % = solo seco ao toque
 // ("hora de regar"), 100 % = ~1 h após a rega (docs/sensores.md, 4.3). Os
 // limiares valem para todos os nós; a calibração é que é por nó.
-constexpr int32_t ALERTA_SOLO_SECO_DECIMOS = 200;        // TODO: abaixo de 20 % = seco. Sem fonte: a definir com AUP
-constexpr int32_t ALERTA_SOLO_UMIDO_DECIMOS = 800;       // TODO: a partir de 80 % = classe "umido". Sem fonte: a definir com AUP
+// Classes (seco, umido, muito_umido) e os dois limites abaixo = os provisórios
+// que o app já usava (repositório Hortas_Urbanas, classificacao.ts:
+// LIMITES_PROVISORIOS), agora decididos no coordenador.
+constexpr int32_t ALERTA_SOLO_SECO_DECIMOS = 250;        // TODO: abaixo de 25 % = seco (e alerta solo_seco). Do app; sem fonte agronômica: a definir com AUP
+constexpr int32_t ALERTA_SOLO_MUITO_UMIDO_DECIMOS = 900; // TODO: acima de 90 % = classe muito_umido. Do app; a definir com AUP
 constexpr int32_t ALERTA_SOLO_ENCHARCADO_DECIMOS = 1050; // TODO: acima de 105 % = encharcado. Logo após a rega a leitura
                                                          // chegou a ~110 % (584 mV) e voltou a ~100 % em 1 h (sensores.md 4.3–4.4)
 constexpr int32_t ALERTA_SOLO_BANDA_DECIMOS = 50;        // TODO: histerese de 5 %. ~12× o ruído da média de 64 leituras

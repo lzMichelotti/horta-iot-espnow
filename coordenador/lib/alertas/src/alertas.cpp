@@ -83,20 +83,18 @@ const char* nomeUnidade(Unidade u) {
 
 const char* nomeClasseSolo(ClasseSolo c) {
   switch (c) {
-    case ClasseSolo::SECO:       return "seco";
-    case ClasseSolo::ADEQUADO:   return "adequado";
-    case ClasseSolo::UMIDO:      return "umido";
-    case ClasseSolo::ENCHARCADO: return "encharcado";
-    default:                     return nullptr;
+    case ClasseSolo::SECO:        return "seco";
+    case ClasseSolo::UMIDO:       return "umido";
+    case ClasseSolo::MUITO_UMIDO: return "muito_umido";
+    default:                      return nullptr;
   }
 }
 
 ClasseSolo classificarSolo(bool temPct, int32_t decimos, const Limiares& l) {
   if (!temPct) return ClasseSolo::DESCONHECIDA;
   if (decimos < l.soloSecoDecimos) return ClasseSolo::SECO;
-  if (decimos < l.soloUmidoDecimos) return ClasseSolo::ADEQUADO;
-  if (decimos <= l.soloEncharcadoDecimos) return ClasseSolo::UMIDO;
-  return ClasseSolo::ENCHARCADO;
+  if (decimos > l.soloMuitoUmidoDecimos) return ClasseSolo::MUITO_UMIDO;
+  return ClasseSolo::UMIDO;
 }
 
 const No* Tabela::encontrar(const uint8_t mac[6]) const {
