@@ -25,7 +25,7 @@ Justificativa em [`energia.md`](energia.md). Quantidades para **2 nós** (+ rese
 
 | # | Item | Especificação mínima | Qtd. | Para quê | Etapa | Preço |
 |---|---|---|---|---|---|---|
-| 9 | Placa perfurada (ilhada) para solda | Tamanho que caiba na caixa | 3 | Montagem definitiva, fora da protoboard (trilhos com mau contato) | 12 | |
+| 9 | Placa perfurada (ilhada) para solda | Tamanho que caiba na caixa | 2 (+1 reserva) | Montagem definitiva, fora da protoboard (trilhos com mau contato) | 12 | |
 | — | Sensores (AHT20, solo V1.2) e ESP32 do nó 2 | Iguais aos atuais | — | — | 12 | já tem (informado em 26/11/2026) |
 
 ## Caixas e passagem dos cabos
@@ -33,7 +33,7 @@ Justificativa em [`energia.md`](energia.md). Quantidades para **2 nós** (+ rese
 | # | Item | Especificação mínima | Qtd. | Para quê | Etapa | Preço |
 |---|---|---|---|---|---|---|
 | 11 | Caixa de proteção | **IP65 no mínimo**: 6 = vedada contra poeira; 5 = protegida contra jatos d'água de qualquer direção (chuva com vento, mangueira de rega). IP67 (imersão) não é necessário. Graus da norma IEC 60529. Cor clara, para esquentar menos ao sol | 2 (nós; o coordenador fica dentro de casa) | Proteger placa, bateria e módulos | 12 | |
-| 12 | Prensa-cabo | Compatível com o diâmetro do cabo dos sensores e com a parede da caixa | 6 (2 por caixa) | Passar os cabos do solo e do AHT20 sem perder a vedação | 12 | |
+| 12 | Prensa-cabo | Compatível com o diâmetro do cabo dos sensores e com a parede da caixa | 4 (2 por caixa) | Passar os cabos do solo e do AHT20 sem perder a vedação | 12 | |
 | 13 | Sachês de sílica gel | Pequenos | 6 | Reduzir a condensação dentro da caixa | 12 | |
 | 14 | Fios e conectores travados | Cabo de 3 vias para o solo, 4 vias para o AHT20 (I²C) | conforme montagem | Ligações de campo (fio solto já deixou o AHT20 em erro) | 12 | |
 
