@@ -1,7 +1,8 @@
 # API HTTP do coordenador (v1)
 
-> **Situação: especificação aprovada (Etapa 8, passos 2 e 3); implementação em andamento.**
+> **Situação: implementada e medida (Etapa 8); alertas na Etapa 9.**
 > **Revisão 1.1 (20/10/2026, firmware `coordenador 8.1`):** `/status` ganha `coordenador` e `armazenamento.geracao` (seção 2.4.1), campos novos que não quebram a API v1.
+> **Revisão 1.2 (26/11/2026, Etapa 9):** `/alertas` preenchida (seção 4.9); `/nos` com `modo_energia` e `alertas_ativos` (seção 4.2); cada leitura com `solo_classe` (seção 4.4). Só campos novos, API v1 compatível; o único valor que muda é `"regras"`, de `"nao_implementadas"` para `"v1"`. Os nomes e valores de `modo_energia` e `solo_classe` são os que o app já esperava (repositório do app, `tipos.ts`).
 
 API para o app (e para um notebook) consultar o sistema pela rede Wi-Fi do próprio coordenador, sem Internet.
 
@@ -139,7 +140,7 @@ Authorization: Bearer <token>
 | GET | `/api/v1/leituras/atuais` | só a última leitura de cada nó (tela inicial do app) | não |
 | GET | `/api/v1/leituras` | histórico paginado, por nó e período | não |
 | GET | `/api/v1/exportar.csv` | histórico em CSV (download) | não |
-| GET | `/api/v1/alertas` | esqueleto (regras na Etapa 9) | não |
+| GET | `/api/v1/alertas` | alertas ativos (com `?incluir=resolvidos`, também os resolvidos) | não |
 | PUT | `/api/v1/hora` | acertar o relógio | **sim** |
 | PATCH | `/api/v1/nos/{mac}` | nome e calibração do solo | **sim** |
 | POST | `/api/v1/nos/{mac}/calibrar` | ponto seco ou úmido = solo da última leitura (calibração em campo) | **sim** |
@@ -179,6 +180,8 @@ Authorization: Bearer <token>
       "calibracao": { "solo_mv_seco": 1400, "solo_mv_umido": 655 },
       "visto": { "ha_s": 9 },
       "bateria_mv": 3386,
+      "modo_energia": "normal",
+      "alertas_ativos": 0,
       "ultima_leitura": { "...": "mesmo formato da seção 4.4" },
       "estatisticas": {
         "desde_boot_do_coordenador": true,
@@ -195,6 +198,8 @@ Authorization: Bearer <token>
 - `visto.ha_s`: segundos desde a recepção da última leitura gravada (pelo relógio interno, vale mesmo sem hora válida; `visto: null` se não dá para saber, por exemplo, de um boot anterior sem hora). A hora da leitura está em `ultima_leitura.hora`.
 - `ultima_leitura` não tem `id` (vem da RAM); o histórico tem.
 - `estatisticas` são contadas **desde o último boot do coordenador** (ficam em RAM).
+- `modo_energia` (revisão 1.2): modo de proteção da bateria **decidido no nó** e enviado no pacote ([`protocolo.md`](protocolo.md), seção 14): `normal`, `economia` ou `critico`; `null` se desconhecido (firmware anterior à Etapa 9, ou nó sem leitura). `critico` = o nó mandou o último pacote antes de silenciar.
+- `alertas_ativos` (revisão 1.2): quantos alertas deste nó estão ativos em `/alertas`.
 - Sem nenhuma leitura ainda: `ultima_leitura: null`, `visto: null`.
 
 ### 4.3 `GET /api/v1/leituras/atuais`
@@ -217,7 +222,7 @@ Parâmetros: `no` (MAC, opcional), `de` e `ate` (ISO 8601 UTC ou epoch, opcionai
       "hora": { "utc": "2026-10-19T14:29:51Z", "origem": "valida" },
       "idade_s": 0,
       "temperatura_c": 21.66, "umidade_ar_pct": 75.14,
-      "solo_mv": 1066, "solo_pct": 44.8, "alimentacao_mv": 3386,
+      "solo_mv": 1066, "solo_pct": 44.8, "solo_classe": "umido", "alimentacao_mv": 3386,
       "estados": { "temperatura": "ok", "umidade_ar": "ok", "solo": "ok", "alimentacao": "ok" },
       "rssi_dbm": -61,
       "no_boot": 38, "no_seq": 3, "perdidos_antes": 0
@@ -228,6 +233,7 @@ Parâmetros: `no` (MAC, opcional), `de` e `ate` (ISO 8601 UTC ou epoch, opcionai
 ```
 
 - `idade_s > 0`: a leitura esperou na fila do nó (coordenador fora do ar) e chegou depois.
+- `solo_classe` (revisão 1.2): `seco`, `umido` ou `muito_umido`, pelo `solo_pct` (calibração **atual** do nó) e pelos limites do coordenador ([`alertas.md`](alertas.md), seção 3); `null` sem calibração ou com o solo em erro. Vale em toda leitura: `/leituras`, `/leituras/atuais` e `ultima_leitura` de `/nos`. O app só exibe o rótulo.
 - `perdidos_antes`: leituras que o próprio nó descartou antes desta (fila cheia).
 - Exemplos: `/api/v1/leituras?no=88:57:21:70:93:70&de=2026-10-19T00:00:00Z&limite=100`; sincronização incremental: `?ordem=asc&cursor=<proximo_cursor guardado>`.
 
@@ -268,13 +274,41 @@ Usa o `solo_mv` da **última leitura** do nó como ponto seco ou úmido (procedi
 
 ### 4.9 `GET /api/v1/alertas`
 
-Só o formato, para o app já ter onde mostrar; as regras são da Etapa 9:
+Alertas gerados no coordenador a partir das leituras (Etapa 9; regras, limiares e estados em [`alertas.md`](alertas.md)). Por padrão, **só os ativos**; com `?incluir=resolvidos`, também os resolvidos que o coordenador ainda guarda (um por regra e por nó, até a regra ativar de novo). Outro valor de `incluir`: `400`.
 
 ```json
-{ "alertas": [], "regras": "nao_implementadas" }
+{
+  "alertas": [
+    {
+      "tipo": "solo_seco", "mac": "88:57:21:70:a6:ec", "nome": "horta1",
+      "estado": "ativo",
+      "desde": { "utc": "2026-11-22T18:20:05Z", "origem": "valida" },
+      "ha_s": 1260,
+      "fim": null,
+      "valor": -101.2, "limiar": 25.0, "unidade": "pct"
+    }
+  ],
+  "regras": "v1",
+  "ativos": 1
+}
 ```
 
-Formato previsto de cada alerta: `{ "tipo": "bateria_baixa", "mac": "...", "desde": { "utc": ..., "origem": ... }, "valor": 3150, "limiar": 3300 }`.
+| Campo | Significado |
+|---|---|
+| `tipo`, `mac`, `desde`, `valor`, `limiar` | os do formato previsto na Etapa 8 |
+| `tipo` | `solo_seco`, `solo_encharcado`, `temperatura_alta`, `temperatura_baixa`, `bateria_baixa`, `bateria_critica`, `sem_comunicar`, `erro_sensor_ar`, `erro_sensor_solo`, `erro_sensor_alimentacao` |
+| `nome` | nome do nó no cadastro atual |
+| `estado` | `ativo` ou `resolvido` |
+| `desde` | hora da **leitura** que começou o alerta, no mesmo formato de `/leituras` (seção 2.2): `valida`, `reconstruida` ou `sem_hora` (`utc: null`). No `sem_comunicar`, é a última leitura recebida antes do silêncio |
+| `ha_s` | segundos desde essa leitura, pelo relógio interno (vale sem hora válida, no mesmo boot do coordenador); `null` se não dá para saber |
+| `fim` | hora da leitura que resolveu (`null` se ativo) |
+| `valor` | **último** valor medido (o atual, não o do início): solo em % com 1 casa (sem o limite de 0–100 %), temperatura em °C com 2 casas, bateria em mV, `sem_comunicar` em s; `null` nos erros de sensor |
+| `limiar` | limiar de ativação, na mesma unidade; `null` na bateria (o modo é decidido no nó) e nos erros de sensor. No `sem_comunicar`, depende do modo da bateria do nó |
+| `unidade` | `pct`, `c`, `mv`, `s` ou `null` |
+| `regras` | versão das regras (`"v1"`); era `"nao_implementadas"` antes da Etapa 9 |
+| `ativos` | total de alertas ativos |
+
+Os alertas vivem na RAM do coordenador e são **reconstruídos do histórico** a cada boot (com o início correto); o `sem_comunicar` só é reconstruído depois da primeira verificação, e a hora dos alertas que começaram num boot sem hora acertada fica `sem_hora`.
 
 ## 5. Desempenho e limites
 
@@ -329,6 +363,8 @@ Medido em 20/10/2026 na bancada: PC conectado à `horta-coord` a ~1 m, históric
 No navegador deste aparelho, o endereço da rede local foi alcançado pelo Wi-Fi mesmo com os dados móveis ligados: a rede `192.168.4.0/24` é a do Wi-Fi conectado. **Isso não garante o mesmo comportamento em todo app e aparelho.** Um app nativo deve continuar pedindo a rede Wi-Fi explicitamente (seção 1), e a Etapa 10 testa isso no app.
 
 Observações do teste: a COORD tinha reiniciado e estava **sem hora** (`"valida": false`), então as leituras do NÓ 1 apareceram como `sem_hora`. É o caso que o app resolve enviando a hora do celular ao conectar (`PUT /api/v1/hora`, seção 4.6). As leituras dos nós `02:00:00:00:00:01` e `:02` são os registros sintéticos criados para o teste de exportação completa. Em 20/10/2026 o histórico foi exportado (26 217 linhas, 84 % sintéticas; as 4 073 do NÓ 1 em [`dados/etapa10/brutos`](../dados/etapa10/brutos/)) e formatado, e esses nós saíram do `/nos`.
+
+**Etapa 9 (26/11/2026, revisão 1.2):** com os alertas ligados, `/status`, `/nos`, `/leituras/atuais` e `/alertas` ficaram em 5,2–6,7 ms na COORD (mediana; 20 requisições cada, 0 falhas), pela ponte HTTP, já que o PC não tem Wi-Fi ([`alertas.md`](alertas.md), seção 8).
 
 ## 6. Decisões (passo 2)
 
