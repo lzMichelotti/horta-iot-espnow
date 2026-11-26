@@ -82,6 +82,34 @@ constexpr uint8_t gravarModoBateria(uint8_t flags, ModoBateria m) {
 
 const char* nomeModoBateria(ModoBateria m);
 
+// ---------------------------------------------------------------- Ciclo do nó
+// Período entre pacotes do nó em cada modo de bateria. Fonte ÚNICA: o nó dorme
+// por ele (no_sensor/src/protecao.cpp) e o coordenador espera por ele (alerta
+// sem_comunicar, docs/alertas.md). Não muda o pacote (VERSAO continua 3).
+// 15 min: Etapa 5, passo 6 (motivo em no_sensor/src/config.h, seção "Ciclo").
+// Bancada: -D PERIODO_BANCADA_MS=10000 (nó: envs bancada e teste_*; coordenador:
+// env teste_alertas) e -D TESTE_RAMPA_ALIM (nó: env teste_tensao; coordenador:
+// env teste_alertas) para percorrer os modos de bateria em poucos minutos.
+#ifdef PERIODO_BANCADA_MS
+constexpr uint32_t PERIODO_CICLO_MS = PERIODO_BANCADA_MS;
+#else
+constexpr uint32_t PERIODO_CICLO_MS = 15UL * 60 * 1000;
+#endif
+#ifdef TESTE_RAMPA_ALIM
+constexpr uint32_t FATOR_PERIODO_ECONOMIA = 2;
+constexpr uint32_t PERIODO_CRITICO_MS = 30000;
+#else
+constexpr uint32_t FATOR_PERIODO_ECONOMIA = 4;    // economia: período × 4 (1 h com 15 min)
+constexpr uint32_t PERIODO_CRITICO_MS = 3600000;  // crítico: acorda a cada 1 h só para medir a tensão, sem rádio
+#endif
+
+// Período do nó no modo m. DESCONHECIDO (firmware anterior à Etapa 9) = normal.
+constexpr uint32_t periodoMs(ModoBateria m) {
+  return m == ModoBateria::ECONOMIA  ? PERIODO_CICLO_MS * FATOR_PERIODO_ECONOMIA
+         : m == ModoBateria::CRITICO ? PERIODO_CRITICO_MS
+                                     : PERIODO_CICLO_MS;
+}
+
 // ---------------------------------------------------------------- Pacote
 // Todos os campos multibyte são little-endian (ordem nativa do ESP32 e do PC).
 struct __attribute__((packed)) PacoteLeitura {

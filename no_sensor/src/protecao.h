@@ -24,8 +24,8 @@ bool cicloAnteriorAbortado();
 
 enum class Modo : uint8_t {
   NORMAL,    // envia e dorme o período
-  ECONOMIA,  // V < V_TX: envia e dorme FATOR_PERIODO_ECONOMIA × o período
-  CRITICO,   // V < V_CRIT: não liga o rádio e dorme PERIODO_CRITICO_MS
+  ECONOMIA,  // V < V_TX: envia e dorme protocolo::FATOR_PERIODO_ECONOMIA × o período
+  CRITICO,   // V < V_CRIT: não liga o rádio e dorme protocolo::PERIODO_CRITICO_MS
 };
 const char* nomeModo(Modo m);
 

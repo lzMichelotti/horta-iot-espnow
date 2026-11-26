@@ -64,10 +64,12 @@ Os dois limites são os provisórios que o app guardava (`classificacao.ts`, `LI
 | `ALERTA_ERROS_PARA_ATIVAR` | 2 | idem |
 | `ALERTA_ERRO_ALIMENTACAO` | desligado | o divisor está desmontado: a alimentação chega sempre `fora_de_faixa` (Etapa 5, passo 10) |
 | `ALERTA_SEM_COMUNICAR_CICLOS` | 3 períodos (45 min no modo normal) | tolera 2 ciclos sem ACK; a fila do nó guarda e reenvia as leituras ([`protocolo.md`](protocolo.md), 13) |
-| Períodos do nó (`ALERTA_PERIODO_NO_S`, `ALERTA_FATOR_ECONOMIA`, `ALERTA_PERIODO_CRITICO_S`) | 15 min, ×4, 1 h | cópia de `no_sensor/src/config.h`; mudar lá = mudar aqui |
+| Períodos do nó (`protocolo::PERIODO_CICLO_MS`, `FATOR_PERIODO_ECONOMIA`, `PERIODO_CRITICO_MS`) | 15 min, ×4, 1 h | **fonte única** em [`comum/protocolo/src/protocolo.h`](../comum/protocolo/src/protocolo.h) ("Ciclo do nó"): o nó dorme por eles e o coordenador espera por eles (`protocolo::periodoMs`, `alertas::limiteSemComunicarS`) |
 | Bateria (`V_TX_MV`, `V_CRIT_MV` no nó) | 0 = desligado | a bateria ainda não foi escolhida (Etapa 5, passo 10) |
 
-O env `teste_alertas` do coordenador usa os períodos da bancada (10 s; economia ×2; crítico 30 s, os do env `teste_tensao` do nó).
+O env `teste_alertas` do coordenador usa os períodos da bancada (10 s; economia ×2; crítico 30 s), com as mesmas macros do env `teste_tensao` do nó (`-D PERIODO_BANCADA_MS=10000 -D TESTE_RAMPA_ALIM`).
+
+Limite do `sem_comunicar` em produção (3 períodos do modo da última leitura): **45 min** no normal (e no `desconhecido`), **3 h** na economia (3 × 1 h) e 3 h no crítico. Um nó em economia calado por 2 h não ativa o alerta (teste `test_limite_sem_comunicar_segue_o_modo_do_no`).
 
 ## 5. Custo
 

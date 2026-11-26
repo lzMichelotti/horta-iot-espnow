@@ -241,6 +241,31 @@ void test_sem_comunicar_ativa_por_tempo_e_resolve_com_leitura_atrasada() {
   TEST_ASSERT_EQUAL_UINT32(400, s.fim.idade_s);
 }
 
+// O limite segue o modo da última leitura, com o período do próprio nó
+// (comum/protocolo): em economia o nó manda a cada período × 4 e não pode
+// virar sem_comunicar com o limite do modo normal.
+void test_limite_sem_comunicar_segue_o_modo_do_no() {
+  using protocolo::periodoMs;
+  TEST_ASSERT_EQUAL_UINT32(3 * 15 * 60, limiteSemComunicarS(ModoBateria::NORMAL, 3));       // 45 min
+  TEST_ASSERT_EQUAL_UINT32(3 * 15 * 60, limiteSemComunicarS(ModoBateria::DESCONHECIDO, 3)); // firmware antigo
+  TEST_ASSERT_EQUAL_UINT32(3 * 3600, limiteSemComunicarS(ModoBateria::ECONOMIA, 3));        // 3 × 1 h
+  TEST_ASSERT_EQUAL_UINT32(3 * 3600, limiteSemComunicarS(ModoBateria::CRITICO, 3));
+  TEST_ASSERT_EQUAL_UINT32(periodoMs(ModoBateria::ECONOMIA) / 1000 * 3, limiteSemComunicarS(ModoBateria::ECONOMIA, 3));
+
+  // Nó em economia calado por 2 h (menos que 3 × 1 h): sem alerta.
+  Tabela t;
+  No& n = *t.buscar(MAC1, true);
+  Leitura e = ok();
+  e.modo = ModoBateria::ECONOMIA;
+  t.avaliar(n, e, lim());
+  t.verificarSilencio(n, 2 * 3600, limiteSemComunicarS(n.modo, 3));
+  TEST_ASSERT_FALSE(n.estado[static_cast<int>(Tipo::SEM_COMUNICAR)].ativo);
+  // Com o limite do modo normal (45 min) teria ativado: era o alarme falso.
+  TEST_ASSERT_TRUE(2 * 3600 > limiteSemComunicarS(ModoBateria::NORMAL, 3));
+  t.verificarSilencio(n, 3 * 3600 + 1, limiteSemComunicarS(n.modo, 3));
+  TEST_ASSERT_TRUE(n.estado[static_cast<int>(Tipo::SEM_COMUNICAR)].ativo);
+}
+
 // ---------------------------------------------------------------- Erros de sensor
 void test_erro_de_sensor_ativa_com_n_e_resolve_com_um_ok() {
   Tabela t;
@@ -311,6 +336,7 @@ int runUnityTests() {
   RUN_TEST(test_bateria_segue_o_modo_do_no);
   RUN_TEST(test_modo_desconhecido_nao_muda_a_bateria);
   RUN_TEST(test_sem_comunicar_ativa_por_tempo_e_resolve_com_leitura_atrasada);
+  RUN_TEST(test_limite_sem_comunicar_segue_o_modo_do_no);
   RUN_TEST(test_erro_de_sensor_ativa_com_n_e_resolve_com_um_ok);
   RUN_TEST(test_erro_da_alimentacao_so_com_a_regra_ligada);
   RUN_TEST(test_tabela_separa_os_nos_e_conta_os_ativos);

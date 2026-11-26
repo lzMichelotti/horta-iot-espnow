@@ -110,12 +110,7 @@ protocolo::ModoBateria paraPacote(Modo m) {
   }
 }
 
-uint32_t periodoMs(Modo m) {
-  switch (m) {
-    case Modo::ECONOMIA: return config::PERIODO_CICLO_MS * config::FATOR_PERIODO_ECONOMIA;
-    case Modo::CRITICO:  return config::PERIODO_CRITICO_MS;
-    default:             return config::PERIODO_CICLO_MS;
-  }
-}
+// O mesmo período que o coordenador espera (comum/protocolo, "Ciclo do nó").
+uint32_t periodoMs(Modo m) { return protocolo::periodoMs(paraPacote(m)); }
 
 }  // namespace protecao

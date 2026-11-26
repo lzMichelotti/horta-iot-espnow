@@ -141,17 +141,9 @@ constexpr bool ALERTA_ERRO_ALIMENTACAO = false;
 // pacote (docs/protocolo.md, seção 14).
 
 // Nó sem comunicar: limite = ALERTA_SEM_COMUNICAR_CICLOS × o período do nó no
-// modo de bateria em que ele estava. Os períodos repetem no_sensor/src/config.h
-// (PERIODO_CICLO_MS, FATOR_PERIODO_ECONOMIA, PERIODO_CRITICO_MS): mudar lá = mudar aqui.
-#ifdef TESTE_ALERTAS  // env teste_alertas: nó nos envs bancada/teste_tensao (10 s; economia ×2; crítico 30 s)
-constexpr uint32_t ALERTA_PERIODO_NO_S = 10;
-constexpr uint32_t ALERTA_FATOR_ECONOMIA = 2;
-constexpr uint32_t ALERTA_PERIODO_CRITICO_S = 30;
-#else
-constexpr uint32_t ALERTA_PERIODO_NO_S = 15 * 60;
-constexpr uint32_t ALERTA_FATOR_ECONOMIA = 4;
-constexpr uint32_t ALERTA_PERIODO_CRITICO_S = 3600;
-#endif
+// modo de bateria da última leitura dele. Os períodos NÃO ficam aqui: vêm de
+// comum/protocolo (protocolo::periodoMs), os mesmos com que o nó dorme
+// (env teste_alertas: os da bancada, 10 s; economia ×2; crítico 30 s).
 constexpr uint32_t ALERTA_SEM_COMUNICAR_CICLOS = 3;  // TODO: 3 períodos (45 min): tolera 2 ciclos sem ACK; a fila do
                                                      // nó guarda as leituras e as reenvia quando ele volta (protocolo.md 13)
 constexpr uint32_t ALERTA_VERIFICACAO_MS = 5000;     // de quanto em quanto tempo o loop() confere o sem_comunicar

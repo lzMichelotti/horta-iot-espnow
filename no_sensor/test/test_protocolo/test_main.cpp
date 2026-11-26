@@ -721,6 +721,16 @@ void test_modo_da_bateria_vai_assinado_e_validado() {
   TEST_ASSERT_EQUAL(Rejeicao::ASSINATURA_INVALIDA, validar(b, sizeof(b), chave, hmacDeTeste, saida));
 }
 
+void test_periodo_do_ciclo_por_modo() {
+  // Fonte única do nó e do coordenador (alerta sem_comunicar). Sem as macros
+  // de bancada: os valores de produção.
+  TEST_ASSERT_EQUAL_UINT32(15UL * 60 * 1000, PERIODO_CICLO_MS);
+  TEST_ASSERT_EQUAL_UINT32(PERIODO_CICLO_MS, periodoMs(ModoBateria::NORMAL));
+  TEST_ASSERT_EQUAL_UINT32(PERIODO_CICLO_MS, periodoMs(ModoBateria::DESCONHECIDO));
+  TEST_ASSERT_EQUAL_UINT32(4 * PERIODO_CICLO_MS, periodoMs(ModoBateria::ECONOMIA));  // 1 h
+  TEST_ASSERT_EQUAL_UINT32(3600000UL, periodoMs(ModoBateria::CRITICO));
+}
+
 int runUnityTests() {
   UNITY_BEGIN();
   RUN_TEST(test_tamanho_do_pacote);
@@ -774,6 +784,7 @@ int runUnityTests() {
   RUN_TEST(test_estouro_do_numero_de_sequencia);
   RUN_TEST(test_modo_da_bateria_nos_bits_4_e_5);
   RUN_TEST(test_modo_da_bateria_vai_assinado_e_validado);
+  RUN_TEST(test_periodo_do_ciclo_por_modo);
   return UNITY_END();
 }
 

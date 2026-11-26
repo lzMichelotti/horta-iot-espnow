@@ -5,6 +5,8 @@
 #include <Arduino.h>
 #include <driver/gpio.h>
 
+#include <protocolo.h>  // período do ciclo (compartilhado com o coordenador)
+
 namespace config {
 
 // ---------------------------------------------------------------- Pinos (NÓ 1)
@@ -117,11 +119,10 @@ constexpr uint32_t ESPERA_CONFIRMACAO_MS = 30;
 // curva do solo após a rega (~1 h, sensores.md 4.4) e dá ~1300 pacotes por nó
 // em 2 semanas de campo. Revisar com a corrente medida (docs/energia.md).
 // Os envs de bancada (bancada, teste_*) usam 10 s para obter muitos ciclos rápido.
-#ifdef PERIODO_BANCADA_MS
-constexpr uint32_t PERIODO_CICLO_MS = PERIODO_BANCADA_MS;
-#else
-constexpr uint32_t PERIODO_CICLO_MS = 15UL * 60 * 1000;
-#endif
+// O valor fica em comum/protocolo (protocolo.h, "Ciclo do nó"), junto com o
+// fator da economia e o período do crítico: o coordenador espera pelos mesmos
+// períodos (alerta sem_comunicar). Mudar lá muda os dois firmwares.
+constexpr uint32_t PERIODO_CICLO_MS = protocolo::PERIODO_CICLO_MS;
 constexpr uint32_t SONO_MINIMO_MS = 1000;  // se o ciclo passar do período, dorme ao menos isto
 
 // ---------------------------------------------------------------- Proteções (Etapa 5, passo 5)
@@ -136,17 +137,14 @@ constexpr uint32_t TESTE_TRAVAR_A_CADA_N = 0;
 
 // Tensão baixa (entrada do divisor). TODO(passo 10): os limiares dependem da
 // bateria escolhida e da margem do divisor (±120 mV, sensores.md 5.2).
-// 0 = proteção desativada.
+// 0 = proteção desativada. Período de cada modo: protocolo::periodoMs
+// (economia ×4; crítico acorda a cada 1 h sem transmitir).
 #ifdef TESTE_RAMPA_ALIM  // env teste_tensao: valores só para exercitar a lógica
 constexpr uint16_t V_TX_MV = 3500;
 constexpr uint16_t V_CRIT_MV = 3300;
-constexpr uint32_t FATOR_PERIODO_ECONOMIA = 2;
-constexpr uint32_t PERIODO_CRITICO_MS = 30000;
 #else
 constexpr uint16_t V_TX_MV = 0;
 constexpr uint16_t V_CRIT_MV = 0;
-constexpr uint32_t FATOR_PERIODO_ECONOMIA = 4;
-constexpr uint32_t PERIODO_CRITICO_MS = 3600000;  // 1 h sem transmitir
 #endif
 constexpr uint16_t HISTERESE_MV = 50;
 

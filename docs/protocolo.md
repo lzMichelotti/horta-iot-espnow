@@ -400,4 +400,6 @@ O nó já decidia o modo de proteção pela tensão de alimentação desde a Eta
 | Histórico | o registro guarda o pacote inteiro: o modo fica gravado sem mudança no formato; registros antigos leem `desconhecido` |
 | Energia | um envio a mais, uma vez por entrada no modo crítico |
 
+**Período de cada modo** (fonte única, `protocolo.h`, seção "Ciclo do nó"; `protocolo::periodoMs`): normal = `PERIODO_CICLO_MS` (15 min); economia = × `FATOR_PERIODO_ECONOMIA` (4, 1 h); crítico = `PERIODO_CRITICO_MS` (1 h, sem rádio); `desconhecido` = normal. O nó dorme por esses períodos e o coordenador usa os mesmos para o limite do `sem_comunicar` ([`alertas.md`](alertas.md), 4). Não fazem parte do pacote: mudá-los não muda a `VERSAO`.
+
 Uso no coordenador: alertas `bateria_baixa` e `bateria_critica` e o campo `bateria_modo` de `/nos` ([`alertas.md`](alertas.md), [`api.md`](api.md)). Os limiares continuam desligados (`V_TX_MV = 0`) até a bateria ser escolhida (Etapa 5, passo 10); o env `teste_tensao` simula a rampa.

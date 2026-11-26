@@ -105,6 +105,13 @@ struct No {
   ClasseSolo classe = ClasseSolo::DESCONHECIDA;
 };
 
+// Limite do sem_comunicar, em s: `ciclos` períodos do nó no modo da última
+// leitura dele. O período é o mesmo com que o nó dorme (protocolo::periodoMs,
+// comum/protocolo): economia espera período × fator, sem alarme falso.
+constexpr uint32_t limiteSemComunicarS(protocolo::ModoBateria m, uint32_t ciclos) {
+  return protocolo::periodoMs(m) / 1000 * ciclos;
+}
+
 enum class Mudanca : uint8_t { ATIVOU, RESOLVEU };
 using Aviso = void (*)(const No& n, Tipo t, Mudanca m, void* contexto);
 

@@ -102,10 +102,7 @@ alertas::Limiares limiares() {
 }
 
 uint32_t limiteSemComunicar(protocolo::ModoBateria m) {
-  uint32_t periodo = config::ALERTA_PERIODO_NO_S;
-  if (m == protocolo::ModoBateria::ECONOMIA) periodo *= config::ALERTA_FATOR_ECONOMIA;
-  if (m == protocolo::ModoBateria::CRITICO) periodo = config::ALERTA_PERIODO_CRITICO_S;
-  return periodo * config::ALERTA_SEM_COMUNICAR_CICLOS;
+  return alertas::limiteSemComunicarS(m, config::ALERTA_SEM_COMUNICAR_CICLOS);
 }
 
 void iniciarCarga() {
