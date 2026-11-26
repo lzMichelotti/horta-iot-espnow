@@ -100,7 +100,68 @@ Comparação nas mesmas condições de canal (duas capturas seguidas, 19/10/2026
 
 ## 6. Limitações
 
-- Carga **estimada** (tempo medido × corrente do datasheet), não medida.
+- Carga **estimada** (tempo medido × corrente do datasheet), não medida. Exceção: a corrente do sensor de solo, medida com um resistor shunt lido pelo próprio ESP32 (4,38 mA, [`sensores.md`](sensores.md) 4.5).
 - Bancada a 10 s com logs; na produção (15 min, sem logs) os tempos de rádio são os mesmos, e o ciclo fica sem a impressão.
 - Corrente da placa dormindo e bateria: ainda não definidas (Etapa 5, pendente).
 - AHT20 do NÓ 1 em erro durante as medições da Etapa 7.1 (seção 3).
+
+## 7. Alimentação de campo e autonomia estimada (26/11/2026)
+
+### 7.1 Arquitetura adotada
+
+| Parte | Escolha | Motivo |
+|---|---|---|
+| Bateria | Uma célula 18650 Li-ion de marca | Recarregável (TCC A, 4.2); a tensão cai de 4,2 V a ~3,3 V com a descarga, o que permite acompanhar a carga pela tensão |
+| Recarga e proteção | Módulo TP4056 com DW01A | Carga por USB; corte por descarga profunda, sobrecorrente e curto |
+| Regulador | RT9080-33 no pino 3V3; `VIN` desligado | 2 µA de consumo próprio e 600 mA ([DS9080-09](https://www.richtek.com/assets/product_file/RT9080/DS9080-09.pdf)). O regulador da placa (provável BL1117C) gasta 2–5 mA e precisa de ≥ 4,6 V na entrada ([datasheet](https://www.belling.com.cn/media/file_object/bel_product/BL1117C/datasheet/BL1117C_V.F1.9_en.pdf), p. 4) |
+| Sensor de solo | Alimentado pelo GPIO25 (drive 3) só durante a leitura | 4,38 mA medidos; mesma faixa ar–água do 3V3 ([`sensores.md`](sensores.md) 4.5) |
+| LED da placa | Retirado | Aceso o tempo todo; consumo desconhecido (marcação ilegível) |
+| Coordenador | Na tomada, dentro de uma casa perto da horta | Não dorme; ~95–100 mA em recepção (ESP32 DS v5.3, tab. 5-4) esgotariam uma 18650 em ~1 dia |
+
+Descartados: power bank (saída regulada esconde a carga e pode desligar com carga baixa), pilhas AA (não recarregáveis, custo recorrente), LiFePO4 direto no 3V3 (passa de 3,6 V carregada; tensão quase plana), HT7333 (250 mA, abaixo dos ≥ 0,5 A da tab. 13 do [ESP32-WROOM-32 Datasheet v3.8](https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32_datasheet_en.pdf)), MOSFET dos sensores (o GPIO bastou).
+
+### 7.2 Corrente com o nó dormindo
+
+| Parte | µA (mín.–máx.) | Origem |
+|---|---|---|
+| ESP32 em deep sleep | 10 | ESP32 Series Datasheet v5.3 |
+| Regulador RT9080-33 | 2–4 | DS9080-09, "Quiescent Current" |
+| Divisor 100k + 100k | 16,5–21 | Lei de Ohm, célula de 3,3 a 4,2 V |
+| AHT20 em repouso | 0–0,25 | AHT20 Data Sheet V1.0 |
+| TP4056 sem USB | 0,3–2 | [Datasheet TP4056](https://www.mikrocontroller.net/attachment/273612/TP4056.pdf) (cópia; conferir no do fabricante) |
+| Proteção DW01A | 3–6 | [DW01 rev. 1.0](https://www.mikrocontroller.net/attachment/200783/DW01-G-DS-10_EN.pdf) (cópia; conferir no do fabricante) |
+| Ponte USB CH9102X | 0–150 | 0 se só o USB a alimenta (hipótese); 150 µA se o 3V3 a alimenta sem USB (CH9102 Datasheet 1C, 6.2, ISLP máx.) |
+| **Total** | **31,8–193,2** | |
+
+Fora da conta: o regulador da placa alimentado "ao contrário" (saída no 3V3, entrada solta), sem dado no datasheet. O teste de descarga mede tudo junto.
+
+### 7.3 Carga por ciclo acordado
+
+| Ciclo | mC por ciclo | Composição |
+|---|---|---|
+| Normal | 5,39–10,05 | Ciclo com confirmação (3,10–6,82 mC, seção 3) + espera de ~410 ms em light sleep a 0,8 mA (0,33 mC) + sensor de solo 4,38 ± 0,45 mA por 0,5–0,6 s (1,97–2,90 mC) |
+| Coordenador fora | 25,05–60,73 | Rádio de 236 ms (regra adaptativa, seção 5), escalado da medição de 197 ms → 19–48 mC; mais a espera e o sensor |
+
+Tempo acordado medido com o chaveamento (bancada, 26/11/2026): 581–586 ms, contra ~171–178 ms antes.
+
+### 7.4 Autonomia
+
+Cálculo: [`ferramentas/autonomia.py`](../ferramentas/autonomia.py). **Capacidade útil de exemplo: 3000 mAh × 0,8 = 2400 mAh.** Trocar pelos valores do datasheet da célula comprada (capacidade nominal e fração disponível até `V_CRIT_MV`): `python ferramentas/autonomia.py <mAh> <fração>`.
+
+| Cenário | Ciclos/dia | Acordado (mAh/dia) | Dormindo (mAh/dia) | Total (mAh/dia) | Gasto em 30 dias (mAh) | Autonomia (dias) |
+|---|---|---|---|---|---|---|
+| Normal, 10 min | 144 | 0,22–0,40 | 0,76–4,64 | 0,98–5,04 | 29–151 | 476–2452 |
+| **Normal, 15 min** | **96** | 0,14–0,27 | 0,76–4,64 | **0,91–4,91** | **27–147** | **489–2646** |
+| Normal, 30 min | 48 | 0,07–0,13 | 0,76–4,64 | 0,84–4,77 | 25–143 | 503–2874 |
+| Coordenador fora, 15 min | 96 | 0,67–1,62 | 0,76–4,64 | 1,43–6,26 | 43–188 | 384–1677 |
+
+Leitura:
+
+1. **Quem decide é o consumo dormindo**, não o rádio: mesmo a 10 min, o ciclo acordado é menos de um terço do gasto diário no pior caso. Por isso o intervalo de 10, 15 ou 30 min quase não muda a autonomia.
+2. **A maior incerteza é a ponte USB (0–150 µA)** e a fuga do regulador da placa (não documentada). Juntas, elas separam ~1,3 ano de ~7 anos de estimativa.
+3. Com autonomias acima de um ano, a **autodescarga da célula** (datasheet do fabricante, TODO) passa a ser da mesma ordem do consumo do nó.
+4. Antes desta arquitetura, só o sensor de solo ligado o tempo todo gastaria ~105 mAh/dia, e o regulador da placa, 48–120 mAh/dia.
+
+### 7.5 O que o teste de 30 dias em campo consegue mostrar
+
+Em 30 dias o nó gasta **27–147 mAh**, 1 a 6 % de uma célula de 2400 mAh úteis. **A bateria não chega ao fim no teste**: a tensão cai pouco. O teste mostra o começo da curva de descarga, e a autonomia é extrapolada e comparada com a estimativa acima. O erro absoluto da medida de tensão (±120 mV com o divisor, [`sensores.md`](sensores.md) 5.2) é sobretudo um deslocamento constante e pesa pouco na **variação** ao longo dos dias; a temperatura, sim, mexe na tensão da célula e na leitura do ADC, e precisa ser considerada na análise (o AHT20 registra a temperatura no mesmo pacote).
