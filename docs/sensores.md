@@ -311,6 +311,22 @@ Medindo o divisor duas vezes com os resistores trocados de lugar: `V1 = V·R2/(R
 
 Limites: a soma usa o próprio ADC, então um erro de ganho do ADC não aparece; a validação contra um multímetro fica pendente. Com o divisor, o erro de ±60 mV do ADC vira **±120 mV** na tensão de entrada, o erro dominante (a tolerância dos resistores, depois de calibrada a razão, contribui ~0,1 %).
 
+### 5.3 Divisor de campo: medindo a célula 18650 (Etapa 5, 26/11/2026)
+
+A ponta de cima do R1 passa do 3V3 para a saída `OUT+` do módulo de carga (a tensão da célula, depois da proteção). Mantidos R1 = R2 = 100 kΩ, razão 0,5 (recalibrar pela troca dos resistores, seção 5.2, com os resistores montados).
+
+| Verificação | Conta | Resultado |
+|---|---|---|
+| Tensão máxima no pino | 4,2 V (célula cheia, carga do TP4056) × 0,5 | 2,10 V ≤ 2,45 V (topo da faixa a 11 dB, ESP32 DS v5.3, tab. 4-4): folga de 350 mV |
+| Tensão mínima de interesse | 3,0 V (mínimo do módulo ESP32, [ESP32-WROOM-32 DS v3.8](https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32_datasheet_en.pdf), tab. 13) × 0,5 | 1,50 V ≥ 150 mV (fundo da faixa) |
+| Impedância vista pelo ADC | R1 ‖ R2 | 50 kΩ: a mesma da bancada, validada sem capacitor (razão 0,5007, ruído de 2–3 mV com 64 leituras) |
+| Corrente drenada, contínua | 3,3–4,2 V ÷ 200 kΩ | 16,5–21 µA (0,40–0,50 mAh/dia); entra no consumo dormindo ([`energia.md`](energia.md) 7.2) |
+| Erro da medida | ±60 mV do ADC × 2 | ±120 mV na tensão da célula; é sobretudo um deslocamento constante |
+
+**Sem capacitor e sem chaveamento.** Chavear o divisor exigiria um P-MOSFET do lado da célula e um segundo transistor para comandar o gate acima de 3,3 V; para economizar ~0,5 mAh/dia, não compensou peças a mais. Alternativa sem compra, a testar se o consumo dormindo precisar cair: 1 MΩ + 1 MΩ (no kit), com ~2 µA de dreno; a impedância de 500 kΩ pede capacitor no ponto médio e uma nova validação.
+
+**Plausibilidade (proposta, firmware ainda não alterado):** tensões de célula abaixo de 2500 mV ou acima de 4500 mV são impossíveis com uma 18650 protegida (o DW01A corta em ~2,4 V; a carga para em 4,2 V). Fora disso, a leitura deve virar `erro`: divisor solto ou ausente. Hoje, sem o divisor, o pino solto lê ~150 mV e sai como `ok` (~315 mV de "alimentação"). Com essa verificação, o alerta `erro_sensor_alimentacao` da Etapa 9 (`ALERTA_ERRO_ALIMENTACAO` no `config.h` do coordenador) pode ser ligado assim que o divisor estiver montado.
+
 ## 6. Faixas válidas e estados
 
 Cada leitura retorna valor + estado (`ok`, `erro`, `fora_de_faixa`). Código: [`no_sensor/src/sensores.cpp`](../no_sensor/src/sensores.cpp); constantes em [`config.h`](../no_sensor/src/config.h).

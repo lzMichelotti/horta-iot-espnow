@@ -162,6 +162,28 @@ Leitura:
 3. Com autonomias acima de um ano, a **autodescarga da célula** (datasheet do fabricante, TODO) passa a ser da mesma ordem do consumo do nó.
 4. Antes desta arquitetura, só o sensor de solo ligado o tempo todo gastaria ~105 mAh/dia, e o regulador da placa, 48–120 mAh/dia.
 
-### 7.5 O que o teste de 30 dias em campo consegue mostrar
+### 7.5 Limiares de tensão propostos (`V_TX_MV`, `V_CRIT_MV`)
+
+Hoje os dois valem 0: `avaliarTensao` devolve o modo guardado na RTC, que todo boot fora do deep sleep zera para `NORMAL` (`no_sensor/src/protecao.cpp`), então o nó não fica preso num modo. **Proposta (não aplicada; depende do divisor montado e da curva da célula comprada):**
+
+| Limite | Valor proposto | Por quê |
+|---|---|---|
+| Regulação garantida no pico do rádio | célula ≥ ~3,51 V | 3,3 V + queda do RT9080 a ~240 mA (TX a +19,5 dBm, ESP32 DS v5.3, tab. 5-4). Queda de 0,31 V típ./0,53 V máx. a 600 mA (DS9080-09), escalada linearmente para 240 mA: ~0,12–0,21 V (aproximação) |
+| ESP32 ainda funciona no pico | célula ≥ ~3,21 V | 3,0 V mínimo do módulo (WROOM-32 DS v3.8, tab. 13) + 0,21 V |
+| **`V_TX_MV` (entra em economia)** | **3600 mV** | Mesmo com o erro de −120 mV do divisor, a célula real fica ≥ 3,48 V: o 3,3 V continua regulado na leitura do solo (carga pequena) e quase todo no pico do rádio |
+| **`V_CRIT_MV` (último pacote e silêncio)** | **3400 mV** | Com −120 mV de erro, a célula real fica ≥ 3,28 V, acima dos ~3,21 V em que o ESP32 começaria a sair da faixa no pico. Bem acima do corte da proteção (DW01A, ~2,4 V) |
+| Histerese | 50 mV (atual) | Maior que o ruído da leitura (2–3 mV com 64 amostras); o erro de ±120 mV é deslocamento, não oscilação |
+
+O que o nó faz em cada modo (já implementado, Etapa 9): **economia** = período × 4 (`FATOR_PERIODO_ECONOMIA`, 1 h a 15 min), mesmas tentativas; **crítico** = manda um último pacote com o modo, depois acorda a cada 1 h (`PERIODO_CRITICO_MS`) só para medir a tensão, sem ligar o rádio, e volta ao normal com a tensão 50 mV acima de `V_TX_MV`.
+
+Pendências antes de aplicar:
+
+1. **Curva de descarga da célula comprada** (datasheet do fabricante): conferir quanta capacidade resta abaixo de 3,6 e de 3,4 V e ajustar os valores.
+2. **Plausibilidade da leitura** ([`sensores.md`](sensores.md) 5.3): sem ela, um divisor ausente (pino solto, ~315 mV) colocaria o nó no modo crítico. Com ela, a leitura vira `erro` e o modo não muda.
+3. **Divisor em `erro` com o nó no modo crítico:** `avaliarTensao` mantém o modo atual, e o nó fica em silêncio até o divisor voltar. Proposta: com a leitura em `erro`, voltar ao modo normal (sem medida, não há base para silenciar).
+
+Com a autonomia estimada (seção 7.4), **nenhum dos limiares deve ser atingido nos 30 dias de campo**: eles protegem a bateria numa instalação longa.
+
+### 7.6 O que o teste de 30 dias em campo consegue mostrar
 
 Em 30 dias o nó gasta **27–147 mAh**, 1 a 6 % de uma célula de 2400 mAh úteis. **A bateria não chega ao fim no teste**: a tensão cai pouco. O teste mostra o começo da curva de descarga, e a autonomia é extrapolada e comparada com a estimativa acima. O erro absoluto da medida de tensão (±120 mV com o divisor, [`sensores.md`](sensores.md) 5.2) é sobretudo um deslocamento constante e pesa pouco na **variação** ao longo dos dias; a temperatura, sim, mexe na tensão da célula e na leitura do ADC, e precisa ser considerada na análise (o AHT20 registra a temperatura no mesmo pacote).
