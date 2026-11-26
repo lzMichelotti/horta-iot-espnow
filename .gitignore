@@ -34,3 +34,6 @@ segredos.h
 dados/*/rascunho/
 
 ART
+
+# Permissões locais do Claude Code (de cada máquina)
+.claude/settings.local.json
