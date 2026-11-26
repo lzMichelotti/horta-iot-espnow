@@ -1,0 +1,8 @@
+em_utc,rota,status,ms_cliente,bytes
+2026-11-26T21:05:50Z,/api/v1/alertas,-1,-1,0
+2026-11-26T21:06:29Z,/api/v1/alertas,200,70,434
+2026-11-26T21:06:29Z,/api/v1/leituras/atuais,200,49,377
+2026-11-26T21:06:29Z,/api/v1/alertas,200,38,434
+2026-11-26T21:06:29Z,/api/v1/leituras/atuais,200,39,377
+2026-11-26T21:06:30Z,/api/v1/alertas,200,47,434
+2026-11-26T21:06:30Z,/api/v1/leituras/atuais,200,40,377

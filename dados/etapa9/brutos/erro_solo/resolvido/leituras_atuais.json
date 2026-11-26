@@ -1,0 +1,29 @@
+{
+  "leituras": [
+    {
+      "mac": "88:57:21:70:a6:ec",
+      "nome": "horta1",
+      "hora": {
+        "utc": null,
+        "origem": "sem_hora"
+      },
+      "idade_s": 0,
+      "temperatura_c": 27.35,
+      "umidade_ar_pct": 46.43,
+      "solo_mv": 2063,
+      "solo_pct": 0.0,
+      "solo_classe": "seco",
+      "alimentacao_mv": 315,
+      "estados": {
+        "temperatura": "ok",
+        "umidade_ar": "ok",
+        "solo": "ok",
+        "alimentacao": "ok"
+      },
+      "rssi_dbm": -50,
+      "no_boot": 18,
+      "no_seq": 6,
+      "perdidos_antes": 0
+    }
+  ]
+}

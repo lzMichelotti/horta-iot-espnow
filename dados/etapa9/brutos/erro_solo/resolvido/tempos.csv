@@ -1,0 +1,10 @@
+em_utc,rota,status,ms_cliente,bytes
+2026-11-26T21:10:10Z,/api/v1/alertas?incluir=resolvidos,200,55,1209
+2026-11-26T21:10:11Z,/api/v1/alertas,200,38,242
+2026-11-26T21:10:11Z,/api/v1/leituras/atuais,200,36,365
+2026-11-26T21:10:11Z,/api/v1/alertas?incluir=resolvidos,200,38,1209
+2026-11-26T21:10:11Z,/api/v1/alertas,200,37,242
+2026-11-26T21:10:11Z,/api/v1/leituras/atuais,200,46,365
+2026-11-26T21:10:11Z,/api/v1/alertas?incluir=resolvidos,200,36,1209
+2026-11-26T21:10:11Z,/api/v1/alertas,200,40,242
+2026-11-26T21:10:11Z,/api/v1/leituras/atuais,200,42,365
