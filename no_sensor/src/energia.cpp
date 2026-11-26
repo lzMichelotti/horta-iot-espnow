@@ -20,6 +20,7 @@ constexpr gpio_num_t PINO_CHAVE = static_cast<gpio_num_t>(TEM_CHAVE ? config::PI
 void escreverChave(bool ligado) {
   if (!TEM_CHAVE) return;
   pinMode(config::PINO_ALIM_SENSORES, OUTPUT);
+  gpio_set_drive_capability(PINO_CHAVE, config::FORCA_PINO_ALIM);
   digitalWrite(config::PINO_ALIM_SENSORES, ligado == config::CHAVE_ATIVA_EM_ALTO ? HIGH : LOW);
 }
 

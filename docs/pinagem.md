@@ -12,7 +12,7 @@ Ligações do nó como montado na Etapa 2 (bancada, protoboard). Constantes corr
           ├ SDA ───────┤ D21  (GPIO21, SDA do Wire)│
           └ SCL ───────┤ D22  (GPIO22, SCL do Wire)│
                        │                           │
-   Solo V1.2 ─ VCC ────┤ 3V3                       │
+   Solo V1.2 ─ VCC ────┤ D25  (GPIO25, liga/desliga)│
              ├ GND ────┤ GND                       │
              └ AOUT ───┤ D34  (GPIO34, ADC1_CH6)   │
                        │                           │
@@ -31,7 +31,8 @@ O divisor mede hoje o próprio 3V3 da placa, para validar a leitura. Na etapa 5,
 | AHT20 SCL | D22 | 22 | I²C clock | pull-up na plaquinha do AHT20 |
 | AHT20 VCC / GND | 3V3 / GND | — | alimentação | |
 | Solo AOUT | D34 | 34 | ADC1_CH6 | só entrada; ADC1 funciona com Wi-Fi ligado |
-| Solo VCC / GND | 3V3 / GND | — | alimentação | **precisa ser 3V3 regulado** (ver abaixo) |
+| Solo VCC | D25 | 25 | alimentação chaveada | desde 26/11/2026: o pino liga o sensor só durante a leitura (drive 3; `PINO_ALIM_SENSORES` em `config.h`); faixa ar–água igual à do 3V3 (`sensores.md` 4.5) |
+| Solo GND | GND | — | alimentação | |
 | Divisor (ponto médio) | D35 | 35 | ADC1_CH7 | R1 = R2 = 100 kΩ, 5 %; razão medida 0,5007 |
 
 Nenhuma ligação usa pinos de strapping (0, 2, 5, 12, 15), o ADC2 ou os pinos da flash (6–11).
@@ -39,7 +40,7 @@ Nenhuma ligação usa pinos de strapping (0, 2, 5, 12, 15), o ADC2 ou os pinos d
 ## Cuidados de montagem (aprendidos na bancada)
 
 1. **VIN e 3V3 ficam em pontas opostas da mesma fileira de pinos da DOIT.** Ligar o sensor de solo no VIN (5 V) por engano aconteceu nos testes. O D35 suporta a tensão do divisor, mas o GPIO34 não pode receber mais de ~3,6 V.
-2. **O sensor de solo não deve ser alimentado direto por um GPIO.** A tensão do pino cai com a carga (3,23 V com o *drive* padrão), e a saída do sensor depende muito da alimentação (ver `sensores.md`). Para ligá-lo e desligá-lo, usar um transistor chaveando o 3V3 (decisão da etapa 5).
+2. **Sensor de solo pelo GPIO: só com o *drive* 3.** A tensão do pino cai com a carga (3,23 V com o *drive* padrão), e a saída do sensor depende muito da alimentação. Com o *drive* 3, a faixa ar–água ficou igual à do 3V3 (teste de 26/11/2026, `sensores.md` 4.5), e o MOSFET previsto foi dispensado. Calibrar o solo com o sensor já ligado pelo pino.
 3. **Jumpers soltos:** um fio de SCL frouxo deixou o AHT20 em `erro` depois de um fim de semana parado. O firmware reporta o erro e retoma sozinho quando o fio volta, mas, no campo, as ligações devem ser soldadas ou feitas com conectores travados.
 4. **Placa encaixada na protoboard:** os pinos de uma placa encaixada ficam ligados às fileiras. Nenhum fio de outro circuito pode ocupar essas fileiras.
 5. **Corpo perto do sensor de solo** altera a leitura (a mão a alguns centímetros mudou a saída em dezenas a centenas de mV). Medir com as mãos afastadas.

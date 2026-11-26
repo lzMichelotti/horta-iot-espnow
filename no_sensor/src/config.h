@@ -3,6 +3,7 @@
 #pragma once
 
 #include <Arduino.h>
+#include <driver/gpio.h>
 
 namespace config {
 
@@ -13,14 +14,19 @@ constexpr uint8_t PINO_SOLO = 34;          // ADC1_CH6, saída AOUT do sensor de
 constexpr uint8_t PINO_ALIMENTACAO = 35;   // ADC1_CH7, ponto médio do divisor
 
 // ---------------------------------------------------------------- Alimentação dos sensores
-// Pino que comanda o MOSFET que liga AHT20, sensor de solo e divisor (passo 11
-// da Etapa 5). −1 = sem chaveamento (hardware atual: sensores sempre no 3V3).
-#ifdef TESTE_PINO_ALIM_SENSORES  // env teste_chaveamento: LED (GPIO2) no lugar do MOSFET
+// Pino que alimenta o sensor de solo direto (Etapa 5, 26/11/2026: sem MOSFET).
+// Pelo GPIO25 em drive 3, a faixa ar–água ficou igual à do 3V3 (1509 × 1481 mV)
+// e o ruído não aumentou (sensores.md 4.5). O AHT20 fica no 3V3 (no máximo
+// 250 nA em repouso, datasheet). −1 = sem chaveamento (sensor sempre no 3V3).
+#ifdef TESTE_PINO_ALIM_SENSORES  // env teste_chaveamento: LED (GPIO2) no lugar do sensor
 constexpr int PINO_ALIM_SENSORES = TESTE_PINO_ALIM_SENSORES;
 #else
-constexpr int PINO_ALIM_SENSORES = -1;
+constexpr int PINO_ALIM_SENSORES = 25;
 #endif
-constexpr bool CHAVE_ATIVA_EM_ALTO = true;  // TODO(passo 11): depende do MOSFET (canal N ou P)
+constexpr bool CHAVE_ATIVA_EM_ALTO = true;  // pino em nível alto = sensor ligado
+// Força do pino: a máxima (~40 mA com VOH ≥ 2,64 V, ESP32 Series Datasheet v5.3,
+// tab. 5-3); o sensor consome ~4,4 mA (sensores.md 4.5).
+constexpr gpio_drive_cap_t FORCA_PINO_ALIM = GPIO_DRIVE_CAP_3;
 constexpr uint32_t ESPERA_SOLO_MS = 500;    // estabilização do sensor de solo após ligar (sensores.md 4.5)
 
 // Esperas em light sleep: abaixo do limiar, a entrada e a saída do sono não compensam.
