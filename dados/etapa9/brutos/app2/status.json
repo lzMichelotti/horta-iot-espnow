@@ -1,0 +1,34 @@
+{
+  "coordenador": "88:57:21:70:93:70",
+  "firmware": "coordenador 8.1",
+  "protocolo": 3,
+  "api": 1,
+  "boot": 20,
+  "uptime_s": 526,
+  "hora": {
+    "utc": "2026-11-26T15:17:17Z",
+    "valida": true,
+    "fonte": "manual"
+  },
+  "armazenamento": {
+    "estado": "ok",
+    "geracao": "f7bd392b",
+    "total_kb": 1920,
+    "usado_kb": 180,
+    "registros": 3210,
+    "segmentos": 7,
+    "registros_por_segmento": 470,
+    "max_segmentos": 56,
+    "mais_antigo_utc": "2026-11-22T18:18:57Z"
+  },
+  "rede": {
+    "canal": 1,
+    "clientes": 1,
+    "espnow_descartes_fila": 0
+  },
+  "memoria": {
+    "heap_livre": 200052,
+    "heap_minimo": 194036
+  },
+  "escrita_habilitada": false
+}

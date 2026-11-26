@@ -1,0 +1,29 @@
+{
+  "leituras": [
+    {
+      "mac": "88:57:21:70:a6:ec",
+      "nome": "horta1",
+      "hora": {
+        "utc": "2026-11-26T15:15:20Z",
+        "origem": "valida"
+      },
+      "idade_s": 0,
+      "temperatura_c": 25.67,
+      "umidade_ar_pct": 48.38,
+      "solo_mv": 2167,
+      "solo_pct": 0.0,
+      "solo_classe": "seco",
+      "alimentacao_mv": 3250,
+      "estados": {
+        "temperatura": "ok",
+        "umidade_ar": "ok",
+        "solo": "ok",
+        "alimentacao": "ok"
+      },
+      "rssi_dbm": -60,
+      "no_boot": 10,
+      "no_seq": 9,
+      "perdidos_antes": 0
+    }
+  ]
+}

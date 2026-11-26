@@ -1,0 +1,75 @@
+{
+  "alertas": [
+    {
+      "tipo": "solo_seco",
+      "mac": "88:57:21:70:a6:ec",
+      "nome": "horta1",
+      "estado": "ativo",
+      "desde": {
+        "utc": "2026-11-22T22:50:29Z",
+        "origem": "valida"
+      },
+      "ha_s": 317937,
+      "fim": null,
+      "valor": -101.2,
+      "limiar": 25.0,
+      "unidade": "pct"
+    },
+    {
+      "tipo": "bateria_baixa",
+      "mac": "88:57:21:70:a6:ec",
+      "nome": "horta1",
+      "estado": "resolvido",
+      "desde": {
+        "utc": "2026-11-22T20:30:56Z",
+        "origem": "valida"
+      },
+      "ha_s": 326310,
+      "fim": {
+        "utc": "2026-11-22T20:33:14Z",
+        "origem": "valida"
+      },
+      "valor": 332,
+      "limiar": null,
+      "unidade": "mv"
+    },
+    {
+      "tipo": "bateria_critica",
+      "mac": "88:57:21:70:a6:ec",
+      "nome": "horta1",
+      "estado": "resolvido",
+      "desde": {
+        "utc": "2026-11-22T20:32:15Z",
+        "origem": "valida"
+      },
+      "ha_s": 326231,
+      "fim": {
+        "utc": "2026-11-22T20:33:14Z",
+        "origem": "valida"
+      },
+      "valor": 332,
+      "limiar": null,
+      "unidade": "mv"
+    },
+    {
+      "tipo": "erro_sensor_ar",
+      "mac": "88:57:21:70:a6:ec",
+      "nome": "horta1",
+      "estado": "resolvido",
+      "desde": {
+        "utc": "2026-11-22T20:46:01Z",
+        "origem": "reconstruida"
+      },
+      "ha_s": null,
+      "fim": {
+        "utc": "2026-11-22T20:47:30Z",
+        "origem": "reconstruida"
+      },
+      "valor": null,
+      "limiar": null,
+      "unidade": null
+    }
+  ],
+  "regras": "v1",
+  "ativos": 1
+}

@@ -1,0 +1,38 @@
+1795373187.578 seq=0 alim=3700 flags=24 idade=0
+1795373197.103 seq=1 alim=3650 flags=16 idade=0
+1795373207.079 seq=2 alim=3600 flags=16 idade=0
+1795373217.054 seq=3 alim=3550 flags=16 idade=0
+1795373227.029 seq=4 alim=3500 flags=16 idade=0
+1795373237.004 seq=5 alim=3450 flags=32 idade=0
+1795373237.054 < [ALERTA] ativou,bateria_baixa,88:57:21:70:a6:ec,horta1,3450mV
+1795373256.953 seq=6 alim=3400 flags=32 idade=0
+1795373276.853 seq=7 alim=3350 flags=32 idade=0
+1795373296.752 seq=8 alim=3300 flags=32 idade=0
+1795373316.702 seq=9 alim=3250 flags=48 idade=0
+1795373316.752 < [ALERTA] ativou,bateria_critica,88:57:21:70:a6:ec,horta1,3250mV
+1795373411.602 < [ALERTA] ativou,sem_comunicar,88:57:21:70:a6:ec,horta1,95s
+1795373555.758 seq=10 alim=3350 flags=32 idade=0
+1795373555.808 < [ALERTA] resolveu,bateria_critica,88:57:21:70:a6:ec,horta1,3350mV
+1795373555.808 < [ALERTA] resolveu,sem_comunicar,88:57:21:70:a6:ec,horta1,235s
+1795373575.699 seq=11 alim=3400 flags=32 idade=0
+1795373595.640 seq=12 alim=3450 flags=32 idade=0
+1795373615.533 seq=13 alim=3500 flags=32 idade=0
+1795373635.474 seq=14 alim=3550 flags=16 idade=0
+1795373635.524 < [ALERTA] resolveu,bateria_baixa,88:57:21:70:a6:ec,horta1,3550mV
+1795373645.445 seq=15 alim=3600 flags=16 idade=0
+1795373655.416 seq=16 alim=3650 flags=16 idade=0
+1795373665.437 seq=17 alim=3700 flags=16 idade=0
+1795373675.408 seq=18 alim=3650 flags=16 idade=0
+1795373685.380 seq=19 alim=3600 flags=16 idade=0
+1795373695.350 seq=20 alim=3550 flags=16 idade=0
+1795373705.370 seq=21 alim=3500 flags=16 idade=0
+1795373715.344 seq=22 alim=3450 flags=32 idade=0
+1795373715.394 < [ALERTA] ativou,bateria_baixa,88:57:21:70:a6:ec,horta1,3450mV
+1795373735.236 seq=23 alim=3400 flags=32 idade=0
+1795373755.178 seq=24 alim=3350 flags=32 idade=0
+1795373775.119 seq=25 alim=3300 flags=32 idade=0
+1795373795.061 seq=26 alim=3250 flags=48 idade=0
+1795373795.111 < [ALERTA] ativou,bateria_critica,88:57:21:70:a6:ec,horta1,3250mV
+1795373886.702 < [ALERTA] ativou,sem_comunicar,88:57:21:70:a6:ec,horta1,91s
+
+[exited with code 0]

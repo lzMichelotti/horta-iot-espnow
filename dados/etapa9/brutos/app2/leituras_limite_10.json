@@ -1,0 +1,267 @@
+{
+  "leituras": [
+    {
+      "id": 3679,
+      "mac": "88:57:21:70:a6:ec",
+      "nome": "horta1",
+      "hora": {
+        "utc": "2026-11-26T15:15:20Z",
+        "origem": "valida"
+      },
+      "idade_s": 0,
+      "temperatura_c": 25.67,
+      "umidade_ar_pct": 48.38,
+      "solo_mv": 2167,
+      "solo_pct": 0.0,
+      "solo_classe": "seco",
+      "alimentacao_mv": 3250,
+      "estados": {
+        "temperatura": "ok",
+        "umidade_ar": "ok",
+        "solo": "ok",
+        "alimentacao": "ok"
+      },
+      "rssi_dbm": -60,
+      "no_boot": 10,
+      "no_seq": 9,
+      "perdidos_antes": 0
+    },
+    {
+      "id": 3678,
+      "mac": "88:57:21:70:a6:ec",
+      "nome": "horta1",
+      "hora": {
+        "utc": "2026-11-26T15:15:01Z",
+        "origem": "valida"
+      },
+      "idade_s": 0,
+      "temperatura_c": 25.73,
+      "umidade_ar_pct": 48.5,
+      "solo_mv": 2162,
+      "solo_pct": 0.0,
+      "solo_classe": "seco",
+      "alimentacao_mv": 3300,
+      "estados": {
+        "temperatura": "ok",
+        "umidade_ar": "ok",
+        "solo": "ok",
+        "alimentacao": "ok"
+      },
+      "rssi_dbm": -62,
+      "no_boot": 10,
+      "no_seq": 8,
+      "perdidos_antes": 0
+    },
+    {
+      "id": 3677,
+      "mac": "88:57:21:70:a6:ec",
+      "nome": "horta1",
+      "hora": {
+        "utc": "2026-11-26T15:14:41Z",
+        "origem": "valida"
+      },
+      "idade_s": 0,
+      "temperatura_c": 25.78,
+      "umidade_ar_pct": 49.02,
+      "solo_mv": 2162,
+      "solo_pct": 0.0,
+      "solo_classe": "seco",
+      "alimentacao_mv": 3350,
+      "estados": {
+        "temperatura": "ok",
+        "umidade_ar": "ok",
+        "solo": "ok",
+        "alimentacao": "ok"
+      },
+      "rssi_dbm": -57,
+      "no_boot": 10,
+      "no_seq": 7,
+      "perdidos_antes": 0
+    },
+    {
+      "id": 3676,
+      "mac": "88:57:21:70:a6:ec",
+      "nome": "horta1",
+      "hora": {
+        "utc": "2026-11-26T15:14:21Z",
+        "origem": "valida"
+      },
+      "idade_s": 0,
+      "temperatura_c": 25.74,
+      "umidade_ar_pct": 50.22,
+      "solo_mv": 2166,
+      "solo_pct": 0.0,
+      "solo_classe": "seco",
+      "alimentacao_mv": 3400,
+      "estados": {
+        "temperatura": "ok",
+        "umidade_ar": "ok",
+        "solo": "ok",
+        "alimentacao": "ok"
+      },
+      "rssi_dbm": -59,
+      "no_boot": 10,
+      "no_seq": 6,
+      "perdidos_antes": 0
+    },
+    {
+      "id": 3675,
+      "mac": "88:57:21:70:a6:ec",
+      "nome": "horta1",
+      "hora": {
+        "utc": "2026-11-26T15:14:01Z",
+        "origem": "valida"
+      },
+      "idade_s": 0,
+      "temperatura_c": 25.73,
+      "umidade_ar_pct": 50.99,
+      "solo_mv": 2157,
+      "solo_pct": 0.0,
+      "solo_classe": "seco",
+      "alimentacao_mv": 3450,
+      "estados": {
+        "temperatura": "ok",
+        "umidade_ar": "ok",
+        "solo": "ok",
+        "alimentacao": "ok"
+      },
+      "rssi_dbm": -55,
+      "no_boot": 10,
+      "no_seq": 5,
+      "perdidos_antes": 0
+    },
+    {
+      "id": 3674,
+      "mac": "88:57:21:70:a6:ec",
+      "nome": "horta1",
+      "hora": {
+        "utc": "2026-11-26T15:13:51Z",
+        "origem": "valida"
+      },
+      "idade_s": 0,
+      "temperatura_c": 25.72,
+      "umidade_ar_pct": 51.03,
+      "solo_mv": 2165,
+      "solo_pct": 0.0,
+      "solo_classe": "seco",
+      "alimentacao_mv": 3500,
+      "estados": {
+        "temperatura": "ok",
+        "umidade_ar": "ok",
+        "solo": "ok",
+        "alimentacao": "ok"
+      },
+      "rssi_dbm": -59,
+      "no_boot": 10,
+      "no_seq": 4,
+      "perdidos_antes": 0
+    },
+    {
+      "id": 3673,
+      "mac": "88:57:21:70:a6:ec",
+      "nome": "horta1",
+      "hora": {
+        "utc": "2026-11-26T15:13:41Z",
+        "origem": "valida"
+      },
+      "idade_s": 0,
+      "temperatura_c": 25.73,
+      "umidade_ar_pct": 50.32,
+      "solo_mv": 2160,
+      "solo_pct": 0.0,
+      "solo_classe": "seco",
+      "alimentacao_mv": 3550,
+      "estados": {
+        "temperatura": "ok",
+        "umidade_ar": "ok",
+        "solo": "ok",
+        "alimentacao": "ok"
+      },
+      "rssi_dbm": -55,
+      "no_boot": 10,
+      "no_seq": 3,
+      "perdidos_antes": 0
+    },
+    {
+      "id": 3672,
+      "mac": "88:57:21:70:a6:ec",
+      "nome": "horta1",
+      "hora": {
+        "utc": "2026-11-26T15:13:31Z",
+        "origem": "valida"
+      },
+      "idade_s": 0,
+      "temperatura_c": 25.76,
+      "umidade_ar_pct": 49.97,
+      "solo_mv": 2164,
+      "solo_pct": 0.0,
+      "solo_classe": "seco",
+      "alimentacao_mv": 3600,
+      "estados": {
+        "temperatura": "ok",
+        "umidade_ar": "ok",
+        "solo": "ok",
+        "alimentacao": "ok"
+      },
+      "rssi_dbm": -53,
+      "no_boot": 10,
+      "no_seq": 2,
+      "perdidos_antes": 0
+    },
+    {
+      "id": 3671,
+      "mac": "88:57:21:70:a6:ec",
+      "nome": "horta1",
+      "hora": {
+        "utc": "2026-11-26T15:13:21Z",
+        "origem": "valida"
+      },
+      "idade_s": 0,
+      "temperatura_c": 25.73,
+      "umidade_ar_pct": 49.59,
+      "solo_mv": 2167,
+      "solo_pct": 0.0,
+      "solo_classe": "seco",
+      "alimentacao_mv": 3650,
+      "estados": {
+        "temperatura": "ok",
+        "umidade_ar": "ok",
+        "solo": "ok",
+        "alimentacao": "ok"
+      },
+      "rssi_dbm": -54,
+      "no_boot": 10,
+      "no_seq": 1,
+      "perdidos_antes": 0
+    },
+    {
+      "id": 3670,
+      "mac": "88:57:21:70:a6:ec",
+      "nome": "horta1",
+      "hora": {
+        "utc": "2026-11-26T15:13:11Z",
+        "origem": "valida"
+      },
+      "idade_s": 0,
+      "temperatura_c": 25.73,
+      "umidade_ar_pct": 49.88,
+      "solo_mv": 2159,
+      "solo_pct": 0.0,
+      "solo_classe": "seco",
+      "alimentacao_mv": 3700,
+      "estados": {
+        "temperatura": "ok",
+        "umidade_ar": "ok",
+        "solo": "ok",
+        "alimentacao": "ok"
+      },
+      "rssi_dbm": -55,
+      "no_boot": 10,
+      "no_seq": 0,
+      "perdidos_antes": 0
+    }
+  ],
+  "proximo_cursor": 3669,
+  "fim": false,
+  "cursor_rotacionado": false
+}

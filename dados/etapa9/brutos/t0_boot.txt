@@ -1,0 +1,90 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:4640
+load:0x40078000,len:15632
+load:0x40080400,len:3164
+entry 0x4008059c
+
+[BOOT] coordenador 8.1 - etapa 8
+[RELOGIO] boot 7, motivo do reset 1
+[RELOGIO] utc=invalida epoch=0 valida=0 fonte=nenhuma boot=7 desde_boot_ms=225
+[PART] nome,tipo,subtipo,endereco,tamanho_kb
+[PART] nvs,1,0x02,0x009000,20
+[PART] otadata,1,0x00,0x00e000,8
+[PART] app0,0,0x00,0x010000,2048
+[PART] littlefs,1,0x83,0x210000,1920
+[PART] coredump,1,0x03,0x3f0000,64
+[MAC] STA 88:57:21:70:93:70
+[MAC] AP  88:57:21:70:93:71
+[BOOT] protocolo v3 (42 bytes, assinatura HMAC-SHA256 de 16)
+[CFG] cadastro lido da NVS: 2 nos
+[HTTP] token das rotas de escrita: NAO configurado (escritas recusadas; 'token gerar')
+[FS] LittleFS montado: 44 KB usados de 1920 KB
+[FS] geracao do historico: f7bd392b
+[FS] carga: 2 segmentos, 535 registros validos, 0 invalidos, em 85 ms
+[FS] estado: ok (rotacoes de emergencia 0, falhas seguidas 0)
+[ALERTA] reconstruidos do historico: 0 ativos (0 transicoes na carga); tabela de 4704 bytes
+[WIFI] varrendo canais...
+[WIFI] varredura: 28 redes em 3604 ms
+[WIFI] canal  1: 9 no canal, 8 sobrepostas, mais forte -36 dBm
+[WIFI] canal  6: 1 no canal, 11 sobrepostas, mais forte -56 dBm
+[WIFI] canal 11: 7 no canal, 3 sobrepostas, mais forte -78 dBm
+[WIFI] SoftAP "horta-coord" canal 1, MAC AP 88:57:21:70:93:71, IP 192.168.4.1
+[ESPNOW] pronto: versao 2, fila de 16 itens (272 bytes cada)
+[HTTP] servidor na porta 80: http://192.168.4.1/api/v1/status
+[HTTP] metodo,uri,codigo,bytes,us
+[CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags,idade_s,conf
+[RESUMO] t_ms,mac,nome,recebidos,rejeitados,aceitos,perdidos,descartados,reinicios,sem_ack,entrega_pct,rssi_medio,rssi_min,rssi_max,fora_de_ordem
+[CONSOLE] esp_restart()
+ets Jul 29 2019 12:21:46
+
+rst:0xc (SW_CPU_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:4640
+load:0x40078000,len:15632
+load:0x40080400,len:3164
+entry 0x4008059c
+
+[BOOT] coordenador 8.1 - etapa 8
+[RELOGIO] boot 8, motivo do reset 3
+[RELOGIO] utc=invalida epoch=5 valida=0 fonte=nenhuma boot=8 desde_boot_ms=225
+[PART] nome,tipo,subtipo,endereco,tamanho_kb
+[PART] nvs,1,0x02,0x009000,20
+[PART] otadata,1,0x00,0x00e000,8
+[PART] app0,0,0x00,0x010000,2048
+[PART] littlefs,1,0x83,0x210000,1920
+[PART] coredump,1,0x03,0x3f0000,64
+[MAC] STA 88:57:21:70:93:70
+[MAC] AP  88:57:21:70:93:71
+[BOOT] protocolo v3 (42 bytes, assinatura HMAC-SHA256 de 16)
+[CFG] cadastro lido da NVS: 2 nos
+[HTTP] token das rotas de escrita: NAO configurado (escritas recusadas; 'token gerar')
+[FS] LittleFS montado: 44 KB usados de 1920 KB
+[FS] geracao do historico: f7bd392b
+[FS] carga: 2 segmentos, 535 registros validos, 0 invalidos, em 85 ms
+[FS] estado: ok (rotacoes de emergencia 0, falhas seguidas 0)
+[ALERTA] reconstruidos do historico: 0 ativos (0 transicoes na carga); tabela de 4704 bytes
+[WIFI] varrendo canais...
+[WIFI] varredura: 27 redes em 3604 ms
+[WIFI] canal  1: 8 no canal, 8 sobrepostas, mais forte -35 dBm
+[WIFI] canal  6: 1 no canal, 11 sobrepostas, mais forte -59 dBm
+[WIFI] canal 11: 7 no canal, 3 sobrepostas, mais forte -79 dBm
+[WIFI] SoftAP "horta-coord" canal 1, MAC AP 88:57:21:70:93:71, IP 192.168.4.1
+[ESPNOW] pronto: versao 2, fila de 16 itens (272 bytes cada)
+[HTTP] servidor na porta 80: http://192.168.4.1/api/v1/status
+[HTTP] metodo,uri,codigo,bytes,us
+[CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags,idade_s,conf
+[RESUMO] t_ms,mac,nome,recebidos,rejeitados,aceitos,perdidos,descartados,reinicios,sem_ack,entrega_pct,rssi_medio,rssi_min,rssi_max,fora_de_ordem
+[CSV] 6985,88:57:21:70:a6:ec,horta1,-32,-96,42,nenhuma,fora_de_ordem,0,4,3,2967,6433,695,284,128,8,560,3,18,0,4:1
+[CSV] 6991,88:57:21:70:a6:ec,horta1,-25,-96,42,nenhuma,novo,0,4,2,2969,6421,692,284,128,8,160,1,24,10,4:1
+[FS] gravado,2,65,76330
+[CSV] 7081,88:57:21:70:a6:ec,horta1,-25,-96,42,nenhuma,novo,0,4,3,2967,6433,695,284,128,8,560,3,18,0,4:2
+[FS] gravado,2,66,68117
+[CSV] 16968,88:57:21:70:a6:ec,horta1,-32,-96,42,nenhuma,novo,0,4,4,2967,6440,698,284,128,8,164,1,16,0,4:3
+[FS] gravado,2,67,73241
