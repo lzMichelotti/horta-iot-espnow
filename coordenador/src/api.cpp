@@ -538,7 +538,8 @@ bool limiarAlerta(alertas::Tipo t, const alertas::No& n, int32_t& v) {
     case alertas::Tipo::SOLO_ENCHARCADO:   v = l.soloEncharcadoDecimos; return true;
     case alertas::Tipo::TEMPERATURA_ALTA:  v = l.temperaturaAltaC100; return true;
     case alertas::Tipo::TEMPERATURA_BAIXA: v = l.temperaturaBaixaC100; return true;
-    case alertas::Tipo::SEM_COMUNICAR:     v = static_cast<int32_t>(regras::limiteSemComunicar(n.modo)); return true;
+    case alertas::Tipo::SEM_COMUNICAR:
+    case alertas::Tipo::SEM_BATERIA:       v = static_cast<int32_t>(regras::limiteSemComunicar(n.modo)); return true;
     default:                               return false;
   }
 }

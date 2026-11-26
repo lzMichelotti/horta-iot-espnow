@@ -54,6 +54,7 @@ const char* nomeTipo(Tipo t) {
     case Tipo::ERRO_AR:           return "erro_sensor_ar";
     case Tipo::ERRO_SOLO:         return "erro_sensor_solo";
     case Tipo::ERRO_ALIMENTACAO:  return "erro_sensor_alimentacao";
+    case Tipo::SEM_BATERIA:       return "no_sem_bateria";
   }
   return "?";
 }
@@ -66,7 +67,8 @@ Unidade unidade(Tipo t) {
     case Tipo::TEMPERATURA_BAIXA: return Unidade::C_CENTESIMOS;
     case Tipo::BATERIA_BAIXA:
     case Tipo::BATERIA_CRITICA:   return Unidade::MV;
-    case Tipo::SEM_COMUNICAR:     return Unidade::SEGUNDOS;
+    case Tipo::SEM_COMUNICAR:
+    case Tipo::SEM_BATERIA:       return Unidade::SEGUNDOS;
     default:                      return Unidade::NENHUMA;
   }
 }
@@ -172,8 +174,10 @@ void Tabela::avaliar(No& n, const Leitura& l, const Limiares& lim, Aviso aviso, 
     aplicar(n, Tipo::BATERIA_CRITICA, critica, !critica, 1, temV, l.alimentacaoMv, r, aviso, contexto);
   }
 
-  // Qualquer leitura nova resolve o sem_comunicar (inclusive uma atrasada da fila do nó).
+  // Qualquer leitura nova resolve o sem_comunicar (inclusive uma atrasada da fila
+  // do nó) e o no_sem_bateria (a bateria foi recarregada: o nó voltou a falar).
   aplicar(n, Tipo::SEM_COMUNICAR, false, true, 1, false, 0, r, aviso, contexto);
+  aplicar(n, Tipo::SEM_BATERIA, false, true, 1, false, 0, r, aviso, contexto);
   n.ultima = r;
 }
 
@@ -181,8 +185,9 @@ void Tabela::verificarSilencio(No& n, uint32_t haS, uint32_t limiteS, Aviso avis
   if (!n.ultima.definida) return;
   // Ativa na primeira verificação acima do limite; o início é a última leitura
   // recebida (o nó está calado desde ela). Só uma leitura nova resolve (avaliar).
-  aplicar(n, Tipo::SEM_COMUNICAR, haS > limiteS, false, 1, true, static_cast<int32_t>(haS), n.ultima, aviso,
-          contexto);
+  // Último pacote em crítico: o nó silenciou de propósito (protocolo.md, 14).
+  Tipo t = n.modo == protocolo::ModoBateria::CRITICO ? Tipo::SEM_BATERIA : Tipo::SEM_COMUNICAR;
+  aplicar(n, t, haS > limiteS, false, 1, true, static_cast<int32_t>(haS), n.ultima, aviso, contexto);
 }
 
 size_t Tabela::ativos(const No& n) {

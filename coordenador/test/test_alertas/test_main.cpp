@@ -266,6 +266,52 @@ void test_limite_sem_comunicar_segue_o_modo_do_no() {
   TEST_ASSERT_TRUE(n.estado[static_cast<int>(Tipo::SEM_COMUNICAR)].ativo);
 }
 
+// Modo crítico: o nó manda o último pacote e silencia de propósito. O silêncio
+// vira no_sem_bateria ("desligou por bateria fraca"), não sem_comunicar.
+void test_calado_depois_do_critico_vira_no_sem_bateria() {
+  Tabela t;
+  No& n = *t.buscar(MAC1, true);
+  Leitura ultima = ok();
+  ultima.modo = ModoBateria::CRITICO;
+  ultima.alimentacaoMv = 3250;
+  t.avaliar(n, ultima, lim());
+  uint32_t limite = limiteSemComunicarS(n.modo, 3);
+  t.verificarSilencio(n, limite, limite);
+  const auto& sb = n.estado[static_cast<int>(Tipo::SEM_BATERIA)];
+  const auto& sc = n.estado[static_cast<int>(Tipo::SEM_COMUNICAR)];
+  TEST_ASSERT_FALSE(sb.ativo);  // no limite: ainda não
+  t.verificarSilencio(n, limite + 1, limite);
+  TEST_ASSERT_TRUE(sb.ativo);
+  TEST_ASSERT_FALSE(sc.ativo);
+  TEST_ASSERT_EQUAL_UINT32(ultima.ref.desdeBoot_s, sb.inicio.desdeBoot_s);  // calado desde o último pacote
+  TEST_ASSERT_EQUAL_INT32(static_cast<int32_t>(limite + 1), sb.valor);
+  TEST_ASSERT_TRUE(n.estado[static_cast<int>(Tipo::BATERIA_CRITICA)].ativo);  // continua junto
+  TEST_ASSERT_EQUAL_STRING("no_sem_bateria", nomeTipo(Tipo::SEM_BATERIA));
+  TEST_ASSERT_EQUAL(Unidade::SEGUNDOS, unidade(Tipo::SEM_BATERIA));
+
+  // Bateria recarregada: o nó volta a falar (economia) e tudo se resolve sozinho.
+  Leitura volta = ok();
+  volta.modo = ModoBateria::ECONOMIA;
+  t.avaliar(n, volta, lim());
+  TEST_ASSERT_FALSE(sb.ativo);
+  TEST_ASSERT_TRUE(sb.resolvido);
+  TEST_ASSERT_FALSE(n.estado[static_cast<int>(Tipo::BATERIA_CRITICA)].ativo);
+  TEST_ASSERT_FALSE(sc.ativo);
+}
+
+// Último pacote em economia (o pacote do crítico se perdeu): causa desconhecida,
+// continua sem_comunicar.
+void test_calado_fora_do_critico_continua_sem_comunicar() {
+  Tabela t;
+  No& n = *t.buscar(MAC1, true);
+  Leitura e = ok();
+  e.modo = ModoBateria::ECONOMIA;
+  t.avaliar(n, e, lim());
+  t.verificarSilencio(n, 99999, limiteSemComunicarS(n.modo, 3));
+  TEST_ASSERT_TRUE(n.estado[static_cast<int>(Tipo::SEM_COMUNICAR)].ativo);
+  TEST_ASSERT_FALSE(n.estado[static_cast<int>(Tipo::SEM_BATERIA)].ativo);
+}
+
 // ---------------------------------------------------------------- Erros de sensor
 void test_erro_de_sensor_ativa_com_n_e_resolve_com_um_ok() {
   Tabela t;
@@ -337,6 +383,8 @@ int runUnityTests() {
   RUN_TEST(test_modo_desconhecido_nao_muda_a_bateria);
   RUN_TEST(test_sem_comunicar_ativa_por_tempo_e_resolve_com_leitura_atrasada);
   RUN_TEST(test_limite_sem_comunicar_segue_o_modo_do_no);
+  RUN_TEST(test_calado_depois_do_critico_vira_no_sem_bateria);
+  RUN_TEST(test_calado_fora_do_critico_continua_sem_comunicar);
   RUN_TEST(test_erro_de_sensor_ativa_com_n_e_resolve_com_um_ok);
   RUN_TEST(test_erro_da_alimentacao_so_com_a_regra_ligada);
   RUN_TEST(test_tabela_separa_os_nos_e_conta_os_ativos);

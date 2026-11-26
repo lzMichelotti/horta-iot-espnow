@@ -28,8 +28,10 @@ enum class Tipo : uint8_t {
   ERRO_AR,           // AHT20: temperatura ou umidade do ar em erro ou fora de faixa
   ERRO_SOLO,         // sensor de solo em erro ou fora de faixa
   ERRO_ALIMENTACAO,  // divisor em erro ou fora de faixa (só com Limiares::erroAlimentacao)
+  SEM_BATERIA,       // calado depois do último pacote em modo crítico: desligou por bateria fraca
+                     // (no lugar do SEM_COMUNICAR; no fim da lista para não mudar os índices)
 };
-constexpr size_t NUM_TIPOS = 10;
+constexpr size_t NUM_TIPOS = 11;
 
 const char* nomeTipo(Tipo t);
 
@@ -129,6 +131,8 @@ class Tabela {
 
   // sem_comunicar: haS = segundos desde a última leitura; ativa acima de limiteS
   // (início = a última leitura). Atualiza o valor mesmo sem mudar de estado.
+  // Se a última leitura veio em modo crítico, o silêncio é o nó desligado por
+  // bateria fraca: ativa SEM_BATERIA em vez de SEM_COMUNICAR.
   void verificarSilencio(No& n, uint32_t haS, uint32_t limiteS, Aviso aviso = nullptr, void* contexto = nullptr);
 
   size_t ativos() const;
