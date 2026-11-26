@@ -78,6 +78,24 @@ Limite do `sem_comunicar` em produção (3 períodos do modo da última leitura)
 | RAM estática | **+4728 B** (56 064 → 60 792 B; a tabela de alertas tem 4704 B: 8 nós × 10 regras) |
 | Flash | +5,8 KB (1 065 944 → 1 071 724 B) |
 | Avaliação por leitura | ~0,2 ms (218 µs medidos na placa) |
+| Reconstrução no boot | **6 µs por registro** (25–26 ms com 3903–3920 registros); ~0,16 s estimados com o histórico cheio (seção 5.1) |
+
+### 5.1 Boot com o histórico cheio
+
+Medido em 26/11/2026 na COORD `5AC9001351` (env padrão, histórico real de 9 segmentos), com as linhas `[FS] carga`, `[ALERTA] reconstrucao` e `[BOOT]` (log em [`dados/etapa9/brutos/boot_carga_26_11.txt`](../dados/etapa9/brutos/boot_carga_26_11.txt), 4 boots):
+
+| Fase | Histórico atual (3903–3920 registros) | Cheio (26 320 registros), estimado |
+|---|---|---|
+| Carga do histórico (leitura + regras) | 439–473 ms (0,11–0,12 ms por registro) | ~2,9–3,2 s pela mesma taxa; a Etapa 7 mediu 2,2–2,9 s com ~27,6 mil, sem os alertas ([`persistencia.md`](persistencia.md), 7) |
+| Só as regras (reconstrução dos alertas) | 25–26 ms (6 µs por registro) | ~0,16 s |
+| Varredura de canais Wi-Fi (`[WIFI] varredura`) | 3,8–4,2 s | igual (não depende do histórico) |
+| Rádio pronto (ESP-NOW e SoftAP) | 5,0–5,5 s desde o início da aplicação | ~7,5–8 s |
+| HTTP pronto | 15 ms depois do rádio | igual |
+
+- A reconstrução dos alertas é **~5 % da carga**; o boot é dominado pela leitura dos segmentos e pela varredura de canais.
+- Os 6 µs por registro na carga contra 145–218 µs ao vivo: a carga roda as regras em sequência, sem a gravação nem a serial no meio (provável efeito do cache de instruções da flash; não medido à parte).
+- **ESP-NOW:** a carga roda **antes** de `radio::iniciar()` ([`main.cpp`](../coordenador/src/main.cpp), `setup()`): enquanto ela dura, o coordenador não recebe nada e o nó fica sem o ACK. Medido: as leituras desse intervalo ficaram na fila do nó e chegaram no ciclo seguinte (seq 252–256, idade de 41 → 0 s; seq 269–271, idade de 20 → 0 s), **0 perdidas**. Com o histórico cheio, ~8 s fora do ar perdem no máximo o ACK de 1 ciclo de 15 min.
+- **HTTP:** o SoftAP só existe depois da carga: durante a reconstrução o celular nem enxerga a rede `horta-coord`. Não há resposta parcial.
 
 ## 6. Testes
 

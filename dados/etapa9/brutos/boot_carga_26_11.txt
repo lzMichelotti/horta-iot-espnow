@@ -1,0 +1,98 @@
+   0.901 ets Jul 29 2019 12:21:46
+   0.901 
+   0.901 rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   0.901 configsip: 0, SPIWP:0xee
+   0.901 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   0.901 mode:DIO, clock div:2
+   0.901 load:0x3fff0030,len:4640
+   0.901 load:0x40078000,len:15632
+   0.901 load:0x40080400,len:3164
+   0.901 entry 0x4008059c
+   0.901 
+   0.901 [BOOT] coordenador 8.1 - etapa 8
+   0.901 [RELOGIO] boot 30, motivo do reset 1
+   0.901 [RELOGIO] utc=invalida epoch=0 valida=0 fonte=nenhuma boot=30 desde_boot_ms=224
+   0.901 [PART] nome,tipo,subtipo,endereco,tamanho_kb
+   0.901 [PART] nvs,1,0x02,0x009000,20
+   0.901 [PART] otadata,1,0x00,0x00e000,8
+   0.901 [PART] app0,0,0x00,0x010000,2048
+   0.901 [PART] littlefs,1,0x83,0x210000,1920
+   0.901 [PART] coredump,1,0x03,0x3f0000,64
+   0.901 [MAC] STA 88:57:21:70:93:70
+   0.901 [MAC] AP  88:57:21:70:93:71
+   0.901 [BOOT] protocolo v3 (42 bytes, assinatura HMAC-SHA256 de 16)
+   0.901 [CFG] cadastro lido da NVS: 2 nos
+   0.901 [HTTP] token das rotas de escrita: NAO configurado (escritas recusadas; 'token gerar')
+   0.901 [FS] LittleFS montado: 220 KB usados de 1920 KB
+   0.901 [FS] geracao do historico: f7bd392b
+   1.302 [FS] carga: 9 segmentos, 3920 registros validos, 0 invalidos, em 473 ms
+   1.302 [FS] estado: ok (rotacoes de emergencia 0, falhas seguidas 0)
+   1.302 [ALERTA] reconstruidos do historico: 1 ativos (71 transicoes na carga); tabela de 4704 bytes
+   1.302 [ALERTA] reconstrucao: 3920 registros, 26 ms nas regras (media 6 us por registro)
+   1.302 [ALERTA] ativo,solo_seco,88:57:21:70:a6:ec,horta1
+   1.502 [WIFI] varrendo canais...
+   5.510 [WIFI] varredura: 34 redes em 4006 ms
+   5.610 [WIFI] canal  1: 5 no canal, 11 sobrepostas, mais forte -63 dBm
+   5.610 [WIFI] canal  6: 3 no canal, 16 sobrepostas, mais forte -18 dBm
+   5.610 [WIFI] canal 11: 10 no canal, 5 sobrepostas, mais forte -18 dBm
+   5.810 [WIFI] SoftAP "horta-coord" canal 1, MAC AP 88:57:21:70:93:71, IP 192.168.4.1
+   5.810 [ESPNOW] pronto: versao 2, fila de 16 itens (272 bytes cada)
+   5.810 [HTTP] servidor na porta 80: http://192.168.4.1/api/v1/status
+   5.810 [HTTP] metodo,uri,codigo,bytes,us
+   5.810 [BOOT] carga+alertas 588 ms; radio pronto em 5311 ms; HTTP pronto em 5327 ms (millis desde o boot)
+   5.810 [CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags,idade_s,conf
+   5.810 [RESUMO] t_ms,mac,nome,recebidos,rejeitados,aceitos,perdidos,descartados,reinicios,sem_ack,entrega_pct,rssi_medio,rssi_min,rssi_max,fora_de_ordem
+   5.810 [CONSOLE] esp_restart()
+   5.911 ets Jul 29 2019 12:21:46
+   5.911 
+   5.911 rst:0xc (SW_CPU_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+   5.911 configsip: 0, SPIWP:0xee
+   5.911 clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+   5.911 mode:DIO, clock div:2
+   5.911 load:0x3fff0030,len:4640
+   5.911 load:0x40078000,len:15632
+   5.911 load:0x40080400,len:3164
+   5.911 entry 0x4008059c
+   6.512 
+   6.512 [BOOT] coordenador 8.1 - etapa 8
+   6.512 [RELOGIO] boot 31, motivo do reset 3
+   6.512 [RELOGIO] utc=invalida epoch=6 valida=0 fonte=nenhuma boot=31 desde_boot_ms=224
+   6.512 [PART] nome,tipo,subtipo,endereco,tamanho_kb
+   6.512 [PART] nvs,1,0x02,0x009000,20
+   6.512 [PART] otadata,1,0x00,0x00e000,8
+   6.512 [PART] app0,0,0x00,0x010000,2048
+   6.512 [PART] littlefs,1,0x83,0x210000,1920
+   6.512 [PART] coredump,1,0x03,0x3f0000,64
+   6.512 [MAC] STA 88:57:21:70:93:70
+   6.512 [MAC] AP  88:57:21:70:93:71
+   6.512 [BOOT] protocolo v3 (42 bytes, assinatura HMAC-SHA256 de 16)
+   6.512 [CFG] cadastro lido da NVS: 2 nos
+   6.512 [HTTP] token das rotas de escrita: NAO configurado (escritas recusadas; 'token gerar')
+   6.612 [FS] LittleFS montado: 220 KB usados de 1920 KB
+   6.612 [FS] geracao do historico: f7bd392b
+   7.113 [FS] carga: 9 segmentos, 3920 registros validos, 0 invalidos, em 473 ms
+   7.113 [FS] estado: ok (rotacoes de emergencia 0, falhas seguidas 0)
+   7.113 [ALERTA] reconstruidos do historico: 1 ativos (71 transicoes na carga); tabela de 4704 bytes
+   7.113 [ALERTA] reconstrucao: 3920 registros, 26 ms nas regras (media 6 us por registro)
+   7.113 [ALERTA] ativo,solo_seco,88:57:21:70:a6:ec,horta1
+   7.213 [WIFI] varrendo canais...
+  11.220 [WIFI] varredura: 33 redes em 4006 ms
+  11.321 [WIFI] canal  1: 5 no canal, 10 sobrepostas, mais forte -63 dBm
+  11.321 [WIFI] canal  6: 4 no canal, 15 sobrepostas, mais forte -17 dBm
+  11.321 [WIFI] canal 11: 9 no canal, 5 sobrepostas, mais forte -17 dBm
+  11.521 [WIFI] SoftAP "horta-coord" canal 1, MAC AP 88:57:21:70:93:71, IP 192.168.4.1
+  11.521 [ESPNOW] pronto: versao 2, fila de 16 itens (272 bytes cada)
+  11.521 [HTTP] servidor na porta 80: http://192.168.4.1/api/v1/status
+  11.521 [HTTP] metodo,uri,codigo,bytes,us
+  11.521 [BOOT] carga+alertas 588 ms; radio pronto em 5244 ms; HTTP pronto em 5259 ms (millis desde o boot)
+  11.521 [CSV] t_ms,mac,nome,rssi,ruido,len,validacao,classe,perdidos,boot,seq,temp_c100,ur_c100,solo_mv,alim_mv,estados,motivo_boot,acordado_ant_ms,tent_ant,flags,idade_s,conf
+  11.621 [RESUMO] t_ms,mac,nome,recebidos,rejeitados,aceitos,perdidos,descartados,reinicios,sem_ack,entrega_pct,rssi_medio,rssi_min,rssi_max,fora_de_ordem
+  20.837 [CSV] 14556,88:57:21:70:a6:ec,horta1,-53,-96,42,nenhuma,fora_de_ordem,0,15,271,2685,4479,2062,322,0,8,611,1,18,0,15:268
+  20.837 [CSV] 14564,88:57:21:70:a6:ec,horta1,-52,-96,42,nenhuma,novo,0,15,269,2687,4504,2064,321,0,8,582,1,24,20,15:268
+  21.138 [FS] gravado,9,160,237414
+  21.138 [CSV] 14805,88:57:21:70:a6:ec,horta1,-52,-96,42,nenhuma,novo,0,15,270,2686,4495,2062,325,0,8,744,3,18,10,15:269
+  21.138 [FS] gravado,9,161,38850
+  21.138 [CSV] 14847,88:57:21:70:a6:ec,horta1,-53,-96,42,nenhuma,novo,0,15,271,2685,4479,2062,322,0,8,611,1,18,0,15:270
+  21.138 [FS] gravado,9,162,46308
+  30.854 [CSV] 24540,88:57:21:70:a6:ec,horta1,-48,-96,42,nenhuma,novo,0,15,272,2688,4480,2062,325,0,8,591,1,16,0,15:271
+  30.855 [FS] gravado,9,163,44691
