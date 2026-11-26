@@ -3,7 +3,7 @@
 Lista do que falta para levar os nós à horta com bateria. Arquitetura adotada em 26/11/2026:
 
 - **Alimentação:** uma célula 18650 → módulo de carga com proteção → regulador de 3,3 V de baixo consumo → pino `3V3` da placa; o `VIN` fica desligado.
-- **Sensores:** AHT20 e sensor de solo alimentados por um P-MOSFET (lado positivo, gate no GPIO25 com pull-up de 100 kΩ), ligados só durante a leitura.
+- **Sensores:** sensor de solo alimentado direto pelo GPIO25 (drive 3), ligado só durante a leitura; sem MOSFET (faixa ar–água igual à do 3V3, [`sensores.md`](sensores.md) 4.5). O AHT20 fica no 3V3 (no máximo 250 nA em repouso, datasheet).
 - **Medição da bateria:** divisor 100k + 100k da célula para o GPIO35.
 - **Placa:** LED de alimentação retirado.
 
@@ -17,11 +17,10 @@ Justificativa em [`energia.md`](energia.md). Quantidades para **2 nós** (+ rese
 | 2 | Suporte para uma 18650 | Com fios ou terminais para solda; mola firme | 2 | Prender a célula | 12 | |
 | 3 | Módulo de carga TP4056 **com proteção** | Carga a 4,2 V por USB; proteção contra descarga profunda, sobrecorrente e curto (TP4056 + DW01A); 6 terminais, com a saída separada da bateria (`IN±`, `B±`, `OUT±`) | 2 (+1 reserva) | Recarregar a célula e protegê-la | 5, 12 | |
 | 4 | Regulador RT9080-33 (TSOT-23-5) | Corrente quiescente de 2 µA típ./4 máx.; 600 mA; entrada de 1,2 a 5,5 V ([DS9080-09](https://www.richtek.com/assets/product_file/RT9080/DS9080-09.pdf)); atende aos ≥ 0,5 A exigidos pelo módulo ESP32 ([ESP32-WROOM-32 Datasheet v3.8](https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32_datasheet_en.pdf), tab. 13). Pino EN ligado ao VIN. **Não serve** um módulo com AMS1117/1117: gasta 2–5 mA sozinho e precisa de ≥ 4,6 V na entrada ([BL1117C](https://www.belling.com.cn/media/file_object/bel_product/BL1117C/datasheet/BL1117C_V.F1.9_en.pdf), p. 4) | 2 (+1 reserva) | Baixar a tensão da célula para 3,3 V | 5, 12 | |
-| 5 | P-MOSFET AO3401A (SOT-23) | VGS(th) de −0,5 a −1,3 V; RDS(on) < 85 mΩ com VGS = −2,5 V ([datasheet rev. 3.1](https://www.aosmd.com/res/datasheets/AO3401A.pdf)) | 1 pacote (2 usados) | Ligar os sensores só durante a leitura | 5 | |
-| 6 | Adaptador SOT-23 → DIP | Para soldar os itens 4 e 5 na placa perfurada | 1 pacote (4 usados) | Montagem | 12 | |
+| 6 | Adaptador SOT-23 → DIP | Para soldar o item 4 na placa perfurada | 1 pacote (2 usados) | Montagem | 12 | |
 | 7 | Capacitor cerâmico 10 µF | ≥ 10 V (X5R ou X7R). O datasheet do RT9080 pede ≥ 1 µF efetivo na entrada e na saída ("Capacitor Selection"); 10 µF dá folga à perda por tensão aplicada | 1 pacote (4 usados) | Estabilidade do regulador | 5 | |
 | 8 | Capacitor cerâmico 100 nF | ≥ 10 V | 1 pacote | Filtro no ponto médio do divisor (opcional, [`sensores.md`](sensores.md) 5.1) | 5 | |
-| — | Resistor 100 kΩ | 1/4 W | 6 (3 por nó) | Divisor (2) e pull-up do gate (1) | 5, 9 | **já comprado** (kit Ryndack CR25, 20 valores; conferir se inclui 100 kΩ) |
+| — | Resistor 100 kΩ | 1/4 W | 4 (2 por nó) | Divisor da bateria | 5, 9 | **já comprado** (kit Ryndack CR25, 20 valores, inclui 100 kΩ) |
 
 ## Montagem
 
