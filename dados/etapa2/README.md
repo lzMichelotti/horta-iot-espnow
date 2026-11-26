@@ -22,3 +22,16 @@ Salvo indicação, cada linha é uma média de 64 leituras de `analogReadMilliVo
 | `13_alimentacao_sensor_solo.csv` | saída do sensor em função da alimentação (transcrito da serial dos testes de 30/09) |
 
 Colunas usuais: `t_s` (tempo desde o início da captura), `mv_media` e `mv_desvio_bloco` (média e desvio das 64 leituras do solo), `temp_c`, `ur_pct`, `estado_aht20`, `div_mv` (ponto médio do divisor).
+
+## Caracterização de 22/11/2026 (`brutos/caracterizacao_22_11/`)
+
+Placa `5AC9009194`, firmware `diag_solo` (`no_sensor/diag/diag_solo.cpp`), capturado com `ferramentas/diag.py`. CSV: `tempo_ms,teste,pino,n,bruto,mv,umidade_pct,alim_mv,radio,dur_us` (`umidade_pct` sem o limite de 0–100 %; `alim_mv` sem sentido: divisor desmontado).
+
+| Arquivo | Conteúdo |
+|---|---|
+| `t1_ar_sem_radio.csv` | teste 1: sensor no ar, 2 Hz por 30 s, leitura única (ruído do ADC) |
+| `t2_estabilizacao_1.csv` | teste 2: 10 ms por 2 s depois de encaixar o VCC à mão (`t_rel_ms` = 0 no gatilho de 300 mV) |
+| `t3_medias.csv` | teste 3: leitura única × média de 16 × média de 64, 60 rodadas |
+| `t4_ar.csv`, `t4_agua.csv` | teste 4: patamares de calibração (média de 64, 1 Hz, 60 s) |
+| `t5_dose0_seca.csv` | teste 5 interrompido: "terra seca" com a haste ainda molhada do teste 4 (709 mV), **não usar** |
+| `aht_passo1_solo_coluna.csv` | conferência do solo com o 3V3 pela fileira central da protoboard (montagem do AHT20) |
