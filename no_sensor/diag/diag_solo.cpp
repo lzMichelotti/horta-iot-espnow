@@ -18,9 +18,12 @@
 //   f  Pinos ADC1 soltos/flutuando (Teste 8)
 //   r  Liga/desliga o rádio (ESP-NOW transmitindo em broadcast) — Teste 6
 //   s  Liga/desliga o segundo sensor no GPIO33 — Teste 9
+//   g  Liga/desliga o GPIO25 em nível alto, drive 3 (~40 mA): alimentar o
+//      sensor pelo pino em vez do 3V3 (Etapa 5, 26/11/2026: GPIO × MOSFET)
 //   h  Ajuda
 #include <Arduino.h>
 #include <WiFi.h>
+#include <driver/gpio.h>
 #include <esp_now.h>
 #include <esp_wifi.h>
 
@@ -29,6 +32,8 @@
 namespace {
 
 constexpr uint8_t PINO_SOLO2 = 33;  // ADC1_CH5: segundo sensor (Teste 9)
+constexpr gpio_num_t PINO_GPIO_ALIM = GPIO_NUM_25;  // comando 'g'
+bool gpioAlimLigado = false;
 constexpr uint8_t PINOS_ADC1[] = {32, 33, 34, 35, 36, 39};
 
 bool radioLigado = false;
@@ -290,6 +295,14 @@ void loop() {
     case 's':
       segundoSensor = !segundoSensor;
       Serial.printf("# segundo_sensor=%d (GPIO%u)\n", segundoSensor, PINO_SOLO2);
+      break;
+    case 'g':
+      gpioAlimLigado = !gpioAlimLigado;
+      pinMode(PINO_GPIO_ALIM, OUTPUT);
+      // Drive 3 = o mais forte (gpio_set_drive_capability, driver/gpio.h do ESP-IDF 5.5).
+      gpio_set_drive_capability(PINO_GPIO_ALIM, GPIO_DRIVE_CAP_3);
+      digitalWrite(PINO_GPIO_ALIM, gpioAlimLigado ? HIGH : LOW);
+      Serial.printf("# GPIO25 (drive 3) = %s\n", gpioAlimLigado ? "ALTO (sensor ligado)" : "BAIXO");
       break;
     case 'h': ajuda(); break;
     default: break;  // ignora \r, \n e outros
