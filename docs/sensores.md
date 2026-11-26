@@ -252,6 +252,17 @@ Conclusões:
 3. No 3V3 da placa (3,39 V), o sensor opera na borda da região plana: cada 10 mV de variação na alimentação muda a saída em ~15 mV. A calibração vale enquanto o 3V3 for estável.
 4. **Não alimentar o sensor direto por GPIO.** Para ligá-lo e desligá-lo (etapa 5), usar um transistor chaveando uma alimentação regulada e, de preferência, um pouco acima de 3,5 V, na região plana.
 
+**Consumo** (26/11/2026, placa `…9194`, sensor no ar). Sem multímetro: resistor de 100 Ω (5 %) no GND do sensor, tensão lida no GPIO32 a 0 dB (100–950 mV, ±23 mV; ESP32 Series Datasheet v5.3, tab. 4-4); firmware [`diag/diag_corrente.cpp`](../no_sensor/diag/diag_corrente.cpp) (env `diag_corrente`); dados em [`dados/etapa5/brutos/`](../dados/etapa5/brutos/) (`corrente_*`).
+
+| Grandeza | Valor |
+|---|---|
+| Tensão no resistor (média de 30 s) | 438 mV |
+| **Corrente do sensor** | **4,38 mA ± 0,45 mA** (mín. 4,33, máx. 4,43) |
+
+Limitação: o resistor tira 0,44 V da alimentação, e o sensor mediu com ~2,86 V, abaixo dos ~2,9 V em que ele perde o sinal (tabela acima; a saída ficou igual ao GND do sensor). Em 3,3 V a corrente pode ser um pouco diferente; a ordem de grandeza vale. Consequência: ligado o tempo todo, o sensor gasta ~105 mAh por dia; chaveado (0,5 s a cada 15 min), ~0,06 mAh por dia. Por isso o chaveamento por MOSFET entra na Etapa 5 ([`compras.md`](compras.md)).
+
+Montagem do teste, para repetir: o GND da extensão do sensor desta bancada é o fio **cinza** e o VCC é o **preto** (o AOUT é o branco); a troca do GND da placa pelo 3V3 vizinho (pinos lado a lado na DOIT) deu leituras sem sentido até ser corrigida.
+
 ### 4.6 Procedimento de calibração em campo
 
 1. Instalar o sensor no canteiro na posição definitiva, até a linha branca, com a terra firme em volta.

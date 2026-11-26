@@ -1,0 +1,24 @@
+ets Jul 29 2019 12:21:46
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:1
+load:0x3fff0030,len:4876
+ho 0 tail 12 room 4
+load:0x40078000,len:16532
+load:0x40080400,len:3500
+entry 0x400805b4
+# diag_corrente | Arduino-ESP32 3.3.12 | shunt no GPIO32
+# diag_corrente: 1 (100 ohm), 4 (470 ohm), k (1 kohm), z (zero), m (30 s), h (ajuda)
+# shunt=100 ohm zero=0.0 mV | colunas: tempo_ms,shunt_ohm,mv,mv_liquido,corrente_ma,aviso
+1002,100,438.7,438.7,4.387,
+2002,100,439.0,439.0,4.390,
+# AHT20: ok temperatura=27.98 C umidade=42.5 %
+3002,100,437.4,437.4,4.374,
+# escala larga: 11 dB, 150-2450 mV, +/-60 mV
+4002,100,436.2,436.2,4.362,
+5002,100,438.5,438.5,4.385,
+6002,100,437.7,437.7,4.377,
+7002,100,441.5,441.5,4.415,
+8002,100,435.5,435.5,4.355,
+9002,100,435.4,435.4,4.354,

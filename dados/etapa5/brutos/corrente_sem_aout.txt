@@ -1,0 +1,23 @@
+ets Jul 29 2019 12:21:46
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:1
+load:0x3fff0030,len:4876
+ho 0 tail 12 room 4
+load:0x40078000,len:16532
+load:0x40080400,len:3500
+entry 0x400805b4
+# diag_corrente | Arduino-ESP32 3.3.12 | shunt no GPIO32
+# diag_corrente: 1 (100 ohm), 4 (470 ohm), k (1 kohm), z (zero), m (30 s), h (ajuda)
+# shunt=100 ohm zero=0.0 mV | colunas: tempo_ms,shunt_ohm,mv,mv_liquido,corrente_ma,aviso
+1002,100,442.2,442.2,4.422,
+2002,100,435.2,435.2,4.352,
+# 11 dB: D32 (shunt)=432 mV  D34 (AOUT do solo)=185 mV
+3002,100,435.2,435.2,4.352,
+# 11 dB: D32 (shunt)=435 mV  D34 (AOUT do solo)=185 mV
+4002,100,439.9,439.9,4.399,
+5002,100,439.7,439.7,4.397,
+# 11 dB: D32 (shunt)=434 mV  D34 (AOUT do solo)=185 mV
+6002,100,436.3,436.3,4.363,
+7002,100,435.2,435.2,4.352,
